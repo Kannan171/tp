@@ -27,7 +27,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/johndoe.md)]
 
 * Role: Team Lead
-* Responsibilities: UI
+  * Responsibilities: UI
 
 ### Johnny Doe
 
@@ -38,12 +38,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### lilyium
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/lilyium.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/lilyium)]
+[[portfolio](team/lilyium.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
