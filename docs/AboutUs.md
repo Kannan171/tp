@@ -29,14 +29,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
   * Responsibilities: UI
 
-### Johnny Doe
+### Xplus2g4
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/xplus2g4.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/xplus2g4)]
+[[portfolio](team/xplus2g4.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Dev Ops + Code Quality
 
 ### lilyium
 
@@ -46,7 +47,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/lilyium.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Dev Ops + Code Quality
 
 ### Lee Wai Kin
 
