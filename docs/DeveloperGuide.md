@@ -286,8 +286,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | User                    | Edit a contact                     | Fix mistakes or update contact details                                          |
 | `* * *` | User                    | Find a contact by name             | Locate details of persons without having to go through the entire list          |
 | `* * *` | User                    | Add a module to a contact          | Keep track of which modules a person is taking and his availability             |
-| `* *`   | User                    | Edit a module from a contact       | Fix mistakes when adding a module                                               |
-| `* * *` | User                    | Delete a module from a contact     | Keep the module list up to date whenever a module ends                          |
+| `* *`   | User                    | Edit a module for a contact        | Fix mistakes or update module details                                           |
+| `* * *` | User                    | Delete a module for a contact      | Keep the module list up to date whenever a module ends                          |
 | `*`     | User                    | Filter contacts by module          | Find who is taking the same module without having to go through the entire list |
 | `* * *` | Group member            | Create a group                     | Easily find the contact details of my group members                             |
 | `* * *` | Group member            | Delete a group                     | Delete groups when a group project is over                                      |
