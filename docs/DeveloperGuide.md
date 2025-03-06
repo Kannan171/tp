@@ -224,7 +224,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 <img src="images/CommitActivityDiagram.png" width="250" />
 
-#### Design considerations:
+_#### Design considerations:
 
 **Aspect: How undo & redo executes:**
 
@@ -262,29 +262,52 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* is an NUS student
+* is taking multiple modules with group projects
+* wants to be able to schedule meetings without any timetable clashes
+* wants to keep track of tasks for each group project
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is comfortable with desktop apps and command-line interfaces (CLI)
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: TeamSync allows NUS students to efficiently manage group projects. TeamSync integrates contact management with availability tracking based on timetables, allowing for easy scheduling of meetings and tracking of tasks.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                 | I want to …​                       | So that I can…​                                                                 |
+|---------|-------------------------|------------------------------------|---------------------------------------------------------------------------------|
+| `* * *` | First-time user         | See usage instructions             | Refer to instructions when I forget how to use TeamSync                         |
+| `* * *` | First-time user         | See sample data                    | Understand how the data is visualised on TeamSync                               |
+| `* * *` | First-time user         | Delete all data                    | Remove all sample data to start using TeamSync                                  |
+| `* * *` | User                    | Add a new contact                  |                                                                                 |
+| `* * *` | User                    | Delete a contact                   | Remove contacts that I no longer need                                           |
+| `* * *` | User                    | Edit a contact                     | Fix mistakes or update contact details                                          |
+| `* * *` | User                    | Find a contact by name             | Locate details of persons without having to go through the entire list          |
+| `* * *` | User                    | Add a module to a contact          | Keep track of which modules a person is taking and his availability             |
+| `* *`   | User                    | Edit a module from a contact       | Fix mistakes when adding a module                                               |
+| `* * *` | User                    | Delete a module from a contact     | Keep the module list up to date whenever a module ends                          |
+| `*`     | User                    | Filter contacts by module          | Find who is taking the same module without having to go through the entire list |
+| `* * *` | Group member            | Create a group                     | Easily find the contact details of my group members                             |
+| `* * *` | Group member            | Delete a group                     | Delete groups when a group project is over                                      |
+| `* * *` | Group member            | Add a contact to a group           | Keep track of my group members                                                  |
+| `* * *` | Group member            | Remove a contact from a group      | Ensure that the group list stays updated whenever a group member leaves         |
+| `* * *` | Group member            | View all group members' timetables | Easily find common meeting times                                                |
+| `* * *` | Group member            | Create a meeting                   | Plan for a group meeting                                                        |
+| `* *`   | Group member            | Edit a meeting                     | Fix mistakes or update details of a meeting                                     |
+| `* * *` | Group member            | Delete a meeting                   | Remove old or cancelled meetings                                                |
+| `* *`   | Group member            | View upcoming meetings             | Be aware of and attend the meeting                                              |
+| `* * *` | Group member            | Create a task                      | Track tasks effectively                                                         |
+| `* *`   | Group member            | Edit a task                        | Fix mistakes or update task details                                             |
+| `* * *` | Group member            | Delete a task                      | Delete old or cancelled tasks                                                   |
+| `* *`   | Group member            | Set task priorities                | Know which tasks to focus on first                                              |
+| `* *`   | Group member            | Set task responsibilities          | Know who is responsible for completing a task                                   |
+| `* * *` | Group member            | Update task status                 | Keep track of whether a task has been completed                                 |
+| `* *`   | Group member            | View completed tasks               | Keep track of what has been accomplished                                        |
+| `* *`   | Group member            | View uncompleted tasks             | Keep track of what is to be done                                                |
+| `* *`   | Group member            | View upcoming deadlines            | Keep track of tasks that are due soon                                           |
 
-*{More to be added}*
 
 ### Use cases
 
