@@ -654,8 +654,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CLI**: Command Line Interface
+* **GUI**: Graphical User Interface
+* **Invalid group**: A group the user specified when prompted by TeamSync which does not exist
+* **Invalid contact**: A contact the user specified when prompted by TeamSync which does not exist
+* **Invalid meeting**: A meeting the user specified when prompted by TeamSync which does not exist
+
 
 --------------------------------------------------------------------------------------------------------------------
 
