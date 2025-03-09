@@ -631,9 +631,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. TeamSync should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. TeamSync should be able to store up to 1000 contacts and 100 groups without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. TeamSync should respond to commands within 1 second under regular operating conditions
+5. TeamSync should work without requiring an installer.
+6. TeamSync should not depend on a remote server.
+7. TeamSync's GUI should not cause any resolution-related inconveniences to the user for
+   * standard screen resolutions 1920x1080 and higher, and 
+   * for screen scales 100% and 125%.
+8. TeamSync's GUI should allow for all functions to be used even if the user experience is not optimal for
+    * resolutions 1280x720 and higher, and
+    * for screen scales 150%. 
+9. TeamSync's data should be stored locally in a human editable text file.
+10. TeamSync should be packaged into a single JAR file.
+11. TeamSync should work on Windows, Linux, and OS-X platforms.
+12. TeamSync should not be larger than 100MB.
+13. Documentation should not exceed 15MB per file.
+14. The developer guide and user guide should be PDF-friendly.
 
 *{More to be added}*
 
