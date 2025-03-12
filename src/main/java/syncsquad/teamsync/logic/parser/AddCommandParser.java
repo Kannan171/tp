@@ -1,11 +1,7 @@
 package syncsquad.teamsync.logic.parser;
 
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
+import static syncsquad.teamsync.logic.parser.CliSyntax.*;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -14,6 +10,7 @@ import syncsquad.teamsync.logic.commands.AddCommand;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
+import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
@@ -31,7 +28,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MODULE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -43,9 +40,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Module> moduleList = ParserUtil.parseModules(argMultimap.getAllValues(PREFIX_MODULE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Person person = new Person(name, phone, email, address, moduleList, tagList);
 
         return new AddCommand(person);
     }

@@ -13,6 +13,7 @@ import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Phone;
+import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -93,6 +94,33 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String module} into a {@code Module}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code module} is invalid.
+     */
+    public static Module parseModule(String module) throws ParseException {
+        requireNonNull(module);
+        String trimmedModule = module.trim();
+        if (!Module.isValidModule(trimmedModule)) {
+            throw new ParseException(Module.MESSAGE_CONSTRAINTS);
+        }
+        return new Module(trimmedModule);
+    }
+
+    /**
+     * Parses {@code Collection<String> modules} into a {@code Set<Module>}.
+     */
+    public static Set<Module> parseModules(Collection<String> modules) throws ParseException {
+        requireNonNull(modules);
+        final Set<Module> moduleSet = new HashSet<>();
+        for (String moduleCode : modules) {
+            moduleSet.add(parseModule(moduleCode));
+        }
+        return moduleSet;
     }
 
     /**

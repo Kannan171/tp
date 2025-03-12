@@ -2,11 +2,7 @@ package syncsquad.teamsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
+import static syncsquad.teamsync.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,6 +13,7 @@ import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.commands.EditCommand;
 import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
+import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -32,7 +29,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MODULE, PREFIX_TAG);
 
         Index index;
 
@@ -58,6 +55,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+        parseModulesForEdit(argMultimap.getAllValues(PREFIX_MODULE)).ifPresent(editPersonDescriptor::setModules);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
@@ -65,6 +63,21 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditCommand(index, editPersonDescriptor);
+    }
+
+    /**
+     * Parses {@code Collection<String> modules} into a {@code Set<Module>} if {@code modules} is non-empty.
+     * If {@code modules} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Module>} containing zero tags.
+     */
+    private Optional<Set<Module>> parseModulesForEdit(Collection<String> modules) throws ParseException {
+        assert modules != null;
+
+        if (modules.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> moduleSet = modules.size() == 1 && modules.contains("") ? Collections.emptySet() : modules;
+        return Optional.of(ParserUtil.parseModules(moduleSet));
     }
 
     /**
