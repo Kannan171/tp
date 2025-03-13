@@ -311,45 +311,355 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+#### Use case: UC 01 - Add contact
+**System**: TeamSync
 
-**Use case: Delete a person**
+**Actor**: User
+
+**Preconditions**: User has the details of the person being added
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User chooses to add a contact
+2. User enters the contact details
+3. TeamSync adds the contact and displays a success message 
+4. TeamSync updates display to reflect the added contact
 
-    Use case ends.
+    Use case ends
 
 **Extensions**
 
-* 2a. The list is empty.
+2a. TeamSync detects an error in the entered details
+* 2a1. TeamSync displays an error message
+    
+    Use case ends
 
-  Use case ends.
+#### Use case: UC 02 - Delete contact
+**System**: TeamSync
 
-* 3a. The given index is invalid.
+**Actor**: User
 
-    * 3a1. AddressBook shows an error message.
+**MSS**
 
-      Use case resumes at step 2.
+1. User chooses a contact to delete
+2. TeamSync deletes the contact and displays a success message
+3. TeamSync updates display to reflect the deleted contact
+
+   Use case ends
+
+**Extensions**
+
+1a. User selects an invalid contact to delete
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+#### Use case: UC 03 - Edit contact
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has the new details of the contact being updated
+
+**MSS**
+
+1. User chooses a contact to edit
+2. User enters the updated contact details
+2. TeamSync updates the contact and displays a success message
+3. TeamSync updates display to reflect the deleted contact
+
+   Use case ends
+
+**Extensions**
+
+1a. User selects an invalid contact to update
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+2a. TeamSync detects an error in the entered details
+* 2a1. TeamSync displays an error message
+
+  Use case ends
+
+#### Use case: UC 04 - List all contacts
+**System**: TeamSync
+
+**Actor**: User
+
+**MSS**
+
+1. User chooses to display all contacts
+2. TeamSync displays all contacts
+
+   Use case ends
+
+#### Use case: UC 05 - Find contact by name
+**System**: TeamSync
+
+**Actor**: User
+
+**MSS**
+
+1. User enters the name of the contact
+2. TeamSync displays contacts that match the name entered
+
+   Use case ends
+
+**Extensions**
+
+2a. No contact matches the name entered
+* 2a1. TeamSync displays a message that no contacts matching the name is found
+
+  Use case ends
+
+#### Use case: UC 06 - Create a group
+**System**: TeamSync
+
+**Actor**: User
+
+**MSS**
+
+1. User chooses to create a group
+2. User enters the name of the group
+3. TeamSync displays a message that a group has been created
+
+   Use case ends
+
+**Extensions**
+
+2a. TeamSync detects that a group with the same name already exists
+* 2a1. TeamSync displays an error message
+
+  Use case ends
+
+#### Use case: UC 07 - Add contact to a group
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has already added the contact to TeamSync
+
+**MSS**
+
+1. User chooses to add a contact to a group
+2. User <u>finds the contact by name (UC 05)</u>
+3. User chooses the contact to add
+4. User chooses a group to add the contact to
+5. TeamSync displays a message that the contact has been added to the group successfully
+
+   Use case ends
+
+**Extensions**
+
+1a. TeamSync detects that no groups exist
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+2a. TeamSync detects that no contacts match the name provided
+* 2a1. TeamSync requests for the correct name
+
+  Step 2a1 is repeated until a matching contact has been found
+
+  Use case resumes from step 3
+
+4a. TeamSync detects that an invalid group has been chosen
+* 4a1. TeamSync requests for the correct group
+
+  Step 4a1 is repeated until a valid group has been found
+
+  Use case ends
+
+#### Use case: UC 08 - Remove contact from a group
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has added the contact to a group
+
+**MSS**
+
+1. User chooses to remove a contact from a group
+2. User chooses a group to remove a contact from
+3. User chooses which contact among the group to remove
+4. TeamSync displays a message that the contact has been removed from the group successfully
+
+   Use case ends
+
+**Extensions**
+
+1a. TeamSync detects that no groups exist
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+2a. TeamSync detects that an invalid group has been chosen
+* 2a1. TeamSync requests for the correct group
+
+  Step 2a1 is repeated until a valid group has been found
+
+  Use case resumes from step 3
+
+3a. TeamSync detects that an invalid contact has been chosen
+* 3a1. TeamSync requests for the correct contact
+
+  Step 3a1 is repeated until a valid contact has been found
+
+  Use case resumes from step 4
+
+#### Use case: UC 09 - Remove contact from a group
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has added the contact to a group
+
+**MSS**
+
+1. User chooses to remove a contact from a group
+2. User chooses a group to remove a contact from
+3. User chooses which contact among the group to remove
+4. TeamSync displays a message that the contact has been removed from the group successfully
+
+   Use case ends
+
+**Extensions**
+
+1a. TeamSync detects that no groups exist
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+2a. TeamSync detects that an invalid group has been chosen
+* 2a1. TeamSync requests for the correct group
+
+  Step 2a1 is repeated until a valid group has been found
+
+  Use case resumes from step 3
+
+3a. TeamSync detects that an invalid contact has been chosen
+* 3a1. TeamSync requests for the correct contact
+
+  Step 3a1 is repeated until a valid contact has been found
+
+  Use case resumes from step 4
+
+#### Use case: UC 10 - Create a group meeting
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has created the group will have a meeting
+
+**MSS**
+
+1. User chooses to create a group meeting
+2. User chooses a group that will have the meeting
+3. TeamSync displays a message that the group has been chosen successfully
+4. TeamSync requests for the meeting details
+5. User enters the meeting details
+6. TeamSync displays a message that the meeting has been created successfully
+
+   Use case ends
+
+**Extensions**
+
+1a. TeamSync detects that no groups exist
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+2a. TeamSync detects that an invalid group has been chosen
+* 2a1. TeamSync requests for the correct group
+
+  Step 2a1 is repeated until a valid group has been found
+
+  Use case resumes from step 3
+
+3a. TeamSync detects an error in the entered meeting details
+* 3a1. TeamSync displays an error message
+
+  Use case ends
+
+5b. TeamSync detects the entered meeting overlaps with another meeting from either the same or a different group
+* 5b1. TeamSync displays a warning with the meeting details of the overlapping meeting
+* 5b2. TeamSync requests for confirmation to create the meeting
+  Use case ends
+
+#### Use case: UC 11 - Delete a group meeting
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has created a group meeting
+
+**MSS**
+
+1. User chooses to delete a group meeting
+2. TeamSync displays a list of groups that currently have a meeting scheduled
+3. User chooses a group to delete a meeting from
+4. TeamSync displays a message that the group has been chosen successfully
+5. TeamSync displays a list of meetings scheduled for that group
+6. User chooses a meeting to delete
+7. TeamSync displays a message that the meeting has been deleted successfully
+
+   Use case ends
+
+**Extensions**
+
+1a. TeamSync detects that no groups exist
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+3a. TeamSync detects that an invalid group has been chosen
+* 3a1. TeamSync requests for the correct group
+
+  Step 3a1 is repeated until a valid group has been found
+
+  Use case resumes from step 4
+
+6a. TeamSync detects that an invalid meeting has been chosen
+* 6a1. TeamSync requests for the correct meeting
+
+  Step 6a1 is repeated until a valid meeting has been found
+  
+  Use case resumes from step 7
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. TeamSync should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. TeamSync should be able to store up to 1000 contacts and 100 groups without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. TeamSync should respond to commands within 1 second under regular operating conditions
+5. TeamSync should work without requiring an installer.
+6. TeamSync should not depend on a remote server.
+7. TeamSync's GUI should not cause any resolution-related inconveniences to the user for
+   * standard screen resolutions 1920x1080 and higher, and 
+   * for screen scales 100% and 125%.
+8. TeamSync's GUI should allow for all functions to be used even if the user experience is not optimal for
+    * resolutions 1280x720 and higher, and
+    * for screen scales 150%. 
+9. TeamSync's data should be stored locally in a human editable text file.
+10. TeamSync should be packaged into a single JAR file.
+11. TeamSync should work on Windows, Linux, and OS-X platforms.
+12. TeamSync should not be larger than 100MB.
+13. Documentation should not exceed 15MB per file.
+14. The developer guide and user guide should be PDF-friendly.
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CLI**: Command Line Interface
+* **GUI**: Graphical User Interface
+* **Invalid group**: A group the user specified when prompted by TeamSync which does not exist
+* **Invalid contact**: A contact the user specified when prompted by TeamSync which does not exist
+* **Invalid meeting**: A meeting the user specified when prompted by TeamSync which does not exist
+
 
 --------------------------------------------------------------------------------------------------------------------
 
