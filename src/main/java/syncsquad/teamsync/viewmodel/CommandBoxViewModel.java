@@ -13,7 +13,7 @@ import syncsquad.teamsync.logic.parser.exceptions.ParseException;
  */
 public class CommandBoxViewModel {
     private final CommandExecutor commandExecutor;
-    private final StringProperty commandInput = new SimpleStringProperty();
+    private final StringProperty commandInput = new SimpleStringProperty("");
 
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
@@ -41,6 +41,7 @@ public class CommandBoxViewModel {
     public void executeCommand() throws ParseException, CommandException {
         String commandText = commandInput.get().trim();
         if (commandText.equals("")) {
+            commandInput.set("");
             return;
         }
 
