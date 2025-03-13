@@ -2,6 +2,7 @@ package syncsquad.teamsync.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import syncsquad.teamsync.commons.exceptions.IllegalValueException;
 import syncsquad.teamsync.model.person.Module;
 

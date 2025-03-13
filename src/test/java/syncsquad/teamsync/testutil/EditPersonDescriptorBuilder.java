@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
+import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
@@ -36,6 +37,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setModules(person.getModules());
         descriptor.setTags(person.getTags());
     }
 
@@ -68,6 +70,16 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Parses the {@code modules} into a {@code Set<Module>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withModules(String... modules) {
+        Set<Module> moduleSet = Stream.of(modules).map(Module::new).collect(Collectors.toSet());
+        descriptor.setModules(moduleSet);
         return this;
     }
 

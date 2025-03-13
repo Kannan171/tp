@@ -2,7 +2,12 @@ package syncsquad.teamsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static syncsquad.teamsync.logic.parser.CliSyntax.*;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_MODULE;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +34,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MODULE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(
+                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MODULE, PREFIX_TAG
+                );
 
         Index index;
 

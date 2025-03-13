@@ -43,7 +43,7 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        if (modules != null){
+        if (modules != null) {
             this.modules.addAll(modules);
         }
         if (tags != null) {
@@ -116,7 +116,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<Module> modelModules = new HashSet<>(personModules);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress,modelModules, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelModules, modelTags);
     }
 
 }

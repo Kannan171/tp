@@ -11,7 +11,8 @@ public class Module {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Module codes should be alphabetical department tag (length 2-4) followed by 4-digit numeric code and optional last alphabet";
+            "Module codes should be alphabetical department tag (length 2-4)"
+            + " followed by 4-digit numeric code with optional last alphabet";
     public static final String VALIDATION_REGEX = "^[A-Za-z]{2,4}\\d{4}[A-Za-z]?$";
     public final String code;
 

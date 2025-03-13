@@ -1,7 +1,12 @@
 package syncsquad.teamsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static syncsquad.teamsync.logic.parser.CliSyntax.*;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_MODULE;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
