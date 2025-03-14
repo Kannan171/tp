@@ -276,7 +276,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                 | I want to …​                       | So that I can…​                                                                 |
+| Priority | As a …​                 | I can …​                           | So that I can…​                                                                 |
 |---------|-------------------------|------------------------------------|---------------------------------------------------------------------------------|
 | `* * *` | First-time user         | See usage instructions             | Refer to instructions when I forget how to use TeamSync                         |
 | `* * *` | First-time user         | See sample data                    | Understand how the data is visualised on TeamSync                               |
@@ -289,24 +289,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`   | User                    | Edit a module for a contact        | Fix mistakes or update module details                                           |
 | `* * *` | User                    | Delete a module for a contact      | Keep the module list up to date whenever a module ends                          |
 | `*`     | User                    | Filter contacts by module          | Find who is taking the same module without having to go through the entire list |
-| `* * *` | Group member            | Create a group                     | Easily find the contact details of my group members                             |
-| `* * *` | Group member            | Delete a group                     | Delete groups when a group project is over                                      |
-| `* * *` | Group member            | Add a contact to a group           | Keep track of my group members                                                  |
-| `* * *` | Group member            | Remove a contact from a group      | Ensure that the group list stays updated whenever a group member leaves         |
-| `* * *` | Group member            | View all group members' timetables | Easily find common meeting times                                                |
+| `* * *` | User                    | View a contact's timetable         | Easily visualise the contact's availability                                     |
+| `* *`   | Group member            | Create a group                     | Easily find the contact details of my group members                             |
+| `* *`   | Group member            | Delete a group                     | Delete groups when a group project is over                                      |
+| `* *`   | Group member            | Add a contact to a group           | Keep track of my group members                                                  |
+| `* *`   | Group member            | Remove a contact from a group      | Ensure that the group list stays updated whenever a group member leaves         |
+| `* *`   | Group member            | View all group members' timetables | Easily find common meeting times                                                |
 | `* * *` | Group member            | Create a meeting                   | Plan for a group meeting                                                        |
 | `* *`   | Group member            | Edit a meeting                     | Fix mistakes or update details of a meeting                                     |
 | `* * *` | Group member            | Delete a meeting                   | Remove old or cancelled meetings                                                |
 | `* *`   | Group member            | View upcoming meetings             | Be aware of and attend the meeting                                              |
-| `* * *` | Group member            | Create a task                      | Track tasks effectively                                                         |
-| `* *`   | Group member            | Edit a task                        | Fix mistakes or update task details                                             |
-| `* * *` | Group member            | Delete a task                      | Delete old or cancelled tasks                                                   |
-| `* *`   | Group member            | Set task priorities                | Know which tasks to focus on first                                              |
-| `* *`   | Group member            | Set task responsibilities          | Know who is responsible for completing a task                                   |
-| `* * *` | Group member            | Update task status                 | Keep track of whether a task has been completed                                 |
+| `* *`   | Group member            | Create a task                      | Track tasks effectively                                                         |
+| `*`     | Group member            | Edit a task                        | Fix mistakes or update task details                                             |
+| `* *`   | Group member            | Delete a task                      | Delete old or cancelled tasks                                                   |
+| `*`     | Group member            | Set task priorities                | Know which tasks to focus on first                                              |
+| `*`     | Group member            | Set task responsibilities          | Know who is responsible for completing a task                                   |
+| `* *`   | Group member            | Update task status                 | Keep track of whether a task has been completed                                 |
 | `* *`   | Group member            | View completed tasks               | Keep track of what has been accomplished                                        |
 | `* *`   | Group member            | View uncompleted tasks             | Keep track of what is to be done                                                |
-| `* *`   | Group member            | View upcoming deadlines            | Keep track of tasks that are due soon                                           |
+| `*`     | Group member            | View upcoming deadlines            | Keep track of tasks that are due soon                                           |
 
 
 ### Use cases
