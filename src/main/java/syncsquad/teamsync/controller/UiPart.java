@@ -1,8 +1,9 @@
 package syncsquad.teamsync.controller;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.net.URL;
-import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXMLLoader;
 import syncsquad.teamsync.MainApp;
