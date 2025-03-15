@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import atlantafx.base.theme.Dracula;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import syncsquad.teamsync.commons.core.Config;
@@ -171,6 +172,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
+        Application.setUserAgentStylesheet(new Dracula().getUserAgentStylesheet());
         ui.start(primaryStage);
     }
 
