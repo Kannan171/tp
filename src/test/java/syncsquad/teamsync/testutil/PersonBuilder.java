@@ -5,6 +5,7 @@ import java.util.Set;
 
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
+import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
@@ -25,6 +26,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Set<Module> modules;
     private Set<Tag> tags;
 
     /**
@@ -35,6 +37,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        modules = new HashSet<>();
         tags = new HashSet<>();
     }
 
@@ -46,6 +49,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        modules = new HashSet<>(personToCopy.getModules());
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -54,6 +58,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Parses the {@code modules} into a {@code Set<Module>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withModules(String ... modules) {
+        this.modules = SampleDataUtil.getModuleSet(modules);
         return this;
     }
 
@@ -90,7 +102,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, modules, tags);
     }
 
 }

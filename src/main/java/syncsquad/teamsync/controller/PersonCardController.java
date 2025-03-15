@@ -45,6 +45,8 @@ public class PersonCardController extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label modules;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -71,6 +73,9 @@ public class PersonCardController extends UiPart<Region> {
         FontIcon emailIcon = new FontIcon(Material2MZ.MAIL);
         email.setGraphic(emailIcon);
 
+        StringBuilder moduleList = new StringBuilder();
+        person.getModules().forEach(moduleList::append);
+        modules.setText("Modules: " + moduleList.toString());
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
