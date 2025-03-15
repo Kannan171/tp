@@ -75,7 +75,10 @@ public class PersonCardController extends UiPart<Region> {
 
         StringBuilder moduleList = new StringBuilder();
         person.getModules().forEach(moduleList::append);
-        modules.setText("Modules: " + moduleList.toString());
+        modules.setText(moduleList.toString());
+        FontIcon moduleIcon = new FontIcon(Material2AL.BOOK);
+        modules.setGraphic(moduleIcon);
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
