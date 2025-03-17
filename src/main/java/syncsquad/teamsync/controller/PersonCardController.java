@@ -39,6 +39,8 @@ public class PersonCardController extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label modules;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -52,6 +54,9 @@ public class PersonCardController extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
+        StringBuilder moduleList = new StringBuilder();
+        person.getModules().forEach(moduleList::append);
+        modules.setText("Modules: " + moduleList.toString());
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -12,6 +12,11 @@ import syncsquad.teamsync.model.person.Person;
 public class PersonListViewModel {
     private final ReadOnlyListWrapper<Person> personList;
 
+    /**
+     * Constructs a PersonListViewModel with the specified unmodifiable list of Person objects.
+     *
+     * @param personList the unmodifiable observable list of Person objects
+     */
     public PersonListViewModel(ObservableList<Person> personList) {
         this.personList = new ReadOnlyListWrapper<Person>(personList);
     }
