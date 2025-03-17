@@ -8,10 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import syncsquad.teamsync.commons.core.LogsCenter;
-import syncsquad.teamsync.logic.commands.AddCommand;
+import syncsquad.teamsync.logic.commands.AddModuleCommand;
+import syncsquad.teamsync.logic.commands.AddPersonCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
 import syncsquad.teamsync.logic.commands.Command;
-import syncsquad.teamsync.logic.commands.DeleteCommand;
+import syncsquad.teamsync.logic.commands.DeleteModuleCommand;
+import syncsquad.teamsync.logic.commands.DeletePersonCommand;
 import syncsquad.teamsync.logic.commands.EditCommand;
 import syncsquad.teamsync.logic.commands.ExitCommand;
 import syncsquad.teamsync.logic.commands.FindCommand;
@@ -54,14 +56,14 @@ public class AddressBookParser {
 
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddPersonCommand.COMMAND_WORD:
+            return new AddPersonCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeletePersonCommand.COMMAND_WORD:
+            return new DeletePersonCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -77,6 +79,12 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddModuleCommand.COMMAND_WORD:
+            return new AddModuleCommandParser().parse(arguments);
+
+        case DeleteModuleCommand.COMMAND_WORD:
+            return new DeleteModuleCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

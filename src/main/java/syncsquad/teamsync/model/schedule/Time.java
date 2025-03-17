@@ -1,4 +1,4 @@
-package syncsquad.teamsync.model.Schedule;
+package syncsquad.teamsync.model.schedule;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.commons.util.AppUtil.checkArgument;
@@ -11,8 +11,8 @@ public class Time {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Time should be 4-digits with no spaces between in 24-hour format " +
-            "(e.g 1800, 1430 etc)";
+            "Time should be 4-digits with no spaces between in 24-hour format "
+            + "(e.g 1800, 1430 etc)";
     public static final String VALIDATION_REGEX = "^(?:[01]\\d|2[0-3])[0-5]\\d$";
     public final String time;
 

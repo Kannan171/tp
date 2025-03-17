@@ -3,7 +3,6 @@ package syncsquad.teamsync.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_MODULE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
@@ -24,10 +23,10 @@ import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
-import syncsquad.teamsync.model.Schedule.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
+import syncsquad.teamsync.model.schedule.Module;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -45,7 +44,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_MODULE + "MODULE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -102,10 +100,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Module> updatedModules = editPersonDescriptor.getModules().orElse(personToEdit.getModules());
+        Set<Module> personModules = personToEdit.getModules();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedModules, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, personModules);
     }
 
     @Override

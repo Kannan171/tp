@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import syncsquad.teamsync.model.Schedule.Module;
+import syncsquad.teamsync.model.schedule.Module;
 
 public class ModuleTest {
     @Test

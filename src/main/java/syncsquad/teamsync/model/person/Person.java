@@ -8,7 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import syncsquad.teamsync.commons.util.ToStringBuilder;
-import syncsquad.teamsync.model.Schedule.Module;
+import syncsquad.teamsync.model.schedule.Module;
+import syncsquad.teamsync.model.schedule.ModuleCode;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -30,7 +31,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Module> modules, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Module> modules) {
         requireAllNonNull(name, phone, email, address, modules, tags);
         this.name = name;
         this.phone = phone;
@@ -62,6 +63,20 @@ public class Person {
      */
     public Set<Module> getModules() {
         return Collections.unmodifiableSet(this.modules);
+    }
+
+    /**
+     * Adds a module to the  module set
+     */
+    public void addModule(Module module) {
+        this.modules.add(module);
+    }
+
+    /**
+     * Removes the module with given module code
+     */
+    public void removeModule(ModuleCode moduleCode) {
+        this.modules.removeIf((x) -> x.getModuleCode().equals(moduleCode));
     }
 
     /**

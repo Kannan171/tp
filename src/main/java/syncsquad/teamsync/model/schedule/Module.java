@@ -1,13 +1,11 @@
-package syncsquad.teamsync.model.Schedule;
+package syncsquad.teamsync.model.schedule;
 
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import syncsquad.teamsync.commons.util.ToStringBuilder;
-
 /**
- * Represents a Person in the address book.
+ * Represents a Module of a Person.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Module {
@@ -23,7 +21,7 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(ModuleCode moduleCode, Day day, Time startTime, Time endTime){
+    public Module(ModuleCode moduleCode, Day day, Time startTime, Time endTime) {
         requireAllNonNull(moduleCode, day, startTime, endTime);
         this.moduleCode = moduleCode;
         this.day = day;
@@ -54,7 +52,6 @@ public class Module {
         if (otherModule == this) {
             return true;
         }
-
         return otherModule != null
                 && otherModule.getModuleCode().equals(getModuleCode());
     }
@@ -89,12 +86,7 @@ public class Module {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("module code", moduleCode)
-                .add("day", day)
-                .add("start time", startTime)
-                .add("end time", endTime)
-                .toString();
+        return "[" + this.moduleCode + "]";
     }
 
 }

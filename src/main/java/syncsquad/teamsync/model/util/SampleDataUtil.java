@@ -8,10 +8,13 @@ import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
-import syncsquad.teamsync.model.Schedule.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
+import syncsquad.teamsync.model.schedule.Day;
+import syncsquad.teamsync.model.schedule.Module;
+import syncsquad.teamsync.model.schedule.ModuleCode;
+import syncsquad.teamsync.model.schedule.Time;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -22,22 +25,22 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getModuleSet("CS2103T", "CS2101"), getTagSet("friends")),
+                getTagSet("friends"), getModuleSet("CS2103T FRI 1600 1800", "CS2101 THU 1200 1500")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getModuleSet("ACC1701"), getTagSet("colleagues", "friends")),
+                getTagSet("colleagues", "friends"), getModuleSet("ACC1701 MON 1200 1400")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getModuleSet("ES2660", "IS1108"), getTagSet("neighbours")),
+                getTagSet("neighbours"), getModuleSet("ES2660 TUE 1200 1500", "IS1108 MON 1400 1600")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getModuleSet("GESS1035"), getTagSet("family")),
+                getTagSet("family"), getModuleSet("GESS1035 TUE 1800 2000")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getModuleSet("MA1301", "CDE2605"), getTagSet("classmates")),
+                getTagSet("classmates"), getModuleSet("MA1301 WED 1500 1530", "CDE2605 THU 1700 1900")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getModuleSet("BN2001", "BT1101"), getTagSet("colleagues"))
+                getTagSet("colleagues"), getModuleSet("BN2001 FRI 0830 1130", "BT1101 THU 1600 1800"))
         };
     }
 
@@ -54,7 +57,14 @@ public class SampleDataUtil {
      */
     public static Set<Module> getModuleSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Module::new)
+                .map((s) -> {
+                    String[] params = s.split(" ");
+                    ModuleCode moduleCode = new ModuleCode(params[0]);
+                    Day day = new Day(params[1]);
+                    Time startTime = new Time(params[2]);
+                    Time endTime = new Time(params[3]);
+                    return new Module(moduleCode, day, startTime, endTime);
+                })
                 .collect(Collectors.toSet());
     }
 

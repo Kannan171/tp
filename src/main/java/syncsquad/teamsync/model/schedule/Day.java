@@ -1,10 +1,9 @@
-package syncsquad.teamsync.model.Schedule;
-
-import java.util.HashSet;
-import java.util.Set;
+package syncsquad.teamsync.model.schedule;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.commons.util.AppUtil.checkArgument;
+
+import java.util.Set;
 
 /**
  * Represents a Day of the week.
@@ -14,8 +13,8 @@ public class Day {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Day should be first 3 letters of the day of week (case insensitive) " +
-            "(e.g MON/TUE/sat)";
+            "Day should be first 3 letters of the day of week (case insensitive) "
+            + "(e.g MON/TUE/sat)";
     private static final Set<String> VALID_DAYS = Set.of("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN");
     public final String day;
 
@@ -26,7 +25,7 @@ public class Day {
      */
     public Day(String day) {
         requireNonNull(day);
-        checkArgument(isValidDay(day.toUpperCase()), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDay(day), MESSAGE_CONSTRAINTS);
         this.day = day.toUpperCase();
     }
 
@@ -34,7 +33,7 @@ public class Day {
      * Returns true if a given string is a valid day.
      */
     public static boolean isValidDay(String test) {
-        return VALID_DAYS.contains(test);
+        return VALID_DAYS.contains(test.toUpperCase());
     }
 
     @Override

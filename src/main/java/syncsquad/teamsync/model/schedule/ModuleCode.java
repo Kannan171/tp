@@ -1,4 +1,4 @@
-package syncsquad.teamsync.model.Schedule;
+package syncsquad.teamsync.model.schedule;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.commons.util.AppUtil.checkArgument;
@@ -46,7 +46,7 @@ public class ModuleCode {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Module)) {
+        if (!(other instanceof ModuleCode)) {
             return false;
         }
 
