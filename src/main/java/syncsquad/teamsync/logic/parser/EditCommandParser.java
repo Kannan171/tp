@@ -18,7 +18,7 @@ import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.commands.EditCommand;
 import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
-import syncsquad.teamsync.model.person.Module;
+import syncsquad.teamsync.model.Schedule.Module;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**

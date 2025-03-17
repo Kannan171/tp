@@ -11,7 +11,7 @@ import java.util.Set;
 
 import syncsquad.teamsync.logic.commands.AddCommand;
 import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
-import syncsquad.teamsync.model.person.Module;
+import syncsquad.teamsync.model.Schedule.Module;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.tag.Tag;
 
