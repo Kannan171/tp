@@ -23,6 +23,7 @@ public class AddMeetingCommand extends Command {
             + "Example: " + COMMAND_WORD + " 15-11-2025 11:00 15:00";
 
     public static final String MESSAGE_ADD_MEETING_SUCCESS = "Meeting added with the following details: %1$s";
+    public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
 
     private final LocalDate date;
     private final LocalTime startTime;
@@ -37,8 +38,13 @@ public class AddMeetingCommand extends Command {
 
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         Meeting meeting = createMeeting(date, startTime, endTime);
+
+        if (model.hasMeeting(meeting)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEETING);
+        }
+
+        model.addMeeting(meeting);
         return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, meeting));
     }
 

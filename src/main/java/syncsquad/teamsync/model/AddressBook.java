@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.UniquePersonList;
+import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.schedule.UniqueMeetingList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +18,7 @@ import syncsquad.teamsync.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueMeetingList meetings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        meetings = new UniqueMeetingList();
     }
 
     public AddressBook() {}
@@ -55,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setMeetings(newData.getMeetingList());
     }
 
     //// person-level operations
@@ -94,6 +99,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// list overwrite operations
+
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings.setMeetings(meetings);
+    }
+
+    //// person-level operations
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return meetings.contains(meeting);
+    }
+
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addMeeting(Meeting meeting) {
+        meetings.add(meeting);
+    }
+
     //// util methods
 
     @Override
@@ -106,6 +139,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Meeting> getMeetingList() {
+        return meetings.asUnmodifiableObservableList();
     }
 
     @Override

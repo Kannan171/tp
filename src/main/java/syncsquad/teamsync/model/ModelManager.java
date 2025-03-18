@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.commons.core.LogsCenter;
 import syncsquad.teamsync.model.person.Person;
+import syncsquad.teamsync.model.schedule.Meeting;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -110,6 +111,18 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
+
+    @Override
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return addressBook.hasMeeting(meeting);
+    }
+
+    @Override
+    public void addMeeting(Meeting meeting) {
+        addressBook.addMeeting(meeting);
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
