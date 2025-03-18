@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import syncsquad.teamsync.commons.exceptions.IllegalValueException;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
 
 /**
@@ -20,15 +21,19 @@ import syncsquad.teamsync.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_MEETING = "Meetings list contains duplicate meeting(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedMeeting> meetings = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and meetings.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+            @JsonProperty("meetings") List<JsonAdaptedMeeting> meetings) {
         this.persons.addAll(persons);
+        this.meetings.addAll(meetings);
     }
 
     /**
@@ -38,6 +43,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        meetings.addAll(source.getMeetingList().stream().map(JsonAdaptedMeeting::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +59,13 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        for (JsonAdaptedMeeting jsonAdaptedMeeting : meetings) {
+            Meeting meeting = jsonAdaptedMeeting.toModelType();
+            if (addressBook.hasMeeting(meeting)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEETING);
+            }
+            addressBook.addMeeting(meeting);
         }
         return addressBook;
     }

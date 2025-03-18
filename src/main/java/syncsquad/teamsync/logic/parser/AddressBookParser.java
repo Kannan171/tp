@@ -10,8 +10,10 @@ import java.util.regex.Pattern;
 import syncsquad.teamsync.commons.core.LogsCenter;
 import syncsquad.teamsync.logic.commands.AddModuleCommand;
 import syncsquad.teamsync.logic.commands.AddPersonCommand;
+import syncsquad.teamsync.logic.commands.AddMeetingCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
 import syncsquad.teamsync.logic.commands.Command;
+import syncsquad.teamsync.logic.commands.DeleteMeetingCommand;
 import syncsquad.teamsync.logic.commands.DeleteModuleCommand;
 import syncsquad.teamsync.logic.commands.DeletePersonCommand;
 import syncsquad.teamsync.logic.commands.EditCommand;
@@ -73,6 +75,12 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case AddMeetingCommand.COMMAND_WORD:
+            return new AddMeetingCommandParser().parse(arguments);
+
+        case DeleteMeetingCommand.COMMAND_WORD:
+            return new DeleteMeetingCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
