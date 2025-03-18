@@ -9,6 +9,7 @@ import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.person.Person;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * API of the Logic component
@@ -32,6 +33,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the list of meetings */
+    ObservableList<Meeting> getMeetingList();
 
     /**
      * Returns the user prefs' address book file path.

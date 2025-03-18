@@ -19,6 +19,7 @@ import syncsquad.teamsync.logic.parser.exceptions.ParseException;
  *   <li>{@link CommandBoxViewModel} - Manages the command input box.</li>
  *   <li>{@link ResultDisplayViewModel} - Manages the display of command results.</li>
  *   <li>{@link PersonListViewModel} - Manages the display of the list of persons.</li>
+ *   <li>{@link MeetingListViewModel} - Manages the display of the list of meetings.</li>
  * </ul>
  *
  * <p>The main responsibilities of this class include:
@@ -34,6 +35,7 @@ public class MainViewModel {
     private final CommandBoxViewModel commandBoxViewModel;
     private final ResultDisplayViewModel resultDisplayViewModel;
     private final PersonListViewModel personListViewModel;
+    private final MeetingListViewModel meetingListViewModel;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -53,6 +55,7 @@ public class MainViewModel {
         this.commandBoxViewModel = new CommandBoxViewModel(this::executeCommand);
         this.resultDisplayViewModel = new ResultDisplayViewModel();
         this.personListViewModel = new PersonListViewModel(logic.getFilteredPersonList());
+        this.meetingListViewModel = new MeetingListViewModel(logic.getMeetingList());
     }
 
     public CommandBoxViewModel getCommandBoxViewModel() {
@@ -65,6 +68,10 @@ public class MainViewModel {
 
     public PersonListViewModel getPersonListViewModel() {
         return personListViewModel;
+    }
+
+    public MeetingListViewModel getMeetingListViewModel() {
+        return meetingListViewModel;
     }
 
     public BooleanProperty getIsShowingHelpProperty() {

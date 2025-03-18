@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import syncsquad.teamsync.commons.core.LogsCenter;
 import syncsquad.teamsync.logic.commands.AddCommand;
+import syncsquad.teamsync.logic.commands.AddMeetingCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
 import syncsquad.teamsync.logic.commands.Command;
 import syncsquad.teamsync.logic.commands.DeleteCommand;
@@ -71,6 +72,9 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case AddMeetingCommand.COMMAND_WORD:
+            return new AddMeetingCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

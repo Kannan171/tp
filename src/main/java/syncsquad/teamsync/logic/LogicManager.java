@@ -16,6 +16,7 @@ import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.person.Person;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.storage.Storage;
 
 /**
@@ -69,6 +70,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Meeting> getMeetingList() {
+        return model.getMeetingList();
     }
 
     @Override

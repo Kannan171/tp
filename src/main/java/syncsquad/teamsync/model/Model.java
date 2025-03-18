@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.model.person.Person;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * The API of the Model component.
@@ -84,4 +85,19 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the list of meetings */
+    ObservableList<Meeting> getMeetingList();
+
+    /**
+     * Returns true if a meeting with the same date, start time and end time as {@code meeting}
+     * exists in the address book.
+     */
+    boolean hasMeeting(Meeting meeting);
+
+    /**
+     * Adds the given meeting.
+     * {@code meeting} must not already exist in the address book.
+     */
+    void addMeeting(Meeting meeting);
 }

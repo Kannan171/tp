@@ -2,6 +2,13 @@ package syncsquad.teamsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +21,7 @@ import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Phone;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -22,6 +30,17 @@ import syncsquad.teamsync.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
+            .append(DateTimeFormatter.ofPattern("[d-M-yyyy]" + "[d-M]"))
+            .parseCaseInsensitive()
+            .parseDefaulting(ChronoField.YEAR_OF_ERA, LocalDateTime.now().getYear())
+            .toFormatter();
+
+    public static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
+            .append(DateTimeFormatter.ofPattern("HH:mm"))
+            .parseCaseInsensitive()
+            .toFormatter();
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -148,5 +167,31 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code LocalDate}.
+     *
+     * @throws ParseException if the given {@code date} is not in a valid date format.
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        try {
+            return LocalDate.parse(date, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(Meeting.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code LocalTime}.
+     *
+     * @throws ParseException if the given {@code time} is not in a valid time format.
+     */
+    public static LocalTime parseTime(String time) throws ParseException {
+        try {
+            return LocalTime.parse(time, TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(Meeting.MESSAGE_CONSTRAINTS);
+        }
     }
 }
