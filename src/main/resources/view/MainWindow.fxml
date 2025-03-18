@@ -44,7 +44,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-              <MenuBar fx:id="menuBar" style="-fx-background-color: 0;">
+              <MenuBar fx:id="menuBar" style="-fx-background-color: transparent;">
                 <Menu mnemonicParsing="false" text="File">
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                 </Menu>
