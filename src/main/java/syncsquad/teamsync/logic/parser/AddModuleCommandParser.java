@@ -11,7 +11,7 @@ import syncsquad.teamsync.model.schedule.ModuleCode;
 import syncsquad.teamsync.model.schedule.Time;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new AddModuleCommand object
  */
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
