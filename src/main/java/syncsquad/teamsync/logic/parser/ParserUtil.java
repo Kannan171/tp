@@ -38,7 +38,7 @@ public class ParserUtil {
             .toFormatter();
 
     public static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
-            .append(DateTimeFormatter.ofPattern("HH:mm"))
+            .append(DateTimeFormatter.ofPattern("H:mm"))
             .parseCaseInsensitive()
             .toFormatter();
 
