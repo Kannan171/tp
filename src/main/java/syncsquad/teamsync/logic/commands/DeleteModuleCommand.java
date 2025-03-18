@@ -1,8 +1,11 @@
 package syncsquad.teamsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static syncsquad.teamsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
@@ -10,6 +13,7 @@ import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.person.Person;
+import syncsquad.teamsync.model.schedule.Module;
 import syncsquad.teamsync.model.schedule.ModuleCode;
 
 /**
@@ -52,12 +56,17 @@ public class DeleteModuleCommand extends Command {
         Person personToDeleteModule = lastShownList.get(targetIndex.getZeroBased());
         boolean exists = personToDeleteModule.getModules().stream()
                 .anyMatch((m) -> m.getModuleCode().equals(moduleCode));
-        if (exists) {
-            personToDeleteModule.removeModule(moduleCode);
-        } else {
+        if (!exists) {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE);
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, Messages.format(personToDeleteModule)));
+        Set<Module> moduleSet = new HashSet<>(personToDeleteModule.getModules());
+        moduleSet.removeIf((m) -> m.getModuleCode().equals(moduleCode));
+        Person newPerson = new Person(personToDeleteModule.getName(), personToDeleteModule.getPhone(),
+                personToDeleteModule.getEmail(), personToDeleteModule.getAddress(),
+                personToDeleteModule.getTags(), moduleSet);
+        model.setPerson(personToDeleteModule, newPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, Messages.format(newPerson)));
     }
 
     @Override

@@ -3,7 +3,9 @@ package syncsquad.teamsync.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
@@ -61,10 +63,13 @@ public class AddModuleCommand extends Command {
         if (personToEdit.getModules().stream().anyMatch(module::isSameModule)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
-
-        personToEdit.addModule(module);
+        Set<Module> moduleSet = new HashSet<>(personToEdit.getModules());
+        moduleSet.add(module);
+        Person newPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
+                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getTags(), moduleSet);
+        model.setPerson(personToEdit, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToEdit)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(newPerson)));
     }
 
     @Override
