@@ -1,8 +1,8 @@
 package syncsquad.teamsync.model;
 
 import javafx.collections.ObservableList;
-import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.person.Person;
 
 /**
  * Unmodifiable view of an address book

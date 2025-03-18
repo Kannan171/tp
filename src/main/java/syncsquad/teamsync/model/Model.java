@@ -1,13 +1,12 @@
 package syncsquad.teamsync.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
-import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.person.Person;
 
 /**
  * The API of the Model component.
