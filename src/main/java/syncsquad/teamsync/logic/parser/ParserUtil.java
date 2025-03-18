@@ -21,7 +21,7 @@ import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Phone;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**

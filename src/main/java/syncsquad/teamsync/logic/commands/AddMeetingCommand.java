@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * Adds a meeting to the address book.

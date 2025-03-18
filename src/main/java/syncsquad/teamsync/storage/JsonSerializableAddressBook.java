@@ -12,7 +12,7 @@ import syncsquad.teamsync.commons.exceptions.IllegalValueException;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

@@ -16,7 +16,7 @@ import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.storage.Storage;
 
 /**

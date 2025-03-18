@@ -3,7 +3,7 @@ package syncsquad.teamsync.viewmodel;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.ObservableList;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * ViewModel class for managing a list of Meeting objects.

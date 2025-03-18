@@ -8,8 +8,8 @@ import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.UniquePersonList;
-import syncsquad.teamsync.model.schedule.Meeting;
-import syncsquad.teamsync.model.schedule.UniqueMeetingList;
+import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.meeting.UniqueMeetingList;
 
 /**
  * Wraps all data at the address-book level

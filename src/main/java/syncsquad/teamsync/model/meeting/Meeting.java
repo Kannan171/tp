@@ -1,4 +1,4 @@
-package syncsquad.teamsync.model.schedule;
+package syncsquad.teamsync.model.meeting;
 
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 

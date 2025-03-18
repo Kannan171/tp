@@ -1,4 +1,4 @@
-package syncsquad.teamsync.model.schedule;
+package syncsquad.teamsync.model.meeting;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import syncsquad.teamsync.model.schedule.exceptions.DuplicateMeetingException;
+import syncsquad.teamsync.model.meeting.exceptions.DuplicateMeetingException;
 
 /**
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.

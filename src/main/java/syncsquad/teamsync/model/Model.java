@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * The API of the Model component.

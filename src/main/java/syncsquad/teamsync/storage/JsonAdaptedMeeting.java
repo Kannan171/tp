@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import syncsquad.teamsync.commons.exceptions.IllegalValueException;
 import syncsquad.teamsync.logic.parser.ParserUtil;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * Jackson-friendly version of {@link Meeting}.

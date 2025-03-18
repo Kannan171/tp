@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.commons.core.LogsCenter;
 import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.model.schedule.Meeting;
+import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * Represents the in-memory model of the address book data.
