@@ -1,6 +1,7 @@
 package syncsquad.teamsync.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -86,9 +87,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /** Returns an unmodifiable view of the list of meetings */
-    ObservableList<Meeting> getMeetingList();
-
     /**
      * Returns true if a meeting with the same date, start time and end time as {@code meeting}
      * exists in the address book.
@@ -100,4 +98,13 @@ public interface Model {
      * {@code meeting} must not already exist in the address book.
      */
     void addMeeting(Meeting meeting);
+
+    /**
+     * Deletes the given meeting.
+     * The meeting must exist in the address book.
+     */
+    void deleteMeeting(Meeting meeting);
+
+    /** Returns an unmodifiable view of the list of meetings */
+    ObservableList<Meeting> getMeetingList();
 }

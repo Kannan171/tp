@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.model.meeting.exceptions.DuplicateMeetingException;
+import syncsquad.teamsync.model.meeting.exceptions.MeetingNotFoundException;
 
 /**
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
@@ -43,6 +44,17 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             throw new DuplicateMeetingException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent person from the list.
+     * The person must exist in the list.
+     */
+    public void remove(Meeting toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new MeetingNotFoundException();
+        }
     }
 
     public void setMeetings(UniqueMeetingList replacement) {
@@ -113,4 +125,5 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         }
         return true;
     }
+
 }
