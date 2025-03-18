@@ -81,19 +81,21 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasMeeting(Meeting meeting);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addMeeting(Meeting meeting);
-
-    /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+    /**
+     * Returns true if a meeting with the same date, start time and end time as {@code meeting}
+     * exists in the address book.
+     */
+    boolean hasMeeting(Meeting meeting);
+
+    /**
+     * Adds the given meeting.
+     * {@code meeting} must not already exist in the address book.
+     */
+    void addMeeting(Meeting meeting);
 }

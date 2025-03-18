@@ -10,6 +10,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.model.schedule.exceptions.DuplicateMeetingException;
 
+/**
+ * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
+ * A meeting is considered unique by comparing using {@code Meeting#equals(Object)}. As such, adding and updating of
+ * meetings uses Meeting#equals(Object) for equality so as to ensure that the meeting being added or updated is
+ * unique in terms of identity in the UniqueMeetingList.
+ * Supports a minimal set of list operations.
+ *
+ * @see Meeting#equals(Object)
+ */
 public class UniqueMeetingList implements Iterable<Meeting> {
 
     private final ObservableList<Meeting> internalList = FXCollections.observableArrayList();
@@ -17,7 +26,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent meeting as the given argument.
      */
     public boolean contains(Meeting toCheck) {
         requireNonNull(toCheck);
@@ -25,8 +34,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a meeting to the list.
+     * The meeting must not already exist in the list.
      */
     public void add(Meeting toAdd) {
         requireNonNull(toAdd);
@@ -42,8 +51,8 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code meetings}.
+     * {@code meetings} must not contain duplicate meetings.
      */
     public void setMeetings(List<Meeting> meetings) {
         requireAllNonNull(meetings);
@@ -92,7 +101,7 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code meetings} contains only unique meetings.
      */
     private boolean meetingsAreUnique(List<Meeting> meetings) {
         for (int i = 0; i < meetings.size() - 1; i++) {

@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -170,6 +169,11 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String date} into a {@code LocalDate}.
+     *
+     * @throws ParseException if the given {@code date} is not in a valid date format.
+     */
     public static LocalDate parseDate(String date) throws ParseException {
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
@@ -178,6 +182,11 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a {@code String time} into a {@code LocalTime}.
+     *
+     * @throws ParseException if the given {@code time} is not in a valid time format.
+     */
     public static LocalTime parseTime(String time) throws ParseException {
         try {
             return LocalTime.parse(time, TIME_FORMATTER);

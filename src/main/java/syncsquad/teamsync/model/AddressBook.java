@@ -53,6 +53,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the meeting list with {@code meetings}.
+     * {@code meetings} must not contain duplicate meetings.
+     */
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings.setMeetings(meetings);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -99,20 +107,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    //// list overwrite operations
+    //// meeting-level operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setMeetings(List<Meeting> meetings) {
-        this.meetings.setMeetings(meetings);
-    }
-
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a meeting with the same date, start time and end time as {@code meeting}
+     * exists in the address book.
      */
     public boolean hasMeeting(Meeting meeting) {
         requireNonNull(meeting);
@@ -120,8 +119,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a meeting to the address book.
+     * The meeting must not already exist in the meeting book.
      */
     public void addMeeting(Meeting meeting) {
         meetings.add(meeting);

@@ -22,7 +22,7 @@ class JsonAdaptedMeeting {
     private final String endTime;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedMeeting} with the given meeting details.
      */
     @JsonCreator
     public JsonAdaptedMeeting(@JsonProperty("date") String date, @JsonProperty("start time") String startTime,
@@ -42,7 +42,7 @@ class JsonAdaptedMeeting {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Meeting} object.
+     * Converts this Jackson-friendly adapted meeting object into the model's {@code Meeting} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */

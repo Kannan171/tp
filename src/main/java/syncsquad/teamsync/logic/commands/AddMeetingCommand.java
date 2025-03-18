@@ -25,7 +25,7 @@ public class AddMeetingCommand extends Command {
 
 
     /**
-     * Creates an AddMeetingCommand to add the speciifed {@code Meeting}
+     * Creates an AddMeetingCommand to add the specified {@code Meeting}
      */
     public AddMeetingCommand(Meeting meeting) {
         requireNonNull(meeting);
