@@ -86,6 +86,8 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /** Returns an unmodifiable view of the list of meetings */
+    ObservableList<Meeting> getMeetingList();
 
     /**
      * Returns true if a meeting with the same date, start time and end time as {@code meeting}
