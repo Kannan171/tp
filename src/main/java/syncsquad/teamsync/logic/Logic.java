@@ -8,8 +8,8 @@ import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
-import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.person.Person;
 
 /**
  * API of the Logic component

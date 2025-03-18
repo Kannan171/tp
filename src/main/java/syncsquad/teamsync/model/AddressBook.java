@@ -6,10 +6,10 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
-import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.model.person.UniquePersonList;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.meeting.UniqueMeetingList;
+import syncsquad.teamsync.model.person.Person;
+import syncsquad.teamsync.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
