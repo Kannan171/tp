@@ -13,6 +13,7 @@ import syncsquad.teamsync.logic.commands.AddMeetingCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
 import syncsquad.teamsync.logic.commands.Command;
 import syncsquad.teamsync.logic.commands.DeleteCommand;
+import syncsquad.teamsync.logic.commands.DeleteMeetingCommand;
 import syncsquad.teamsync.logic.commands.EditCommand;
 import syncsquad.teamsync.logic.commands.ExitCommand;
 import syncsquad.teamsync.logic.commands.FindCommand;
@@ -75,6 +76,9 @@ public class AddressBookParser {
 
         case AddMeetingCommand.COMMAND_WORD:
             return new AddMeetingCommandParser().parse(arguments);
+
+        case DeleteMeetingCommand.COMMAND_WORD:
+            return new DeleteMeetingCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

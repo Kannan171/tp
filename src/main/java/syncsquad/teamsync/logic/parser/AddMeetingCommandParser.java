@@ -9,7 +9,7 @@ import syncsquad.teamsync.model.meeting.Meeting;
 /**
  * Parses input arguments and creates a new AddMeetingCommand object
  */
-public class AddMeetingCommandParser {
+public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddMeetingCommand
