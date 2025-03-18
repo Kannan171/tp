@@ -1,17 +1,13 @@
 package syncsquad.teamsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.schedule.Meeting;
 
 /**
- * Adds a meeting.
+ * Adds a meeting to the address book.
  */
 public class AddMeetingCommand extends Command {
 
@@ -25,37 +21,28 @@ public class AddMeetingCommand extends Command {
     public static final String MESSAGE_ADD_MEETING_SUCCESS = "Meeting added with the following details: %1$s";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
 
-    private final LocalDate date;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
+    private final Meeting toAdd;
 
-    public AddMeetingCommand(LocalDate date, LocalTime startTime, LocalTime endTime) {
-        requireAllNonNull(date, startTime, endTime);
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+
+    /**
+     * Creates an AddMeetingCommand to add the speciifed {@code Meeting}
+     */
+    public AddMeetingCommand(Meeting meeting) {
+        requireNonNull(meeting);
+        toAdd = meeting;
     }
 
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Meeting meeting = createMeeting(date, startTime, endTime);
 
-        if (model.hasMeeting(meeting)) {
+        if (model.hasMeeting(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
-        model.addMeeting(meeting);
-        return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, meeting));
+        model.addMeeting(toAdd);
+        return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, toAdd));
     }
-
-    public Meeting createMeeting(LocalDate date, LocalTime startTime, LocalTime endTime) {
-        assert date != null;
-        assert startTime != null;
-        assert endTime != null;
-
-        return new Meeting(date, startTime, endTime);
-    }
-
 
     @Override
     public boolean equals(Object other) {
@@ -70,8 +57,8 @@ public class AddMeetingCommand extends Command {
         }
 
         // state check
-        AddMeetingCommand e = (AddMeetingCommand) other;
-        return date.equals(e.date);
+        AddMeetingCommand otherAddMeetingCommand = (AddMeetingCommand) other;
+        return toAdd.equals(otherAddMeetingCommand.toAdd);
     }
 
 }

@@ -4,6 +4,7 @@ import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import syncsquad.teamsync.logic.commands.AddMeetingCommand;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
+import syncsquad.teamsync.model.schedule.Meeting;
 
 public class AddMeetingCommandParser {
 
@@ -25,6 +26,9 @@ public class AddMeetingCommandParser {
         String startTime = dateTimeSplit[1];
         String endTime = dateTimeSplit[2];
 
-        return new AddMeetingCommand(ParserUtil.parseDate(date), ParserUtil.parseTime(startTime), ParserUtil.parseTime(endTime));
+        Meeting meeting = new Meeting(ParserUtil.parseDate(date), ParserUtil.parseTime(startTime),
+                ParserUtil.parseTime(endTime));
+
+        return new AddMeetingCommand(meeting);
     }
 }
