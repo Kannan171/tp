@@ -14,7 +14,7 @@ import syncsquad.teamsync.model.person.Phone;
 import syncsquad.teamsync.model.schedule.Day;
 import syncsquad.teamsync.model.schedule.Module;
 import syncsquad.teamsync.model.schedule.ModuleCode;
-import syncsquad.teamsync.model.schedule.Time;
+import syncsquad.teamsync.model.schedule.ScheduleTime;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -61,9 +61,9 @@ public class SampleDataUtil {
                     String[] params = s.split(" ");
                     ModuleCode moduleCode = new ModuleCode(params[0]);
                     Day day = new Day(params[1]);
-                    Time startTime = new Time(params[2]);
-                    Time endTime = new Time(params[3]);
-                    return new Module(moduleCode, day, startTime, endTime);
+                    ScheduleTime startScheduleTime = new ScheduleTime(params[2]);
+                    ScheduleTime endScheduleTime = new ScheduleTime(params[3]);
+                    return new Module(moduleCode, day, startScheduleTime, endScheduleTime);
                 })
                 .collect(Collectors.toSet());
     }

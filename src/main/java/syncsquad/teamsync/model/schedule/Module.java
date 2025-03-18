@@ -15,18 +15,18 @@ public class Module {
 
     // Data fields
     private final Day day;
-    private final Time startTime;
-    private final Time endTime;
+    private final ScheduleTime startScheduleTime;
+    private final ScheduleTime endScheduleTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Module(ModuleCode moduleCode, Day day, Time startTime, Time endTime) {
-        requireAllNonNull(moduleCode, day, startTime, endTime);
+    public Module(ModuleCode moduleCode, Day day, ScheduleTime startScheduleTime, ScheduleTime endScheduleTime) {
+        requireAllNonNull(moduleCode, day, startScheduleTime, endScheduleTime);
         this.moduleCode = moduleCode;
         this.day = day;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startScheduleTime = startScheduleTime;
+        this.endScheduleTime = endScheduleTime;
     }
 
     public ModuleCode getModuleCode() {
@@ -37,12 +37,12 @@ public class Module {
         return this.day;
     }
 
-    public Time getStartTime() {
-        return this.startTime;
+    public ScheduleTime getStartTime() {
+        return this.startScheduleTime;
     }
 
-    public Time getEndTime() {
-        return this.endTime;
+    public ScheduleTime getEndTime() {
+        return this.endScheduleTime;
     }
 
     /**
@@ -74,14 +74,14 @@ public class Module {
         Module otherModule = (Module) other;
         return moduleCode.equals(otherModule.moduleCode)
                 && day.equals(otherModule.day)
-                && startTime.equals(otherModule.startTime)
-                && endTime.equals(otherModule.endTime);
+                && startScheduleTime.equals(otherModule.startScheduleTime)
+                && endScheduleTime.equals(otherModule.endScheduleTime);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, day, startTime, endTime);
+        return Objects.hash(moduleCode, day, startScheduleTime, endScheduleTime);
     }
 
     @Override

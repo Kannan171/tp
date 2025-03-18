@@ -23,7 +23,7 @@ import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Phone;
 import syncsquad.teamsync.model.schedule.Day;
 import syncsquad.teamsync.model.schedule.ModuleCode;
-import syncsquad.teamsync.model.schedule.Time;
+import syncsquad.teamsync.model.schedule.ScheduleTime;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -153,13 +153,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code Time} is invalid.
      */
-    public static Time parseTime(String time) throws ParseException {
+    public static ScheduleTime parseModuleTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        if (!Time.isValidTime(trimmedTime)) {
-            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        if (!ScheduleTime.isValidTime(trimmedTime)) {
+            throw new ParseException(ScheduleTime.MESSAGE_CONSTRAINTS);
         }
-        return new Time(trimmedTime);
+        return new ScheduleTime(trimmedTime);
     }
 
     /**

@@ -8,9 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import syncsquad.teamsync.commons.core.LogsCenter;
+import syncsquad.teamsync.logic.commands.AddMeetingCommand;
 import syncsquad.teamsync.logic.commands.AddModuleCommand;
 import syncsquad.teamsync.logic.commands.AddPersonCommand;
-import syncsquad.teamsync.logic.commands.AddMeetingCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
 import syncsquad.teamsync.logic.commands.Command;
 import syncsquad.teamsync.logic.commands.DeleteMeetingCommand;

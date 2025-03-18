@@ -7,7 +7,7 @@ import syncsquad.teamsync.commons.exceptions.IllegalValueException;
 import syncsquad.teamsync.model.schedule.Day;
 import syncsquad.teamsync.model.schedule.Module;
 import syncsquad.teamsync.model.schedule.ModuleCode;
-import syncsquad.teamsync.model.schedule.Time;
+import syncsquad.teamsync.model.schedule.ScheduleTime;
 
 /**
  * Jackson-friendly version of {@link Module}.
@@ -68,22 +68,24 @@ class JsonAdaptedModule {
         final Day day = new Day(this.day);
 
         if (startTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, ScheduleTime.class.getSimpleName()));
         }
-        if (!Time.isValidTime(startTime)) {
-            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
+        if (!ScheduleTime.isValidTime(startTime)) {
+            throw new IllegalValueException(ScheduleTime.MESSAGE_CONSTRAINTS);
         }
-        final Time startTime = new Time(this.startTime);
+        final ScheduleTime startScheduleTime = new ScheduleTime(this.startTime);
 
         if (endTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, ScheduleTime.class.getSimpleName()));
         }
-        if (!Time.isValidTime(endTime)) {
-            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
+        if (!ScheduleTime.isValidTime(endTime)) {
+            throw new IllegalValueException(ScheduleTime.MESSAGE_CONSTRAINTS);
         }
-        final Time endTime = new Time(this.endTime);
+        final ScheduleTime endScheduleTime = new ScheduleTime(this.endTime);
 
-        return new Module(moduleCode, day, startTime, endTime);
+        return new Module(moduleCode, day, startScheduleTime, endScheduleTime);
     }
 
 }

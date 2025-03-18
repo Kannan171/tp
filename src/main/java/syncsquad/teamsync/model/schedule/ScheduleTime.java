@@ -7,7 +7,7 @@ import static syncsquad.teamsync.commons.util.AppUtil.checkArgument;
  * Represents a Time of day in 24-hour format.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class Time {
+public class ScheduleTime {
 
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -21,7 +21,7 @@ public class Time {
      *
      * @param time A valid time.
      */
-    public Time(String time) {
+    public ScheduleTime(String time) {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
         this.time = time.toUpperCase();
@@ -50,8 +50,8 @@ public class Time {
             return false;
         }
 
-        Time otherTime = (Time) other;
-        return time.equals(otherTime.time);
+        ScheduleTime otherScheduleTime = (ScheduleTime) other;
+        return time.equals(otherScheduleTime.time);
     }
 
     @Override

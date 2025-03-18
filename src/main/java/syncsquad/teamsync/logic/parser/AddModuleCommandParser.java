@@ -8,7 +8,7 @@ import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.schedule.Day;
 import syncsquad.teamsync.model.schedule.Module;
 import syncsquad.teamsync.model.schedule.ModuleCode;
-import syncsquad.teamsync.model.schedule.Time;
+import syncsquad.teamsync.model.schedule.ScheduleTime;
 
 /**
  * Parses input arguments and creates a new AddModuleCommand object
@@ -35,8 +35,8 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         Index index = ParserUtil.parseIndex(parameters[0]);
         ModuleCode moduleCode = ParserUtil.parseModuleCode(parameters[1]);
         Day day = ParserUtil.parseDay(parameters[2]);
-        Time startTime = ParserUtil.parseTime(parameters[3]);
-        Time endTime = ParserUtil.parseTime(parameters[4]);
-        return new AddModuleCommand(index, new Module(moduleCode, day, startTime, endTime));
+        ScheduleTime startScheduleTime = ParserUtil.parseModuleTime(parameters[3]);
+        ScheduleTime endScheduleTime = ParserUtil.parseModuleTime(parameters[4]);
+        return new AddModuleCommand(index, new Module(moduleCode, day, startScheduleTime, endScheduleTime));
     }
 }
