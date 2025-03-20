@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import syncsquad.teamsync.commons.util.ToStringBuilder;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -29,7 +30,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Module> modules, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Module> modules) {
         requireAllNonNull(name, phone, email, address, modules, tags);
         this.name = name;
         this.phone = phone;

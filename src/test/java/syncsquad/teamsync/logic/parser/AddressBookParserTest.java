@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.AddCommand;
+import syncsquad.teamsync.logic.commands.AddPersonCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
-import syncsquad.teamsync.logic.commands.DeleteCommand;
+import syncsquad.teamsync.logic.commands.DeletePersonCommand;
 import syncsquad.teamsync.logic.commands.EditCommand;
 import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
 import syncsquad.teamsync.logic.commands.ExitCommand;
@@ -36,8 +36,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        AddPersonCommand command = (AddPersonCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        assertEquals(new AddPersonCommand(person), command);
     }
 
     @Test
@@ -48,9 +48,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
+                DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DeletePersonCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

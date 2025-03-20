@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import syncsquad.teamsync.commons.exceptions.IllegalValueException;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
-import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
@@ -117,7 +117,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<Module> modelModules = new HashSet<>(personModules);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelModules, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelModules);
     }
 
 }

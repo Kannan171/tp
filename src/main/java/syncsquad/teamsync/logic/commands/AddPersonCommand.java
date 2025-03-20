@@ -3,7 +3,6 @@ package syncsquad.teamsync.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_MODULE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,7 +16,7 @@ import syncsquad.teamsync.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -27,15 +26,12 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_MODULE + "MODULE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_MODULE + "CS2103T "
-            + PREFIX_MODULE + "CS2101"
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
@@ -47,7 +43,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public AddPersonCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -71,12 +67,12 @@ public class AddCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
+        if (!(other instanceof AddPersonCommand)) {
             return false;
         }
 
-        AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
+        AddPersonCommand otherAddPersonCommand = (AddPersonCommand) other;
+        return toAdd.equals(otherAddPersonCommand.toAdd);
     }
 
     @Override

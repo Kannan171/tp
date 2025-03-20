@@ -3,7 +3,6 @@ package syncsquad.teamsync.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_MODULE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
@@ -22,9 +21,9 @@ import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
-import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
@@ -45,7 +44,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_MODULE + "MODULE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -102,10 +100,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Module> updatedModules = editPersonDescriptor.getModules().orElse(personToEdit.getModules());
+        Set<Module> personModules = personToEdit.getModules();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedModules, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, personModules);
     }
 
     @Override
@@ -141,7 +139,6 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<Module> modules;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -155,7 +152,6 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            setModules(toCopy.modules);
             setTags(toCopy.tags);
         }
 
@@ -163,7 +159,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, modules, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
         }
 
         public void setName(Name name) {
@@ -199,23 +195,6 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code modules} to this object's {@code modules}.
-         * A defensive copy of {@code modules} is used internally.
-         */
-        public void setModules(Set<Module> modules) {
-            this.modules = (modules != null) ? new HashSet<>(modules) : null;
-        }
-
-        /**
-         * Returns an unmodifiable module set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code modules} is null.
-         */
-        public Optional<Set<Module>> getModules() {
-            return (modules != null) ? Optional.of(Collections.unmodifiableSet(modules)) : Optional.empty();
-        }
-
-        /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
@@ -248,7 +227,6 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(modules, otherEditPersonDescriptor.modules)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
@@ -259,7 +237,6 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
-                    .add("modules", modules)
                     .add("tags", tags)
                     .toString();
         }

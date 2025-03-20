@@ -16,10 +16,10 @@ import java.util.Set;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.StringUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
-import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.module.Day;
+import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
-import syncsquad.teamsync.model.person.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Phone;
 import syncsquad.teamsync.model.tag.Tag;
@@ -116,30 +116,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String module} into a {@code Module}.
+     * Parses a {@code String day} into a {@code Day}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code module} is invalid.
+     * @throws ParseException if the given {@code day} is invalid.
      */
-    public static Module parseModule(String module) throws ParseException {
-        requireNonNull(module);
-        String trimmedModule = module.trim();
-        if (!Module.isValidModule(trimmedModule)) {
-            throw new ParseException(Module.MESSAGE_CONSTRAINTS);
+    public static Day parseDay(String day) throws ParseException {
+        requireNonNull(day);
+        String trimmedDay = day.trim();
+        if (!Day.isValidDay(day)) {
+            throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
-        return new Module(trimmedModule);
+        return new Day(trimmedDay);
     }
 
     /**
-     * Parses {@code Collection<String> modules} into a {@code Set<Module>}.
+     * Parses a {@code String moduleCode} into a {@code ModuleCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code moduleCode} is invalid.
      */
-    public static Set<Module> parseModules(Collection<String> modules) throws ParseException {
-        requireNonNull(modules);
-        final Set<Module> moduleSet = new HashSet<>();
-        for (String moduleCode : modules) {
-            moduleSet.add(parseModule(moduleCode));
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedModuleCode = moduleCode.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        return moduleSet;
+        return new ModuleCode(trimmedModuleCode);
     }
 
     /**
@@ -178,7 +181,7 @@ public class ParserUtil {
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException(Meeting.MESSAGE_CONSTRAINTS);
+            throw new ParseException("Date should be in DD-MM-YYYY format");
         }
     }
 
@@ -191,7 +194,7 @@ public class ParserUtil {
         try {
             return LocalTime.parse(time, TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException(Meeting.MESSAGE_CONSTRAINTS);
+            throw new ParseException("Time should be in HH:MM format");
         }
     }
 }
