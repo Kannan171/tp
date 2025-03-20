@@ -14,7 +14,7 @@ public class AddMeetingCommand extends Command {
     public static final String COMMAND_WORD = "meeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Creates a meeting with the specified date, start and end time"
+            + ": Creates a meeting with the specified date, start and end time\n"
             + "Parameters: DATE START_TIME END_TIME\n"
             + "Example: " + COMMAND_WORD + " 15-11-2025 11:00 15:00";
 
