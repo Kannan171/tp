@@ -162,23 +162,24 @@ public class AddPersonCommandTest {
 
         @Override
         public boolean hasMeeting(Meeting meeting) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addMeeting(Meeting meeting) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteMeeting(Meeting meeting) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Meeting> getMeetingList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
+
     }
 
     /**
