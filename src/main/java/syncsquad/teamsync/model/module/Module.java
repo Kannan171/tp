@@ -1,7 +1,8 @@
-package syncsquad.teamsync.model.schedule;
+package syncsquad.teamsync.model.module;
 
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -15,18 +16,18 @@ public class Module {
 
     // Data fields
     private final Day day;
-    private final ScheduleTime startScheduleTime;
-    private final ScheduleTime endScheduleTime;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Module(ModuleCode moduleCode, Day day, ScheduleTime startScheduleTime, ScheduleTime endScheduleTime) {
-        requireAllNonNull(moduleCode, day, startScheduleTime, endScheduleTime);
+    public Module(ModuleCode moduleCode, Day day, LocalTime startTime, LocalTime endTime) {
+        requireAllNonNull(moduleCode, day, startTime, endTime);
         this.moduleCode = moduleCode;
         this.day = day;
-        this.startScheduleTime = startScheduleTime;
-        this.endScheduleTime = endScheduleTime;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public ModuleCode getModuleCode() {
@@ -37,12 +38,12 @@ public class Module {
         return this.day;
     }
 
-    public ScheduleTime getStartTime() {
-        return this.startScheduleTime;
+    public LocalTime getStartTime() {
+        return this.startTime;
     }
 
-    public ScheduleTime getEndTime() {
-        return this.endScheduleTime;
+    public LocalTime getEndTime() {
+        return this.endTime;
     }
 
     /**
@@ -74,14 +75,14 @@ public class Module {
         Module otherModule = (Module) other;
         return moduleCode.equals(otherModule.moduleCode)
                 && day.equals(otherModule.day)
-                && startScheduleTime.equals(otherModule.startScheduleTime)
-                && endScheduleTime.equals(otherModule.endScheduleTime);
+                && startTime.equals(otherModule.startTime)
+                && endTime.equals(otherModule.endTime);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleCode, day, startScheduleTime, endScheduleTime);
+        return Objects.hash(moduleCode, day, startTime, endTime);
     }
 
     @Override

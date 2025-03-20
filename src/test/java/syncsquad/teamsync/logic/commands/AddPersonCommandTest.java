@@ -22,6 +22,7 @@ import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.testutil.PersonBuilder;
 
@@ -50,7 +51,8 @@ public class AddPersonCommandTest {
         AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () ->
+                addPersonCommand.execute(modelStub));
     }
 
     @Test
@@ -156,6 +158,26 @@ public class AddPersonCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMeeting(Meeting meeting) {
+            return false;
+        }
+
+        @Override
+        public void addMeeting(Meeting meeting) {
+
+        }
+
+        @Override
+        public void deleteMeeting(Meeting meeting) {
+
+        }
+
+        @Override
+        public ObservableList<Meeting> getMeetingList() {
+            return null;
         }
     }
 

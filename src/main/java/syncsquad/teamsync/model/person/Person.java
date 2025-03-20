@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import syncsquad.teamsync.commons.util.ToStringBuilder;
-import syncsquad.teamsync.model.schedule.Module;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**

@@ -1,13 +1,14 @@
 package syncsquad.teamsync.storage;
 
+import java.time.LocalTime;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import syncsquad.teamsync.commons.exceptions.IllegalValueException;
-import syncsquad.teamsync.model.schedule.Day;
-import syncsquad.teamsync.model.schedule.Module;
-import syncsquad.teamsync.model.schedule.ModuleCode;
-import syncsquad.teamsync.model.schedule.ScheduleTime;
+import syncsquad.teamsync.model.module.Day;
+import syncsquad.teamsync.model.module.Module;
+import syncsquad.teamsync.model.module.ModuleCode;
 
 /**
  * Jackson-friendly version of {@link Module}.
@@ -39,8 +40,8 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().code;
         day = source.getDay().day;
-        startTime = source.getStartTime().time;
-        endTime = source.getEndTime().time;
+        startTime = source.getStartTime().toString();
+        endTime = source.getEndTime().toString();
     }
 
     /**
@@ -69,22 +70,15 @@ class JsonAdaptedModule {
 
         if (startTime == null) {
             throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, ScheduleTime.class.getSimpleName()));
+                    MISSING_FIELD_MESSAGE_FORMAT, "startTime"));
         }
-        if (!ScheduleTime.isValidTime(startTime)) {
-            throw new IllegalValueException(ScheduleTime.MESSAGE_CONSTRAINTS);
-        }
-        final ScheduleTime startScheduleTime = new ScheduleTime(this.startTime);
+        final LocalTime startScheduleTime = LocalTime.parse(this.startTime);
 
         if (endTime == null) {
             throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, ScheduleTime.class.getSimpleName()));
+                    MISSING_FIELD_MESSAGE_FORMAT, "endTime"));
         }
-        if (!ScheduleTime.isValidTime(endTime)) {
-            throw new IllegalValueException(ScheduleTime.MESSAGE_CONSTRAINTS);
-        }
-        final ScheduleTime endScheduleTime = new ScheduleTime(this.endTime);
-
+        final LocalTime endScheduleTime = LocalTime.parse(this.endTime);
         return new Module(moduleCode, day, startScheduleTime, endScheduleTime);
     }
 

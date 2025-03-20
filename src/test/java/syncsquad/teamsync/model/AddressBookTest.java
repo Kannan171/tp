@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_MODULE_CS;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
 import static syncsquad.teamsync.testutil.TypicalPersons.ALICE;
@@ -19,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.exceptions.DuplicatePersonException;
 import syncsquad.teamsync.testutil.PersonBuilder;
@@ -48,7 +48,7 @@ public class AddressBookTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
-                .withModules(VALID_MODULE_CS).withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
@@ -75,7 +75,7 @@ public class AddressBookTest {
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
-                .withModules(VALID_MODULE_CS).withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
@@ -103,6 +103,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Meeting> getMeetingList() {
+            return null;
         }
     }
 

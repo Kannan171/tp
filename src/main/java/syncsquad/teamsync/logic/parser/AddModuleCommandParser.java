@@ -2,13 +2,14 @@ package syncsquad.teamsync.logic.parser;
 
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.time.LocalTime;
+
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.commands.AddModuleCommand;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
-import syncsquad.teamsync.model.schedule.Day;
-import syncsquad.teamsync.model.schedule.Module;
-import syncsquad.teamsync.model.schedule.ModuleCode;
-import syncsquad.teamsync.model.schedule.ScheduleTime;
+import syncsquad.teamsync.model.module.Day;
+import syncsquad.teamsync.model.module.Module;
+import syncsquad.teamsync.model.module.ModuleCode;
 
 /**
  * Parses input arguments and creates a new AddModuleCommand object
@@ -35,8 +36,11 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         Index index = ParserUtil.parseIndex(parameters[0]);
         ModuleCode moduleCode = ParserUtil.parseModuleCode(parameters[1]);
         Day day = ParserUtil.parseDay(parameters[2]);
-        ScheduleTime startScheduleTime = ParserUtil.parseModuleTime(parameters[3]);
-        ScheduleTime endScheduleTime = ParserUtil.parseModuleTime(parameters[4]);
-        return new AddModuleCommand(index, new Module(moduleCode, day, startScheduleTime, endScheduleTime));
+        LocalTime startTime = ParserUtil.parseTime(parameters[3]);
+        LocalTime endTime = ParserUtil.parseTime(parameters[4]);
+        if (!endTime.isAfter(startTime)) {
+            throw new ParseException("End time must be after Start time");
+        }
+        return new AddModuleCommand(index, new Module(moduleCode, day, startTime, endTime));
     }
 }

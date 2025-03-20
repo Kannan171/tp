@@ -3,9 +3,9 @@ package syncsquad.teamsync.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
-import syncsquad.teamsync.model.schedule.Module;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
@@ -102,7 +102,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, modules, tags);
+        return new Person(name, phone, email, address, tags, modules);
     }
 
 }

@@ -5,7 +5,7 @@ import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.commands.DeleteModuleCommand;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
-import syncsquad.teamsync.model.schedule.ModuleCode;
+import syncsquad.teamsync.model.module.ModuleCode;
 
 /**
  * Parses input arguments and creates a new DeleteModuleCommand object

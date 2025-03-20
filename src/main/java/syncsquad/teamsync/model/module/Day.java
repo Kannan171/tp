@@ -1,4 +1,4 @@
-package syncsquad.teamsync.model.schedule;
+package syncsquad.teamsync.model.module;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.commons.util.AppUtil.checkArgument;

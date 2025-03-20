@@ -16,14 +16,12 @@ import java.util.Set;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.StringUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
-import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.module.Day;
+import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Phone;
-import syncsquad.teamsync.model.schedule.Day;
-import syncsquad.teamsync.model.schedule.ModuleCode;
-import syncsquad.teamsync.model.schedule.ScheduleTime;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
@@ -148,21 +146,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String time} into a {@code Time}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code Time} is invalid.
-     */
-    public static ScheduleTime parseModuleTime(String time) throws ParseException {
-        requireNonNull(time);
-        String trimmedTime = time.trim();
-        if (!ScheduleTime.isValidTime(trimmedTime)) {
-            throw new ParseException(ScheduleTime.MESSAGE_CONSTRAINTS);
-        }
-        return new ScheduleTime(trimmedTime);
-    }
-
-    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -198,7 +181,7 @@ public class ParserUtil {
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException(Meeting.MESSAGE_CONSTRAINTS);
+            throw new ParseException("Date should be in DD-MM-YYYY format");
         }
     }
 
@@ -211,7 +194,7 @@ public class ParserUtil {
         try {
             return LocalTime.parse(time, TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException(Meeting.MESSAGE_CONSTRAINTS);
+            throw new ParseException("Time should be in HH:MM format");
         }
     }
 }

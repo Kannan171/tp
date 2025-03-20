@@ -12,9 +12,9 @@ import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
+import syncsquad.teamsync.model.module.Module;
+import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.model.schedule.Module;
-import syncsquad.teamsync.model.schedule.ModuleCode;
 
 /**
  * Deletes a module from the person identified using person index and module code.

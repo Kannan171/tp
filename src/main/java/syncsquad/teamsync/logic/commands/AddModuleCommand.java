@@ -12,8 +12,8 @@ import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.model.schedule.Module;
 
 /**
  * Adds a module to an existing person in the address book.
@@ -27,10 +27,10 @@ public class AddModuleCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "MODULE_CODE "
             + "DAY "
-            + "START_TIME "
-            + "END_TIME \n"
+            + "START_TIME(HH:MM) "
+            + "END_TIME(HH:MM) \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "CS2103T FRI 1600 1800";
+            + "CS2103T FRI 16:00 18:00";
 
     public static final String MESSAGE_SUCCESS = "Added Module to Person: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists for the person.";
