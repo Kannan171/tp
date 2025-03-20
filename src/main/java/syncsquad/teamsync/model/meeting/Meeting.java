@@ -12,8 +12,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Meeting {
     public static final String MESSAGE_CONSTRAINTS =
-            "Meeting time should be given in the following format: dd-mm-yyyy HH:mm HH:mm"
-            + " followed by 4-digit numeric code with optional last alphabet";
+            "Meeting time should be given in the following format: dd-mm-yyyy HH:mm HH:mm";
 
     public static final DateTimeFormatter DATE_TO_STRING_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static final DateTimeFormatter TIME_TO_STRING_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
