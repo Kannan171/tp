@@ -8,7 +8,7 @@ import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuc
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static syncsquad.teamsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

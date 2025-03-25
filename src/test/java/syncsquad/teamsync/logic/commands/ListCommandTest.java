@@ -3,7 +3,7 @@ package syncsquad.teamsync.logic.commands;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static syncsquad.teamsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
