@@ -11,9 +11,9 @@ import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAN
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
