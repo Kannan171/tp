@@ -2,8 +2,9 @@
 layout: page
 title: User Guide
 ---
+# TeamSync User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+TeamSync is a **desktop app for NUS students to manage their teammates' information, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeamSync can get your contact management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -13,11 +14,11 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
 
 1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for TeamSync.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -26,11 +27,11 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all students.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a student named `John Doe` to TeamSync.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd student shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -73,9 +74,9 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a student: `add`
 
-Adds a person to the address book.
+Adds a student to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
@@ -87,19 +88,19 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all persons : `list`
+### Listing all students : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a students : `edit`
 
-Edits an existing person in the address book.
+Edits an existing students in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -107,12 +108,12 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Locating students by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds students whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -128,9 +129,9 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a student : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified student from the address book.
 
 Format: `delete INDEX`
 
@@ -141,6 +142,80 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Adding a module to a student: `addmod`
+
+Adds a module to the specified student
+
+Format: `addmod INDEX MODULE_CODE DAY START_TIME END_TIME`
+
+* The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* The module code will follow NUS module code format (Department tag + 4-digit number + optional last letter)
+* Module code is case-insensitive. e.g cs2103t and CS2103T will be regarded as the same module
+* Module code given has to be new (Given student does not already have this module assigned)
+* Day is 3-letter abbreviation of the day of week (MON, TUE, THU etc). It is case-insensitive
+* Start time and End time is given in 24-hour format and in HH:MM
+
+Examples:
+* `addmod 1 cs2101 thu 12:00 15:00` assigns module CS2101 to the first student in TeamSync.
+  ![result for 'addmod 1 cs2101 thu 12:00 15:00'](images/addmodCS2101Result.png)
+
+### Deleting a module from a student : `delmod`
+
+Deletes the specified module from the given student in the address book.
+
+Format: `delmod INDEX MODULE_CODE`
+
+* Deletes the module from the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Module code has to be an existing module assigned to the specified student.
+* Module code is case-insensitive. e.g cs2103t will match CS2103T
+
+Examples:
+* `delmod 1 cs2101` deletes the module CS2101 from the 1st person in the address book.
+  ![result for 'delmod 1 cs2101'](images/delmodCS2101Result.png)
+
+### Add a meeting for the team: `meeting`
+
+Creates a meeting with the specified date, start and end time
+
+Format: `meeting DATE START_TIME END_TIME`
+
+* DATE is in DD-MM-YYYY format
+* Start time and End time is given in 24-hour format and in HH:MM
+
+Examples:
+* `meeting 27-03-2025 12:00 15:00` creates a new meeting on 27th March 2025 from 12pm to 3pm.
+  ![result for 'meeting 27-03-2025 12:00 15:00'](images/addMeetingResult.png)
+
+### Listing all meetings : `listmeetings`
+
+Shows a list of all meetings in the address book.
+
+Format: `listmeetings`
+
+Examples:
+* `listmeetings` lists all existing meetings in the address book.
+  ![result for 'listmeetings'](images/listMeetingResult.png)
+
+### Delete an existing meeting: `delmeeting`
+
+Deletes the meeting identified by the index number used in the displayed meeting list
+
+Format: `delmeeting INDEX`
+
+* Deletes the meeting at the specified `INDEX`.
+* The index refers to the index number shown in the displayed meeting list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `listmeeting` followed by `delete 1` deletes the 1st meeting in the address book.
+
+Examples:
+* `delmeeting 1` deletes the first meeting in the address book
+  ![result for 'delmeeting 1'](images/delMeetingResult.png)
+
 
 ### Clearing all entries : `clear`
 
@@ -192,9 +267,14 @@ _Details coming soon ..._
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**AddModule** | `addmod INDEX MODULE_CODE DAY START_TIME END_TIME` <br> e.g., `addmod 1 cs2101 thu 12:00 15:00`
+**DeleteModule** | `delmod INDEX MODULE_CODE` <br> e.g., `delmod 1 cs2101`
+**AddMeeting** | `meeting DATE START_TIME END_TIME` <br> e.g., `meeting 27-03-2025 12:00 15:00`
+**ListMeetings** | `listmeetings`
+**DeleteMeeting** | `delmeeting INDEX` <br> e.g., `delmeeting 1`
+**Clear** | `clear`
 **Help** | `help`
