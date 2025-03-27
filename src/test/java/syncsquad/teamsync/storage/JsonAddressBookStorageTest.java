@@ -3,10 +3,10 @@ package syncsquad.teamsync.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.ALICE;
-import static syncsquad.teamsync.testutil.TypicalPersons.HOON;
-import static syncsquad.teamsync.testutil.TypicalPersons.IDA;
-import static syncsquad.teamsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.ALICE;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.HOON;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.IDA;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
