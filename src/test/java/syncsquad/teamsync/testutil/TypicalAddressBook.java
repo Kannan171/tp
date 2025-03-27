@@ -2,12 +2,15 @@ package syncsquad.teamsync.testutil;
 
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_DATE_MAR_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_END_TIME_MAR_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_START_TIME_MAR_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -83,6 +86,11 @@ public class TypicalAddressBook {
             .withStartTime("20:00")
             .withEndTime("23:59")
             .build();
+
+    // Manually added - Meeting's details found in {@code CommandTestUtil}
+    public static final Meeting MAR_MEETING = new MeetingBuilder().withDate(VALID_DATE_MAR_MEETING)
+            .withStartTime(VALID_START_TIME_MAR_MEETING)
+            .withEndTime(VALID_END_TIME_MAR_MEETING).build();
 
     private TypicalAddressBook() {} // prevents instantiation
 

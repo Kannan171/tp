@@ -14,8 +14,8 @@ import syncsquad.teamsync.model.meeting.Meeting;
 public class MeetingBuilder {
 
     public static final String DEFAULT_DATE = "31-03-2025";
-    public static final String DEFAULT_STARTTIME = "14:00";
-    public static final String DEFAULT_ENDTIME = "16:00";
+    public static final String DEFAULT_START_TIME = "14:00";
+    public static final String DEFAULT_END_TIME = "16:00";
 
     private LocalDate date;
     private LocalTime startTime;
@@ -26,8 +26,8 @@ public class MeetingBuilder {
      */
     public MeetingBuilder() {
         date = LocalDate.parse(DEFAULT_DATE, DATE_FORMATTER);
-        startTime = LocalTime.parse(DEFAULT_STARTTIME, TIME_FORMATTER);
-        endTime = LocalTime.parse(DEFAULT_ENDTIME, TIME_FORMATTER);
+        startTime = LocalTime.parse(DEFAULT_START_TIME, TIME_FORMATTER);
+        endTime = LocalTime.parse(DEFAULT_END_TIME, TIME_FORMATTER);
     }
 
     /**
