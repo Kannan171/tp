@@ -20,6 +20,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_MODULE = "The person does not have the provided module assigned to them";
+    public static final String MESSAGE_INVALID_START_END_TIME = "End time must be after start time";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
