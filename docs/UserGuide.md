@@ -2,16 +2,36 @@
 layout: page
 title: User Guide
 ---
+
 # TeamSync User Guide
 
-TeamSync is a **desktop app for NUS students to manage their teammates' information, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeamSync can get your contact management tasks done faster than traditional GUI apps.
+TeamSync is a contact management app designed to streamline group project management, **built by National University of Singapore (NUS) students, for NUS students**.
 
-* Table of Contents
-{:toc}
+Designed with simplicity and efficiency in mind, TeamSync makes it easy to add teammates' contact details, schedule meetings, and stay organized. It combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI). Built-in validation checks help prevent errors, ensuring a seamless experience.
+
+Whether you're new to CLI apps or an experienced user, TeamSync enables you to work faster than any GUI-only app—so you can focus on what truly matters.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Viewing help](#viewing-help--help)
+  - [Adding a student](#adding-a-student--add)
+  - [Listing all students](#listing-all-students--list)
+  - [Editing a student](#editing-a-student--edit)
+  - [Locating students by name](#locating-students-by-name-find)
+  - [Deleting a student](#deleting-a-student--delete)
+  - [Clearing all entries](#clearing-all-entries--clear)
+  - [Exiting the program](#exiting-the-program--exit)
+- [FAQ](#FAQ)
+- [Known Issues](#known-issues)
+- [Command Summary](#command-summary)
+- [Glossary](#glossary)
+
+## Quick Start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
@@ -94,9 +114,9 @@ Shows a list of all students in TeamSync.
 
 Format: `list`
 
-### Editing a students : `edit`
+### Editing a student : `edit`
 
-Edits an existing students in TeamSync.
+Edits an existing student in TeamSync.
 
 Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…​`
 
@@ -278,3 +298,13 @@ Action | Format, Examples
 **DeleteMeeting** | `delmeeting INDEX` <br> e.g., `delmeeting 1`
 **Clear** | `clear`
 **Help** | `help`
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+**Command Line Interface (CLI)**<br>
+A text-based interface that allows users to interact with the application by typing commands
+
+**Graphical User Interface (GUI)**<br>
+A graphical interface that allows users to interact with the application through visual elements
