@@ -14,9 +14,9 @@ TeamSync is a **desktop app for NUS students to manage their teammates' informat
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for TeamSync.
 
@@ -29,7 +29,7 @@ TeamSync is a **desktop app for NUS students to manage their teammates' informat
 
    * `list` : Lists all students.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a student named `John Doe` to TeamSync.
+   * `add -n John Doe -p 98765432 -p johnd@example.com -a John street, block 123, #01-01` : Adds a student named `John Doe` to TeamSync.
 
    * `delete 3` : Deletes the 3rd student shown in the current list.
 
@@ -48,16 +48,16 @@ TeamSync is a **desktop app for NUS students to manage their teammates' informat
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add -n NAME`, `NAME` is a parameter which can be used as `add -n John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[-t TAG]…​` can be used as ` ` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -76,40 +76,40 @@ Format: `help`
 
 ### Adding a student: `add`
 
-Adds a student to the address book.
+Adds a student to TeamSync.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A student can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add -n John Doe -p 98765432 -e johnd@example.com -a John street, block 123, #01-01`
+* `add -n Betsy Crowe -t friend -e betsycrowe@example.com -a Newgate Prison -p 1234567 -t criminal`
 
 ### Listing all students : `list`
 
-Shows a list of all students in the address book.
+Shows a list of all students in TeamSync.
 
 Format: `list`
 
 ### Editing a students : `edit`
 
-Edits an existing students in the address book.
+Edits an existing students in TeamSync.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…​`
 
-* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
+* When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
+* You can remove all the student’s tags by typing `-t ` without
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 -p 91234567 -e johndoe@example.com` Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 -n Betsy Crower -t ` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
 ### Locating students by name: `find`
 
@@ -121,7 +121,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* students matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
@@ -131,17 +131,17 @@ Examples:
 
 ### Deleting a student : `delete`
 
-Deletes the specified student from the address book.
+Deletes the specified student from TeamSync.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd student in TeamSync.
+* `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
 
 ### Adding a module to a student: `addmod`
 
@@ -149,9 +149,9 @@ Adds a module to the specified student
 
 Format: `addmod INDEX MODULE_CODE DAY START_TIME END_TIME`
 
-* The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * The module code will follow NUS module code format (Department tag + 4-digit number + optional last letter)
-* Module code is case-insensitive. e.g cs2103t and CS2103T will be regarded as the same module
+* Module code is case-insensitive.<br> e.g. cs2103t and CS2103T will be regarded as the same module
 * Module code given has to be new (Given student does not already have this module assigned)
 * Day is 3-letter abbreviation of the day of week (MON, TUE, THU etc). It is case-insensitive
 * Start time and End time is given in 24-hour format and in HH:MM
@@ -162,18 +162,18 @@ Examples:
 
 ### Deleting a module from a student : `delmod`
 
-Deletes the specified module from the given student in the address book.
+Deletes the specified module from the given student in TeamSync.
 
 Format: `delmod INDEX MODULE_CODE`
 
-* Deletes the module from the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the module from the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Module code has to be an existing module assigned to the specified student.
 * Module code is case-insensitive. e.g cs2103t will match CS2103T
 
 Examples:
-* `delmod 1 cs2101` deletes the module CS2101 from the 1st person in the address book.
+* `delmod 1 cs2101` deletes the module CS2101 from the 1st student in TeamSync.
   ![result for 'delmod 1 cs2101'](images/delmodCS2101Result.png)
 
 ### Add a meeting for the team: `meeting`
@@ -191,12 +191,12 @@ Examples:
 
 ### Listing all meetings : `listmeetings`
 
-Shows a list of all meetings in the address book.
+Shows a list of all meetings in TeamSync.
 
 Format: `listmeetings`
 
 Examples:
-* `listmeetings` lists all existing meetings in the address book.
+* `listmeetings` lists all existing meetings in TeamSync.
   ![result for 'listmeetings'](images/listMeetingResult.png)
 
 ### Delete an existing meeting: `delmeeting`
@@ -210,16 +210,16 @@ Format: `delmeeting INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `listmeeting` followed by `delete 1` deletes the 1st meeting in the address book.
+* `listmeetings` followed by `delete 1` deletes the 1st meeting in TeamSync.
 
 Examples:
-* `delmeeting 1` deletes the first meeting in the address book
+* `delmeeting 1` deletes the first meeting in TeamSync
   ![result for 'delmeeting 1'](images/delMeetingResult.png)
 
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from TeamSync.
 
 Format: `clear`
 
@@ -235,7 +235,7 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+AddressBook data are saved automatically as a JSON file `[JAR file location]/dat-a addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
@@ -266,8 +266,8 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Add** | `add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…​` <br> e.g., `add -n James Ho -p 22224444 -e jamesho@example.com -a 123, Clementi Rd, 1234665 -t friend -t colleague`
+**Edit** | `edit INDEX [-n NAME] [-p PHONE_NUMBER] [-e EMAIL] [-a ADDRESS] [-t TAG]…​`<br> e.g.,`edit 2 -n James Lee -e jameslee@example.com`
 **List** | `list`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
