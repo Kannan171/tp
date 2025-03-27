@@ -84,7 +84,7 @@ public class AddModuleCommand extends Command {
      */
     public boolean hasOverlap(Set<Module> moduleSet) {
         requireNonNull(moduleSet);
-        return moduleSet.stream().anyMatch(module::isOverlap);
+        return moduleSet.stream().anyMatch(module::isOverlapping);
     }
 
     @Override
