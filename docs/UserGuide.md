@@ -3,14 +3,35 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+# TeamSync User Guide
 
-* Table of Contents
-{:toc}
+TeamSync is a contact management app designed to streamline group project management, **built by National University of Singapore (NUS) students, for NUS students**.
+
+Designed with simplicity and efficiency in mind, TeamSync makes it easy to add teammates' contact details, schedule meetings, and stay organized. It combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI). Built-in validation checks help prevent errors, ensuring a seamless experience.
+
+Whether you're new to CLI apps or an experienced user, TeamSync enables you to work faster than any GUI-only app—so you can focus on what truly matters.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Viewing help](#viewing-help--help)
+  - [Adding a student](#adding-a-student--add)
+  - [Listing all students](#listing-all-students--list)
+  - [Editing a student](#editing-a-student--edit)
+  - [Locating students by name](#locating-students-by-name-find)
+  - [Deleting a student](#deleting-a-student--delete)
+  - [Clearing all entries](#clearing-all-entries--clear)
+  - [Exiting the program](#exiting-the-program--exit)
+- [FAQ](#FAQ)
+- [Known Issues](#known-issues)
+- [Command Summary](#command-summary)
+- [Glossary](#glossary)
+
+## Quick Start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
@@ -73,7 +94,7 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a student: `add`
 
 Adds a person to the address book.
 
@@ -87,13 +108,13 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all persons : `list`
+### Listing all students : `list`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a student : `edit`
 
 Edits an existing person in the address book.
 
@@ -110,7 +131,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Locating students by name: `find`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -128,7 +149,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a student : `delete`
 
 Deletes the specified person from the address book.
 
@@ -198,3 +219,13 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+**Command Line Interface (CLI)**<br>
+A text-based interface that allows users to interact with the application by typing commands
+
+**Graphical User Interface (GUI)**<br>
+A graphical interface that allows users to interact with the application through visual elements
