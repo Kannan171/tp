@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.ALICE;
-import static syncsquad.teamsync.testutil.TypicalPersons.BENSON;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.ALICE;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

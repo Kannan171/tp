@@ -54,6 +54,19 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_DATE_MAR_MEETING = "03-03-2025";
+    public static final String VALID_START_TIME_MAR_MEETING = "16:00";
+    public static final String VALID_END_TIME_MAR_MEETING = "19:23";
+
+    public static final String DATE_DESC_MAR_MEETING = " " + VALID_DATE_MAR_MEETING;
+    public static final String START_TIME_DESC_MAR_MEETING = " " + VALID_START_TIME_MAR_MEETING;
+    public static final String END_TIME_DESC_MAR_MEETING = " " + VALID_END_TIME_MAR_MEETING;
+
+    /* date must be in dd-mm-yyyy format; yyyy is optional */
+    public static final String INVALID_DATE_DESC = " " + "tomorrow";
+    public static final String INVALID_TIME_DESC = " " + "2pm"; // time must be in HH:mm format
+
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 

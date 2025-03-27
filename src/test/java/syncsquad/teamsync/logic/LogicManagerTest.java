@@ -8,7 +8,7 @@ import static syncsquad.teamsync.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.AMY;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;

@@ -17,9 +17,9 @@ public class Meeting {
     public static final DateTimeFormatter DATE_TO_STRING_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static final DateTimeFormatter TIME_TO_STRING_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    public final LocalDate date;
-    public final LocalTime startTime;
-    public final LocalTime endTime;
+    private final LocalDate date;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
 
     /**
      * Creates a Meeting with the specified date, start time and end time.
@@ -30,6 +30,18 @@ public class Meeting {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
     /**
