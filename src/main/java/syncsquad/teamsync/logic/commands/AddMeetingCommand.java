@@ -58,7 +58,7 @@ public class AddMeetingCommand extends Command {
      */
     public boolean hasOverlap(ObservableList<Meeting> meetingList) {
         requireNonNull(meetingList);
-        return meetingList.stream().anyMatch(toAdd::isOverlap);
+        return meetingList.stream().anyMatch(toAdd::isOverlapping);
     }
 
     @Override

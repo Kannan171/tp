@@ -32,18 +32,6 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
     /**
      * Returns a string representation of the date of the meeting.
      */
@@ -91,7 +79,7 @@ public class Meeting {
      * Both start and end time are considered to be non-inclusive,
      * i.e. endTime of 12pm and startTime of 12pm of another meeting is allowed.
      */
-    public boolean isOverlap(Meeting otherMeeting) {
+    public boolean isOverlapping(Meeting otherMeeting) {
         boolean timeOverlap = this.getEndTime().isAfter(otherMeeting.getStartTime())
                 && this.getStartTime().isBefore(otherMeeting.getEndTime());
         boolean dateOverlap = this.getDate().equals(otherMeeting.getDate());
