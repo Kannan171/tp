@@ -17,7 +17,6 @@ import static syncsquad.teamsync.testutil.TypicalAddressBook.MAR_MEETING;
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.logic.commands.AddMeetingCommand;
-import syncsquad.teamsync.logic.commands.AddPersonCommand;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.testutil.MeetingBuilder;
 
@@ -37,7 +36,7 @@ public class AddMeetingCommandParserTest {
     public void parse_repeatedFields_failure() {
         String validExpectedMeetingString = DATE_DESC_MAR_MEETING + START_TIME_DESC_MAR_MEETING
                 + END_TIME_DESC_MAR_MEETING;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE);
 
         // multiple dates
         assertParseFailure(parser, DATE_DESC_MAR_MEETING + validExpectedMeetingString, expectedMessage);
