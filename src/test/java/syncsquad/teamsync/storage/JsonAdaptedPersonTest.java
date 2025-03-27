@@ -3,7 +3,7 @@ package syncsquad.teamsync.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static syncsquad.teamsync.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.BENSON;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
