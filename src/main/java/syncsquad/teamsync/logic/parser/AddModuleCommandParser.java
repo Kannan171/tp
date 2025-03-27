@@ -1,6 +1,7 @@
 package syncsquad.teamsync.logic.parser;
 
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_START_END_TIME;
 
 import java.time.LocalTime;
 
@@ -38,9 +39,11 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
         Day day = ParserUtil.parseDay(parameters[2]);
         LocalTime startTime = ParserUtil.parseTime(parameters[3]);
         LocalTime endTime = ParserUtil.parseTime(parameters[4]);
+
         if (!endTime.isAfter(startTime)) {
-            throw new ParseException("End time must be after Start time");
+            throw new ParseException(MESSAGE_INVALID_START_END_TIME);
         }
+
         return new AddModuleCommand(index, new Module(moduleCode, day, startTime, endTime));
     }
 }

@@ -34,6 +34,7 @@ public class AddModuleCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Added Module to Person: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists for the person.";
+    public static final String MESSAGE_OVERLAP_MODULE = "This person already has another module during this period.";
 
     private final Index index;
     private final Module module;
@@ -64,12 +65,26 @@ public class AddModuleCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
         Set<Module> moduleSet = new HashSet<>(personToEdit.getModules());
+
+        // check for overlapping modules
+        if (hasOverlap(moduleSet)) {
+            throw new CommandException(MESSAGE_OVERLAP_MODULE);
+        }
+
         moduleSet.add(module);
         Person newPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
                 personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getTags(), moduleSet);
         model.setPerson(personToEdit, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(newPerson)));
+    }
+
+    /**
+     * Checks if the module to be added overlaps with existing modules
+     */
+    public boolean hasOverlap(Set<Module> moduleSet) {
+        requireNonNull(moduleSet);
+        return moduleSet.stream().anyMatch(module::isOverlap);
     }
 
     @Override

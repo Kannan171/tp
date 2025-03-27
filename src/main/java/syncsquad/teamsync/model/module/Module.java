@@ -58,6 +58,18 @@ public class Module {
     }
 
     /**
+     * Returns true if both modules overlap in terms of timing.
+     * Both start and end time are considered to be non-inclusive,
+     * i.e. endTime of 12pm and startTime of 12pm of another module is allowed.
+     */
+    public boolean isOverlap(Module otherModule) {
+        boolean timeOverlap = this.getEndTime().isAfter(otherModule.getStartTime())
+                && this.getStartTime().isBefore(otherModule.getEndTime());
+        boolean dayOverlap = this.getDay().equals(otherModule.getDay());
+        return timeOverlap && dayOverlap;
+    }
+
+    /**
      * Returns true if both modules have the same identity and data fields.
      * This defines a stronger notion of equality between two modules.
      */
