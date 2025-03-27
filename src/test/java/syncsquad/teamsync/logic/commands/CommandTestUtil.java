@@ -62,6 +62,11 @@ public class CommandTestUtil {
     public static final String START_TIME_DESC_MAR_MEETING = " " + VALID_START_TIME_MAR_MEETING;
     public static final String END_TIME_DESC_MAR_MEETING = " " + VALID_END_TIME_MAR_MEETING;
 
+    /* date must be in dd-mm-yyyy format; yyyy is optional */
+    public static final String INVALID_DATE_DESC = " " + "tomorrow";
+    public static final String INVALID_TIME_DESC = " " + "2pm"; // time must be in HH:mm format
+
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
