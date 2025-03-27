@@ -3,7 +3,7 @@ package syncsquad.teamsync.logic.parser;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static syncsquad.teamsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static syncsquad.teamsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class DeleteMeetingCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteMeetingCommand() {
-        assertParseSuccess(parser, "1", new DeleteMeetingCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new DeleteMeetingCommand(INDEX_FIRST));
     }
 
     @Test

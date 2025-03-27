@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
+import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,14 +22,14 @@ import syncsquad.teamsync.model.meeting.Meeting;
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteMeetingCommand}.
  */
-public class DeleteMeetingTest {
+public class DeleteMeetingCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexList_success() {
-        Meeting meetingToDelete = model.getMeetingList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteMeetingCommand deleteMeetingCommand = new DeleteMeetingCommand(INDEX_FIRST_PERSON);
+        Meeting meetingToDelete = model.getMeetingList().get(INDEX_FIRST.getZeroBased());
+        DeleteMeetingCommand deleteMeetingCommand = new DeleteMeetingCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteMeetingCommand.MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete);
 
@@ -49,14 +49,14 @@ public class DeleteMeetingTest {
 
     @Test
     public void equals() {
-        DeleteMeetingCommand deleteFirstCommand = new DeleteMeetingCommand(INDEX_FIRST_PERSON);
-        DeleteMeetingCommand deleteSecondCommand = new DeleteMeetingCommand(INDEX_SECOND_PERSON);
+        DeleteMeetingCommand deleteFirstCommand = new DeleteMeetingCommand(INDEX_FIRST);
+        DeleteMeetingCommand deleteSecondCommand = new DeleteMeetingCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteMeetingCommand deleteFirstCommandCopy = new DeleteMeetingCommand(INDEX_FIRST_PERSON);
+        DeleteMeetingCommand deleteFirstCommandCopy = new DeleteMeetingCommand(INDEX_FIRST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

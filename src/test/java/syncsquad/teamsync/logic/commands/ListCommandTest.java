@@ -3,7 +3,7 @@ package syncsquad.teamsync.logic.commands;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
