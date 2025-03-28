@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox id="cardPane" fx:id="cardPane" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Label fx:id="id">
+ <minWidth>
+   <!-- Ensures that the label text is never truncated -->
+   <Region fx:constant="USE_PREF_SIZE" />
+ </minWidth>
+</Label>
+<Label fx:id="name" text="\$first">
+      <HBox.margin>
+         <Insets />
+      </HBox.margin>
+      <padding>
+         <Insets right="10.0" />
+      </padding>
+   </Label>
+</HBox>
