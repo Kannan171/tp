@@ -30,6 +30,8 @@ import syncsquad.teamsync.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format: Date should be in dd-mm-yyyy format";
+    public static final String MESSAGE_INVALID_TIME_FORMAT = "Invalid time format: Time should be in HH:mm format";
 
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("[d-M-yyyy]" + "[d-M]"))
@@ -181,7 +183,7 @@ public class ParserUtil {
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Date should be in DD-MM-YYYY format");
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
@@ -194,7 +196,7 @@ public class ParserUtil {
         try {
             return LocalTime.parse(time, TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Time should be in HH:MM format");
+            throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
         }
     }
 }

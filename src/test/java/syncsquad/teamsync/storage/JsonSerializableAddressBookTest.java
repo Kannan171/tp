@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import syncsquad.teamsync.commons.exceptions.IllegalValueException;
 import syncsquad.teamsync.commons.util.JsonUtil;
 import syncsquad.teamsync.model.AddressBook;
-import syncsquad.teamsync.testutil.TypicalPersons;
+import syncsquad.teamsync.testutil.TypicalAddressBook;
 
 public class JsonSerializableAddressBookTest {
 
@@ -25,7 +25,7 @@ public class JsonSerializableAddressBookTest {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
+        AddressBook typicalPersonsAddressBook = TypicalAddressBook.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

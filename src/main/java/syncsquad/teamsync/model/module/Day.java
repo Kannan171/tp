@@ -48,7 +48,7 @@ public class Day {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Module)) {
+        if (!(other instanceof Day)) {
             return false;
         }
 
