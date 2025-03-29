@@ -44,7 +44,7 @@ public class TimetableController extends UiPart<Region> {
 
         // Dirty trick to invert axis: set them to negative values, then get the Formatter to
         // strip the negative sign.
-        NumberAxis yAxis = new NumberAxis(0, 24, 1); // Time axis from 0000 to 2400
+        NumberAxis yAxis = new NumberAxis(-24, 0, 1); // Time axis from 0000 to 2400
         yAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
@@ -73,10 +73,8 @@ public class TimetableController extends UiPart<Region> {
                 double startTime = module.getStartTime().toSecondOfDay() / 3600.0; // Convert to hours
                 double endTime = module.getEndTime().toSecondOfDay() / 3600.0; // Convert to hours
                 double duration = endTime - startTime;
-                System.out.println("Adding " + person.getName() + " " + day + " "
-                                + startTime + " " + endTime + " " + duration);
-                personSeries.getData().add(new XYChart.Data<>(day, startTime,
-                    new TimetableChart.ExtraData(duration, FXCollections.observableArrayList(Styles.ACCENT))));
+                personSeries.getData().add(new XYChart.Data<>(day, -startTime,
+                        new TimetableChart.ExtraData(duration, FXCollections.observableArrayList(Styles.ACCENT))));
             });
 
             timetable.getData().add(personSeries);

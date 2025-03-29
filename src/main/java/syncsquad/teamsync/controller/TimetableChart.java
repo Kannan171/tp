@@ -54,8 +54,6 @@ public class TimetableChart<X, Y> extends XYChart<X, Y> {
         }
     }
 
-    private double blockWidth = 50;
-
     public TimetableChart(@NamedArg("xAxis") Axis<X> xAxis, @NamedArg("yAxis") Axis<Y> yAxis) {
         this(xAxis, yAxis, FXCollections.<Series<X, Y>>observableArrayList());
     }
@@ -87,6 +85,8 @@ public class TimetableChart<X, Y> extends XYChart<X, Y> {
 
     @Override
     protected void layoutPlotChildren() {
+        double blockWidth = getBlockWidth();
+
         for (int seriesIndex = 0; seriesIndex < getData().size(); seriesIndex++) {
             Series<X, Y> series = getData().get(seriesIndex);
             Iterator<Data<X, Y>> iter = getDisplayedDataIterator(series);
@@ -94,41 +94,40 @@ public class TimetableChart<X, Y> extends XYChart<X, Y> {
                 Data<X, Y> item = iter.next();
                 double x = getXAxis().getDisplayPosition(item.getXValue());
                 double y = getYAxis().getDisplayPosition(item.getYValue());
-                System.out.println("item: " + item + "x: " + x + " y: " + y);
                 if (Double.isNaN(x) || Double.isNaN(y)) {
                     continue;
                 }
                 Node block = item.getNode();
-                Rectangle ellipse;
+                Rectangle rectangle;
                 if (block != null) {
                     if (block instanceof StackPane) {
                         StackPane region = (StackPane) item.getNode();
                         if (region.getShape() == null) {
-                            ellipse = new Rectangle(getBlockWidth(),
-                                                    getLength(item.getExtraValue())
-                                                        * Math.abs(((NumberAxis) getYAxis()).getScale()));
-                            region.getChildren().add(ellipse); // Ensure rectangle is added to StackPane
-                        } else if (region.getShape() instanceof Rectangle rectangle) {
-                            ellipse = rectangle;
+                            rectangle = new Rectangle(blockWidth,
+                                    getLength(item.getExtraValue())
+                                    * Math.abs(((NumberAxis) getYAxis()).getScale()));
+                            region.getChildren().add(rectangle);
+                        } else if (region.getShape() instanceof Rectangle existingRectangle) {
+                            rectangle = existingRectangle;
                         } else {
                             return;
                         }
-                        ellipse.setHeight(getLength(item.getExtraValue())
-                                          * Math.abs(((NumberAxis) getYAxis()).getScale()));
-                        ellipse.setWidth(getBlockWidth());
+                        rectangle.setHeight(getLength(item.getExtraValue())
+                                * Math.abs(((NumberAxis) getYAxis()).getScale()));
+                        rectangle.setWidth(blockWidth);
 
-                        y -= ellipse.getHeight() / 2.0;
-                        // x -= ellipse.getWidth() / 2.0;
+                        // The second part of the dirty trick to invert yAxis
+                        y += rectangle.getHeight() / 2.0;
 
-                        ellipse.getStyleClass().addAll(getStyleClass(item.getExtraValue()));
-                        ellipse.setFill(javafx.scene.paint.Color.PINK);
-                        ellipse.toFront();
+                        rectangle.getStyleClass().addAll(getStyleClass(item.getExtraValue()));
+                        rectangle.setFill(javafx.scene.paint.Color.PINK);
+                        rectangle.toFront();
 
                         // Note: workaround for RT-7689 - saw this in ProgressControlSkin
                         // The region doesn't update itself when the shape is mutated in place, so we
                         // null out and then restore the shape in order to force invalidation.
                         region.setShape(null);
-                        region.setShape(ellipse);
+                        region.setShape(rectangle);
                         region.setScaleShape(false);
                         region.setCenterShape(false);
                         region.setCacheShape(false);
@@ -142,11 +141,8 @@ public class TimetableChart<X, Y> extends XYChart<X, Y> {
     }
 
     public double getBlockWidth() {
-        return blockWidth;
-    }
-
-    public void setBlockWidth(double blockWidth) {
-        this.blockWidth = blockWidth;
+        double chartWidth = getXAxis().getWidth();
+        return chartWidth / ((CategoryAxis) getXAxis()).getCategories().size();
     }
 
     @Override
