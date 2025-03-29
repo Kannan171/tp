@@ -21,13 +21,10 @@ import syncsquad.teamsync.viewmodel.PersonListViewModel;
 public class TimetableController extends UiPart<Region> {
     private static final String FXML = "Timetable.fxml";
 
-    //TODO: make this sexy as f**k
-    private static final String[] COLORS = {};
-
     @FXML
     private VBox mainVBox;
 
-    //TODO: not implemented
+    //TODO: not implemented for meetings
     private LocalDateTime date;
     private TimetableChart<String, Number> timetable;
 
@@ -67,28 +64,30 @@ public class TimetableController extends UiPart<Region> {
 
             person.getModules().forEach(module -> {
                 String day = module.getDay().toString();
-                double startTime = module.getStartTime().toSecondOfDay() / 3600.0; // Convert to hours
-                double endTime = module.getEndTime().toSecondOfDay() / 3600.0; // Convert to hours
+                double startTime = module.getStartTime().toSecondOfDay() / 3600.0;
+                double endTime = module.getEndTime().toSecondOfDay() / 3600.0;
                 double duration = endTime - startTime;
                 personSeries.getData().add(new XYChart.Data<>(day, -startTime,
-                        new TimetableChart.ExtraData(duration, FXCollections.observableArrayList(Styles.ACCENT))));
+                        new TimetableChart.ExtraData(duration, FXCollections.observableArrayList(Styles.ACCENT),
+                                module.getModuleCode().toString(), person.getName().toString())));
             });
 
             timetable.getData().add(personSeries);
         });
 
         personListViewModel.personListProperty().addListener((observable, oldValue, newValue) -> {
-            timetable.getData().clear(); // Clear existing data
+            timetable.getData().clear();
             newValue.forEach(person -> {
                 XYChart.Series<String, Number> personSeries = new XYChart.Series<>();
 
                 person.getModules().forEach(module -> {
                     String day = module.getDay().toString();
-                    double startTime = module.getStartTime().toSecondOfDay() / 3600.0; // Convert to hours
-                    double endTime = module.getEndTime().toSecondOfDay() / 3600.0; // Convert to hours
+                    double startTime = module.getStartTime().toSecondOfDay() / 3600.0;
+                    double endTime = module.getEndTime().toSecondOfDay() / 3600.0;
                     double duration = endTime - startTime;
                     personSeries.getData().add(new XYChart.Data<>(day, -startTime,
-                            new TimetableChart.ExtraData(duration, FXCollections.observableArrayList(Styles.ACCENT))));
+                            new TimetableChart.ExtraData(duration, FXCollections.observableArrayList(Styles.ACCENT),
+                                    module.getModuleCode().toString(), person.getName().toString())));
                 });
 
                 timetable.getData().add(personSeries);
