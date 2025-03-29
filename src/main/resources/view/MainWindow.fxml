@@ -23,7 +23,7 @@
     <Scene stylesheets="@Root.css">
 
       <VBox fx:id="mainVBox">
-            <HBox alignment="CENTER_LEFT">
+            <HBox fx:id="titleBar" alignment="CENTER_LEFT">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -54,10 +54,19 @@
               </MenuBar>
                   <StackPane alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleExit" />
+                        <HBox alignment="CENTER_RIGHT" StackPane.alignment="CENTER_RIGHT">
+                           <children>
+                              <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#handleExit" />
+                              <Button fx:id="maximizeButton" mnemonicParsing="false" onAction="#handleExit" />
+                              <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleExit" />
+                           </children>
+                        </HBox>
                      </children>
                   </StackPane>
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
