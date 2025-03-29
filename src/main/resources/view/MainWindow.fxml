@@ -58,7 +58,7 @@
                         <HBox alignment="CENTER_RIGHT" StackPane.alignment="CENTER_RIGHT">
                            <children>
                               <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#handleExit" />
-                              <Button fx:id="maximizeButton" mnemonicParsing="false" onAction="#handleExit" />
+                              <Button fx:id="maximizeButton" mnemonicParsing="false" onAction="#handleExit" rotate="180.0" />
                               <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleExit" />
                            </children>
                         </HBox>
