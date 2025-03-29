@@ -2,13 +2,8 @@ package syncsquad.teamsync.controller;
 
 import java.util.HashSet;
 
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.material2.Material2MZ;
-
-import atlantafx.base.theme.Styles;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -44,13 +39,14 @@ public class PersonTreeViewController extends UiPart<Region> {
         super(FXML);
 
         personTreeView.setRoot(ROOT_TREE_ITEM);
-        personTreeView.rootProperty().get().setExpanded(true);
+        ROOT_TREE_ITEM.setExpanded(true);
 
         viewModel.personListProperty().forEach(person -> {
             TreeItem<Person> personItem = new TreeItem<>(person);
             personItem.getChildren().add(new TreeItem<>(person)); // Contact Info
             personItem.getChildren().add(new TreeItem<>(person)); // Modules
             ROOT_TREE_ITEM.getChildren().add(personItem);
+            personItem.setExpanded(true);
         });
 
         viewModel.personListProperty().addListener((ListChangeListener<Person>) change -> {
@@ -60,6 +56,7 @@ public class PersonTreeViewController extends UiPart<Region> {
                 personItem.getChildren().add(new TreeItem<>(person)); // Contact Info
                 personItem.getChildren().add(new TreeItem<>(person)); // Modules
                 ROOT_TREE_ITEM.getChildren().add(personItem);
+                personItem.setExpanded(true);
             });
         });
 
@@ -68,30 +65,39 @@ public class PersonTreeViewController extends UiPart<Region> {
 
     /**
      * Custom {@code TreeCell} implementation for displaying {@code Person} objects.
+     * DO NOT USE ATLANTAFX STYLES HERE. Learnt that the hard way.
      */
     private static class PersonTreeCell extends TreeCell<Person> {
         @Override
         protected void updateItem(Person person, boolean empty) {
+            //lines 74 to 78 must not be modified
             super.updateItem(person, empty);
-
             if (empty || person == null) {
                 setText(null);
                 setGraphic(null);
-            } else if (person == ROOT_DUMMY_PERSON) {
-                setText("People");
-                getStyleClass().add(Styles.TITLE_3);
-                FontIcon peopleIcon = new FontIcon(Material2MZ.PEOPLE);
-                setGraphic(peopleIcon);
-                setPadding(new Insets(5));
-            } else if (getTreeItem().getParent() == ROOT_TREE_ITEM) {
-                setGraphic(new PersonRootCardController(person,
-                    getTreeItem().getParent().getChildren().stream()
-                    .map(TreeItem::getValue).toList().indexOf(person) + 1).getRoot());
-            } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == ROOT_TREE_ITEM) {
-                if (getTreeItem().getParent().getChildren().indexOf(getTreeItem()) == 0) {
-                    setGraphic(new PersonInfoCardController(person).getRoot());
+                return;
+            }
+
+            if (getTreeItem() == null) {
+                setText(null);
+                setGraphic(null);
+                return;
+            }
+
+            if (person == ROOT_DUMMY_PERSON) {
+                setGraphic(new PersonDummyRootCardController().getRoot());
+            } else {
+                setText(null);
+                if (!getTreeItem().isLeaf()) {
+                    setGraphic(new PersonRootCardController(person,
+                            getTreeItem().getParent().getChildren().stream()
+                                    .map(TreeItem::getValue).toList().indexOf(person) + 1).getRoot());
                 } else {
-                    setGraphic(new PersonModulesCardController(person).getRoot());
+                    if (getTreeItem().getParent().getChildren().indexOf(getTreeItem()) == 0) {
+                        setGraphic(new PersonInfoCardController(person).getRoot());
+                    } else {
+                        setGraphic(new PersonModulesCardController(person).getRoot());
+                    }
                 }
             }
         }

@@ -6,9 +6,7 @@
 <?import javafx.scene.layout.Region?>
 
 <HBox id="cardPane" fx:id="cardPane" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-<Label fx:id="id">
-</Label>
-<Label fx:id="name" text="\$first">
+<Label fx:id="title" text="People">
       <HBox.margin>
          <Insets />
       </HBox.margin>
