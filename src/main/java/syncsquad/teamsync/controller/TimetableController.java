@@ -37,7 +37,6 @@ public class TimetableController extends UiPart<Region> {
     public TimetableController(PersonListViewModel personListViewModel, MeetingListViewModel meetingListViewModel) {
         super(FXML);
 
-        // Initialize the timetable chart
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.sideProperty().setValue(javafx.geometry.Side.TOP);
         xAxis.setCategories(FXCollections.observableArrayList(Day.VALID_DAYS));
@@ -60,11 +59,9 @@ public class TimetableController extends UiPart<Region> {
 
         timetable = new TimetableChart<>(xAxis, yAxis);
 
-        // Add the timetable chart to the main VBox
         mainVBox.getChildren().add(timetable);
         VBox.setVgrow(timetable, javafx.scene.layout.Priority.ALWAYS);
 
-        // Populate the timetable with data from the PersonListViewModel
         personListViewModel.personListProperty().forEach(person -> {
             XYChart.Series<String, Number> personSeries = new XYChart.Series<>();
 
@@ -78,6 +75,24 @@ public class TimetableController extends UiPart<Region> {
             });
 
             timetable.getData().add(personSeries);
+        });
+
+        personListViewModel.personListProperty().addListener((observable, oldValue, newValue) -> {
+            timetable.getData().clear(); // Clear existing data
+            newValue.forEach(person -> {
+                XYChart.Series<String, Number> personSeries = new XYChart.Series<>();
+
+                person.getModules().forEach(module -> {
+                    String day = module.getDay().toString();
+                    double startTime = module.getStartTime().toSecondOfDay() / 3600.0; // Convert to hours
+                    double endTime = module.getEndTime().toSecondOfDay() / 3600.0; // Convert to hours
+                    double duration = endTime - startTime;
+                    personSeries.getData().add(new XYChart.Data<>(day, -startTime,
+                            new TimetableChart.ExtraData(duration, FXCollections.observableArrayList(Styles.ACCENT))));
+                });
+
+                timetable.getData().add(personSeries);
+            });
         });
     }
 }
