@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalAddressBook.ALICE;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.JAN_MEETING;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
-import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
@@ -24,66 +23,66 @@ import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
-import syncsquad.teamsync.testutil.PersonBuilder;
+import syncsquad.teamsync.testutil.MeetingBuilder;
 
-public class AddPersonCommandTest {
+public class AddMeetingCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddPersonCommand(null));
+    public void constructor_nullMeeting_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddMeetingCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingMeetingAdded modelStub = new ModelStubAcceptingMeetingAdded();
+        Meeting validMeeting = new MeetingBuilder().build();
 
-        CommandResult commandResult = new AddPersonCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStub);
 
-        assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validMeeting), modelStub.meetingsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateMeeting_throwsCommandException() {
+        Meeting validMeeting = new MeetingBuilder().build();
+        AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validMeeting);
+        AddMeetingCommandTest.ModelStub modelStub = new AddMeetingCommandTest.ModelStubWithMeeting(validMeeting);
 
-        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () ->
-                addPersonCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
+                addMeetingCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddPersonCommand addAliceCommand = new AddPersonCommand(alice);
-        AddPersonCommand addBobCommand = new AddPersonCommand(bob);
+        Meeting aprilMeeting = new MeetingBuilder().withDate("01-04-2025").build();
+        Meeting mayMeeting = new MeetingBuilder().withDate("01-05-2025").build();
+        AddMeetingCommand addAprilMeetingCommand = new AddMeetingCommand(aprilMeeting);
+        AddMeetingCommand addMayMeetingCommand = new AddMeetingCommand(mayMeeting);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addAprilMeetingCommand.equals(addAprilMeetingCommand));
 
         // same values -> returns true
-        AddPersonCommand addAliceCommandCopy = new AddPersonCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddMeetingCommand addFirstAprilCommandCopy = new AddMeetingCommand(aprilMeeting);
+        assertTrue(addAprilMeetingCommand.equals(addFirstAprilCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addAprilMeetingCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAprilMeetingCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addAprilMeetingCommand.equals(addMayMeetingCommand));
     }
 
     @Test
     public void toStringMethod() {
-        AddPersonCommand addPersonCommand = new AddPersonCommand(ALICE);
-        String expected = AddPersonCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addPersonCommand.toString());
+        AddMeetingCommand addMeetingCommand = new AddMeetingCommand(JAN_MEETING);
+        String expected = AddMeetingCommand.class.getCanonicalName() + "{toAdd=" + JAN_MEETING + "}";
+        assertEquals(expected, addMeetingCommand.toString());
     }
 
     /**
@@ -183,39 +182,39 @@ public class AddPersonCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single meeting.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithMeeting extends AddMeetingCommandTest.ModelStub {
+        private final Meeting meeting;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            this.meeting = meeting;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            return this.meeting.equals(meeting);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the meeting being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingMeetingAdded extends AddMeetingCommandTest.ModelStub {
+        final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            return meetingsAdded.stream().anyMatch(meeting::equals);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            meetingsAdded.add(meeting);
         }
 
         @Override
@@ -223,5 +222,4 @@ public class AddPersonCommandTest {
             return new AddressBook();
         }
     }
-
 }

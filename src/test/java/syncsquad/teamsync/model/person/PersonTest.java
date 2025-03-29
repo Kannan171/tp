@@ -9,8 +9,8 @@ import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.ALICE;
-import static syncsquad.teamsync.testutil.TypicalPersons.BOB;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.ALICE;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.BOB;
 
 import org.junit.jupiter.api.Test;
 

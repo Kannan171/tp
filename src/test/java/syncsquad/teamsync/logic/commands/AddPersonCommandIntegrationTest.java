@@ -2,7 +2,7 @@ package syncsquad.teamsync.logic.commands;
 
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandFailure;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static syncsquad.teamsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

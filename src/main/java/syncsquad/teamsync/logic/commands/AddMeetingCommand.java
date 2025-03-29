@@ -2,6 +2,7 @@ package syncsquad.teamsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.meeting.Meeting;
@@ -18,7 +19,7 @@ public class AddMeetingCommand extends Command {
             + "Parameters: DATE START_TIME END_TIME\n"
             + "Example: " + COMMAND_WORD + " 15-11-2025 11:00 15:00";
 
-    public static final String MESSAGE_ADD_MEETING_SUCCESS = "Meeting added with the following details: %1$s";
+    public static final String MESSAGE_SUCCESS = "Meeting added with the following details: %1$s";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
 
     private final Meeting toAdd;
@@ -41,7 +42,7 @@ public class AddMeetingCommand extends Command {
         }
 
         model.addMeeting(toAdd);
-        return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
@@ -59,6 +60,13 @@ public class AddMeetingCommand extends Command {
         // state check
         AddMeetingCommand otherAddMeetingCommand = (AddMeetingCommand) other;
         return toAdd.equals(otherAddMeetingCommand.toAdd);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("toAdd", toAdd)
+                .toString();
     }
 
 }

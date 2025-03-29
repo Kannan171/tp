@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static syncsquad.teamsync.testutil.TypicalPersons.CARL;
-import static syncsquad.teamsync.testutil.TypicalPersons.ELLE;
-import static syncsquad.teamsync.testutil.TypicalPersons.FIONA;
-import static syncsquad.teamsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.CARL;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.ELLE;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.FIONA;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
