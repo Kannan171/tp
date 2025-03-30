@@ -6,7 +6,7 @@
 
 Package " "<<Rectangle>>{
     Class UI UI_COLOR
-    Class ViewModel UI_COLOR_T1
+    Class ViewModel VIEW_MODEL_COLOR
     Class Logic LOGIC_COLOR
     Class Storage STORAGE_COLOR
     Class Model MODEL_COLOR
