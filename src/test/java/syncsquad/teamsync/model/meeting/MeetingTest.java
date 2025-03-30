@@ -48,7 +48,7 @@ public class MeetingTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Meeting.class.getCanonicalName() + "{date=" +  JAN_MEETING.getDate()
+        String expected = Meeting.class.getCanonicalName() + "{date=" + JAN_MEETING.getDate()
                 + ", startTime=" + JAN_MEETING.getStartTime() + ", endTime=" + JAN_MEETING.getEndTime() + "}";
         assertEquals(expected, JAN_MEETING.toString());
     }
