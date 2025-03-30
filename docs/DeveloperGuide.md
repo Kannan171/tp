@@ -85,7 +85,7 @@ The `UI` component,
 
 ### ViewModel Component
 
-![Structure of the ViewModel Component](images/ViewModelDiagram.png)
+![Structure of the ViewModel Component](images/ViewModelClassDiagram.png)
 
 ### Logic component
 
