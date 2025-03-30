@@ -10,13 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.logic.Logic;
@@ -38,7 +38,7 @@ public class MainWindowController extends UiPart<Stage> {
     private MainViewModel viewModel;
 
     @FXML
-    private VBox mainVBox;
+    private SplitPane splitPane;
 
     @FXML
     private HBox titleBar;
@@ -193,6 +193,14 @@ public class MainWindowController extends UiPart<Stage> {
         CommandBoxController commandBox = new CommandBoxController(
             this.viewModel.getCommandBoxViewModel());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Needs to be called after stage is set, as dynamic layout will override
+     * any default divider position for the {@code SplitPane}.
+     */
+    void forceDividerPosition(GuiSettings guiSettings) {
+        splitPane.setDividerPositions(guiSettings.getDividerPosition());
     }
 
     /**

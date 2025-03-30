@@ -14,6 +14,7 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 720;
     private static final double DEFAULT_WIDTH = 1280;
+    private static final double DEFAULT_DIVIDER_POSITION = 0.5;
 
     private final double windowWidth;
     private final double windowHeight;
@@ -43,6 +44,10 @@ public class GuiSettings implements Serializable {
 
     public double getWindowHeight() {
         return windowHeight;
+    }
+
+    public double getDividerPosition() {
+        return DEFAULT_DIVIDER_POSITION;
     }
 
     public Point getWindowCoordinates() {

@@ -186,7 +186,7 @@ public class TimetableChart<X, Y> extends XYChart<X, Y> {
 
     public double getBlockWidth() {
         double chartWidth = getXAxis().getWidth();
-        return chartWidth / ((CategoryAxis) getXAxis()).getCategories().size();
+        return chartWidth / ((CategoryAxis) getXAxis()).getCategories().size() - 1;
     }
 
     @Override
