@@ -106,13 +106,35 @@ public class TypicalAddressBook {
     private TypicalAddressBook() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical persons and meetings.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        for (Meeting meeting : getTypicalMeetings()) {
+            ab.addMeeting(meeting);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the typical persons.
+     */
+    public static AddressBook getTypicalPersonsAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Person person : getTypicalPersons()) {
+            ab.addPerson(person);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the typical meetings.
+     */
+    public static AddressBook getTypicalMeetingsAddressBook() {
+        AddressBook ab = new AddressBook();
         for (Meeting meeting : getTypicalMeetings()) {
             ab.addMeeting(meeting);
         }
