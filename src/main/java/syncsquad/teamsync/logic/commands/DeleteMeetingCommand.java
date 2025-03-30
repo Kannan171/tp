@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import syncsquad.teamsync.commons.core.index.Index;
+import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
@@ -64,4 +65,10 @@ public class DeleteMeetingCommand extends Command {
         return targetIndex.equals(otherDeleteMeetingCommand.targetIndex);
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetIndex", targetIndex)
+                .toString();
+    }
 }

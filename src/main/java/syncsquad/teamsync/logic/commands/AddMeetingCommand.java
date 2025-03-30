@@ -2,6 +2,8 @@ package syncsquad.teamsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.ObservableList;
+import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.meeting.Meeting;
@@ -18,8 +20,9 @@ public class AddMeetingCommand extends Command {
             + "Parameters: DATE START_TIME END_TIME\n"
             + "Example: " + COMMAND_WORD + " 15-11-2025 11:00 15:00";
 
-    public static final String MESSAGE_ADD_MEETING_SUCCESS = "Meeting added with the following details: %1$s";
+    public static final String MESSAGE_SUCCESS = "Meeting added with the following details: %1$s";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
+    public static final String MESSAGE_OVERLAP_MEETING = "There is another meeting during this time period already. ";
 
     private final Meeting toAdd;
 
@@ -40,8 +43,22 @@ public class AddMeetingCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
 
+        ObservableList<Meeting> meetingList = model.getMeetingList();
+        // check for overlapping meetings
+        if (hasOverlap(meetingList)) {
+            throw new CommandException(MESSAGE_OVERLAP_MEETING);
+        }
+
         model.addMeeting(toAdd);
-        return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Checks if the meeting to be added overlaps with existing meetings
+     */
+    public boolean hasOverlap(ObservableList<Meeting> meetingList) {
+        requireNonNull(meetingList);
+        return meetingList.stream().anyMatch(toAdd::isOverlapping);
     }
 
     @Override
@@ -59,6 +76,13 @@ public class AddMeetingCommand extends Command {
         // state check
         AddMeetingCommand otherAddMeetingCommand = (AddMeetingCommand) other;
         return toAdd.equals(otherAddMeetingCommand.toAdd);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("toAdd", toAdd)
+                .toString();
     }
 
 }

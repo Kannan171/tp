@@ -1,7 +1,7 @@
 package syncsquad.teamsync.logic.commands;
 
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static syncsquad.teamsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

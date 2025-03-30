@@ -17,9 +17,9 @@ public class Meeting {
     public static final DateTimeFormatter DATE_TO_STRING_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static final DateTimeFormatter TIME_TO_STRING_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    public final LocalDate date;
-    public final LocalTime startTime;
-    public final LocalTime endTime;
+    private final LocalDate date;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
 
     /**
      * Creates a Meeting with the specified date, start time and end time.
@@ -51,6 +51,39 @@ public class Meeting {
      */
     public String getEndTimeString() {
         return endTime.format(TIME_TO_STRING_FORMATTER);
+    }
+
+    /**
+     * Returns the date of the meeting.
+     */
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    /**
+     * Returns the start time of the meeting.
+     */
+    public LocalTime getStartTime() {
+        return this.startTime;
+    }
+
+    /**
+     * Returns the end time of the meeting.
+     */
+    public LocalTime getEndTime() {
+        return this.endTime;
+    }
+
+    /**
+     * Returns true if both meetings overlap in terms of timing.
+     * Both start and end time are considered to be non-inclusive,
+     * i.e. endTime of 12pm and startTime of 12pm of another meeting is allowed.
+     */
+    public boolean isOverlapping(Meeting otherMeeting) {
+        boolean timeOverlap = this.getEndTime().isAfter(otherMeeting.getStartTime())
+                && this.getStartTime().isBefore(otherMeeting.getEndTime());
+        boolean dateOverlap = this.getDate().equals(otherMeeting.getDate());
+        return timeOverlap && dateOverlap;
     }
 
     @Override
