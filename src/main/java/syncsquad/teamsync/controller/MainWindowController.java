@@ -99,6 +99,7 @@ public class MainWindowController extends UiPart<Stage> {
 
         menuBar.getStyleClass().add(Styles.BG_ACCENT_SUBTLE);
 
+        //TODO: refactor to group buttons into one function
         FontIcon closeIcon = new FontIcon(Material2AL.CLOSE);
         closeButton.setGraphic(closeIcon);
         closeButton.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT, Styles.ACCENT);

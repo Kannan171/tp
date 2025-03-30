@@ -120,6 +120,7 @@ public class TimetableChart<X, Y> extends XYChart<X, Y> {
         return ((ExtraData) obj).getLength();
     }
 
+    //TODO: refactor
     @Override
     protected void layoutPlotChildren() {
         double blockWidth = getBlockWidth();
