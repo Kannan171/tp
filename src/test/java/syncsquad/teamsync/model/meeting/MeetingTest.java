@@ -48,8 +48,8 @@ public class MeetingTest {
 
     @Test
     public void toStringMethod() {
-        String expected = JAN_MEETING.getDateString() + " from " + JAN_MEETING.getStartTimeString()
-                + " to " + JAN_MEETING.getEndTimeString();
+        String expected = Meeting.class.getCanonicalName() + "{date=" +  JAN_MEETING.getDate()
+                + ", startTime=" + JAN_MEETING.getStartTime() + ", endTime=" + JAN_MEETING.getEndTime() + "}";
         assertEquals(expected, JAN_MEETING.toString());
     }
 }

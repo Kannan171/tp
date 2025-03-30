@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import syncsquad.teamsync.logic.parser.Prefix;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
 
 /**
@@ -51,6 +52,19 @@ public class Messages {
         builder.append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Formats the {@code meeting} for display to the user
+     */
+    public static String format(Meeting meeting) {
+        return new StringBuilder()
+                .append(meeting.getDate())
+                .append("; Start time: ")
+                .append(meeting.getStartTime())
+                .append("; End time: ")
+                .append(meeting.getEndTime())
+                .toString();
     }
 
 }
