@@ -3,9 +3,9 @@ package syncsquad.teamsync.model.meeting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_DATE_MAR_MEETING;
-import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_END_TIME_MAR_MEETING;
-import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_START_TIME_MAR_MEETING;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_DATE_SEP_MEETING;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_END_TIME_SEP_MEETING;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_START_TIME_SEP_MEETING;
 import static syncsquad.teamsync.testutil.TypicalAddressBook.FEB_MEETING;
 import static syncsquad.teamsync.testutil.TypicalAddressBook.JAN_MEETING;
 
@@ -34,15 +34,15 @@ public class MeetingTest {
         assertFalse(JAN_MEETING.equals(FEB_MEETING));
 
         // different date -> returns false
-        Meeting editedJanMeeting = new MeetingBuilder(JAN_MEETING).withDate(VALID_DATE_MAR_MEETING).build();
+        Meeting editedJanMeeting = new MeetingBuilder(JAN_MEETING).withDate(VALID_DATE_SEP_MEETING).build();
         assertFalse(JAN_MEETING.equals(editedJanMeeting));
 
         // different start time -> returns false
-        editedJanMeeting = new MeetingBuilder(JAN_MEETING).withStartTime(VALID_START_TIME_MAR_MEETING).build();
+        editedJanMeeting = new MeetingBuilder(JAN_MEETING).withStartTime(VALID_START_TIME_SEP_MEETING).build();
         assertFalse(JAN_MEETING.equals(editedJanMeeting));
 
         // different end time -> returns false
-        editedJanMeeting = new MeetingBuilder(JAN_MEETING).withEndTime(VALID_END_TIME_MAR_MEETING).build();
+        editedJanMeeting = new MeetingBuilder(JAN_MEETING).withEndTime(VALID_END_TIME_SEP_MEETING).build();
         assertFalse(JAN_MEETING.equals(editedJanMeeting));
     }
 

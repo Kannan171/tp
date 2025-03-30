@@ -2,15 +2,15 @@ package syncsquad.teamsync.testutil;
 
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_DATE_MAR_MEETING;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_DATE_SEP_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_END_TIME_MAR_MEETING;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_END_TIME_SEP_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_START_TIME_MAR_MEETING;
+import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_START_TIME_SEP_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -70,27 +70,38 @@ public class TypicalAddressBook {
             .withStartTime("3:00")
             .withEndTime("5:55")
             .build();
-    public static final Meeting JUN_MEETING = new MeetingBuilder().withDate("06-06-2025")
+    public static final Meeting MAR_MEETING = new MeetingBuilder().withDate("03-03-2025")
             .withStartTime("4:45")
             .withEndTime("10:59")
             .build();
-    public static final Meeting JUL_MEETING = new MeetingBuilder().withDate("07-07-2025")
+    public static final Meeting APR_MEETING = new MeetingBuilder().withDate("04-04-2025")
             .withStartTime("12:55")
             .withEndTime("16:00")
             .build();
-    public static final Meeting NOV_MEETING = new MeetingBuilder().withDate("11-11-2025")
+    public static final Meeting MAY_MEETING = new MeetingBuilder().withDate("05-05-2025")
             .withStartTime("18:00")
             .withEndTime("21:00")
             .build();
-    public static final Meeting DEC_MEETING = new MeetingBuilder().withDate("12-12-2025")
+    public static final Meeting JUN_MEETING = new MeetingBuilder().withDate("06-06-2025")
             .withStartTime("20:00")
             .withEndTime("23:59")
             .build();
 
+    // Manually added
+    public static final Meeting JUL_MEETING = new MeetingBuilder().withDate("07-07-2025")
+            .withStartTime("10:40")
+            .withEndTime("12:45")
+            .build();
+
+    public static final Meeting AUG_MEETING = new MeetingBuilder().withDate("08-08-2025")
+            .withStartTime("15:00")
+            .withEndTime("18:30")
+            .build();
+
     // Manually added - Meeting's details found in {@code CommandTestUtil}
-    public static final Meeting MAR_MEETING = new MeetingBuilder().withDate(VALID_DATE_MAR_MEETING)
-            .withStartTime(VALID_START_TIME_MAR_MEETING)
-            .withEndTime(VALID_END_TIME_MAR_MEETING).build();
+    public static final Meeting SEP_MEETING = new MeetingBuilder().withDate(VALID_DATE_SEP_MEETING)
+            .withStartTime(VALID_START_TIME_SEP_MEETING)
+            .withEndTime(VALID_END_TIME_SEP_MEETING).build();
 
     private TypicalAddressBook() {} // prevents instantiation
 
@@ -113,7 +124,7 @@ public class TypicalAddressBook {
     }
 
     public static List<Meeting> getTypicalMeetings() {
-        return new ArrayList<>(Arrays.asList(JAN_MEETING, FEB_MEETING, JUN_MEETING, JUL_MEETING,
-                NOV_MEETING, DEC_MEETING));
+        return new ArrayList<>(Arrays.asList(JAN_MEETING, FEB_MEETING, MAR_MEETING, APR_MEETING,
+                MAY_MEETING, JUN_MEETING));
     }
 }
