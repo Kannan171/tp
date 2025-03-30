@@ -2,6 +2,7 @@ package syncsquad.teamsync.controller;
 
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
+import org.kordamp.ikonli.material2.Material2MZ;
 
 import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
@@ -9,12 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.logic.Logic;
@@ -36,8 +38,10 @@ public class MainWindowController extends UiPart<Stage> {
     private MainViewModel viewModel;
 
     @FXML
-    private VBox mainVBox;
+    private SplitPane splitPane;
 
+    @FXML
+    private HBox titleBar;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -54,6 +58,9 @@ public class MainWindowController extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane timetablePlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -61,6 +68,12 @@ public class MainWindowController extends UiPart<Stage> {
 
     @FXML
     private Button closeButton;
+
+    @FXML
+    private Button minimizeButton;
+
+    @FXML
+    private Button maximizeButton;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -86,16 +99,36 @@ public class MainWindowController extends UiPart<Stage> {
 
         menuBar.getStyleClass().add(Styles.BG_ACCENT_SUBTLE);
 
+        //TODO: refactor to group buttons into one function
         FontIcon closeIcon = new FontIcon(Material2AL.CLOSE);
         closeButton.setGraphic(closeIcon);
         closeButton.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT, Styles.ACCENT);
 
-        this.mainVBox.setOnMousePressed((MouseEvent event) -> {
+        FontIcon minimizeIcon = new FontIcon(Material2MZ.MINIMIZE);
+        minimizeButton.setGraphic(minimizeIcon);
+        minimizeButton.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT, Styles.ACCENT);
+        minimizeButton.setOnAction(event -> primaryStage.setIconified(true));
+
+        FontIcon maximizeIcon = new FontIcon(Material2AL.CHECK_BOX_OUTLINE_BLANK);
+        FontIcon restoreIcon = new FontIcon(Material2AL.FILTER_NONE);
+        maximizeButton.setGraphic(maximizeIcon);
+        maximizeButton.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT, Styles.ACCENT);
+        maximizeButton.setOnAction(event -> {
+            if (primaryStage.isMaximized()) {
+                primaryStage.setMaximized(false);
+                maximizeButton.setGraphic(maximizeIcon);
+            } else {
+                primaryStage.setMaximized(true);
+                maximizeButton.setGraphic(restoreIcon);
+            }
+        });
+
+        this.titleBar.setOnMousePressed((MouseEvent event) -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
 
-        this.mainVBox.setOnMouseDragged((MouseEvent event) -> {
+        this.titleBar.setOnMouseDragged((MouseEvent event) -> {
             primaryStage.setX(event.getScreenX() - xOffset);
             primaryStage.setY(event.getScreenY() - yOffset);
         });
@@ -147,6 +180,10 @@ public class MainWindowController extends UiPart<Stage> {
             this.viewModel.getPersonListViewModel());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        TimetableController timetable = new TimetableController(
+                this.viewModel.getPersonListViewModel(), this.viewModel.getMeetingListViewModel());
+        timetablePlaceholder.getChildren().add(timetable.getRoot());
+
         ResultDisplayController resultDisplay = new ResultDisplayController(
             this.viewModel.getResultDisplayViewModel());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -157,6 +194,14 @@ public class MainWindowController extends UiPart<Stage> {
         CommandBoxController commandBox = new CommandBoxController(
             this.viewModel.getCommandBoxViewModel());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Needs to be called after stage is set, as dynamic layout will override
+     * any default divider position for the {@code SplitPane}.
+     */
+    void forceDividerPosition(GuiSettings guiSettings) {
+        splitPane.setDividerPositions(guiSettings.getDividerPosition());
     }
 
     /**
