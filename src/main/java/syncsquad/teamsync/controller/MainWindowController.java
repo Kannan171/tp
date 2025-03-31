@@ -124,7 +124,7 @@ public class MainWindowController extends UiPart<Stage> {
 
         FontIcon maximizeIcon = new FontIcon(Material2AL.CHECK_BOX_OUTLINE_BLANK);
         FontIcon restoreIcon = new FontIcon(Material2AL.FILTER_NONE);
-        maximizeButton.setGraphic(maximizeIcon);
+        maximizeButton.setGraphic(primaryStage.isMaximized() ? restoreIcon : maximizeIcon);
         maximizeButton.getStyleClass().addAll(Styles.BUTTON_ICON, Styles.FLAT, Styles.ACCENT);
         maximizeButton.setOnAction(event -> {
             if (primaryStage.isMaximized()) {
