@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import syncsquad.teamsync.commons.exceptions.IllegalValueException;
 import syncsquad.teamsync.logic.parser.ParserUtil;
+import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
@@ -15,7 +16,12 @@ import syncsquad.teamsync.model.meeting.Meeting;
  */
 class JsonAdaptedMeeting {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Meeting's %s field is missing!";
+
+    /** Field names used in missing field error message */
+    public static final String DATE_FIELD = "Date";
+    public static final String START_TIME_FIELD = "StartTime";
+    public static final String END_TIME_FIELD = "EndTime";
 
     private final String date;
     private final String startTime;
@@ -47,11 +53,24 @@ class JsonAdaptedMeeting {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Meeting toModelType() throws IllegalValueException {
-        final LocalDate date = ParserUtil.parseDate(this.date);
-        final LocalTime startTime = ParserUtil.parseTime(this.startTime);
-        final LocalTime endTime = ParserUtil.parseTime(this.endTime);
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DATE_FIELD));
+        }
+        if (startTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, START_TIME_FIELD));
+        }
+        if (endTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, END_TIME_FIELD));
+        }
 
-        return new Meeting(date, startTime, endTime);
+        try {
+            final LocalDate date = ParserUtil.parseDate(this.date);
+            final LocalTime startTime = ParserUtil.parseTime(this.startTime);
+            final LocalTime endTime = ParserUtil.parseTime(this.endTime);
+            return new Meeting(date, startTime, endTime);
+        } catch (ParseException e) {
+            throw new IllegalValueException(Meeting.MESSAGE_CONSTRAINTS);
+        }
     }
 
 }

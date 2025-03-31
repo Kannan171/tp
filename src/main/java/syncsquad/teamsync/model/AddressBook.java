@@ -119,6 +119,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a meeting with the same date as {@code meeting} and overlapping time range
+     * exists in the address book.
+     */
+    public boolean hasOverlappingMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return meetings.hasOverlap(meeting);
+    }
+
+    /**
      * Adds a meeting to the address book.
      * The meeting must not already exist in the meeting book.
      */
@@ -165,7 +174,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons) && meetings.equals(otherAddressBook.meetings);
     }
 
     @Override

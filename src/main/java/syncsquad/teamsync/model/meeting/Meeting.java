@@ -5,6 +5,9 @@ import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+
+import syncsquad.teamsync.commons.util.ToStringBuilder;
 
 /**
  * Represents a Meeting in the address book.
@@ -87,11 +90,6 @@ public class Meeting {
     }
 
     @Override
-    public String toString() {
-        return getDateString() + " from " + getStartTimeString() + " to " + getEndTimeString();
-    }
-
-    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -109,7 +107,16 @@ public class Meeting {
 
     @Override
     public int hashCode() {
-        return date.hashCode() ^ startTime.hashCode() ^ endTime.hashCode();
+        return Objects.hash(date, startTime, endTime);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("date", date)
+                .add("startTime", startTime)
+                .add("endTime", endTime)
+                .toString();
     }
 
 }
