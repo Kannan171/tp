@@ -21,8 +21,6 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
         try {
             args = args.trim();
             String[] params = args.split(" ");
-            System.out.println(params[0]);
-            System.out.println(params[1]);
             Index index = ParserUtil.parseIndex(params[0]);
             ModuleCode moduleCode = ParserUtil.parseModuleCode(params[1]);
             return new DeleteModuleCommand(index, moduleCode);

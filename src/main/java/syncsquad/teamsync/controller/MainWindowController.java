@@ -1,5 +1,8 @@
 package syncsquad.teamsync.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.kordamp.ikonli.material2.Material2MZ;
@@ -8,6 +11,7 @@ import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -75,6 +79,9 @@ public class MainWindowController extends UiPart<Stage> {
     @FXML
     private Button maximizeButton;
 
+    @FXML
+    private Label currentWeekLabel;
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -96,6 +103,12 @@ public class MainWindowController extends UiPart<Stage> {
 
         this.viewModel.getIsShowingHelpProperty().addListener((unused1) -> handleHelp());
         this.viewModel.getIsExiting().addListener((unused1) -> handleExit());
+
+        // TODO: If we are adding `nextWeek` or `previousWeek` actions
+        //  we should create a currentWeekController to handle the logic
+        this.viewModel.getCurrentWeekViewModel().currentWeekProperty()
+            .addListener((unused1, oldValue, newValue) -> updateCurrentWeekLabel(newValue));
+        updateCurrentWeekLabel(this.viewModel.getCurrentWeekViewModel().currentWeekProperty().get());
 
         menuBar.getStyleClass().add(Styles.BG_ACCENT_SUBTLE);
 
@@ -194,6 +207,18 @@ public class MainWindowController extends UiPart<Stage> {
         CommandBoxController commandBox = new CommandBoxController(
             this.viewModel.getCommandBoxViewModel());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Updates the current week label with the current week's date range.
+     */
+    private void updateCurrentWeekLabel(LocalDate startOfWeek) {
+        LocalDate endOfWeek = startOfWeek.plusDays(6);
+        String dateFormat = "MMM d";
+        String weekRange = String.format("%s - %s",
+            startOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)),
+            endOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)));
+        currentWeekLabel.setText("Current Week: " + weekRange);
     }
 
     /**

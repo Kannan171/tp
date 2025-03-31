@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.model.meeting.Meeting;
@@ -19,12 +20,14 @@ import syncsquad.teamsync.model.meeting.Meeting;
  */
 public class MeetingListViewModelTest {
     private ObservableList<Meeting> meetingList;
+    private SimpleObjectProperty<LocalDate> currentWeek;
     private MeetingListViewModel viewModel;
 
     @BeforeEach
     public void setUp() {
         meetingList = FXCollections.observableArrayList();
-        viewModel = new MeetingListViewModel(meetingList);
+        currentWeek = new SimpleObjectProperty<>(LocalDate.now());
+        viewModel = new MeetingListViewModel(meetingList, currentWeek);
     }
 
     @Test
@@ -54,9 +57,27 @@ public class MeetingListViewModelTest {
     }
 
     @Test
+    public void currentWeekProperty_modified_reflectsChanges() {
+        // Update the current week
+        LocalDate newWeek = LocalDate.now().plusDays(7);
+        currentWeek.set(newWeek);
+
+        // Verify the property reflects the change
+        assertEquals(newWeek, viewModel.currentWeekProperty().get(),
+                "Current week property should reflect updated week");
+    }
+
+    @Test
     public void meetingListProperty_returnsReadOnlyProperty() {
         // Verify that the property is read-only
         assertTrue(viewModel.meetingListProperty() instanceof javafx.beans.property.ReadOnlyListProperty,
                 "Meeting list property should be read-only");
+    }
+
+    @Test
+    public void currentWeekProperty_returnsReadOnlyProperty() {
+        // Verify that the property is read-only
+        assertTrue(viewModel.currentWeekProperty() instanceof javafx.beans.property.ReadOnlyObjectProperty,
+                "Current week property should be read-only");
     }
 }
