@@ -31,7 +31,8 @@ public class DeleteMeetingCommandTest {
         Meeting meetingToDelete = model.getMeetingList().get(INDEX_FIRST.getZeroBased());
         DeleteMeetingCommand deleteMeetingCommand = new DeleteMeetingCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteMeetingCommand.MESSAGE_DELETE_MEETING_SUCCESS, meetingToDelete);
+        String expectedMessage = String.format(DeleteMeetingCommand.MESSAGE_DELETE_MEETING_SUCCESS,
+                Messages.format(meetingToDelete));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteMeeting(meetingToDelete);

@@ -35,6 +35,14 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     }
 
     /**
+     * Returns true if the list contains a meeting that overlaps with the given argument.
+     */
+    public boolean hasOverlap(Meeting toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isOverlapping);
+    }
+
+    /**
      * Adds a meeting to the list.
      * The meeting must not already exist in the list.
      */
