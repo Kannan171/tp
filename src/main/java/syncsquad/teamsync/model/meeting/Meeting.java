@@ -35,6 +35,27 @@ public class Meeting {
         this.endTime = endTime;
     }
 
+    public String getDay() {
+        switch (date.getDayOfWeek()) {
+        case MONDAY:
+            return "MON";
+        case TUESDAY:
+            return "TUE";
+        case WEDNESDAY:
+            return "WED";
+        case THURSDAY:
+            return "THU";
+        case FRIDAY:
+            return "FRI";
+        case SATURDAY:
+            return "SAT";
+        case SUNDAY:
+            return "SUN";
+        default:
+            return "MON";
+        }
+    }
+
     /**
      * Returns a string representation of the date of the meeting.
      */
