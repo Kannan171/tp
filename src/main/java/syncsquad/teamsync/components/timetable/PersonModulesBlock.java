@@ -128,6 +128,8 @@ public final class PersonModulesBlock implements TimetableDisplayable {
 
             // The second part of the dirty trick to invert yAxis
             y += rectangle.getHeight() / 2.0;
+            // This puts the rectangle in the middle of the gridlines
+            x += rectangle.getWidth() / 2.0 + 1;
 
             rectangle.getStyleClass().addAll(styledModule.styleClass);
             Color color = COLORS[(styledModule.personName.hashCode() & 0x7fffffff) % COLORS.length];
