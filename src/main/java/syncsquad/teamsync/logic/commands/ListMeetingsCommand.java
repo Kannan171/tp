@@ -17,10 +17,7 @@ public class ListMeetingsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String meetings = "";
-        for (Meeting item : model.getMeetingList()) {
-            meetings += item.toString() + "\n";
-        }
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + meetings);
+        String meetingsDisplay = String.join("\n", MESSAGE_SUCCESS, model.displayMeetingsString());
+        return new CommandResult(meetingsDisplay);
     }
 }

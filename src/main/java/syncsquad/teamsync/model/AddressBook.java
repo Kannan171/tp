@@ -143,6 +143,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         meetings.remove(key);
     }
 
+    /**
+     * Returns the meetings list as a string formatted for display to the user
+     */
+    public String displayMeetingsString() {
+        return meetings.toDisplayString();
+    }
     //// util methods
 
     @Override

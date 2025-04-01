@@ -5,9 +5,13 @@ import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.model.meeting.exceptions.DuplicateMeetingException;
 import syncsquad.teamsync.model.meeting.exceptions.MeetingNotFoundException;
 
@@ -108,6 +112,24 @@ public class UniqueMeetingList implements Iterable<Meeting> {
 
         UniqueMeetingList otherUniqueMeetingList = (UniqueMeetingList) other;
         return internalList.equals(otherUniqueMeetingList.internalList);
+    }
+
+    /**
+     * Returns the meetings list as a string formatted for display to the user
+     */
+    public String toDisplayString() {
+        // Iterator which contains the indices formatted for display to the user
+        Iterator<String> indicesIterator = IntStream.range(1, internalList.size() + 1)
+                .mapToObj(i -> i + ". ")
+                .iterator();
+        // Iterator which contains the meetings formatted for display to the user
+        Iterator<String> meetingsIterator = internalList.stream()
+                .map(Messages::format)
+                .iterator();
+
+        return IntStream.range(0, internalList.size())
+                .mapToObj(i -> indicesIterator.next() + meetingsIterator.next())
+                .collect(Collectors.joining("\n"));
     }
 
     @Override
