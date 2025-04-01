@@ -1,15 +1,12 @@
 package syncsquad.teamsync.components.timetable;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.chart.Axis;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -27,7 +24,6 @@ import syncsquad.teamsync.model.module.Day;
 public class TimetableChart extends XYChart<String, Number> {
     private ObservableList<PersonModulesBlock> personModulesBlocks = FXCollections.observableArrayList();
     private ObservableList<MeetingBlock> meetingBlocks = FXCollections.observableArrayList();
-
     /**
      * Constructs a {@code TimetableChart} with the specified data.
      * @param personModulesBlocks
@@ -41,6 +37,22 @@ public class TimetableChart extends XYChart<String, Number> {
             new NumberAxis(-24, 0, 1) // Time axis from 0000 to 2400
         );
         getXAxis().sideProperty().setValue(javafx.geometry.Side.TOP);
+
+        // Dirty trick to make the gridlines timetable-like
+        CategoryAxis xAxis = (CategoryAxis) getXAxis();
+        xAxis.getCategories().add("");
+        xAxis.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double displacement = newValue.doubleValue() / (xAxis.getCategories().size() * 2);
+            xAxis.translateXProperty().set(displacement);
+        });
+        xAxis.setTickMarkVisible(false);
+
+        // Doesn't necessarily work as intended, will need further testing. Still, minor aesthetic issue
+        Node chartBackground = lookup(".chart-plot-background");
+        chartBackground.setStyle(
+                "-fx-border-color: #9580ff; -fx-border-width: 1 0 0 1;");
+
+        setHorizontalGridLinesVisible(false);
 
         // Dirty trick to invert axis: set them to negative values, then get the Formatter to
         // strip the negative sign.
@@ -58,6 +70,7 @@ public class TimetableChart extends XYChart<String, Number> {
             }
         });
 
+
         setData(FXCollections.observableArrayList());
 
         this.personModulesBlocks = personModulesBlocks;
@@ -71,7 +84,12 @@ public class TimetableChart extends XYChart<String, Number> {
         meetingBlocks.addListener((ListChangeListener<MeetingBlock>) change -> {
             loadData();
         });
+
+        yAxis.toBack();
+        xAxis.toBack();
     }
+
+    // Removed the incorrect method definition for BorderWidths
 
     public void loadPersonModulesBlocks(Collection<PersonModulesBlock> personModulesBlocks) {
         this.personModulesBlocks.setAll(personModulesBlocks);
@@ -103,7 +121,7 @@ public class TimetableChart extends XYChart<String, Number> {
 
     public double getBlockWidth() {
         double chartWidth = getXAxis().getWidth();
-        return chartWidth / ((CategoryAxis) getXAxis()).getCategories().size() - 1;
+        return chartWidth / ((CategoryAxis) getXAxis()).getCategories().size() - 2;
     }
 
     @Override
@@ -154,20 +172,5 @@ public class TimetableChart extends XYChart<String, Number> {
 
     @Override
     protected void updateAxisRange() {
-        final Axis<Number> ya = getYAxis();
-        List<Number> yData = null;
-
-        if (ya.isAutoRanging()) {
-            yData = new ArrayList<>();
-        }
-
-        if (yData != null) {
-            for (Series<String, Number> series : getData()) {
-                for (Data<String, Number> data : series.getData()) {
-                    yData.add(data.getYValue());
-                }
-            }
-            ya.invalidateRange(yData);
-        }
     }
 }

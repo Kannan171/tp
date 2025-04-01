@@ -113,6 +113,7 @@ public class PersonTreeViewController extends UiPart<Region> {
                 personRootItem.getChildren().add(personInfoItem);
                 personRootItem.getChildren().add(personModulesItem);
                 ROOT_TREE_ITEM.getChildren().add(personRootItem);
+                personRootItem.setExpanded(true);
             });
         });
 
