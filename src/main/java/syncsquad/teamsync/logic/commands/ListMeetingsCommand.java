@@ -3,7 +3,6 @@ package syncsquad.teamsync.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import syncsquad.teamsync.model.Model;
-import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * Lists all meetings in the address book to the user.
