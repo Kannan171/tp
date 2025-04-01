@@ -63,10 +63,15 @@ public class AddModuleCommandTest {
                 .withDay("FRI").withStartTime("14:00")
                 .withEndTime("16:00").build();
         Person dummyPerson = new PersonBuilder().build();
+        Person dummyPerson2 = new PersonBuilder().withName("Buddy").build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPerson);
-        CommandResult commandResult = new AddModuleCommand(Index.fromOneBased(1), validModule).execute(modelStub);
+        modelStub.addPerson(dummyPerson2);
 
-        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
+        CommandResult commandResult = new AddModuleCommand(Index.fromOneBased(2), validModule).execute(modelStub);
+
+        Person dummyPersonWithModule = new PersonBuilder().withName("Buddy")
+                .withModules("CS2103T FRI 14:00 16:00").build();
+
         assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, Messages.format(dummyPersonWithModule)),
                 commandResult.getFeedbackToUser());
     }
@@ -76,113 +81,123 @@ public class AddModuleCommandTest {
      */
     @Test
     public void execute_duplicateModule_throwsCommandException() {
-        Module validModule = new ModuleBuilder().withModuleCode("CS2103T")
+        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
+        Module duplicateModule = new ModuleBuilder().withModuleCode("CS2103T")
                 .withDay("FRI").withStartTime("14:00")
                 .withEndTime("16:00").build();
-        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
+        Module duplicateModule2 = new ModuleBuilder().withModuleCode("CS2103T")
+                .withDay("THU").withStartTime("11:00")
+                .withEndTime("13:00").build();
+
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPersonWithModule);
-        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), validModule);
+        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), duplicateModule);
+        AddModuleCommand addModuleCommand2 = new AddModuleCommand(Index.fromOneBased(1), duplicateModule2);
 
         assertThrows(CommandException.class,
                 AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () -> {
                     addModuleCommand.execute(modelStub);
                 });
+        assertThrows(CommandException.class,
+                AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () -> {
+                    addModuleCommand2.execute(modelStub);
+                });
     }
 
-    // TODO edit
     /*
-     * Tests for a situation where second meeting's start time overlaps with
-     * an existing meeting.
+     * Tests for a situation where second module's start time overlaps with
+     * an existing module.
      */
     @Test
     public void execute_overlapStartTime_throwsCommandException() {
-        Module validModule = new ModuleBuilder().withModuleCode("CS2103T")
-                .withDay("FRI").withStartTime("14:00")
-                .withEndTime("16:00").build();
+        Module invalidModule = new ModuleBuilder().withModuleCode("CS2101")
+                .withDay("FRI").withStartTime("15:00")
+                .withEndTime("17:00").build();
+
         Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPersonWithModule);
-        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), validModule);
+        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), invalidModule);
 
         assertThrows(CommandException.class,
-                AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () -> {
+                AddModuleCommand.MESSAGE_OVERLAP_MODULE, () -> {
                     addModuleCommand.execute(modelStub);
                 });
     }
 
     /*
-     * Tests for a situation where second meeting's end time overlaps with
-     * an existing meeting.
+     * Tests for a situation where second module's end time overlaps with
+     * an existing module.
      */
     @Test
     public void execute_overlapEndTime_throwsCommandException() {
-        Module validModule = new ModuleBuilder().withModuleCode("CS2103T")
-                .withDay("FRI").withStartTime("14:00")
-                .withEndTime("16:00").build();
-        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
+        Module invalidModule = new ModuleBuilder().withModuleCode("CS2101")
+                .withDay("FRI").withStartTime("11:00")
+                .withEndTime("14:00").build();
+        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 13:00 16:00").build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPersonWithModule);
-        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), validModule);
+        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), invalidModule);
 
         assertThrows(CommandException.class,
-                AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () -> {
+                AddModuleCommand.MESSAGE_OVERLAP_MODULE, () -> {
                     addModuleCommand.execute(modelStub);
                 });
     }
 
     /*
-     * Tests for a situation where an existing meeting is entirely within the
-     * second
-     * meeting.
+     * Tests for a situation where an existing module is entirely within the
+     * second module.
      */
     @Test
     public void execute_overlapOutsideTime_throwsCommandException() {
-        Module validModule = new ModuleBuilder().withModuleCode("CS2103T")
-                .withDay("FRI").withStartTime("14:00")
-                .withEndTime("16:00").build();
+        Module invalidModule = new ModuleBuilder().withModuleCode("CS2101")
+                .withDay("FRI").withStartTime("11:00")
+                .withEndTime("17:00").build();
         Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPersonWithModule);
-        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), validModule);
+        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), invalidModule);
 
         assertThrows(CommandException.class,
-                AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () -> {
+                AddModuleCommand.MESSAGE_OVERLAP_MODULE, () -> {
                     addModuleCommand.execute(modelStub);
                 });
     }
 
     /*
-     * Tests for a situation where second meeting is entirely outside an existing
-     * meeting.
+     * Tests for a situation where second module is entirely outside an existing
+     * module.
      */
     @Test
     public void execute_overlapWithinTime_throwsCommandException() {
-        Module validModule = new ModuleBuilder().withModuleCode("CS2103T")
+        Module invalidModule = new ModuleBuilder().withModuleCode("CS2101")
                 .withDay("FRI").withStartTime("14:00")
-                .withEndTime("16:00").build();
-        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
+                .withEndTime("15:00").build();
+        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 12:00 16:00").build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPersonWithModule);
-        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), validModule);
+        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), invalidModule);
 
         assertThrows(CommandException.class,
-                AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () -> {
+                AddModuleCommand.MESSAGE_OVERLAP_MODULE, () -> {
                     addModuleCommand.execute(modelStub);
                 });
     }
 
     /*
-     * Tests for a situation where the timings overlap, but on different dates.
+     * Tests for a situation where the module timings overlap, but on different
+     * dates.
      */
     @Test
-    public void execute_overlapTimeDifferentDate() throws Exception {
-        Module validModule = new ModuleBuilder().withModuleCode("CS2103T")
-                .withDay("FRI").withStartTime("14:00")
+    public void execute_overlapTimeDifferentDate_addSuccessful() throws Exception {
+        Module validModule = new ModuleBuilder().withModuleCode("CS2101")
+                .withDay("THU").withStartTime("14:00")
                 .withEndTime("16:00").build();
         Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPersonWithModule);
-        AddModuleCommand addModuleCommand = new AddModuleCommand(Index.fromOneBased(1), validModule);
+        CommandResult commandResult = new AddModuleCommand(Index.fromOneBased(1), validModule).execute(modelStub);
 
-        assertThrows(CommandException.class,
-                AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () -> {
-                    addModuleCommand.execute(modelStub);
-                });
+        Person dummyPersonWith2Modules = new PersonBuilder()
+                .withModules("CS2103T FRI 14:00 16:00", "CS2101 THU 14:00 16:00").build();
+
+        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, Messages.format(dummyPersonWith2Modules)),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -332,6 +347,11 @@ public class AddModuleCommandTest {
         private final UniquePersonList persons = new UniquePersonList();
 
         ModelStubWithPerson(Person person) {
+            persons.add(person);
+        }
+
+        @Override
+        public void addPerson(Person person) {
             persons.add(person);
         }
 

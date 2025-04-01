@@ -142,7 +142,7 @@ public class AddMeetingCommandTest {
      * Tests for a situation where the timings overlap, but on different dates.
      */
     @Test
-    public void execute_overlapTimeDifferentDate() throws Exception {
+    public void execute_overlapTimeDifferentDate_addSuccessful() throws Exception {
         Meeting existingMeeting = new MeetingBuilder().withDate("01-01-2025")
                 .withStartTime("10:00").withEndTime("14:00").build();
         Meeting addedMeeting = new MeetingBuilder().withDate("02-01-2025")

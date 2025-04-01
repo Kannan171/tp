@@ -54,21 +54,35 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_INDEX_CS2103T_MODULE = "1";
+    public static final String VALID_MODULE_CODE_CS2103T_MODULE = "CS2103T";
+    public static final String VALID_DAY_CS2103T_MODULE = "FRI";
+    public static final String VALID_START_TIME_CS2103T_MODULE = "14:00";
+    public static final String VALID_END_TIME_CS2103T_MODULE = "16:00";
+
+    public static final String INDEX_DESC_CS2103T_MODULE = " " + VALID_INDEX_CS2103T_MODULE;
+    public static final String MODULE_CODE_DESC_CS2103T_MODULE = " " + VALID_MODULE_CODE_CS2103T_MODULE;
+    public static final String DAY_DESC_CS2103T_MODULE = " " + VALID_DAY_CS2103T_MODULE;
+    public static final String START_TIME_DESC_CS2103T_MODULE = " " + VALID_START_TIME_CS2103T_MODULE;
+    public static final String END_TIME_DESC_CS2103T_MODULE = " " + VALID_END_TIME_CS2103T_MODULE;
+
+    public static final String INVALID_INDEX_DESC_CS2103T_MODULE = " " + "first";
+    public static final String INVALID_MODULE_CODE_DESC_CS2103T_MODULE = " " + "notamodulecode";
+    public static final String INVALID_SAME_START_END_TIME_DESC_CS2103T_MODULE = " " + VALID_START_TIME_CS2103T_MODULE;
+    public static final String INVALID_START_TIME_DESC_CS2103T_MODULE = " " + VALID_END_TIME_CS2103T_MODULE;
+    public static final String INVALID_END_TIME_DESC_CS2103T_MODULE = " " + VALID_START_TIME_CS2103T_MODULE;
+
     public static final String VALID_DATE_SEP_MEETING = "09-09-2025";
     public static final String VALID_START_TIME_SEP_MEETING = "16:00";
     public static final String VALID_END_TIME_SEP_MEETING = "19:23";
-
-    public static final String SAME_START_END_TIME_SEP_MEETING = "16:00";
-    public static final String INVALID_START_TIME_SEP_MEETING = "16:00";
-    public static final String INVALID_END_TIME_SEP_MEETING = "14:00";
 
     public static final String DATE_DESC_SEP_MEETING = " " + VALID_DATE_SEP_MEETING;
     public static final String START_TIME_DESC_SEP_MEETING = " " + VALID_START_TIME_SEP_MEETING;
     public static final String END_TIME_DESC_SEP_MEETING = " " + VALID_END_TIME_SEP_MEETING;
 
-    public static final String INVALID_SAME_START_END_TIME_DESC_SEP_MEETING = " " + SAME_START_END_TIME_SEP_MEETING;
-    public static final String INVALID_START_TIME_DESC_SEP_MEETING = " " + INVALID_START_TIME_SEP_MEETING;
-    public static final String INVALID_END_TIME_DESC_SEP_MEETING = " " + INVALID_END_TIME_SEP_MEETING;
+    public static final String INVALID_SAME_START_END_TIME_DESC_SEP_MEETING = " " + VALID_START_TIME_SEP_MEETING;
+    public static final String INVALID_START_TIME_DESC_SEP_MEETING = " " + VALID_END_TIME_SEP_MEETING;
+    public static final String INVALID_END_TIME_DESC_SEP_MEETING = " " + VALID_END_TIME_SEP_MEETING;
 
     /* date must be in dd-mm-yyyy format; yyyy is optional */
     public static final String INVALID_DATE_DESC = " " + "tomorrow";
