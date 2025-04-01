@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import syncsquad.teamsync.model.person.exceptions.DuplicatePersonException;
 import syncsquad.teamsync.model.person.exceptions.PersonNotFoundException;
 import syncsquad.teamsync.testutil.PersonBuilder;
@@ -164,8 +165,38 @@ public class UniquePersonListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-            -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> {
+            uniquePersonList.asUnmodifiableObservableList().remove(0);
+        });
+    }
+
+    @Test
+    public void hashCodeMethod() {
+        UniquePersonList uniquePersonList = new UniquePersonList();
+        assertEquals(FXCollections.observableArrayList().hashCode(), uniquePersonList.hashCode());
+    }
+
+    @Test
+    public void equalsMethod() {
+        UniquePersonList uniquePersonList = new UniquePersonList();
+        UniquePersonList uniquePersonList2 = new UniquePersonList();
+        Person person = new PersonBuilder().build();
+        uniquePersonList2.add(person);
+
+        // same values -> returns true
+        assertTrue(uniquePersonList.equals(new UniquePersonList()));
+
+        // same object -> returns true
+        assertTrue(uniquePersonList.equals(uniquePersonList));
+
+        // null -> returns false
+        assertFalse(uniquePersonList.equals(null));
+
+        // different type -> returns false
+        assertFalse(uniquePersonList.equals(5));
+
+        // different list -> returns false
+        assertFalse(uniquePersonList.equals(uniquePersonList2));
     }
 
     @Test

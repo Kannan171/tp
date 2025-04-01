@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.model.meeting.exceptions.DuplicateMeetingException;
 import syncsquad.teamsync.model.meeting.exceptions.MeetingNotFoundException;
+import syncsquad.teamsync.testutil.MeetingBuilder;
 
 public class UniqueMeetingListTest {
 
@@ -102,12 +103,35 @@ public class UniqueMeetingListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueMeetingList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> {
+            uniqueMeetingList.asUnmodifiableObservableList().remove(0);
+        });
     }
 
     @Test
     public void toStringMethod() {
         assertEquals(uniqueMeetingList.asUnmodifiableObservableList().toString(), uniqueMeetingList.toString());
+    }
+
+    @Test
+    public void equalsMethod() {
+        // same values -> returns true
+        UniqueMeetingList uniqueMeetingList = new UniqueMeetingList();
+        Meeting meeting = new MeetingBuilder().build();
+        UniqueMeetingList uniqueMeetingList2 = new UniqueMeetingList();
+        uniqueMeetingList2.add(meeting);
+        assertTrue(uniqueMeetingList.equals(new UniqueMeetingList()));
+
+        // same object -> returns true
+        assertTrue(uniqueMeetingList.equals(uniqueMeetingList));
+
+        // null -> returns false
+        assertFalse(uniqueMeetingList.equals(null));
+
+        // different type -> returns false
+        assertFalse(uniqueMeetingList.equals(5));
+
+        // different values -> returns false
+        assertFalse(JAN_MEETING.equals(uniqueMeetingList2));
     }
 }

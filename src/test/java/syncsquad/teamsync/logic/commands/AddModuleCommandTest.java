@@ -104,6 +104,26 @@ public class AddModuleCommandTest {
     }
 
     /*
+     * Tests for invalid index.
+     */
+    @Test
+    public void execute_invalidIndex_throwsCommandException() {
+        Person dummyPersonWithModule = new PersonBuilder().withModules("CS2103T FRI 14:00 16:00").build();
+        Module validModule = new ModuleBuilder().withModuleCode("CS2103T")
+                .withDay("FRI").withStartTime("14:00")
+                .withEndTime("16:00").build();
+        Index invalidOutOfBoundsIndex = Index.fromOneBased(2);
+
+        ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPersonWithModule);
+        AddModuleCommand addModuleCommand = new AddModuleCommand(invalidOutOfBoundsIndex, validModule);
+
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, () -> {
+                    addModuleCommand.execute(modelStub);
+                });
+    }
+
+    /*
      * Tests for a situation where second module's start time overlaps with
      * an existing module.
      */
@@ -203,12 +223,13 @@ public class AddModuleCommandTest {
     @Test
     public void equals() {
         Index index = Index.fromOneBased(1);
+        Index index2 = Index.fromOneBased(2);
         Module friModule = new ModuleBuilder().withDay("FRI").build();
         Module thuModule = new ModuleBuilder().withDay("THU").build();
         Module cs2103tModule = new ModuleBuilder().withModuleCode("CS2103T").build();
         Module cs2101Module = new ModuleBuilder().withModuleCode("CS2101").build();
         AddModuleCommand addFriModuleCommand = new AddModuleCommand(index, friModule);
-        AddModuleCommand addThuModuleCommand = new AddModuleCommand(index, thuModule);
+        AddModuleCommand addThuModuleCommand = new AddModuleCommand(index2, thuModule);
         AddModuleCommand addCs2103tModuleCommand = new AddModuleCommand(index, cs2103tModule);
         AddModuleCommand addCs2101ModuleCommand = new AddModuleCommand(index, cs2101Module);
 
@@ -225,7 +246,7 @@ public class AddModuleCommandTest {
         // null -> returns false
         assertFalse(addFriModuleCommand.equals(null));
 
-        // different day -> returns false
+        // different day and index -> returns false
         assertFalse(addFriModuleCommand.equals(addThuModuleCommand));
 
         // different module code -> returns false

@@ -53,6 +53,9 @@ public class AddMeetingCommandParserTest {
     public void parse_missingFields_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE);
 
+        // empty fields
+        assertParseFailure(parser, "", expectedMessage);
+
         // missing date
         assertParseFailure(parser, VALID_START_TIME_SEP_MEETING + VALID_END_TIME_SEP_MEETING, expectedMessage);
 

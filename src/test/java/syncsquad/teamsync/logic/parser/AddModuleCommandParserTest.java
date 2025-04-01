@@ -63,6 +63,9 @@ public class AddModuleCommandParserTest {
     public void parse_missingFields_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModuleCommand.MESSAGE_USAGE);
 
+        // missing fields
+        assertParseFailure(parser, "", expectedMessage);
+
         // missing index
         assertParseFailure(parser,
                 MODULE_CODE_DESC_CS2103T_MODULE + DAY_DESC_CS2103T_MODULE + START_TIME_DESC_CS2103T_MODULE

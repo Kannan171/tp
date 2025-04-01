@@ -25,7 +25,8 @@ import syncsquad.teamsync.model.person.Phone;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *Parser
+ * classes.
  */
 public class ParserUtil {
 
@@ -45,9 +46,12 @@ public class ParserUtil {
             .toFormatter();
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be
      * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero
+     *                        unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -126,7 +130,7 @@ public class ParserUtil {
     public static Day parseDay(String day) throws ParseException {
         requireNonNull(day);
         String trimmedDay = day.trim();
-        if (!Day.isValidDay(day)) {
+        if (!Day.isValidDay(trimmedDay)) {
             throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
         return new Day(trimmedDay);
@@ -177,7 +181,8 @@ public class ParserUtil {
     /**
      * Parses a {@code String date} into a {@code LocalDate}.
      *
-     * @throws ParseException if the given {@code date} is not in a valid date format.
+     * @throws ParseException if the given {@code date} is not in a valid date
+     *                        format.
      */
     public static LocalDate parseDate(String date) throws ParseException {
         try {
@@ -190,7 +195,8 @@ public class ParserUtil {
     /**
      * Parses a {@code String time} into a {@code LocalTime}.
      *
-     * @throws ParseException if the given {@code time} is not in a valid time format.
+     * @throws ParseException if the given {@code time} is not in a valid time
+     *                        format.
      */
     public static LocalTime parseTime(String time) throws ParseException {
         try {
