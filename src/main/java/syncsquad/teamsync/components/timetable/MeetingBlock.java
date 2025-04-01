@@ -109,6 +109,8 @@ public final class MeetingBlock implements TimetableDisplayable {
 
             // The second part of the dirty trick to invert yAxis
             y += rectangle.getHeight() / 2.0;
+            // This puts the rectangle in the middle of the gridlines
+            x += rectangle.getWidth() / 2.0 + 1;
 
             rectangle.getStyleClass().addAll(styledMeeting.styleClass);
             rectangle.setFill(COLOR);
