@@ -2,8 +2,8 @@ package syncsquad.teamsync.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.model.Model;
-import syncsquad.teamsync.model.meeting.Meeting;
 
 /**
  * Lists all meetings in the address book to the user.
@@ -17,10 +17,23 @@ public class ListMeetingsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String meetings = "";
-        for (Meeting item : model.getMeetingList()) {
-            meetings += item.toString() + "\n";
+        String meetingsDisplay = String.join("\n", MESSAGE_SUCCESS, model.displayMeetingsString());
+        return new CommandResult(meetingsDisplay);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
         }
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + meetings);
+
+        // returns true if other is a ListMeetingsCommand object
+        return other instanceof ListMeetingsCommand;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).toString();
     }
 }

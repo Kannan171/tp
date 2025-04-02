@@ -104,6 +104,12 @@ public interface Model {
      */
     void deleteMeeting(Meeting meeting);
 
+    /**
+     * Returns the meetings list as a string formatted for display to the user
+     */
+    String displayMeetingsString();
+
+
     /** Returns an unmodifiable view of the list of meetings */
     ObservableList<Meeting> getMeetingList();
 }
