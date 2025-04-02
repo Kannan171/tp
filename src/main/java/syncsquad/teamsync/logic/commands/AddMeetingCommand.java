@@ -14,7 +14,7 @@ import syncsquad.teamsync.model.meeting.Meeting;
  */
 public class AddMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "meeting";
+    public static final String COMMAND_WORD = "addmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates a meeting with the specified date, start and end time\n"
