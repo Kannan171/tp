@@ -36,6 +36,7 @@ public class MainViewModelTest {
     private MainViewModel viewModel;
     private ObservableList<Person> personList;
     private ObservableList<Meeting> meetingList;
+    private TimetableWeek week;
 
     @BeforeEach
     public void setUp() {
@@ -44,11 +45,12 @@ public class MainViewModelTest {
         // Set up mock lists
         personList = FXCollections.observableArrayList();
         meetingList = FXCollections.observableArrayList();
+        week = new TimetableWeek();
 
         // Configure logic mock
         when(logic.getFilteredPersonList()).thenReturn(personList);
         when(logic.getMeetingList()).thenReturn(meetingList);
-        when(logic.getCurrentWeek()).thenReturn(new TimetableWeek());
+        when(logic.getCurrentWeek()).thenReturn(week);
 
         // Create view model
         viewModel = new MainViewModel(logic);
