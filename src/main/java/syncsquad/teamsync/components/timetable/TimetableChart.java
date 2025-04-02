@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.CategoryAxis;
@@ -77,26 +76,26 @@ public class TimetableChart extends XYChart<String, Number> {
         this.meetingBlocks = meetingBlocks;
 
         loadData();
-
-        personModulesBlocks.addListener((ListChangeListener<PersonModulesBlock>) change -> {
-            loadData();
-        });
-        meetingBlocks.addListener((ListChangeListener<MeetingBlock>) change -> {
-            loadData();
-        });
-
         yAxis.toBack();
         xAxis.toBack();
     }
 
-    // Removed the incorrect method definition for BorderWidths
-
+    /**
+     * Loads the person modules blocks into the chart.
+     * @param personModulesBlocks the person modules blocks to load
+     */
     public void loadPersonModulesBlocks(Collection<PersonModulesBlock> personModulesBlocks) {
         this.personModulesBlocks.setAll(personModulesBlocks);
+        loadData();
     }
 
+    /**
+     * Loads the meeting blocks into the chart.
+     * @param meetingBlocks the meeting blocks to load
+     */
     public void loadMeetingBlocks(Collection<MeetingBlock> meetingBlocks) {
         this.meetingBlocks.setAll(meetingBlocks);
+        loadData();
     }
 
     private void loadData() {
