@@ -62,6 +62,9 @@ public class MainWindowController extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane meetingListPanelPlaceholder;
+
+    @FXML
     private StackPane timetablePlaceholder;
 
     @FXML
@@ -192,6 +195,10 @@ public class MainWindowController extends UiPart<Stage> {
         PersonTreeViewController personListPanel = new PersonTreeViewController(
             this.viewModel.getPersonListViewModel());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        MeetingTreeViewController meetingListPanel = new MeetingTreeViewController(
+            this.viewModel.getMeetingListViewModel());
+        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         TimetableController timetable = new TimetableController(
                 this.viewModel.getPersonListViewModel(), this.viewModel.getMeetingListViewModel());
