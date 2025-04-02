@@ -67,38 +67,38 @@ public class UniqueMeetingListTest {
     }
 
     @Test
-    public void setMeetings_nullUniqueMeetingList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setMeetings((UniqueMeetingList) null));
+    public void setItems_nullUniqueMeetingList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setItems((UniqueMeetingList) null));
     }
 
     @Test
-    public void setMeetings_uniqueMeetingList_replacesOwnListWithProvidedUniqueMeetingList() {
+    public void setItems_uniqueMeetingList_replacesOwnListWithProvidedUniqueMeetingList() {
         uniqueMeetingList.add(JAN_MEETING);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(FEB_MEETING);
-        uniqueMeetingList.setMeetings(expectedUniqueMeetingList);
+        uniqueMeetingList.setItems(expectedUniqueMeetingList);
         assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
-    public void setMeetings_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setMeetings((List<Meeting>) null));
+    public void setItems_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueMeetingList.setItems((List<Meeting>) null));
     }
 
     @Test
-    public void setMeetings_list_replacesOwnListWithProvidedList() {
+    public void setItems_list_replacesOwnListWithProvidedList() {
         uniqueMeetingList.add(JAN_MEETING);
         List<Meeting> meetingList = Collections.singletonList(FEB_MEETING);
-        uniqueMeetingList.setMeetings(meetingList);
+        uniqueMeetingList.setItems(meetingList);
         UniqueMeetingList expectedUniqueMeetingList = new UniqueMeetingList();
         expectedUniqueMeetingList.add(FEB_MEETING);
         assertEquals(expectedUniqueMeetingList, uniqueMeetingList);
     }
 
     @Test
-    public void setMeetings_listWithDuplicateMeetings_throwsDuplicateMeetingException() {
+    public void setItems_listWithDuplicateMeetings_throwsDuplicateMeetingException() {
         List<Meeting> listWithDuplicateMeetings = Arrays.asList(JAN_MEETING, JAN_MEETING);
-        assertThrows(DuplicateMeetingException.class, () -> uniqueMeetingList.setMeetings(listWithDuplicateMeetings));
+        assertThrows(DuplicateMeetingException.class, () -> uniqueMeetingList.setItems(listWithDuplicateMeetings));
     }
 
     @Test
