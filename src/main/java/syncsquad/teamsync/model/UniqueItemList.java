@@ -3,6 +3,7 @@ package syncsquad.teamsync.model;
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,11 +19,14 @@ import syncsquad.teamsync.commons.exceptions.ItemNotFoundException;
  * unique in terms of identity in the UniqueList. However, the removal of an item uses T#equals(Object) so
  * as to ensure that the item with exactly the same details will be removed.
  *
+ * Additionally, it is guaranteed that all items in the list are in sorted order, with the natural ordering
+ * defined in {@code T#compareTo(T)}
+ *
  * Supports a minimal set of list operations.
  *
  * @see UniqueItemList#isSameItem(T, T)
  */
-public abstract class UniqueItemList<T> implements Iterable<T> {
+public abstract class UniqueItemList<T extends Comparable<T>> implements Iterable<T> {
 
     protected final ObservableList<T> internalList = FXCollections.observableArrayList();
     protected final ObservableList<T> internalUnmodifiableList =
@@ -46,6 +50,7 @@ public abstract class UniqueItemList<T> implements Iterable<T> {
             throw duplicateItemException();
         }
         internalList.add(toAdd);
+        Collections.sort(internalList);
     }
 
     /**
@@ -66,6 +71,7 @@ public abstract class UniqueItemList<T> implements Iterable<T> {
         }
 
         internalList.set(index, editedItem);
+        Collections.sort(internalList);
     }
 
     /**
@@ -82,6 +88,7 @@ public abstract class UniqueItemList<T> implements Iterable<T> {
     public void setItems(UniqueItemList<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        Collections.sort(internalList);
     }
 
     /**
@@ -95,6 +102,7 @@ public abstract class UniqueItemList<T> implements Iterable<T> {
         }
 
         internalList.setAll(items);
+        Collections.sort(internalList);
     }
 
     /**
