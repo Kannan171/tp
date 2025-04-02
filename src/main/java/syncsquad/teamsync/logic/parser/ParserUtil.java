@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.HashSet;
@@ -38,16 +39,20 @@ public class ParserUtil {
 
     public static final String DATE_VALIDATION_REGEX = "^(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[0-2])(-\\d{4})?$";
     public static final String TIME_VALIDATION_REGEX = "^(?:[01]\\d|2[0-3]):[0-5]\\d$";
+
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
-            .append(DateTimeFormatter.ofPattern("[d-M-yyyy]" + "[d-M]"))
+            .append(DateTimeFormatter.ofPattern("[d-M-u]" + "[d-M]"))
             .parseCaseInsensitive()
-            .parseDefaulting(ChronoField.YEAR_OF_ERA, LocalDateTime.now().getYear())
-            .toFormatter();
+            .parseDefaulting(ChronoField.YEAR, LocalDateTime.now().getYear())
+            .toFormatter()
+            .withResolverStyle(ResolverStyle.STRICT);
+
 
     public static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("H:mm"))
             .parseCaseInsensitive()
-            .toFormatter();
+            .toFormatter()
+            .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
