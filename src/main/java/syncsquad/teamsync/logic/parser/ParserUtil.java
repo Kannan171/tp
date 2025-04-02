@@ -37,8 +37,8 @@ public class ParserUtil {
     public static final String DATE_MESSAGE_CONSTRAINTS = "Invalid date input: %1$s is not a valid date.";
     public static final String TIME_MESSAGE_CONSTRAINTS = "Invalid time input: %1$s is not a valid time input.";
 
-    public static final String DATE_VALIDATION_REGEX = "^(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[0-2])(-\\d{4})?$";
-    public static final String TIME_VALIDATION_REGEX = "^(?:[01]\\d|2[0-3]):[0-5]\\d$";
+    public static final String DATE_VALIDATION_REGEX = "^(?:0?[1-9]|[12][0-9]|3[01])-(?:0?[1-9]|1[0-2])(?:-\\d{4})?$";
+    public static final String TIME_VALIDATION_REGEX = "^(?:[0-9]|[01]\\d|2[0-3]):[0-5]\\d$";
 
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("[d-M-u]" + "[d-M]"))
