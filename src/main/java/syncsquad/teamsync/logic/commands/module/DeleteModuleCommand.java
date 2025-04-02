@@ -27,7 +27,7 @@ public class DeleteModuleCommand extends ModuleCommand {
     public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
             + ": Deletes the module from person from index of the person and module code.\n"
             + "Parameters: INDEX (must be a positive integer) MODULE_CODE\n"
-            + "Example: " + COMMAND_WORD + " 1 CS2103T";
+            + "Example: " + COMMAND_GROUP_WORD + " " + COMMAND_WORD + " 1 CS2103T";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module from: %1$s";
 
