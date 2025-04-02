@@ -359,6 +359,11 @@ public class AddModuleCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public String displayMeetingsString() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
@@ -379,7 +384,7 @@ public class AddModuleCommandTest {
         @Override
         public void setPerson(Person target, Person editedPerson) {
             requireAllNonNull(target, editedPerson);
-            persons.setPerson(target, editedPerson);
+            persons.setItem(target, editedPerson);
         }
 
         @Override

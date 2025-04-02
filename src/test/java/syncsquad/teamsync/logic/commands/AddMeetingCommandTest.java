@@ -10,7 +10,6 @@ import static syncsquad.teamsync.testutil.TypicalAddressBook.JAN_MEETING;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -159,7 +158,8 @@ public class AddMeetingCommandTest {
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS,
                 Messages.format(addedMeeting)), commandResult2.getFeedbackToUser());
         UniqueMeetingList expectedMeetingList = new UniqueMeetingList();
-        expectedMeetingList.setMeetings(List.of(existingMeeting, addedMeeting));
+        expectedMeetingList.add(existingMeeting);
+        expectedMeetingList.add(addedMeeting);
         assertEquals(expectedMeetingList, modelStub.meetings);
     }
 

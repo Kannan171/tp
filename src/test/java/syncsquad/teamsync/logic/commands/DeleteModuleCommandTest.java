@@ -207,6 +207,10 @@ public class DeleteModuleCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public String displayMeetingsString() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -231,7 +235,7 @@ public class DeleteModuleCommandTest {
         @Override
         public void setPerson(Person target, Person editedPerson) {
             requireAllNonNull(target, editedPerson);
-            persons.setPerson(target, editedPerson);
+            persons.setItem(target, editedPerson);
         }
 
         @Override
