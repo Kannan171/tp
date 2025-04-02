@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.parser;
+package syncsquad.teamsync.logic.parser.person;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -14,8 +14,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import syncsquad.teamsync.commons.core.index.Index;
-import syncsquad.teamsync.logic.commands.EditCommand;
-import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.commands.person.EditCommand;
+import syncsquad.teamsync.logic.commands.person.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.parser.ArgumentMultimap;
+import syncsquad.teamsync.logic.parser.ArgumentTokenizer;
+import syncsquad.teamsync.logic.parser.Parser;
+import syncsquad.teamsync.logic.parser.ParserUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.tag.Tag;
 

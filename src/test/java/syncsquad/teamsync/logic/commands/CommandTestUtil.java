@@ -15,6 +15,7 @@ import java.util.List;
 
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
+import syncsquad.teamsync.logic.commands.person.EditCommand;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.person.NameContainsKeywordsPredicate;

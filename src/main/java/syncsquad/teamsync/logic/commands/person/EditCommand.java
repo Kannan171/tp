@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -19,6 +19,7 @@ import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.CollectionUtil;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.module.Module;
@@ -32,11 +33,12 @@ import syncsquad.teamsync.model.tag.Tag;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends Command {
+public class EditCommand extends PersonCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
+            + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "

@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -10,6 +10,7 @@ import java.util.Set;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.module.Module;
@@ -19,11 +20,11 @@ import syncsquad.teamsync.model.person.Person;
 /**
  * Deletes a module from the person identified using person index and module code.
  */
-public class DeleteModuleCommand extends Command {
+public class DeleteModuleCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = "delmod";
+    public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
             + ": Deletes the module from person from index of the person and module code.\n"
             + "Parameters: INDEX (must be a positive integer) MODULE_CODE\n"
             + "Example: " + COMMAND_WORD + " 1 CS2103T";

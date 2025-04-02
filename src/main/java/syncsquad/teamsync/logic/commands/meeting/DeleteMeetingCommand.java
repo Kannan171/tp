@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.meeting;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,6 +7,7 @@ import java.util.List;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.meeting.Meeting;
@@ -14,10 +15,10 @@ import syncsquad.teamsync.model.meeting.Meeting;
 /**
  * Deletes a person identified using its displayed index from the address book.
  */
-public class DeleteMeetingCommand extends Command {
-    public static final String COMMAND_WORD = "delmeeting";
+public class DeleteMeetingCommand extends MeetingCommand {
+    public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
             + ": Deletes the meeting identified by the index number used in the displayed meeting list\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";

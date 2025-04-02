@@ -1,9 +1,11 @@
-package syncsquad.teamsync.logic.parser;
+package syncsquad.teamsync.logic.parser.module;
 
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import syncsquad.teamsync.commons.core.index.Index;
-import syncsquad.teamsync.logic.commands.DeleteModuleCommand;
+import syncsquad.teamsync.logic.commands.module.DeleteModuleCommand;
+import syncsquad.teamsync.logic.parser.Parser;
+import syncsquad.teamsync.logic.parser.ParserUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.module.ModuleCode;
 
