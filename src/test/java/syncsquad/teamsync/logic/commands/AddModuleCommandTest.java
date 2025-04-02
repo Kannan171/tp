@@ -16,6 +16,7 @@ import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
+import syncsquad.teamsync.logic.commands.module.AddModuleCommand;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;

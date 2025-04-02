@@ -7,7 +7,8 @@ import static syncsquad.teamsync.logic.parser.CommandParserTestUtil.assertParseS
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.commons.core.index.Index;
-import syncsquad.teamsync.logic.commands.DeleteModuleCommand;
+import syncsquad.teamsync.logic.commands.module.DeleteModuleCommand;
+import syncsquad.teamsync.logic.parser.module.DeleteModuleCommandParser;
 import syncsquad.teamsync.model.module.ModuleCode;
 
 /**

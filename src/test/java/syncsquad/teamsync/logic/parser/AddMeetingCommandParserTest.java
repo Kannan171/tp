@@ -20,7 +20,8 @@ import static syncsquad.teamsync.testutil.TypicalAddressBook.SEP_MEETING;
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.AddMeetingCommand;
+import syncsquad.teamsync.logic.commands.meeting.AddMeetingCommand;
+import syncsquad.teamsync.logic.parser.meeting.AddMeetingCommandParser;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.testutil.MeetingBuilder;
 
