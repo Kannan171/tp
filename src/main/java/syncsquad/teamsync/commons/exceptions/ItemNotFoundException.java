@@ -1,12 +1,6 @@
 package syncsquad.teamsync.commons.exceptions;
 
-public class ItemNotFoundException extends RuntimeException {
-
-    public ItemNotFoundException() {
-
-    }
-
-    public ItemNotFoundException(String message) {
-        super(message);
-    }
-}
+/**
+ * Signals that an operation is unable to find the specified item.
+ */
+public class ItemNotFoundException extends RuntimeException {}

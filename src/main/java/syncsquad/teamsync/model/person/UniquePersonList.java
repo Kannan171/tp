@@ -1,8 +1,5 @@
 package syncsquad.teamsync.model.person;
 
-import static java.util.Objects.requireNonNull;
-import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
-
 import syncsquad.teamsync.commons.exceptions.DuplicateItemException;
 import syncsquad.teamsync.commons.exceptions.ItemNotFoundException;
 import syncsquad.teamsync.model.UniqueItemList;
