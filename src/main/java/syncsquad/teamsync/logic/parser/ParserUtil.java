@@ -25,11 +25,14 @@ import syncsquad.teamsync.model.person.Phone;
 import syncsquad.teamsync.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *Parser
+ * classes.
  */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format: Date should be in dd-mm-yyyy format";
+    public static final String MESSAGE_INVALID_TIME_FORMAT = "Invalid time format: Time should be in HH:mm format";
 
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("[d-M-yyyy]" + "[d-M]"))
@@ -43,9 +46,12 @@ public class ParserUtil {
             .toFormatter();
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be
      * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero
+     *                        unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -124,7 +130,7 @@ public class ParserUtil {
     public static Day parseDay(String day) throws ParseException {
         requireNonNull(day);
         String trimmedDay = day.trim();
-        if (!Day.isValidDay(day)) {
+        if (!Day.isValidDay(trimmedDay)) {
             throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
         return new Day(trimmedDay);
@@ -175,26 +181,28 @@ public class ParserUtil {
     /**
      * Parses a {@code String date} into a {@code LocalDate}.
      *
-     * @throws ParseException if the given {@code date} is not in a valid date format.
+     * @throws ParseException if the given {@code date} is not in a valid date
+     *                        format.
      */
     public static LocalDate parseDate(String date) throws ParseException {
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Date should be in DD-MM-YYYY format");
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
     /**
      * Parses a {@code String time} into a {@code LocalTime}.
      *
-     * @throws ParseException if the given {@code time} is not in a valid time format.
+     * @throws ParseException if the given {@code time} is not in a valid time
+     *                        format.
      */
     public static LocalTime parseTime(String time) throws ParseException {
         try {
             return LocalTime.parse(time, TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Time should be in HH:MM format");
+            throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
         }
     }
 }

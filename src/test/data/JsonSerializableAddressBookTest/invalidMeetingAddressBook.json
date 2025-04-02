@@ -1,0 +1,8 @@
+{
+  "persons" : [ ],
+  "meetings" : [ {
+    "date" : "10-04-2025",
+    "startTime" : "17:30",
+    "endTime" : "Invalid end time"
+  } ]
+}

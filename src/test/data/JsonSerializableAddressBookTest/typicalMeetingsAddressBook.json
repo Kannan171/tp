@@ -1,0 +1,29 @@
+{
+  "_comment": "AddressBook save file which contains the same Meeting values as in TypicalPersons#getTypicalAddressBook()",
+  "persons" : [ ],
+  "meetings" : [ {
+    "date" : "01-01-2025",
+    "startTime" : "01:00",
+    "endTime" : "04:30"
+  }, {
+    "date" : "02-02-2025",
+    "startTime" : "03:00",
+    "endTime" : "05:55"
+  }, {
+    "date" : "03-03-2025",
+    "startTime" : "04:45",
+    "endTime" : "10:59"
+  }, {
+    "date" : "04-04-2025",
+    "startTime" : "12:55",
+    "endTime" : "16:00"
+  }, {
+    "date" : "05-05-2025",
+    "startTime" : "18:00",
+    "endTime" : "21:00"
+  }, {
+    "date" : "06-06-2025",
+    "startTime" : "20:00",
+    "endTime" : "23:59"
+  } ]
+}

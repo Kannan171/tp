@@ -3,10 +3,13 @@ package syncsquad.teamsync.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.ALICE;
-import static syncsquad.teamsync.testutil.TypicalPersons.HOON;
-import static syncsquad.teamsync.testutil.TypicalPersons.IDA;
-import static syncsquad.teamsync.testutil.TypicalPersons.getTypicalAddressBook;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.ALICE;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.AUG_MEETING;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.HOON;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.IDA;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.JAN_MEETING;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.JUL_MEETING;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -61,6 +64,17 @@ public class JsonAddressBookStorageTest {
     }
 
     @Test
+    public void readAddressBook_invalidMeetingAddressBook_throwDataLoadingException() {
+        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidMeetingAddressBook.json"));
+    }
+
+    @Test
+    public void readAddressBook_invalidAndValdiMeetingAddressBook_throwDataLoadingException() {
+        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidMeetingAddressBook.json"));
+    }
+
+
+    @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
         AddressBook original = getTypicalAddressBook();
@@ -73,13 +87,16 @@ public class JsonAddressBookStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
+        original.addMeeting(JUL_MEETING);
         original.removePerson(ALICE);
+        original.removeMeeting(JAN_MEETING);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
+        original.addMeeting(AUG_MEETING);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));

@@ -1,0 +1,12 @@
+{
+  "persons" : [ ],
+  "meetings" : [ {
+    "date" : "15-04-2025",
+    "startTime" : "Invalid start time",
+    "endTime" : "18:00"
+  }, {
+    "date" : "30-05-2025",
+    "startTime" : "14:00",
+    "endTime" : "15:00"
+  } ]
+}

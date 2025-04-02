@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
+import syncsquad.teamsync.model.module.Day;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Name;
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_DAY = "monday";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_DAY = "MON";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -43,17 +46,17 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class,
+                MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -192,5 +195,28 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseDay_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDay((String) null));
+    }
+
+    @Test
+    public void parseDay_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDay(INVALID_DAY));
+    }
+
+    @Test
+    public void parseDay_validValueWithoutWhitespace_returnsDay() throws Exception {
+        Day expectedDay = new Day(VALID_DAY);
+        assertEquals(expectedDay, ParserUtil.parseDay(VALID_DAY));
+    }
+
+    @Test
+    public void parseDay_validValueWithWhitespace_returnsTrimmedDay() throws Exception {
+        String dayWithWhitespace = WHITESPACE + VALID_DAY + WHITESPACE;
+        Day expectedDay = new Day(VALID_DAY);
+        assertEquals(expectedDay, ParserUtil.parseDay(dayWithWhitespace));
     }
 }

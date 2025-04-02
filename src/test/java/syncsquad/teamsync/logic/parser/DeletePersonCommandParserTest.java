@@ -3,11 +3,12 @@ package syncsquad.teamsync.logic.parser;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static syncsquad.teamsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static syncsquad.teamsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.DeletePersonCommand;
+import syncsquad.teamsync.logic.commands.person.DeletePersonCommand;
+import syncsquad.teamsync.logic.parser.person.DeletePersonCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -22,7 +23,7 @@ public class DeletePersonCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeletePersonCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new DeletePersonCommand(INDEX_FIRST));
     }
 
     @Test

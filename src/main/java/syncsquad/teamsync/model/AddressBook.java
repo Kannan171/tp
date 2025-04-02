@@ -49,7 +49,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.persons.setItems(persons);
     }
 
     /**
@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code meetings} must not contain duplicate meetings.
      */
     public void setMeetings(List<Meeting> meetings) {
-        this.meetings.setMeetings(meetings);
+        this.meetings.setItems(meetings);
     }
 
     /**
@@ -96,7 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        persons.setItem(target, editedPerson);
     }
 
     /**
@@ -119,6 +119,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a meeting with the same date as {@code meeting} and overlapping time range
+     * exists in the address book.
+     */
+    public boolean hasOverlappingMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return meetings.hasOverlap(meeting);
+    }
+
+    /**
      * Adds a meeting to the address book.
      * The meeting must not already exist in the meeting book.
      */
@@ -134,6 +143,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         meetings.remove(key);
     }
 
+    /**
+     * Returns the meetings list as a string formatted for display to the user
+     */
+    public String displayMeetingsString() {
+        return meetings.toDisplayString();
+    }
     //// util methods
 
     @Override
@@ -165,7 +180,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons) && meetings.equals(otherAddressBook.meetings);
     }
 
     @Override

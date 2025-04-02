@@ -9,11 +9,16 @@ import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.ALICE;
-import static syncsquad.teamsync.testutil.TypicalPersons.BOB;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.ALICE;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.BOB;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import syncsquad.teamsync.model.tag.Tag;
 import syncsquad.teamsync.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -52,6 +57,19 @@ public class PersonTest {
     }
 
     @Test
+    public void hashCodeMethod() {
+        Name name = new Name(VALID_NAME_BOB);
+        Phone phone = new Phone(VALID_PHONE_BOB);
+        Email email = new Email(VALID_EMAIL_BOB);
+        Address address = new Address(VALID_ADDRESS_BOB);
+        Set<Module> modules = new HashSet<>();
+        Set<Tag> tags = new HashSet<>();
+        Person person = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).build();
+        assertEquals(Objects.hash(name, phone, email, address, tags, modules), person.hashCode());
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();
@@ -87,6 +105,10 @@ public class PersonTest {
 
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different modules -> returns false
+        editedAlice = new PersonBuilder(ALICE).withModules("CS2103T FRI 14:00 16:00").build();
         assertFalse(ALICE.equals(editedAlice));
     }
 

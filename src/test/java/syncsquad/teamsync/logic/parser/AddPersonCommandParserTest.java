@@ -30,13 +30,14 @@ import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static syncsquad.teamsync.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static syncsquad.teamsync.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static syncsquad.teamsync.testutil.TypicalPersons.AMY;
-import static syncsquad.teamsync.testutil.TypicalPersons.BOB;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.AMY;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.BOB;
 
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.logic.Messages;
-import syncsquad.teamsync.logic.commands.AddPersonCommand;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
+import syncsquad.teamsync.logic.parser.person.AddPersonCommandParser;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Name;

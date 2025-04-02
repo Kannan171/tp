@@ -8,7 +8,7 @@ import static syncsquad.teamsync.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
-import static syncsquad.teamsync.testutil.TypicalPersons.AMY;
+import static syncsquad.teamsync.testutil.TypicalAddressBook.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -18,10 +18,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import syncsquad.teamsync.logic.commands.AddPersonCommand;
 import syncsquad.teamsync.logic.commands.CommandResult;
-import syncsquad.teamsync.logic.commands.ListCommand;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
+import syncsquad.teamsync.logic.commands.person.ListCommand;
+import syncsquad.teamsync.logic.commands.person.PersonCommand;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ModelManager;
@@ -60,13 +61,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "person delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
+        String listCommand = PersonCommand.COMMAND_GROUP_WORD + " " + ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -165,8 +166,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Triggers the saveAddressBook method by executing an add command
-        String addCommand = AddPersonCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        String addCommand = PersonCommand.COMMAND_GROUP_WORD + " " + AddPersonCommand.COMMAND_WORD
+                + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY)
                 .withModules().withTags().build();
         ModelManager expectedModel = new ModelManager();

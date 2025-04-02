@@ -22,6 +22,7 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_MEETING = "Meetings list contains duplicate meeting(s).";
+    public static final String MESSAGE_OVERLAPPING_MEETING = "Meetings list contains overlapping meeting(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedMeeting> meetings = new ArrayList<>();
@@ -64,6 +65,9 @@ class JsonSerializableAddressBook {
             Meeting meeting = jsonAdaptedMeeting.toModelType();
             if (addressBook.hasMeeting(meeting)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEETING);
+            }
+            if (addressBook.hasOverlappingMeeting(meeting)) {
+                throw new IllegalValueException(MESSAGE_OVERLAPPING_MEETING);
             }
             addressBook.addMeeting(meeting);
         }
