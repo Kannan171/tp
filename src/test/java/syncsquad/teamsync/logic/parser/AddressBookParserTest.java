@@ -13,8 +13,13 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import syncsquad.teamsync.logic.commands.AddMeetingCommand;
+import syncsquad.teamsync.logic.commands.AddModuleCommand;
 import syncsquad.teamsync.logic.commands.AddPersonCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
+import syncsquad.teamsync.logic.commands.CommandTestUtil;
+import syncsquad.teamsync.logic.commands.DeleteMeetingCommand;
+import syncsquad.teamsync.logic.commands.DeleteModuleCommand;
 import syncsquad.teamsync.logic.commands.DeletePersonCommand;
 import syncsquad.teamsync.logic.commands.EditCommand;
 import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
@@ -22,6 +27,7 @@ import syncsquad.teamsync.logic.commands.ExitCommand;
 import syncsquad.teamsync.logic.commands.FindCommand;
 import syncsquad.teamsync.logic.commands.HelpCommand;
 import syncsquad.teamsync.logic.commands.ListCommand;
+import syncsquad.teamsync.logic.commands.ListMeetingsCommand;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.person.NameContainsKeywordsPredicate;
 import syncsquad.teamsync.model.person.Person;
@@ -89,9 +95,41 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addMeeting() throws Exception {
+        assertTrue(parser.parseCommand(AddMeetingCommand.COMMAND_WORD + CommandTestUtil.DATE_DESC_SEP_MEETING
+                + CommandTestUtil.START_TIME_DESC_SEP_MEETING
+                + CommandTestUtil.END_TIME_DESC_SEP_MEETING) instanceof AddMeetingCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteMeeting() throws Exception {
+        assertTrue(parser.parseCommand(DeleteMeetingCommand.COMMAND_WORD + " 3") instanceof DeleteMeetingCommand);
+    }
+
+    @Test
+    public void parseCommand_listMeetings() throws Exception {
+        assertTrue(parser.parseCommand(ListMeetingsCommand.COMMAND_WORD) instanceof ListMeetingsCommand);
+        assertTrue(parser.parseCommand(ListMeetingsCommand.COMMAND_WORD + " 3") instanceof ListMeetingsCommand);
+    }
+
+    @Test
+    public void parseCommand_addModule() throws Exception {
+        assertTrue(parser.parseCommand(AddModuleCommand.COMMAND_WORD + CommandTestUtil.INDEX_DESC_CS2103T_MODULE
+                + CommandTestUtil.MODULE_CODE_DESC_CS2103T_MODULE + CommandTestUtil.DAY_DESC_CS2103T_MODULE
+                + CommandTestUtil.START_TIME_DESC_CS2103T_MODULE
+                + CommandTestUtil.END_TIME_DESC_CS2103T_MODULE) instanceof AddModuleCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteModule() throws Exception {
+        assertTrue(parser.parseCommand(DeleteModuleCommand.COMMAND_WORD + " 3"
+                + CommandTestUtil.MODULE_CODE_DESC_CS2103T_MODULE) instanceof DeleteModuleCommand);
+    }
+
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test

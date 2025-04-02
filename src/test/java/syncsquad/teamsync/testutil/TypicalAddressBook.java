@@ -20,11 +20,12 @@ import java.util.List;
 
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.person.Person;
 
-
 /**
- * A utility class containing a list of {@code Person} and {@code Meeting} objects to be used in tests.
+ * A utility class containing a list of {@code Person}, {@code Meeting} and
+ * {@code Module} objects to be used in tests.
  */
 public class TypicalAddressBook {
 
@@ -61,6 +62,18 @@ public class TypicalAddressBook {
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
+    public static final Module CS2103T_MODULE = new ModuleBuilder().withModuleCode("CS2103T")
+            .withDay("FRI")
+            .withStartTime("14:00")
+            .withEndTime("16:00")
+            .build();
+
+    public static final Module CS2101_MODULE = new ModuleBuilder().withModuleCode("CS2101")
+            .withDay("THU")
+            .withStartTime("12:00")
+            .withEndTime("15:00")
+            .build();
 
     public static final Meeting JAN_MEETING = new MeetingBuilder().withDate("01-01-2025")
             .withStartTime("1:00")
@@ -103,7 +116,8 @@ public class TypicalAddressBook {
             .withStartTime(VALID_START_TIME_SEP_MEETING)
             .withEndTime(VALID_END_TIME_SEP_MEETING).build();
 
-    private TypicalAddressBook() {} // prevents instantiation
+    private TypicalAddressBook() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons and meetings.
