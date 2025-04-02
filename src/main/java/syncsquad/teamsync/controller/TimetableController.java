@@ -48,7 +48,6 @@ public class TimetableController extends UiPart<Region> {
         VBox.setVgrow(timetable, javafx.scene.layout.Priority.ALWAYS);
 
         personListViewModel.personListProperty().addListener((observable, oldValue, newValue) -> {
-            timetable.getData().clear();
             ObservableList<PersonModulesBlock> blocks = personListViewModel.personListProperty().stream()
                 .map(PersonModulesBlock::new)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
@@ -56,13 +55,22 @@ public class TimetableController extends UiPart<Region> {
         });
 
         meetingListViewModel.meetingListProperty().addListener((observable, oldValue, newValue) -> {
-            timetable.getData().clear();
             ObservableList<MeetingBlock> blocks = meetingListViewModel.meetingListProperty().stream()
                 .filter(meeting -> meeting.getDate()
                     .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
                     .equals(meetingListViewModel.currentWeekProperty().get()))
                 .map(MeetingBlock::new)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            timetable.loadMeetingBlocks(blocks);
+        });
+
+        meetingListViewModel.currentWeekProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<MeetingBlock> blocks = meetingListViewModel.meetingListProperty().stream()
+                    .filter(meeting -> meeting.getDate()
+                            .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                            .equals(meetingListViewModel.currentWeekProperty().get()))
+                    .map(MeetingBlock::new)
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
             timetable.loadMeetingBlocks(blocks);
         });
     }

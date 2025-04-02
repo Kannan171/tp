@@ -65,7 +65,7 @@ public class AddMeetingCommandParserTest {
         assertParseFailure(parser, INVALID_DATE_DESC + START_TIME_DESC_SEP_MEETING + END_TIME_DESC_SEP_MEETING,
                 ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
 
-        // invalid phone
+        // invalid time
         assertParseFailure(parser, DATE_DESC_SEP_MEETING + INVALID_TIME_DESC + END_TIME_DESC_SEP_MEETING,
                 ParserUtil.MESSAGE_INVALID_TIME_FORMAT);
     }

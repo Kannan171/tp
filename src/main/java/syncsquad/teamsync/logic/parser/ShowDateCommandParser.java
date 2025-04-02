@@ -1,16 +1,15 @@
 package syncsquad.teamsync.logic.parser;
 
-import syncsquad.teamsync.logic.commands.AddMeetingCommand;
-import syncsquad.teamsync.logic.commands.ShowDateCommand;
-import syncsquad.teamsync.logic.parser.exceptions.ParseException;
-import syncsquad.teamsync.model.meeting.Meeting;
+import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
-import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_START_END_TIME;
+import syncsquad.teamsync.logic.commands.ShowDateCommand;
+import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new ShowDateCommand object
+ */
 public class ShowDateCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the ShowDateCommand
@@ -23,7 +22,7 @@ public class ShowDateCommandParser {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowDateCommand.MESSAGE_USAGE));
         }
-        LocalDate date = ParserUtil.parseDate(args);
+        LocalDate date = ParserUtil.parseDate(trimmedArgs);
 
         return new ShowDateCommand(date);
     }

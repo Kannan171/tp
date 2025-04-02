@@ -25,6 +25,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final ObservableList<Meeting> meetings;
 
+    private final TimetableWeek week;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -37,6 +39,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         meetings = this.addressBook.getMeetingList();
+        this.week = new TimetableWeek();
     }
 
     public ModelManager() {
@@ -133,6 +136,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Meeting> getMeetingList() {
         return meetings;
+    }
+
+    @Override
+    public TimetableWeek getCurrentWeek() {
+        return this.week;
+    }
+
+    @Override
+    public void setCurrentWeek(TimetableWeek week) {
+        this.week.setCurrentWeek(week);
     }
 
     //=========== Filtered Person List Accessors =============================================================
