@@ -33,6 +33,11 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format: Date should be in dd-mm-yyyy format";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "Invalid time format: Time should be in HH:mm format";
 
+    public static final String DATE_MESSAGE_CONSTRAINTS = "Invalid date input: %1$s is not a valid date.";
+    public static final String TIME_MESSAGE_CONSTRAINTS = "Invalid time input: %1$s is not a valid time input.";
+
+    public static final String DATE_VALIDATION_REGEX = "^(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[0-2])(-\\d{4})?$";
+    public static final String TIME_VALIDATION_REGEX = "^(?:[01]\\d|2[0-3]):[0-5]\\d$";
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("[d-M-yyyy]" + "[d-M]"))
             .parseCaseInsensitive()
@@ -180,10 +185,13 @@ public class ParserUtil {
      * @throws ParseException if the given {@code date} is not in a valid date format.
      */
     public static LocalDate parseDate(String date) throws ParseException {
+        if (!isValidDate(date)) {
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
+        }
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
+            throw new ParseException(String.format(DATE_MESSAGE_CONSTRAINTS, date));
         }
     }
 
@@ -193,10 +201,23 @@ public class ParserUtil {
      * @throws ParseException if the given {@code time} is not in a valid time format.
      */
     public static LocalTime parseTime(String time) throws ParseException {
+        if (!isValidTime(time)) {
+            throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
+        }
         try {
             return LocalTime.parse(time, TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException(MESSAGE_INVALID_TIME_FORMAT);
+            throw new ParseException(String.format(TIME_MESSAGE_CONSTRAINTS, time));
         }
+    }
+
+    private static boolean isValidDate(String test) {
+        assert test != null;
+        return test.matches(DATE_VALIDATION_REGEX);
+    }
+
+    private static boolean isValidTime(String test) {
+        assert test != null;
+        return test.matches(TIME_VALIDATION_REGEX);
     }
 }
