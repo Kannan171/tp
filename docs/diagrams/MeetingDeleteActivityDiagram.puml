@@ -1,0 +1,20 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+:User enters meeting delete command;
+if () then ([all fields present])
+    if () then ([index is valid])
+        :Delete command executes, meeting is deleted;
+
+    else ([else])
+    :Error: Invalid index;
+    stop
+    endif
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+stop
+@enduml

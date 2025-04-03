@@ -388,24 +388,33 @@ There are 4 main command groups:
 - Meeting (`meeting`)
 - General 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Some note here.
+<!--div markdown="span" class="alert alert-info">:information_source: **Note:** Some note here.
 
-</div>
+</div-->
 
 
 ### Teammate 
+<!--
+The UML diagram of a Person object is represented below:
+// TODO
+
+-->
 
 #### Adding a Teammate
 
 The command `person add` creates a new `Person` object, which contains the necessary fields that are associated with a teammate. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/PersonAddActivityDiagram.png" width="550"/>
 
+<!--
 The sequence diagram of the command is represented below:
 // TODO
 
 The sequence diagram omits the classes that represents the attributes of the `Person` object, as their behaviour is trivial and will clutter the diagram. 
+
+-->
+
 
 ##### Notes
 
@@ -431,7 +440,7 @@ The sequence diagram omits the classes that represents the attributes of the `Pe
 The command `person edit` edits an existing `Person` object by its index. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/PersonEditActivityDiagram.png" width="550"/>
 
 
 ##### Notes
@@ -443,7 +452,7 @@ The activity diagram is represented below:
 The command `person delete` deletes an existing `Person` object by its index. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/PersonDeleteActivityDiagram.png" width="550"/>
 
 
 #### Searching for a Teammate
@@ -451,7 +460,7 @@ The activity diagram is represented below:
 The command `person find` finds an existing `Person` object by a given predicate. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/PersonFindActivityDiagram.png" width="550"/>
 
 ##### Notes
 - The search predicate cannot be blank.  
@@ -461,7 +470,7 @@ The activity diagram is represented below:
 The command `person list` displays all `Person` objects, sorted by name.  
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/PersonListActivityDiagram.png" width="550"/>
 
 
 ### Module 
@@ -471,19 +480,24 @@ The activity diagram is represented below:
 The command `module add` creates a new `Module` object, which contains the necessary fields that are associated with an NUS module. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/ModuleAddActivityDiagram.png" width="550"/>
 
+<!--
 The sequence diagram of the command is represented below:
 // TODO
 
 The sequence diagram omits the classes that represents the attributes of the `Module` object, as their behaviour is trivial and will clutter the diagram.
+
+-->
+
 
 #### Deleting a Module for a Teammate
 
 The command `module delete` removes an existing `Module` from a `Person`. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/ModuleDeleteActivityDiagram.png" width="550"/>
+
 
 ### Meeting 
 
@@ -492,26 +506,24 @@ The activity diagram is represented below:
 The command `meeting add` creates a new `Meeting` object, which contains the necessary fields that are associated with an NUS module. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/MeetingAddActivityDiagram.png" width="550"/>
 
+<!--
 The sequence diagram of the command is represented below:
 // TODO
 
 The sequence diagram omits the classes that represents the attributes of the `Meeting` object, as their behaviour is trivial and will clutter the diagram.
+
+-->
+
 
 #### Deleting a Meeting 
 
 The command `meeting delete` deletes an existing `Meeting`. 
 
 The activity diagram is represented below:
-//TODO activity diagram
+<img src="images/MeetingDeleteActivityDiagram.png" width="550"/>
 
-#### Listing All Meetings
-
-The command `meeting list` displays all `Meeting` objects, sorted by time.  
-
-The activity diagram is represented below:
-//TODO activity diagram
 
 ### General Commands 
 
@@ -519,15 +531,13 @@ The activity diagram is represented below:
 
 The command `help` shows a message explaining how to access the user guide.
 
-The activity diagram is represented below:
-//TODO activity diagram
+<!-- TODO Sequence diagram-->
 
 #### Clear
 
 The command `clear` clears all teammates, modules and meetings from TeamSync.
 
-The activity diagram is represented below:
-//TODO activity diagram
+<!-- TODO Sequence diagram-->
 
 #### Exit
 
@@ -891,7 +901,8 @@ Prerequisite: The previous command was entered once.
 <br>
 Input Command: `person add -n Takashi Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney` 
 <br>
-Expected Output: The command box displays "This person already exists in the address book"
+Expected Output: The command box displays "This person already exists in the address book. 
+Ensure that the email address is different from an existing one. "
 
 
 Input Command: `person add -n Takashi@Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney` 
