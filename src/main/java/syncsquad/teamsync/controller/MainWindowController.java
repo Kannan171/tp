@@ -10,7 +10,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import syncsquad.teamsync.commons.core.GuiSettings;
-import syncsquad.teamsync.logic.Logic;
 import syncsquad.teamsync.viewmodel.MainViewModel;
 
 /**
@@ -22,7 +21,6 @@ public class MainWindowController extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private Stage primaryStage;
-    private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private MainViewModel viewModel;
@@ -40,6 +38,9 @@ public class MainWindowController extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane meetingListPanelPlaceholder;
+
+    @FXML
     private StackPane timetablePlaceholder;
 
     @FXML
@@ -55,25 +56,24 @@ public class MainWindowController extends UiPart<Stage> {
     private Label currentWeekLabel;
 
     /**
-     * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
+     * Creates a {@code MainWindow} with the given {@code Stage}.
      */
-    public MainWindowController(Stage primaryStage, Logic logic) {
+    public MainWindowController(Stage primaryStage, MainViewModel viewModel) {
         super(FXML, primaryStage);
 
-        this.viewModel = new MainViewModel(logic);
+        this.viewModel = viewModel;
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
 
         // Configure the UI
         setWindow(logic.getGuiSettings());
 
         // TODO: If we are adding `nextWeek` or `previousWeek` actions
         //  we should create a currentWeekController to handle the logic
-        this.viewModel.getCurrentWeekViewModel().currentWeekProperty()
+        this.viewModel.getCurrentWeek()
             .addListener((unused1, oldValue, newValue) -> updateCurrentWeekLabel(newValue));
-        updateCurrentWeekLabel(this.viewModel.getCurrentWeekViewModel().currentWeekProperty().get());
+        updateCurrentWeekLabel(this.viewModel.getCurrentWeek().get());
 
     }
 
@@ -100,6 +100,10 @@ public class MainWindowController extends UiPart<Stage> {
             this.viewModel.getPersonListViewModel());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        MeetingTreeViewController meetingListPanel = new MeetingTreeViewController(
+            this.viewModel.getMeetingListViewModel());
+        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+
         TimetableController timetable = new TimetableController(
                 this.viewModel.getPersonListViewModel(), this.viewModel.getMeetingListViewModel());
         timetablePlaceholder.getChildren().add(timetable.getRoot());
@@ -108,7 +112,8 @@ public class MainWindowController extends UiPart<Stage> {
             this.viewModel.getResultDisplayViewModel());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooterController statusBarFooter = new StatusBarFooterController(logic.getAddressBookFilePath());
+        StatusBarFooterController statusBarFooter = new StatusBarFooterController(
+            this.viewModel.getAddressBookFilePath().get());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBoxController commandBox = new CommandBoxController(
@@ -121,7 +126,7 @@ public class MainWindowController extends UiPart<Stage> {
      */
     private void updateCurrentWeekLabel(LocalDate startOfWeek) {
         LocalDate endOfWeek = startOfWeek.plusDays(6);
-        String dateFormat = "MMM d";
+        String dateFormat = "MMM d yyyy";
         String weekRange = String.format("%s - %s",
             startOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)),
             endOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)));

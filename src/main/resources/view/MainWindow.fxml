@@ -25,45 +25,51 @@
                         <Insets bottom="5" left="10" right="10" top="5" />
                      </padding>
                   </StackPane>
-      
-              <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                <padding>
-                  <Insets bottom="10" left="10" right="10" top="10" />
-                </padding>
-                     <SplitPane fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
-                        <items>
-                      <StackPane fx:id="personListPanelPlaceholder" />
-                           <VBox alignment="CENTER">
-                              <Label fx:id="currentWeekLabel" alignment="CENTER" styleClass="label" text="Current Week">
-                                 <padding>
-                                    <Insets left="10" right="10" top="5" />
-                                 </padding>
-                                 <font>
-                                    <Font name="System" size="18.0" />
-                                 </font>
-                              </Label>
-                              <StackPane fx:id="timetablePlaceholder" layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS" />
-                           </VBox>
-                        </items>
-                     </SplitPane>
-              </VBox>
-      
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                <padding>
-                  <Insets bottom="5" left="10" right="10" top="5" />
-                </padding>
-              </StackPane>
-      
-              <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                <padding>
-                  <Insets bottom="5" left="10" right="10" top="5" />
-                </padding>
-              </StackPane>
-      
-              <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-            </VBox>
-            </children>
-         </StackPane>
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </HBox>
+
+        <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+          </padding>
+               <SplitPane fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
+               <items>
+                  <VBox alignment="CENTER">
+                     <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                     <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS" maxHeight="150" />
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <Label fx:id="currentWeekLabel" text="Current Week" styleClass="label" alignment="CENTER">
+                        <padding>
+                           <Insets left="10" right="10" top="5" />
+                        </padding>
+                        <font>
+                           <Font name="System" size="18.0" />
+                        </font>
+                     </Label>
+                     <StackPane fx:id="timetablePlaceholder" layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS" />
+                  </VBox>
+               </items>
+            </SplitPane>
+        </VBox>
+
+              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+          </padding>
+        </StackPane>
+
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+          </padding>
+        </StackPane>
+
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+      </VBox>
     </Scene>
   </scene>
 </fx:root>

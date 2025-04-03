@@ -11,6 +11,7 @@ import syncsquad.teamsync.MainApp;
 import syncsquad.teamsync.commons.core.LogsCenter;
 import syncsquad.teamsync.commons.util.StringUtil;
 import syncsquad.teamsync.logic.Logic;
+import syncsquad.teamsync.viewmodel.MainViewModel;
 
 /**
  * The manager of the UI component.
@@ -40,7 +41,8 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindowController(primaryStage, logic);
+            MainViewModel viewModel = new MainViewModel(logic);
+            mainWindow = new MainWindowController(primaryStage, viewModel);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
             mainWindow.forceDividerPosition(logic.getGuiSettings());
