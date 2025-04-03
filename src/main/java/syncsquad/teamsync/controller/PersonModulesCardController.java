@@ -1,5 +1,7 @@
 package syncsquad.teamsync.controller;
 
+import java.util.Comparator;
+
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
@@ -7,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.person.Person;
+
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -39,7 +43,8 @@ public class PersonModulesCardController extends UiPart<Region> {
         this.person = person;
 
         StringBuilder moduleList = new StringBuilder();
-        person.getModules().forEach(moduleList::append);
+        person.getModules().stream().sorted(Comparator.comparing(Module::toString))
+                .forEach((module) -> moduleList.append(module).append(" "));
         modules.setText(moduleList.toString());
         FontIcon moduleIcon = new FontIcon(Material2AL.BOOK);
         modules.setGraphic(moduleIcon);
