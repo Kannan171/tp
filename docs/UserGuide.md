@@ -78,9 +78,9 @@ Indicates critical warnings or irreversible actions. Always read these carefully
   - [Meeting Commands](#meeting-commands)
     - [Adding a meeting](#adding-a-meeting-meeting-add)
     - [Deleting a meeting](#deleting-a-meeting-meeting-delete)
-    - [Listing all meetings](#listing-all-meetings--meeting-list)
   - [General Commands](#general-commands)
     - [Viewing help](#viewing-help--help)
+    - [Changing week displayed](#changing-week-displayed-showdate)
     - [Clearing all data](#clearing-all-data--clear)
     - [Exiting TeamSync](#exiting-teamsync--exit)
 - [Command Summary](#command-summary)
@@ -149,7 +149,7 @@ A command consists of a <span style="color : green; font-weight: bold;">command 
 
 * For each command, the correct syntax is specified under "Format"
 
-* Commands are case sensitive
+* Commands are case-insensitive
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
 
@@ -157,7 +157,7 @@ A command consists of a <span style="color : green; font-weight: bold;">command 
 
 * Items with `…`​ after them can be used multiple times including zero times
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `meeting list`, `exit` and `clear`) will be ignored
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `person list`, `exit` and `clear`) will be ignored
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
@@ -403,16 +403,6 @@ Deletes the first meeting in TeamSync.
 Deleting a meeting is **irreversible**!
 </div>
 
-#### Listing all meetings : `meeting list`
-
-Shows a list of all meetings in TeamSync.
-
-**Format**: `meeting list`
-
-**Example**: `meeting list`
-
-Lists all existing meetings in TeamSync.
-
 <br><br>
 ### General Commands
 
@@ -422,7 +412,7 @@ Shows a message explaining how to access the user guide.
 
 **Format**: `help`
 
-#### Change week displayed: `showdate`
+#### Changing week displayed: `showdate`
 
 Changes the week displayed in the timetable view.
 
@@ -484,15 +474,15 @@ Action | Format                                                                 
 -------|----------------------------------------------------------------------------|---------
 **Add a meeting** | `meeting add DATE START_TIME END_TIME` | `meeting 27-03-2025 12:00 15:00`
 **Delete a meeting** | `meeting delete INDEX` | `meeting delete 1`
-**List all meetings** | `meeting list` | `meeting list`
 
 #### General Commands
 
-Action | Format                                                                     | Example
--------|----------------------------------------------------------------------------|---------
-**View help** | `help` | `help`
-**Clear all data** | `clear` | `clear`
-**Exit TeamSync** | `exit` | `exit`
+Action | Format          | Example
+-------|-----------------|---------
+**View help** | `help`          | `help`
+**Change week displayed** | `showdate DATE` | `showdate 04-04-2025`
+**Clear all data** | `clear`         | `clear`
+**Exit TeamSync** | `exit`          | `exit`
 
 
 ## Troubleshooting
