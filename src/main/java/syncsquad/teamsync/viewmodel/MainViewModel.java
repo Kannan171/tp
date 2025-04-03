@@ -36,7 +36,6 @@ public class MainViewModel {
     private final ResultDisplayViewModel resultDisplayViewModel;
     private final PersonListViewModel personListViewModel;
     private final MeetingListViewModel meetingListViewModel;
-    private final CurrentWeekViewModel currentWeekViewModel;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -56,10 +55,9 @@ public class MainViewModel {
         this.commandBoxViewModel = new CommandBoxViewModel(this::executeCommand);
         this.resultDisplayViewModel = new ResultDisplayViewModel();
         this.personListViewModel = new PersonListViewModel(logic.getFilteredPersonList());
-        this.currentWeekViewModel = new CurrentWeekViewModel();
         this.meetingListViewModel = new MeetingListViewModel(
             logic.getMeetingList(),
-            this.currentWeekViewModel.currentWeekProperty());
+            logic.getCurrentWeek().currentWeekProperty());
     }
 
     public CommandBoxViewModel getCommandBoxViewModel() {
@@ -78,10 +76,6 @@ public class MainViewModel {
         return meetingListViewModel;
     }
 
-    public CurrentWeekViewModel getCurrentWeekViewModel() {
-        return currentWeekViewModel;
-    }
-
     public BooleanProperty getIsShowingHelpProperty() {
         return isShowingHelp;
     }
@@ -89,6 +83,7 @@ public class MainViewModel {
     public BooleanProperty getIsExiting() {
         return isExiting;
     }
+
 
     /**
      * Executes the command and returns the result.

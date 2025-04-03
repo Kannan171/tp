@@ -23,6 +23,7 @@ import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;
+import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.meeting.UniqueMeetingList;
 import syncsquad.teamsync.model.person.Person;
@@ -290,6 +291,16 @@ public class AddMeetingCommandTest {
 
         @Override
         public ObservableList<Meeting> getMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TimetableWeek getCurrentWeek() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWeek(TimetableWeek week) {
             throw new AssertionError("This method should not be called.");
         }
 
