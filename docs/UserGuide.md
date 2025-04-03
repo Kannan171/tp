@@ -11,16 +11,55 @@ Designed with simplicity and efficiency in mind, TeamSync makes it easy to add t
 
 Whether you are new to CLI applications or are an experienced user, TeamSync enables you to work faster than any GUI-only app — so you can focus on what truly matters.
 
-<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+## How to Use This Guide
 
-New users can refer to the [Quick Start](#quick-start) section on how to get started.<br>
+This User Guide is designed to help you get the most out of TeamSync. Here's how to navigate it effectively:
 
-Experienced users may wish to consult the [Command Summary](#command-summary) for a quick overview of the commands.
+1. **Quick Start** (For New Users)
+   - If you're new to TeamSync, start with the [Quick Start](#quick-start) section
+   - This section provides step-by-step instructions to get you up and running quickly
+
+2. **Command Reference** (For All Users)
+   - The [Commands](#commands) section contains detailed information about all available commands
+   - Commands are organized into categories:
+     - [Teammate Commands](#teammate-commands)
+     - [Module Commands](#module-commands)
+     - [Meeting Commands](#meeting-commands)
+     - [General Commands](#general-commands)
+
+3. **Command Summary** (For Quick Reference)
+   - The [Command Summary](#command-summary) section provides a quick overview of all commands
+   - Use this section as a quick reference when you're familiar with the commands
+
+4. **Additional Resources**
+   - [FAQ](#faq): Answers to common questions
+   - [Troubleshooting](#troubleshooting): Solutions to common issues
+   - [Glossary](#glossary): Definitions of key terms
+
+### Understanding Callout Boxes
+
+Throughout this guide, you'll encounter different types of callout boxes that provide important information:
+
+<div markdown="span" class="alert alert-info">:information_source: **Info Box**<br><br>
+Provides additional information or clarifications about a feature or command. Look for these when you need more details about how something works.
+</div>
+
+<div markdown="span" class="alert alert-success">:bulb: **Tip Box**<br><br>
+Offers helpful tips and best practices. These can help you use TeamSync more effectively.
+</div>
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning Box**<br><br>
+Highlights important warnings or potential issues. Pay special attention to these to avoid problems.
+</div>
+
+<div markdown="span" class="alert alert-danger">:warning: **Danger Box**<br><br>
+Indicates critical warnings or irreversible actions. Always read these carefully before proceeding.
 </div>
 
 ## Table of Contents
 
 - [About TeamSync](#about-teamsync)
+- [How to Use This Guide](#how-to-use-this-guide)
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
   - [Built-in validation](#built-in-validation)
@@ -171,7 +210,7 @@ Format: `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]
 
 * When editing tags, the existing tags of the teammate will be removed i.e adding of tags is not cumulative.
 
-* You can remove all the teammate’s tags by typing `-t ` without specifying any tags after it.
+* You can remove all the teammate's tags by typing `-t ` without specifying any tags after it.
 </div>
 
 **Example**: `person edit 1 -p 91234567 -e johndoe@example.com` Edits the phone number and email address of the 1st teammate to be `91234567` and `johndoe@example.com` respectively.
