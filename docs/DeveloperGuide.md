@@ -2,6 +2,44 @@
 layout: page
 title: Developer Guide
 ---
+
+## About TeamSync
+
+TeamSync is a contact management app designed to streamline group project management, **built by National University of Singapore (NUS) students, for NUS students**.
+
+Designed with simplicity and efficiency in mind, TeamSync makes it easy to add teammates' contact details, schedule meetings, and stay organized. It combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI). Built-in validation checks help prevent errors, ensuring a seamless experience.
+
+This Developer Guide documents the internal design and implementation of TeamSync. This guide contains information on the architecture of our app, testing and logging procedures. 
+
+## How to Use This Guide
+
+This Developer Guide is designed to provide an accurate overview of our app for future developers to maintain, update and improve on TeamSync. Here's how to navigate it effectively:
+
+//TODO update
+1. **Quick Start** (For New Users)
+   - If you're new to TeamSync, start with the [Quick Start](#quick-start) section
+   - This section provides step-by-step instructions to get you up and running quickly
+
+2. **Command Reference** (For All Users)
+   - The [Commands](#commands) section contains detailed information about all available commands
+   - Commands are organized into categories:
+     - [Teammate Commands](#teammate-commands)
+     - [Module Commands](#module-commands)
+     - [Meeting Commands](#meeting-commands)
+     - [General Commands](#general-commands)
+
+3. **Command Summary** (For Quick Reference)
+   - The [Command Summary](#command-summary) section provides a quick overview of all commands
+   - Use this section as a quick reference when you're familiar with the commands
+
+4. **Additional Resources**
+   - [FAQ](#faq): Answers to common questions
+   - [Troubleshooting](#troubleshooting): Solutions to common issues
+   - [Glossary](#glossary): Definitions of key terms
+
+
+--------------------------------------------------------------------------------------------------------------------
+
 * Table of Contents
 {:toc}
 
@@ -9,7 +47,32 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+TeamSync is built on [AddressBook Level-3](https://se-education.org/addressbook-level3/), for the module CS2103T under the National University of Singapore. 
+
+Software Dependencies
+
+| Dependency | Use |
+| --------- | -------- |
+| [Gradle](https://gradle.org/) | Build Automation |
+| [JavaFX](https://openjfx.io/) | GUI |
+| [Jackson](https://github.com/FasterXML/jackson) | JSON Parser |
+| [JUnit5](https://github.com/junit-team/junit5) | Testing |
+| [AtlantaFX](https://github.com/mkpaz/atlantafx) | GUI CSS |
+| [Ikonli](https://github.com/kordamp/ikonli) | Icon Pack |
+| [JUnit5](https://github.com/junit-team/junit5) | Testing |
+
+Documentation Dependencies
+
+| Dependency | Use |
+| --------- | -------- |
+| [Jekyll](https://jekyllrb.com/) | Site Rendering |
+| [PlantUML](https://plantuml.com/) | UML Diagrams |
+| [GitHub Pages](https://pages.github.com/) | Site Hosting |
+
+Miscellaneous 
+| Dependency | Use |
+| --------- | -------- |
+| [GitHub](https://github.com/) | Version Control |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -21,11 +84,6 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ## **Design**
 
-<div markdown="span" class="alert alert-primary">
-
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
-</div>
-
 ### Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
@@ -36,19 +94,19 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main layers of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/Main.java) and [`MainApp`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/Main.java) and [`MainApp`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/MainApp.java)) is responsible for the app launch and shutdown.
 * At app launch, it initializes the other layers in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other layers and invokes cleanup methods where necessary.
 
-The bulk of the app's work is done by the following five layers:
+The main architecture can be separated into the following 5 layers:
 
-* [**`View (FXML + Controller)`**](#view-component): The UI presentation of the App.
+* [**`View (FXML + Controller)`**](#view-component): The UI presentation of the app.
 * [**`Viewmodel`**](#viewmodel-component): Manages the presentation logic and state of the UI.
 * [**`Logic`**](#logic-component): The command executor.
-* [**`Model`**](#model-component): Holds the data of the App in memory.
+* [**`Model`**](#model-component): Holds the data of the app in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other layers.
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple layers.
 
 **How the architecture layers interact with each other**
 
@@ -324,94 +382,156 @@ Classes used by multiple components are organized in the `syncsquad.teamsync.com
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+There are 4 main command groups:
+- Teammate (`person`)
+- Module (`module`)
+- Meeting (`meeting`)
+- General 
 
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Some note here.
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+### Teammate 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+#### Adding a Teammate
 
-</div>
+The command `person add` creates a new `Person` object, which contains the necessary fields that are associated with a teammate. 
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+The activity diagram is represented below:
+//TODO activity diagram
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
+The sequence diagram of the command is represented below:
+// TODO
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The sequence diagram omits the classes that represents the attributes of the `Person` object, as their behaviour is trivial and will clutter the diagram. 
 
-</div>
+##### Notes
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
+- Each teammate is uniquely identified by their email. This means that two `Person` objects that have the same email are considered to be the same teammate. This does not apply to the `equals` property, which checks for equality on all fields. 
+- The `Name` attribute must only consist of Latin alphanumerical characters, spaces, and allowed special characters (apostrophe and dash) only. 
+- The `Email` attribute must follow the following constraints:
+  - 1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
+   - 2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods. The domain name must:
+     - end with a domain label at least 2 characters long
+     - have each domain label start and end with alphanumeric characters
+     - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+- The `Phone` attribute must consist of numbers only, and be at least 3 digits long
+- All attributes must not be empty (including whitespaces)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+##### Future Considerations
+- The name constraint can be relaxed to include non-Latin alphabets, such as Chinese characters. This is not an urgent requirement, and given the NUS locality, it is likely that enforcing Latin alphabets is sufficient.  
 
-</div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+#### Editing a Teammate
 
-![UndoRedoState4](images/UndoRedoState4.png)
+The command `person edit` edits an existing `Person` object by its index. 
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+The activity diagram is represented below:
+//TODO activity diagram
 
-![UndoRedoState5](images/UndoRedoState5.png)
 
-The following activity diagram summarizes what happens when a user executes a new command:
+##### Notes
+- The same restrictions mentioned in [Adding a Person](#adding-a-person) appplies here as well. 
 
-<img src="images/CommitActivityDiagram.png" width="250" />
 
-_#### Design considerations:
+#### Deleting a Teammate
 
-**Aspect: How undo & redo executes:**
+The command `person delete` deletes an existing `Person` object by its index. 
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+The activity diagram is represented below:
+//TODO activity diagram
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+#### Searching for a Teammate
 
-### \[Proposed\] Data archiving
+The command `person find` finds an existing `Person` object by a given predicate. 
 
-_{Explain here how the data archiving feature will be implemented}_
+The activity diagram is represented below:
+//TODO activity diagram
 
+##### Notes
+- The search predicate cannot be blank.  
+
+#### Listing All Teammates
+
+The command `person list` displays all `Person` objects, sorted by name.  
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+
+### Module 
+
+#### Adding a Module for a Teammate
+
+The command `module add` creates a new `Module` object, which contains the necessary fields that are associated with an NUS module. 
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+The sequence diagram of the command is represented below:
+// TODO
+
+The sequence diagram omits the classes that represents the attributes of the `Module` object, as their behaviour is trivial and will clutter the diagram.
+
+#### Deleting a Module for a Teammate
+
+The command `module delete` removes an existing `Module` from a `Person`. 
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+### Meeting 
+
+#### Adding a Meeting
+
+The command `meeting add` creates a new `Meeting` object, which contains the necessary fields that are associated with an NUS module. 
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+The sequence diagram of the command is represented below:
+// TODO
+
+The sequence diagram omits the classes that represents the attributes of the `Meeting` object, as their behaviour is trivial and will clutter the diagram.
+
+#### Deleting a Meeting 
+
+The command `meeting delete` deletes an existing `Meeting`. 
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+#### Listing All Meetings
+
+The command `meeting list` displays all `Meeting` objects, sorted by time.  
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+### General Commands 
+
+#### Help
+
+The command `help` shows a message explaining how to access the user guide.
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+#### Clear
+
+The command `clear` clears all teammates, modules and meetings from TeamSync.
+
+The activity diagram is represented below:
+//TODO activity diagram
+
+#### Exit
+
+The command `exit` exits and closes the application. 
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -455,45 +575,47 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | User                    | Edit a contact                     | Fix mistakes or update contact details                                          |
 | `* * *` | User                    | Find a contact by name             | Locate details of persons without having to go through the entire list          |
 | `* * *` | User                    | Add a module to a contact          | Keep track of which modules a person is taking and his availability             |
-| `* *`   | User                    | Edit a module for a contact        | Fix mistakes or update module details                                           |
 | `* * *` | User                    | Delete a module for a contact      | Keep the module list up to date whenever a module ends                          |
+| `* *`   | User                    | Edit a module for a contact        | Fix mistakes or update module details                                           |
 | `*`     | User                    | Filter contacts by module          | Find who is taking the same module without having to go through the entire list |
+| `* * *` | User                    | Create a meeting                   | Plan for a group meeting                                                        |
+| `* * *` | User                    | Delete a meeting                   | Remove old or cancelled meetings                                                |
+| `* *`   | User                    | Edit a meeting                     | Fix mistakes or update details of a meeting                                     |
+| `* * *` | User                    | View all meetings                      | Keep track of all meetings                                          |
 | `* * *` | User                    | View a contact's timetable         | Easily visualise the contact's availability                                     |
-| `* *`   | Group member            | Create a group                     | Easily find the contact details of my group members                             |
-| `* *`   | Group member            | Delete a group                     | Delete groups when a group project is over                                      |
-| `* *`   | Group member            | Add a contact to a group           | Keep track of my group members                                                  |
-| `* *`   | Group member            | Remove a contact from a group      | Ensure that the group list stays updated whenever a group member leaves         |
-| `* *`   | Group member            | View all group members' timetables | Easily find common meeting times                                                |
-| `* * *` | Group member            | Create a meeting                   | Plan for a group meeting                                                        |
-| `* *`   | Group member            | Edit a meeting                     | Fix mistakes or update details of a meeting                                     |
-| `* * *` | Group member            | Delete a meeting                   | Remove old or cancelled meetings                                                |
-| `* *`   | Group member            | View upcoming meetings             | Be aware of and attend the meeting                                              |
-| `* *`   | Group member            | Create a task                      | Track tasks effectively                                                         |
+| `* * *` | User                    | View collated timetable of currently displayed contacts   | Easily visualise the common available slots of my contacts |
+| `* * *` | User                    | View meetings in timetable         | Easily visualise when are the meetings                                     |
+| `* * *` | User                    | Change the week displayed in the timetable  | View the schedule of other weeks                                     |
+| `*`   | Group member            | Create a group                     | Easily find the contact details of my group members                             |
+| `*`   | Group member            | Delete a group                     | Delete groups when a group project is over                                      |
+| `*`   | Group member            | Add a contact to a group           | Keep track of my group members                                                  |
+| `*`   | Group member            | Remove a contact from a group      | Ensure that the group list stays updated whenever a group member leaves         |
+| `*`   | Group member            | Create a task                      | Track tasks effectively                                                         |
 | `*`     | Group member            | Edit a task                        | Fix mistakes or update task details                                             |
-| `* *`   | Group member            | Delete a task                      | Delete old or cancelled tasks                                                   |
+| `*`   | Group member            | Delete a task                      | Delete old or cancelled tasks                                                   |
 | `*`     | Group member            | Set task priorities                | Know which tasks to focus on first                                              |
 | `*`     | Group member            | Set task responsibilities          | Know who is responsible for completing a task                                   |
-| `* *`   | Group member            | Update task status                 | Keep track of whether a task has been completed                                 |
-| `* *`   | Group member            | View completed tasks               | Keep track of what has been accomplished                                        |
-| `* *`   | Group member            | View uncompleted tasks             | Keep track of what is to be done                                                |
+| `*`   | Group member            | Update task status                 | Keep track of whether a task has been completed                                 |
+| `*`   | Group member            | View completed tasks               | Keep track of what has been accomplished                                        |
+| `*`   | Group member            | View uncompleted tasks             | Keep track of what is to be done                                                |
 | `*`     | Group member            | View upcoming deadlines            | Keep track of tasks that are due soon                                           |
 
 
 ### Use cases
 
-#### Use case: UC 01 - Add contact
+#### Use case: UC 01 - Add a teammate
 **System**: TeamSync
 
 **Actor**: User
 
-**Preconditions**: User has the details of the person being added
+**Preconditions**: User has the details of the teammate being added
 
 **MSS**
 
-1. User chooses to add a contact
-2. User enters the contact details
-3. TeamSync adds the contact and displays a success message 
-4. TeamSync updates display to reflect the added contact
+1. User chooses to add a teammate
+2. User enters the teammate contact details
+3. TeamSync adds the teammate and displays a success message 
+4. TeamSync updates display to reflect the added teammate
 
     Use case ends
 
@@ -504,45 +626,47 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
     Use case ends
 
-#### Use case: UC 02 - Delete contact
+#### Use case: UC 02 - Delete a teammate
 **System**: TeamSync
 
 **Actor**: User
 
+**Preconditions**: User has the details of the teammate and has created the teammate
+
 **MSS**
 
-1. User chooses a contact to delete
-2. TeamSync deletes the contact and displays a success message
-3. TeamSync updates display to reflect the deleted contact
+1. User chooses a teammate contact to delete
+2. TeamSync deletes the teammate and displays a success message
+3. TeamSync updates display to reflect the deleted teammate
 
    Use case ends
 
 **Extensions**
 
-1a. User selects an invalid contact to delete
+1a. User selects an invalid teammate to delete
 * 1a1. TeamSync displays an error message
 
   Use case ends
 
-#### Use case: UC 03 - Edit contact
+#### Use case: UC 03 - Edit a teammate
 **System**: TeamSync
 
 **Actor**: User
 
-**Preconditions**: User has the new details of the contact being updated
+**Preconditions**: User has the new details of the teammate being updated
 
 **MSS**
 
-1. User chooses a contact to edit
-2. User enters the updated contact details
-2. TeamSync updates the contact and displays a success message
-3. TeamSync updates display to reflect the deleted contact
+1. User chooses a teammate contact to edit
+2. User enters the updated teammate contact details
+2. TeamSync updates the teammate and displays a success message
+3. TeamSync updates display to reflect the deleted teammate
 
    Use case ends
 
 **Extensions**
 
-1a. User selects an invalid contact to update
+1a. User selects an invalid teammate to update
 * 1a1. TeamSync displays an error message
 
   Use case ends
@@ -552,257 +676,155 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends
 
-#### Use case: UC 04 - List all contacts
+#### Use case: UC 04 - List all teammates
 **System**: TeamSync
 
 **Actor**: User
 
 **MSS**
 
-1. User chooses to display all contacts
-2. TeamSync displays all contacts
+1. User chooses to display all teammate
+2. TeamSync displays all teammate
 
    Use case ends
 
-#### Use case: UC 05 - Find contact by name
+#### Use case: UC 05 - Find teammate by name
 **System**: TeamSync
 
 **Actor**: User
 
 **MSS**
 
-1. User enters the name of the contact
-2. TeamSync displays contacts that match the name entered
+1. User enters the name of the teammate
+2. TeamSync displays teammates that match the name entered
 
    Use case ends
 
 **Extensions**
 
-2a. No contact matches the name entered
-* 2a1. TeamSync displays a message that no contacts matching the name is found
+2a. No teammate matches the name entered
+* 2a1. TeamSync displays a message that no teammates matching the name is found
 
   Use case ends
 
-#### Use case: UC 06 - Create a group
+#### Use case: UC 06 - Create a module for a teammate
 **System**: TeamSync
 
 **Actor**: User
 
+**Preconditions**: User has the details of the module and teammate
+
 **MSS**
 
-1. User chooses to create a group
-2. User enters the name of the group
-3. TeamSync displays a message that a group has been created
+1. User chooses a teammate to create a module for
+2. User enters the module details
+3. TeamSync adds the module and displays a success message
+4. TeamSync updates display to reflect the added module
 
    Use case ends
 
 **Extensions**
 
-2a. TeamSync detects that a group with the same name already exists
+1a. User selects an invalid teammate
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+2a. User enters an invalid module
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+#### Use case: UC 07 - Delete a module for a teammate
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has the details of the module and teammate and has created the module and teammate
+
+**MSS**
+
+1. User chooses a teammate to delete a module from
+2. User enters the module details
+3. TeamSync deletes the module and displays a success message
+4. TeamSync updates display to reflect the deleted module
+
+   Use case ends
+
+**Extensions**
+
+1a. User selects an invalid teammate
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+2a. User selects an invalid module
+* 1a1. TeamSync displays an error message
+
+  Use case ends
+
+
+#### Use case: UC 08 - Create a meeting
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has the details of the meeting
+
+**MSS**
+
+1. User chooses to create a meeting
+2. User enters the meeting details
+3. TeamSync displays a message that the meeting has been created successfully
+4. TeamSync updates display to reflect the deleted meeting
+
+   Use case ends
+
+**Extensions**
+
+2a. TeamSync detects an error in the entered meeting details
 * 2a1. TeamSync displays an error message
 
   Use case ends
 
-#### Use case: UC 07 - Add contact to a group
+#### Use case: UC 09 - Delete a meeting
 **System**: TeamSync
 
 **Actor**: User
 
-**Preconditions**: User has already added the contact to TeamSync
+**Preconditions**: User has the details of the meeting and has created the meeting
 
 **MSS**
 
-1. User chooses to add a contact to a group
-2. User <u>finds the contact by name (UC 05)</u>
-3. User chooses the contact to add
-4. User chooses a group to add the contact to
-5. TeamSync displays a message that the contact has been added to the group successfully
+1. User chooses to delete a meeting
+2. TeamSync displays a message that the meeting has been deleted successfully
+3. TeamSync updates display to reflect the deleted meeting
 
    Use case ends
 
 **Extensions**
 
-1a. TeamSync detects that no groups exist
+1a. TeamSync detects that an invalid meeting has been chosen
 * 1a1. TeamSync displays an error message
 
   Use case ends
 
-2a. TeamSync detects that no contacts match the name provided
-* 2a1. TeamSync requests for the correct name
-
-  Step 2a1 is repeated until a matching contact has been found
-
-  Use case resumes from step 3
-
-4a. TeamSync detects that an invalid group has been chosen
-* 4a1. TeamSync requests for the correct group
-
-  Step 4a1 is repeated until a valid group has been found
-
-  Use case ends
-
-#### Use case: UC 08 - Remove contact from a group
+#### Use case: UC 10 - List all meetings
 **System**: TeamSync
 
 **Actor**: User
 
-**Preconditions**: User has added the contact to a group
-
 **MSS**
 
-1. User chooses to remove a contact from a group
-2. User chooses a group to remove a contact from
-3. User chooses which contact among the group to remove
-4. TeamSync displays a message that the contact has been removed from the group successfully
+1. User chooses to list all meetings
+2. TeamSync updates display to display all meetings
 
    Use case ends
-
-**Extensions**
-
-1a. TeamSync detects that no groups exist
-* 1a1. TeamSync displays an error message
-
-  Use case ends
-
-2a. TeamSync detects that an invalid group has been chosen
-* 2a1. TeamSync requests for the correct group
-
-  Step 2a1 is repeated until a valid group has been found
-
-  Use case resumes from step 3
-
-3a. TeamSync detects that an invalid contact has been chosen
-* 3a1. TeamSync requests for the correct contact
-
-  Step 3a1 is repeated until a valid contact has been found
-
-  Use case resumes from step 4
-
-#### Use case: UC 09 - Remove contact from a group
-**System**: TeamSync
-
-**Actor**: User
-
-**Preconditions**: User has added the contact to a group
-
-**MSS**
-
-1. User chooses to remove a contact from a group
-2. User chooses a group to remove a contact from
-3. User chooses which contact among the group to remove
-4. TeamSync displays a message that the contact has been removed from the group successfully
-
-   Use case ends
-
-**Extensions**
-
-1a. TeamSync detects that no groups exist
-* 1a1. TeamSync displays an error message
-
-  Use case ends
-
-2a. TeamSync detects that an invalid group has been chosen
-* 2a1. TeamSync requests for the correct group
-
-  Step 2a1 is repeated until a valid group has been found
-
-  Use case resumes from step 3
-
-3a. TeamSync detects that an invalid contact has been chosen
-* 3a1. TeamSync requests for the correct contact
-
-  Step 3a1 is repeated until a valid contact has been found
-
-  Use case resumes from step 4
-
-#### Use case: UC 10 - Create a group meeting
-**System**: TeamSync
-
-**Actor**: User
-
-**Preconditions**: User has created the group will have a meeting
-
-**MSS**
-
-1. User chooses to create a group meeting
-2. User chooses a group that will have the meeting
-3. TeamSync displays a message that the group has been chosen successfully
-4. TeamSync requests for the meeting details
-5. User enters the meeting details
-6. TeamSync displays a message that the meeting has been created successfully
-
-   Use case ends
-
-**Extensions**
-
-1a. TeamSync detects that no groups exist
-* 1a1. TeamSync displays an error message
-
-  Use case ends
-
-2a. TeamSync detects that an invalid group has been chosen
-* 2a1. TeamSync requests for the correct group
-
-  Step 2a1 is repeated until a valid group has been found
-
-  Use case resumes from step 3
-
-3a. TeamSync detects an error in the entered meeting details
-* 3a1. TeamSync displays an error message
-
-  Use case ends
-
-5b. TeamSync detects the entered meeting overlaps with another meeting from either the same or a different group
-* 5b1. TeamSync displays a warning with the meeting details of the overlapping meeting
-* 5b2. TeamSync requests for confirmation to create the meeting
-  Use case ends
-
-#### Use case: UC 11 - Delete a group meeting
-**System**: TeamSync
-
-**Actor**: User
-
-**Preconditions**: User has created a group meeting
-
-**MSS**
-
-1. User chooses to delete a group meeting
-2. TeamSync displays a list of groups that currently have a meeting scheduled
-3. User chooses a group to delete a meeting from
-4. TeamSync displays a message that the group has been chosen successfully
-5. TeamSync displays a list of meetings scheduled for that group
-6. User chooses a meeting to delete
-7. TeamSync displays a message that the meeting has been deleted successfully
-
-   Use case ends
-
-**Extensions**
-
-1a. TeamSync detects that no groups exist
-* 1a1. TeamSync displays an error message
-
-  Use case ends
-
-3a. TeamSync detects that an invalid group has been chosen
-* 3a1. TeamSync requests for the correct group
-
-  Step 3a1 is repeated until a valid group has been found
-
-  Use case resumes from step 4
-
-6a. TeamSync detects that an invalid meeting has been chosen
-* 6a1. TeamSync requests for the correct meeting
-
-  Step 6a1 is repeated until a valid meeting has been found
-  
-  Use case resumes from step 7
-
-*{More to be added}*
 
 ### Non-Functional Requirements
 
 1. TeamSync should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. TeamSync should be able to store up to 1000 contacts and 100 groups without a noticeable sluggishness in performance for typical usage.
+2. TeamSync should be able to store up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. TeamSync should respond to commands within 1 second under regular operating conditions
 5. TeamSync should work without requiring an installer.
@@ -820,15 +842,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 13. Documentation should not exceed 15MB per file.
 14. The developer guide and user guide should be PDF-friendly.
 
-*{More to be added}*
-
 ### Glossary
 
 * **CLI**: Command Line Interface
 * **GUI**: Graphical User Interface
-* **Invalid group**: A group the user specified when prompted by TeamSync which does not exist
-* **Invalid contact**: A contact the user specified when prompted by TeamSync which does not exist
 * **Invalid meeting**: A meeting the user specified when prompted by TeamSync which does not exist
+* **Invalid module**: A module the user specified when prompted by TeamSync which does not exist
+* **Invalid teammate**: A contact the user specified when prompted by TeamSync which does not exist
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -842,44 +862,122 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
-### Launch and shutdown
+### Launch
 
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample teammates. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Teammate
 
-### Deleting a person
+#### Add a new teammate
+Prerequisite: There is no teammate with the email "takashi@yamada.com"
+<br>
+Input Command: `person add -n Takashi Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney` 
+<br>
+Expected Output: The command box displays "New person added: Takashi Yamada; Phone: 12345678; Email: takashi@yamada.com; Address: 123 Sakura Street; Modules: ; Tags: \[owesMoney\]"
 
-1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+Prerequisite: The previous command was entered once. 
+<br>
+Input Command: `person add -n Takashi Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney` 
+<br>
+Expected Output: The command box displays "This person already exists in the address book"
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+Input Command: `person add -n Takashi@Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney` 
+<br>
+Expected Output: The command box displays "Names should only contain alphanumeric characters and spaces, and it should not be blank"
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+#### Edit a teammate
+Prerequisite: At least 1 teammate have been added
+<br>
+Input Command: `person edit 1 -n Takashi Sato` 
+<br>
+Expected Output: The command box displays "Edited Person: Takashi Sato; ...", where ... represents the other attributes of the teammate. 
 
-1. _{ more test cases …​ }_
+Prerequisite: Less than 3 teammates have been added
+<br>
+Input Command: `person edit 4 -n Takashi Sato` 
+<br>
+Expected Output: The command box displays "The person index provided is invalid"
 
-### Saving data
+#### Delete a teammate
+Prerequisite: At least 1 teammate have been added
+<br>Input Command: `person delete 1` 
+<br>Expected Output: The command box displays "Deleted Person: ...", where ... represents the other attributes of the teammate. 
 
-1. Dealing with missing/corrupted data files
+Prerequisite: Less than 3 teammates have been added
+<br>Input Command: `person delete 4` 
+<br>Expected Output: The command box displays "The person index provided is invalid"
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+#### List all teammates
+Input Command: `person list` 
+<br>Expected Output: The command box displays "Listed all persons"
 
-1. _{ more test cases …​ }_
+#### Search for a teammate
+Prerequisite: At least 1 teammate that contains the name "Takashi" has been added
+<br>Input Command: `person find Takashi` 
+<br>Expected Output: The command box displays "# persons listed!", where # is the number of teammates that contain the name "Takashi"
+
+### Module
+
+#### Add a module for a teammate
+Prerequisite: At least 1 teammate have been added, no modules with the code "CS2103T" exist for that teammate, and there are no modules between 14:00 and 16:00 on Friday for that teammate
+<br>Input Command: `module add 1 CS2103T FRI 14:00 16:00` 
+<br>Expected Output: The command box displays "Added Module to Person: ... Modules: [CS2103T - FRI 14:00 to 16:00]...", where ... represents the other attributes of the teammate. 
+
+Prerequisite: At least 1 teammate have been added, no modules with the code "CS2101" exist for that teammate, and there is at least 1 module between 14:00 and 16:00 on Friday for that teammate
+<br>Input Command: `module add 1 CS2101 FRI 14:00 16:00` 
+<br>Expected Output: The command box displays "This person already has another module during this period."
+
+#### Delete a module for a teammate
+Prerequisite: At least 1 teammate have been added, with a module "CS2101" 
+<br>Input Command: `module delete 1 CS2103T` 
+<br>Expected Output: The command box displays "Deleted Module from: ...", where ... represents the other attributes of the teammate. 
+
+Prerequisite: At least 1 teammate have been added, with no module with the code "CS2103T" 
+<br>Input Command: `module delete 1 CS2103T` 
+<br>Expected Output: The command box displays "The person does not have the provided module assigned to them"
+
+### Meeting
+
+#### Add a meeting
+Prerequisite: There are no meetings on 15-11-2025 between 11:00 and 15:00
+<br>Input Command: `meeting add 15-11-2025 11:00 15:00` 
+<br>Expected Output: The command box displays "Meeting added with the following details: 15-11-2025; Start time: 11:00; End time: 15:00"
+
+Prerequisite: There is at least one meeting on 15-11-2025 between 11:00 and 14:00
+<br>Input Command: `meeting add 15-11-2025 11:00 14:00` 
+<br>Expected Output: The command box displays "There is another meeting during this time period already. "
+
+#### Delete a meeting
+Prerequisite: There is at least 1 meeting added
+<br>Input Command: `meeting delete 1` 
+<br>Expected Output: The command box displays "Deleted Meeting: ...", where ... represents the details of the meeting
+
+Prerequisite: Less than 3 meetings have been added
+<br>Input Command: `meeting delete 4` 
+<br>Expected Output: The command box displays "The meeting index provided is invalid"
+
+### Exit
+<br>Input Command: `exit` 
+<br>Expected Behaviour: The app closes. 
+
+
+## **Appendix: Planned Enhancements**
+
+_Coming soon ..._
+
+## **Appendix: Effort**
+
+_Coming soon ..._
