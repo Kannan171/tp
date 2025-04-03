@@ -4,7 +4,8 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -44,7 +45,14 @@
          <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
                <content>
-                  <TextArea fx:id="instructionsTextArea" editable="false" wrapText="true" />
+                  <TableView fx:id="commandTableView" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="categoryColumn" text="Category" prefWidth="100.0" />
+                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="150.0" />
+                        <TableColumn fx:id="formatColumn" text="Format" prefWidth="300.0" />
+                        <TableColumn fx:id="exampleColumn" text="Example" prefWidth="300.0" />
+                     </columns>
+                  </TableView>
                </content>
             </ScrollPane>
          </children>
