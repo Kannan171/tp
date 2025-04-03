@@ -11,33 +11,6 @@ Designed with simplicity and efficiency in mind, TeamSync makes it easy to add t
 
 This Developer Guide documents the internal design and implementation of TeamSync. This guide contains information on the architecture of our app, testing and logging procedures. 
 
-## How to Use This Guide
-
-This Developer Guide is designed to provide an accurate overview of our app for future developers to maintain, update and improve on TeamSync. Here's how to navigate it effectively:
-
-//TODO update
-1. **Quick Start** (For New Users)
-   - If you're new to TeamSync, start with the [Quick Start](#quick-start) section
-   - This section provides step-by-step instructions to get you up and running quickly
-
-2. **Command Reference** (For All Users)
-   - The [Commands](#commands) section contains detailed information about all available commands
-   - Commands are organized into categories:
-     - [Teammate Commands](#teammate-commands)
-     - [Module Commands](#module-commands)
-     - [Meeting Commands](#meeting-commands)
-     - [General Commands](#general-commands)
-
-3. **Command Summary** (For Quick Reference)
-   - The [Command Summary](#command-summary) section provides a quick overview of all commands
-   - Use this section as a quick reference when you're familiar with the commands
-
-4. **Additional Resources**
-   - [FAQ](#faq): Answers to common questions
-   - [Troubleshooting](#troubleshooting): Solutions to common issues
-   - [Glossary](#glossary): Definitions of key terms
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 * Table of Contents
