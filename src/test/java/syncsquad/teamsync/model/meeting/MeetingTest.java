@@ -6,14 +6,47 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_DATE_SEP_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_END_TIME_SEP_MEETING;
 import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_START_TIME_SEP_MEETING;
+import static syncsquad.teamsync.logic.parser.ParserUtil.DATE_FORMATTER;
+import static syncsquad.teamsync.logic.parser.ParserUtil.TIME_FORMATTER;
 import static syncsquad.teamsync.testutil.TypicalAddressBook.FEB_MEETING;
 import static syncsquad.teamsync.testutil.TypicalAddressBook.JAN_MEETING;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.testutil.MeetingBuilder;
 
 public class MeetingTest {
+
+    @Test
+    public void getDay() {
+        Meeting sunMeeting = new MeetingBuilder().withDate("6-4-2025").build();
+        assertEquals("SUN", sunMeeting.getDay());
+        Meeting monMeeting = new MeetingBuilder().withDate("7-4-2025").build();
+        assertEquals("MON", monMeeting.getDay());
+        Meeting tueMeeting = new MeetingBuilder().withDate("8-4-2025").build();
+        assertEquals("TUE", tueMeeting.getDay());
+        Meeting wedMeeting = new MeetingBuilder().withDate("9-4-2025").build();
+        assertEquals("WED", wedMeeting.getDay());
+        Meeting thuMeeting = new MeetingBuilder().withDate("10-4-2025").build();
+        assertEquals("THU", thuMeeting.getDay());
+        Meeting friMeeting = new MeetingBuilder().withDate("11-4-2025").build();
+        assertEquals("FRI", friMeeting.getDay());
+        Meeting satMeeting = new MeetingBuilder().withDate("12-4-2025").build();
+        assertEquals("SAT", satMeeting.getDay());
+    }
+
+    @Test
+    public void hashCodeMethod() {
+        LocalDate date = LocalDate.parse("5-4-2025", DATE_FORMATTER);
+        LocalTime startTime = LocalTime.parse("14:00", TIME_FORMATTER);
+        LocalTime endTime = LocalTime.parse("15:00", TIME_FORMATTER);
+        Meeting meeting = new Meeting(date, startTime, endTime);
+        assertEquals(Objects.hash(date, startTime, endTime), meeting.hashCode());
+    }
 
     @Test
     public void equals() {

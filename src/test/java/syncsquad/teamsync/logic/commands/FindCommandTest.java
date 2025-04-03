@@ -15,6 +15,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import syncsquad.teamsync.logic.commands.person.FindCommand;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ModelManager;
 import syncsquad.teamsync.model.UserPrefs;

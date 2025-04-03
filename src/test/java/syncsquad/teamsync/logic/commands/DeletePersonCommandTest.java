@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.person.DeletePersonCommand;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ModelManager;
 import syncsquad.teamsync.model.UserPrefs;

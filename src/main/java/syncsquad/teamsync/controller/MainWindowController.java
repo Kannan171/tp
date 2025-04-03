@@ -109,9 +109,9 @@ public class MainWindowController extends UiPart<Stage> {
 
         // TODO: If we are adding `nextWeek` or `previousWeek` actions
         //  we should create a currentWeekController to handle the logic
-        this.viewModel.getCurrentWeekViewModel().currentWeekProperty()
+        this.logic.getCurrentWeek().currentWeekProperty()
             .addListener((unused1, oldValue, newValue) -> updateCurrentWeekLabel(newValue));
-        updateCurrentWeekLabel(this.viewModel.getCurrentWeekViewModel().currentWeekProperty().get());
+        updateCurrentWeekLabel(this.logic.getCurrentWeek().currentWeekProperty().get());
 
         menuBar.getStyleClass().add(Styles.BG_ACCENT_SUBTLE);
 
@@ -221,7 +221,7 @@ public class MainWindowController extends UiPart<Stage> {
      */
     private void updateCurrentWeekLabel(LocalDate startOfWeek) {
         LocalDate endOfWeek = startOfWeek.plusDays(6);
-        String dateFormat = "MMM d";
+        String dateFormat = "MMM d yyyy";
         String weekRange = String.format("%s - %s",
             startOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)),
             endOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)));

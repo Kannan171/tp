@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.parser;
+package syncsquad.teamsync.logic.parser.person;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -14,8 +14,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import syncsquad.teamsync.commons.core.index.Index;
-import syncsquad.teamsync.logic.commands.EditCommand;
-import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.commands.person.EditCommand;
+import syncsquad.teamsync.logic.commands.person.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.parser.ArgumentMultimap;
+import syncsquad.teamsync.logic.parser.ArgumentTokenizer;
+import syncsquad.teamsync.logic.parser.Parser;
+import syncsquad.teamsync.logic.parser.ParserUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.tag.Tag;
 
@@ -25,16 +29,16 @@ import syncsquad.teamsync.model.tag.Tag;
 public class EditCommandParser implements Parser<EditCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
+     * Parses the given {@code String} of arguments in the context of the
+     * EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG
-                );
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
 
@@ -69,12 +73,14 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if
+     * {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be
+     * parsed into a
      * {@code Set<Tag>} containing zero tags.
      */
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
+        requireNonNull(tags);
 
         if (tags.isEmpty()) {
             return Optional.empty();

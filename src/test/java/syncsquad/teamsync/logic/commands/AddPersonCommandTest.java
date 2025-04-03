@@ -18,10 +18,12 @@ import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;
+import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.testutil.PersonBuilder;
@@ -181,6 +183,16 @@ public class AddPersonCommandTest {
 
         @Override
         public ObservableList<Meeting> getMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TimetableWeek getCurrentWeek() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWeek(TimetableWeek week) {
             throw new AssertionError("This method should not be called.");
         }
 
