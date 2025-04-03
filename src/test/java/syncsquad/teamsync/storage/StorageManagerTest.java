@@ -41,8 +41,7 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
          */
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, 0.5, 0.5));
-        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, false));
+        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, 0.5, 0.5, false));
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);

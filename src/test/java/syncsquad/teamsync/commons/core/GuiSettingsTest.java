@@ -12,8 +12,8 @@ public class GuiSettingsTest {
                 + ", windowHeight=" + guiSettings.getWindowHeight() + ", windowCoordinates="
                 + guiSettings.getWindowCoordinates() + ", verticalDividerPosition="
                 + guiSettings.getVerticalDividerPosition() + ", horizontalDividerPosition="
-                + guiSettings.getHorizontalDividerPosition() + "}"
-                + guiSettings.getWindowCoordinates() + ", isMaximized=" + guiSettings.getIsMaximized() + "}";
+                + guiSettings.getHorizontalDividerPosition()
+                + ", isMaximized=" + guiSettings.getIsMaximized() + "}";
         assertEquals(expected, guiSettings.toString());
     }
 }

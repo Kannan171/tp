@@ -29,16 +29,7 @@ public class MainWindowController extends UiPart<Stage> {
     private StackPane mainStackPane;
 
     @FXML
-    private SplitPane splitPane;
     private SplitPane verticalSplitPane;
-
-    @FXML
-    private HBox titleBar;
-    private double xOffset = 0;
-    private double yOffset = 0;
-
-    @FXML
-    private MenuBar menuBar;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -89,8 +80,20 @@ public class MainWindowController extends UiPart<Stage> {
 
     }
 
-    public Stage getPrimaryStage() {
+    protected Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    protected MainViewModel getViewModel() {
+        return viewModel;
+    }
+
+    protected double getVerticalDividerPosition() {
+        return verticalSplitPane.getDividerPositions()[0];
+    }
+
+    protected double getHorizontalDividerPosition() {
+        return horizontalSplitPane.getDividerPositions()[0];
     }
 
     /**
@@ -101,7 +104,7 @@ public class MainWindowController extends UiPart<Stage> {
         mainStackPane.getChildren().add(helpModalPane);
         StackPane.setAlignment(helpModalPane, javafx.geometry.Pos.CENTER);
 
-        TitleBarController titleBarController = new TitleBarController(primaryStage, viewModel, helpModalPane);
+        TitleBarController titleBarController = new TitleBarController(this, helpModalPane);
         titleBarPlaceholder.getChildren().add(titleBarController.getRoot());
 
         verticalSplitPane.setDividerPositions(viewModel.getGuiSettings().get().getVerticalDividerPosition());
@@ -159,17 +162,6 @@ public class MainWindowController extends UiPart<Stage> {
         horizontalSplitPane.setDividerPositions(guiSettings.getHorizontalDividerPosition());
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
 
     void show() {
         primaryStage.show();
@@ -183,9 +175,9 @@ public class MainWindowController extends UiPart<Stage> {
         boolean wasMaximized = primaryStage.isMaximized();
         primaryStage.setMaximized(false);
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), wasMaximized);
                 (int) primaryStage.getX(), (int) primaryStage.getY(),
-                verticalSplitPane.getDividerPositions()[0], horizontalSplitPane.getDividerPositions()[0]);
+                verticalSplitPane.getDividerPositions()[0], horizontalSplitPane.getDividerPositions()[0],
+                wasMaximized);
         viewModel.saveGuiSettings(guiSettings);
         primaryStage.hide();
     }

@@ -9,7 +9,7 @@
       "z": 99
     },
     "verticalDividerPosition": 0.5,
-    "horizontalDividerPosition": 0.5
+    "horizontalDividerPosition": 0.5,
     "isMaximized": false
   },
   "addressBookFilePath" : "addressbook.json"

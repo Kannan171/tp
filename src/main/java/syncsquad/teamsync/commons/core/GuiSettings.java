@@ -20,9 +20,9 @@ public class GuiSettings implements Serializable {
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
-    private final boolean isMaximized;
     private final double verticalDividerPosition;
     private final double horizontalDividerPosition;
+    private final boolean isMaximized;
 
     /**
      * Constructs a {@code GuiSettings} with the default height, width and position.
@@ -39,15 +39,14 @@ public class GuiSettings implements Serializable {
     /**
      * Constructs a {@code GuiSettings}
      */
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, boolean isMaximized) {
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition,
-            double verticalDividerPosition, double horizontalDividerPosition) {
+            double verticalDividerPosition, double horizontalDividerPosition, boolean isMaximized) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
-        this.isMaximized = isMaximized;
         this.verticalDividerPosition = verticalDividerPosition;
         this.horizontalDividerPosition = horizontalDividerPosition;
+        this.isMaximized = isMaximized;
     }
 
     public double getWindowWidth() {
@@ -89,17 +88,15 @@ public class GuiSettings implements Serializable {
         return windowWidth == otherGuiSettings.windowWidth
                 && windowHeight == otherGuiSettings.windowHeight
                 && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates)
-                && isMaximized == otherGuiSettings.isMaximized;
-                && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates)
+                && isMaximized == otherGuiSettings.isMaximized
                 && verticalDividerPosition == otherGuiSettings.verticalDividerPosition
                 && horizontalDividerPosition == otherGuiSettings.horizontalDividerPosition;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates, isMaximized);
         return Objects.hash(windowWidth, windowHeight, windowCoordinates, verticalDividerPosition,
-                horizontalDividerPosition);
+                horizontalDividerPosition, isMaximized);
     }
 
     @Override
@@ -108,9 +105,9 @@ public class GuiSettings implements Serializable {
                 .add("windowWidth", windowWidth)
                 .add("windowHeight", windowHeight)
                 .add("windowCoordinates", windowCoordinates)
-                .add("isMaximized", isMaximized)
                 .add("verticalDividerPosition", verticalDividerPosition)
                 .add("horizontalDividerPosition", horizontalDividerPosition)
+                .add("isMaximized", isMaximized)
                 .toString();
     }
 }

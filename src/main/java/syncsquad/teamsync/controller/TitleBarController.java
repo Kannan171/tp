@@ -28,8 +28,7 @@ public class TitleBarController extends UiPart<Region> {
 
     private static final String FXML = "TitleBar.fxml";
 
-    private Stage primaryStage;
-    private MainViewModel viewModel;
+    private MainWindowController mainWindow;
     private ModalPane modalPane;
 
     @FXML
@@ -54,12 +53,14 @@ public class TitleBarController extends UiPart<Region> {
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
-    public TitleBarController(Stage primaryStage, MainViewModel viewModel, ModalPane modalPane) {
+    public TitleBarController(MainWindowController mainWindowController, ModalPane modalPane) {
         super(FXML);
 
-        this.primaryStage = primaryStage;
-        this.viewModel = viewModel;
+        this.mainWindow = mainWindowController;
         this.modalPane = modalPane;
+
+        Stage primaryStage = mainWindow.getPrimaryStage();
+        MainViewModel viewModel = mainWindow.getViewModel();
 
         helpDialog = new HelpDialogController();
 
@@ -110,6 +111,7 @@ public class TitleBarController extends UiPart<Region> {
     }
 
     void show() {
+        Stage primaryStage = mainWindow.getPrimaryStage();
         primaryStage.show();
     }
 
@@ -118,10 +120,15 @@ public class TitleBarController extends UiPart<Region> {
      */
     @FXML
     private void handleExit() {
+        Stage primaryStage = mainWindow.getPrimaryStage();
+        MainViewModel viewModel = mainWindow.getViewModel();
+        double verticalDividerPosition = mainWindow.getVerticalDividerPosition();
+        double horizontalDividerPosition = mainWindow.getHorizontalDividerPosition();
         boolean wasMaximized = primaryStage.isMaximized();
         primaryStage.setMaximized(false);
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), wasMaximized);
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                verticalDividerPosition, horizontalDividerPosition, wasMaximized);
         viewModel.saveGuiSettings(guiSettings);
         primaryStage.hide();
     }
