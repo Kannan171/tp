@@ -8,22 +8,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import syncsquad.teamsync.commons.core.LogsCenter;
-import syncsquad.teamsync.logic.commands.AddMeetingCommand;
-import syncsquad.teamsync.logic.commands.AddModuleCommand;
-import syncsquad.teamsync.logic.commands.AddPersonCommand;
 import syncsquad.teamsync.logic.commands.ClearCommand;
 import syncsquad.teamsync.logic.commands.Command;
-import syncsquad.teamsync.logic.commands.DeleteMeetingCommand;
-import syncsquad.teamsync.logic.commands.DeleteModuleCommand;
-import syncsquad.teamsync.logic.commands.DeletePersonCommand;
-import syncsquad.teamsync.logic.commands.EditCommand;
 import syncsquad.teamsync.logic.commands.ExitCommand;
-import syncsquad.teamsync.logic.commands.FindCommand;
 import syncsquad.teamsync.logic.commands.HelpCommand;
-import syncsquad.teamsync.logic.commands.ListCommand;
-import syncsquad.teamsync.logic.commands.ListMeetingsCommand;
-import syncsquad.teamsync.logic.commands.ShowDateCommand;
+import syncsquad.teamsync.logic.commands.meeting.MeetingCommand;
+import syncsquad.teamsync.logic.commands.module.ModuleCommand;
+import syncsquad.teamsync.logic.commands.person.PersonCommand;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
+import syncsquad.teamsync.logic.parser.meeting.MeetingCommandsParser;
+import syncsquad.teamsync.logic.parser.module.ModuleCommandsParser;
+import syncsquad.teamsync.logic.parser.person.PersonCommandsParser;
 
 /**
  * Parses user input.
@@ -60,47 +55,23 @@ public class AddressBookParser {
 
         switch (commandWord) {
 
-        case AddPersonCommand.COMMAND_WORD:
-            return new AddPersonCommandParser().parse(arguments);
+        case PersonCommand.COMMAND_GROUP_WORD:
+            return new PersonCommandsParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case ModuleCommand.COMMAND_GROUP_WORD:
+            return new ModuleCommandsParser().parse(arguments);
 
-        case DeletePersonCommand.COMMAND_WORD:
-            return new DeletePersonCommandParser().parse(arguments);
+        case MeetingCommand.COMMAND_GROUP_WORD:
+            return new MeetingCommandsParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case AddMeetingCommand.COMMAND_WORD:
-            return new AddMeetingCommandParser().parse(arguments);
-
-        case DeleteMeetingCommand.COMMAND_WORD:
-            return new DeleteMeetingCommandParser().parse(arguments);
-
-        case ListMeetingsCommand.COMMAND_WORD:
-            return new ListMeetingsCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case AddModuleCommand.COMMAND_WORD:
-            return new AddModuleCommandParser().parse(arguments);
-
-        case DeleteModuleCommand.COMMAND_WORD:
-            return new DeleteModuleCommandParser().parse(arguments);
-
-        case ShowDateCommand.COMMAND_WORD:
-            return new ShowDateCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

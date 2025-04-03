@@ -8,7 +8,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.FindCommand;
+import syncsquad.teamsync.logic.commands.person.FindCommand;
+import syncsquad.teamsync.logic.parser.person.FindCommandParser;
 import syncsquad.teamsync.model.person.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {

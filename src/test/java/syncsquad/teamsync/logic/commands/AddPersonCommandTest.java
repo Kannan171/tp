@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;

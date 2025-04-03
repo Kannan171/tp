@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ModelManager;
 import syncsquad.teamsync.model.UserPrefs;

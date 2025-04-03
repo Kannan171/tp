@@ -1,16 +1,17 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.meeting;
 
 import static java.util.Objects.requireNonNull;
 
 import syncsquad.teamsync.commons.util.ToStringBuilder;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.model.Model;
 
 /**
  * Lists all meetings in the address book to the user.
  */
-public class ListMeetingsCommand extends Command {
+public class ListMeetingsCommand extends MeetingCommand {
 
-    public static final String COMMAND_WORD = "listmeetings";
+    public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all meetings";
 
