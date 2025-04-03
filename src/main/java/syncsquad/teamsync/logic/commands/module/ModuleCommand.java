@@ -7,5 +7,5 @@ import syncsquad.teamsync.logic.commands.Command;
  */
 public abstract class ModuleCommand extends Command {
 
-    public static final String COMMAND_GROUP_WORD = "mod";
+    public static final String COMMAND_GROUP_WORD = "module";
 }
