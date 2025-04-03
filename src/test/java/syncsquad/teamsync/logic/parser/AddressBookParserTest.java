@@ -19,7 +19,6 @@ import syncsquad.teamsync.logic.commands.ExitCommand;
 import syncsquad.teamsync.logic.commands.HelpCommand;
 import syncsquad.teamsync.logic.commands.meeting.AddMeetingCommand;
 import syncsquad.teamsync.logic.commands.meeting.DeleteMeetingCommand;
-import syncsquad.teamsync.logic.commands.meeting.ListMeetingsCommand;
 import syncsquad.teamsync.logic.commands.meeting.MeetingCommand;
 import syncsquad.teamsync.logic.commands.module.AddModuleCommand;
 import syncsquad.teamsync.logic.commands.module.DeleteModuleCommand;
@@ -117,14 +116,6 @@ public class AddressBookParserTest {
     public void parseCommand_deleteMeeting() throws Exception {
         assertTrue(parser.parseCommand(MeetingCommand.COMMAND_GROUP_WORD + " "
                 + DeleteMeetingCommand.COMMAND_WORD + " 3") instanceof DeleteMeetingCommand);
-    }
-
-    @Test
-    public void parseCommand_listMeetings() throws Exception {
-        assertTrue(parser.parseCommand(MeetingCommand.COMMAND_GROUP_WORD + " "
-                + ListMeetingsCommand.COMMAND_WORD) instanceof ListMeetingsCommand);
-        assertTrue(parser.parseCommand(MeetingCommand.COMMAND_GROUP_WORD + " "
-                + ListMeetingsCommand.COMMAND_WORD + " 3") instanceof ListMeetingsCommand);
     }
 
     @Test
