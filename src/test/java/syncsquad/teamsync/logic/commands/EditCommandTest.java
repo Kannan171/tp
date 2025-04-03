@@ -19,7 +19,8 @@ import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.Messages;
-import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.commands.person.EditCommand;
+import syncsquad.teamsync.logic.commands.person.EditCommand.EditPersonDescriptor;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ModelManager;
@@ -29,7 +30,8 @@ import syncsquad.teamsync.testutil.EditPersonDescriptorBuilder;
 import syncsquad.teamsync.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for
+ * EditCommand.
  */
 public class EditCommandTest {
 

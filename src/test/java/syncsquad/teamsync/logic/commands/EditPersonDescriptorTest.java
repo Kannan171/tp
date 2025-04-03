@@ -13,7 +13,7 @@ import static syncsquad.teamsync.logic.commands.CommandTestUtil.VALID_TAG_HUSBAN
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.commands.person.EditCommand.EditPersonDescriptor;
 import syncsquad.teamsync.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {

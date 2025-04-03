@@ -1,9 +1,10 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.person.NameContainsKeywordsPredicate;
 
@@ -11,11 +12,12 @@ import syncsquad.teamsync.model.person.NameContainsKeywordsPredicate;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends PersonCommand {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
+            + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";

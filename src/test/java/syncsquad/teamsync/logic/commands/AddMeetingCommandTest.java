@@ -18,10 +18,12 @@ import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
+import syncsquad.teamsync.logic.commands.meeting.AddMeetingCommand;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;
+import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.meeting.UniqueMeetingList;
 import syncsquad.teamsync.model.person.Person;
@@ -52,8 +54,115 @@ public class AddMeetingCommandTest {
         AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validMeeting);
         AddMeetingCommandTest.ModelStub modelStub = new AddMeetingCommandTest.ModelStubWithMeeting(validMeeting);
 
-        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
-                addMeetingCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () -> {
+            addMeetingCommand.execute(modelStub);
+        });
+    }
+
+    /*
+     * Tests for a situation where second meeting's start time overlaps with
+     * an existing meeting.
+     */
+    @Test
+    public void execute_overlapStartTime_throwsCommandException() {
+        Meeting existingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("10:00").withEndTime("12:00").build();
+        Meeting overlappingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("11:00").withEndTime("14:00").build();
+        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(existingMeeting);
+        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(overlappingMeeting);
+        ModelStubWithMeetingList modelStub = new AddMeetingCommandTest.ModelStubWithMeetingList();
+
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_OVERLAP_MEETING, () -> {
+            addMeetingCommand1.execute(modelStub);
+            addMeetingCommand2.execute(modelStub);
+        });
+    }
+
+    /*
+     * Tests for a situation where second meeting's end time overlaps with
+     * an existing meeting.
+     */
+    @Test
+    public void execute_overlapEndTime_throwsCommandException() {
+        Meeting existingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("10:00").withEndTime("12:00").build();
+        Meeting overlappingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("9:00").withEndTime("11:00").build();
+        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(existingMeeting);
+        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(overlappingMeeting);
+        ModelStubWithMeetingList modelStub = new AddMeetingCommandTest.ModelStubWithMeetingList();
+
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_OVERLAP_MEETING, () -> {
+            addMeetingCommand1.execute(modelStub);
+            addMeetingCommand2.execute(modelStub);
+        });
+    }
+
+    /*
+     * Tests for a situation where an existing meeting is entirely within the second
+     * meeting.
+     */
+    @Test
+    public void execute_overlapOutsideTime_throwsCommandException() {
+        Meeting existingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("10:00").withEndTime("14:00").build();
+        Meeting overlappingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("9:00").withEndTime("15:00").build();
+        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(existingMeeting);
+        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(overlappingMeeting);
+        ModelStubWithMeetingList modelStub = new AddMeetingCommandTest.ModelStubWithMeetingList();
+
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_OVERLAP_MEETING, () -> {
+            addMeetingCommand1.execute(modelStub);
+            addMeetingCommand2.execute(modelStub);
+        });
+    }
+
+    /*
+     * Tests for a situation where second meeting is entirely outside an existing
+     * meeting.
+     */
+    @Test
+    public void execute_overlapWithinTime_throwsCommandException() {
+        Meeting existingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("10:00").withEndTime("14:00").build();
+        Meeting overlappingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("11:00").withEndTime("13:00").build();
+        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(existingMeeting);
+        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(overlappingMeeting);
+        ModelStubWithMeetingList modelStub = new AddMeetingCommandTest.ModelStubWithMeetingList();
+
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_OVERLAP_MEETING, () -> {
+            addMeetingCommand1.execute(modelStub);
+            addMeetingCommand2.execute(modelStub);
+        });
+    }
+
+    /*
+     * Tests for a situation where the timings overlap, but on different dates.
+     */
+    @Test
+    public void execute_overlapTimeDifferentDate_addSuccessful() throws Exception {
+        Meeting existingMeeting = new MeetingBuilder().withDate("01-01-2025")
+                .withStartTime("10:00").withEndTime("14:00").build();
+        Meeting addedMeeting = new MeetingBuilder().withDate("02-01-2025")
+                .withStartTime("11:00").withEndTime("15:00").build();
+        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(existingMeeting);
+        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(addedMeeting);
+        ModelStubWithMeetingList modelStub = new AddMeetingCommandTest.ModelStubWithMeetingList();
+
+        CommandResult commandResult1 = addMeetingCommand1.execute(modelStub);
+        CommandResult commandResult2 = addMeetingCommand2.execute(modelStub);
+
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS,
+                Messages.format(existingMeeting)), commandResult1.getFeedbackToUser());
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS,
+                Messages.format(addedMeeting)), commandResult2.getFeedbackToUser());
+        UniqueMeetingList expectedMeetingList = new UniqueMeetingList();
+        expectedMeetingList.add(existingMeeting);
+        expectedMeetingList.add(addedMeeting);
+        assertEquals(expectedMeetingList, modelStub.meetings);
     }
 
     @Test
@@ -185,6 +294,16 @@ public class AddMeetingCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public TimetableWeek getCurrentWeek() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWeek(TimetableWeek week) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
@@ -232,6 +351,30 @@ public class AddMeetingCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+    }
+
+    /**
+     * A Model stub that contains a list of meetings.
+     */
+    private class ModelStubWithMeetingList extends AddMeetingCommandTest.ModelStub {
+        final UniqueMeetingList meetings = new UniqueMeetingList();
+
+        @Override
+        public void addMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            meetings.add(meeting);
+        }
+
+        @Override
+        public boolean hasMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            return meetings.contains(meeting);
+        }
+
+        @Override
+        public ObservableList<Meeting> getMeetingList() {
+            return meetings.asUnmodifiableObservableList();
         }
     }
 }

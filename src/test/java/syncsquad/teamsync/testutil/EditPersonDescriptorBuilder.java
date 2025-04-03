@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.commands.person.EditCommand.EditPersonDescriptor;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Name;

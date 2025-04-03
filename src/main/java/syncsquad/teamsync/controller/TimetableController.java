@@ -63,5 +63,15 @@ public class TimetableController extends UiPart<Region> {
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
             timetable.loadMeetingBlocks(blocks);
         });
+
+        meetingListViewModel.currentWeekProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<MeetingBlock> blocks = meetingListViewModel.meetingListProperty().stream()
+                    .filter(meeting -> meeting.getDate()
+                            .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                            .equals(meetingListViewModel.currentWeekProperty().get()))
+                    .map(MeetingBlock::new)
+                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            timetable.loadMeetingBlocks(blocks);
+        });
     }
 }

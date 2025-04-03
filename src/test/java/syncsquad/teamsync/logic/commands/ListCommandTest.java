@@ -8,6 +8,7 @@ import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import syncsquad.teamsync.logic.commands.person.ListCommand;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ModelManager;
 import syncsquad.teamsync.model.UserPrefs;

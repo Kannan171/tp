@@ -112,4 +112,8 @@ public interface Model {
 
     /** Returns an unmodifiable view of the list of meetings */
     ObservableList<Meeting> getMeetingList();
+
+    TimetableWeek getCurrentWeek();
+
+    void setCurrentWeek(TimetableWeek week);
 }
