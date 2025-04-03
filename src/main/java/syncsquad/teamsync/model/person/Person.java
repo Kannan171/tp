@@ -1,6 +1,12 @@
 package syncsquad.teamsync.model.person;
 
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_MODULE;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -128,6 +134,28 @@ public class Person implements Comparable<Person> {
                 .add("modules", modules)
                 .add("tags", tags)
                 .toString();
+    }
+
+    /**
+     * Returns a addable string representation of the person
+     * in the format of -n NAME -p PHONE -e EMAIL -a ADDRESS -t TAGS -m MODULES
+     */
+    public String toExportString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME).append(name.fullName).append(" ");
+        sb.append(PREFIX_PHONE).append(phone.value).append(" ");
+        sb.append(PREFIX_EMAIL).append(email.value).append(" ");
+        sb.append(PREFIX_ADDRESS).append(address.value).append(" ");
+
+        if (!tags.isEmpty()) {
+            tags.forEach(tag -> sb.append(PREFIX_TAG).append(tag.tagName).append(" "));
+        }
+
+        if (!modules.isEmpty()) {
+            modules.forEach(module -> sb.append(PREFIX_MODULE).append(module.toExportString()).append(" "));
+        }
+
+        return sb.toString().trim();
     }
 
     @Override
