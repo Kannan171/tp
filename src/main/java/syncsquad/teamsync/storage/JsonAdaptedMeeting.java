@@ -42,6 +42,7 @@ class JsonAdaptedMeeting {
      * Converts a given {@code Meeting} into this class for Jackson use.
      */
     public JsonAdaptedMeeting(Meeting source) {
+        assert source != null;
         date = source.getDateString();
         startTime = source.getStartTimeString();
         endTime = source.getEndTimeString();
