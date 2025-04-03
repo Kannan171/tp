@@ -3,13 +3,29 @@ package syncsquad.teamsync.model.module;
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Module of a Person.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Module {
+    public static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
+        .append(DateTimeFormatter.ofPattern("H:mm"))
+        .parseCaseInsensitive()
+        .toFormatter()
+        .withResolverStyle(ResolverStyle.STRICT);
+
+    public static final String MESSAGE_CONSTRAINTS = "Module should be in the format of "
+            + "<module code> <day> <start time> <end time>";
+    public static final Pattern VALIDATION_REGEX = Pattern.compile("(?<moduleCode>\\S+) "
+            + "(?<day>\\S+) "
+            + "(?<startTime>\\d{1,2}:\\d{2}) "
+            + "(?<endTime>\\d{1,2}:\\d{2})");
 
     // Identity fields
     private final ModuleCode moduleCode;
@@ -102,4 +118,14 @@ public class Module {
         return "[" + this.moduleCode + " - " + this.day + " " + this.startTime + " to " + this.endTime + "]";
     }
 
+    /**
+     * Returns a addable string representation of the module
+     *  in the format of MODULE_CODE DAY START_TIME END_TIME
+     */
+    public String toExportString() {
+        return this.moduleCode + " "
+                + this.day + " "
+                + this.startTime.format(TIME_FORMATTER) + " "
+                + this.endTime.format(TIME_FORMATTER);
+    }
 }
