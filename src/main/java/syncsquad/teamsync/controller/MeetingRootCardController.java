@@ -30,7 +30,11 @@ public class MeetingRootCardController extends UiPart<Region> {
     private Label timeLabel;
 
     /**
-     * Creates a {@code MeetingRootCardController} with the given {@code LocalDate} to display.
+     * Creates a {@code MeetingRootCardController} with the given
+     * {@code Meeting} and index to display.
+     *
+     * @param meeting The meeting to display.
+     * @param displayedIndex The index of the meeting in the list.
      */
     public MeetingRootCardController(Meeting meeting, int displayedIndex) {
         super(FXML);

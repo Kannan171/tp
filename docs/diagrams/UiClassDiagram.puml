@@ -8,7 +8,8 @@ package Views <<Rectangle>>{
 Class "<<interface>>\nUi" as Ui
 Class UiManager
 Class MainWindowController
-Class HelpWindowController
+Class TitleBarController
+Class HelpDialogController
 Class ResultDisplayController
 Class PersonTreeViewController
 Class MeetingTreeViewController
@@ -31,13 +32,14 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindowController
+MainWindowController *-down->  "1" TitleBarController 
 MainWindowController *-down->  "1" CommandBoxController
 MainWindowController *-down-> "1" ResultDisplayController
 MainWindowController *-down-> "1" PersonTreeViewController
 MainWindowController *-down-> "1" MeetingTreeViewController
 MainWindowController *-down-> "1" StatusBarFooterController
 MainWindowController *-down-> "1" TimetableController
-MainWindowController --> "0..1" HelpWindowController
+MainWindowController *-down-> "1" HelpDialogController 
 
 PersonTreeViewController -down-> "*" PersonCardController
 MeetingTreeViewController -down-> "*" MeetingCardController

@@ -29,7 +29,8 @@ public class HelpDialogController extends UiPart<Region> {
     }
 
     /**
-     * Opens the user guide URL.
+     * Opens the user guide in the default web browser. Logs a warning if the
+     * operation fails.
      */
     @FXML
     private void openUserGuide() {

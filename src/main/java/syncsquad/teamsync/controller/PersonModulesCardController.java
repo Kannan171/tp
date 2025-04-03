@@ -36,7 +36,10 @@ public class PersonModulesCardController extends UiPart<Region> {
     private Label modules;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonModulesCardController} with the given
+     * {@code Person}.
+     *
+     * @param person The person whose modules are to be displayed.
      */
     public PersonModulesCardController(Person person) {
         super(FXML);

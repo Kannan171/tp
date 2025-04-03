@@ -22,7 +22,8 @@ public class PersonDummyRootCardController extends UiPart<Region> {
     private Label title;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonDummyRootCardController} to display a dummy root
+     * card.
      */
     public PersonDummyRootCardController() {
         super(FXML);

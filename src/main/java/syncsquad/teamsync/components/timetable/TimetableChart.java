@@ -135,6 +135,11 @@ public class TimetableChart extends XYChart<Number, String> { // Flip axis types
         tooltipBlock.layout(xAxis, yAxis, blockHeight);
     }
 
+    /**
+     * Returns the height of a block in the timetable.
+     *
+     * @return The block height.
+     */
     public double getBlockHeight() {
         double chartHeight = getYAxis().getHeight();
         return chartHeight / ((CategoryAxis) getYAxis()).getCategories().size() - 2;

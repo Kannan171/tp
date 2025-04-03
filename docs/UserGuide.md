@@ -94,25 +94,29 @@ Indicates critical warnings or irreversible actions. Always read these carefully
 
 ## Features
 
-TeamSync allows you to manage your group projects easily.
+TeamSync allows you to manage your group projects easily by:
 
-1. Quickly **add, edit and delete** the contact details of your teammates
-2. **Manage and view** each teammate's timetable
-3. **Schedule** meetings
-4. **Visualise** your group's timetable at a glance
+1. quickly **adding, editing and deleting** the contact details of your teammates
+2. **managing** each teammate's modules and time commitments
+3. **scheduling** meetings
+4. **visualising** your group's timetable at a glance
 
-### Built-in validation
+### Stay Organised
+
+TeamSync is built with seamless integration and flawless organisation in mind.
+
+TeamSync comes with neat and adjustable views for your teammates, your schedule and your meetings to suit your visual needs.
 
 TeamSync provides built-in validation to ensure that errors are caught as early as possible.
 
-It guarantees
-1. No duplicate contacts
-2. No module conflicts for each teammate
-3. No overlapping meetings
+It guarantees:
+1. no duplicate contacts
+2. no module conflicts for each teammate
+3. no overlapping meetings
 
-Additionally, TeamSync performs basic validation on other contact details.
+TeamSync allows you to export your contact, allowing you to synchronize easily with all your teammates.
 
-### Timetable view
+### Timetable View
 
 TeamSync offers both a textual and a visual representation of schedules. Its colour-coded timetable clearly distinguishes between meetings and each teammate's modules, allowing you to coordinate schedules efficiently.
 
