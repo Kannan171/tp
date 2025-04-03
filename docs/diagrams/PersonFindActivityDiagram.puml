@@ -1,0 +1,14 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+:User enters person find command;
+if () then ([all fields present])
+    :Find command executes, matching persons are shown;
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+stop
+@enduml

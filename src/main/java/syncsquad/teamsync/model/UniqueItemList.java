@@ -15,12 +15,12 @@ import syncsquad.teamsync.commons.exceptions.ItemNotFoundException;
 /**
  * A list of items that enforces uniqueness between its elements and does not allow nulls.
  * An item is considered unique by comparing using {@code isSameItem(T, T)}. As such, adding and updating of
- * items uses isSameItem(T, T) for equality so as to ensure that the item being added or updated is
- * unique in terms of identity in the UniqueList. However, the removal of an item uses T#equals(Object) so
+ * items uses {@code isSameItem(T, T)} for equality so as to ensure that the item being added or updated is
+ * unique in terms of identity in the UniqueList. However, the removal of an item uses {@code T#equals(Object)} so
  * as to ensure that the item with exactly the same details will be removed.
  *
- * Additionally, it is guaranteed that all items in the list are in sorted order, with the natural ordering
- * defined in {@code T#compareTo(T)}
+ * Additionally, it is guaranteed that all items in the list are in sorted order, in their natural ordering
+ * defined in {@code T#compareTo(T)}.
  *
  * Supports a minimal set of list operations.
  *
@@ -55,7 +55,7 @@ public abstract class UniqueItemList<T extends Comparable<T>> implements Iterabl
 
     /**
      * Replaces the item {@code target} in the list with {@code editedItem}.
-     * {@code item} must exist in the list.
+     * {@code target} must exist in the list.
      * The item identity of {@code editedItem} must not be the same as another existing item in the list.
      */
     public void setItem(T target, T editedItem) {
@@ -157,8 +157,8 @@ public abstract class UniqueItemList<T extends Comparable<T>> implements Iterabl
     }
 
     /**
-     * Defines a notion of equality for two items in the UniqueList.
-     * This methodd can be overridden to define a weaker or stronger notion of equality.
+     * Defines a notion of equality for two items in the list.
+     * This method can be overridden to define a weaker or stronger notion of equality.
      */
     protected boolean isSameItem(T item1, T item2) {
         return item1.equals(item2);
