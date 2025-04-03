@@ -1,0 +1,23 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+
+
+:User enters person edit command;
+
+if () then ([at least 1 field present])
+    if () then ([all fields are valid])
+        :Edit command executes, person is edited;
+
+    else ([else])
+    :Error: Invalid field;
+    stop
+    endif
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+stop
+@enduml
