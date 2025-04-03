@@ -69,7 +69,7 @@ public class ResizeHelper {
     static class ResizeListener implements EventHandler<MouseEvent> {
         private Stage stage;
         private Cursor cursorEvent = Cursor.DEFAULT;
-        private int border = 4;
+        private int border = 5;
         private double startX = 0;
         private double startY = 0;
 
@@ -101,6 +101,9 @@ public class ResizeHelper {
 
         @Override
         public void handle(MouseEvent mouseEvent) {
+            if (stage.isMaximized()) {
+                return;
+            }
             EventType<? extends MouseEvent> mouseEventType = mouseEvent.getEventType();
             Scene scene = stage.getScene();
 
