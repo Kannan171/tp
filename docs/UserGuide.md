@@ -11,7 +11,7 @@ Designed with simplicity and efficiency in mind, TeamSync makes it easy to add t
 
 Whether you are new to CLI applications or are an experienced user, TeamSync enables you to work faster than any GUI-only app — so you can focus on what truly matters.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip**<br><br>
+<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
 
 New users can refer to the [Quick Start](#quick-start) section on how to get started.<br>
 
@@ -93,11 +93,11 @@ TeamSync offers both a textual and a visual representation of schedules. Its col
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all students.
+   * `list` : Lists all teammates.
 
-   * `add -n John Doe -p 98765432 -p johnd@example.com -a John street, block 123, #01-01` : Adds a student named `John Doe` to TeamSync.
+   * `add -n John Doe -p 98765432 -p johnd@example.com -a John street, block 123, #01-01` : Adds a teammate named `John Doe` to TeamSync.
 
-   * `delete 3` : Deletes the 3rd student shown in the current list.
+   * `delete 3` : Deletes the 3rd teammate shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -107,24 +107,31 @@ TeamSync offers both a textual and a visual representation of schedules. Its col
 
 ## Commands
 
-<div markdown="block" class="alert alert-info">:information_source: **Info**
+TeamSync provides you with 4 types of commands:
+* [Teammate Commands](#teammate-commands)
+* [Module Commands](#module-commands)
+* [Meeting Commands](#meeting-commands)
+* [General Commands](#general-commands)
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add -n NAME`, `NAME` is a parameter which can be used as `add -n John Doe`.
+A command consists of a <span style="color : green; font-weight: bold;">command group</span> (with the exception of General Commands), <span style="color : brown; font-weight: bold;">command word</span>, and zero or more <span style="color : darkorange; font-weight: bold;">parameters</span>
 
-* Items in square brackets are optional.<br>
-  e.g. `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
+**Example**: <code style="color : green; font-weight: bold;">meeting</code> <code style="color : brown; font-weight: bold;">add</code> <code style="color : darkorange; font-weight: bold;">15-02-2024 14:00 15:00</code>
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[-t TAG]…​` can be used as ` ` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
+<div markdown="1" class="alert alert-info">:information_source: **Info**
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
+* For each command, the correct syntax is specified under "Format".
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* Items in square brackets are optional.
+
+* Items with `…`​ after them can be used multiple times including zero times.
+
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `meeting list`, `exit` and `clear`) will be ignored.
+</div>
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as whitespaces may be omitted when copied over to TeamSync.
 </div>
 
 ### Teammate Commands
@@ -137,12 +144,16 @@ Adds a teammate to TeamSync.
 
 Format: `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip**<br><br>
-A teammate can have any number of tags (including 0)
+<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+A teammate can have any number of tags (including 0).
 </div>
 
-Example:
-* `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
+**Example**: `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
+
+<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+
+Unable to add a teammate? TeamSync does not allow you to add [duplicate teammates](#duplicate-teammate).
+</div>
 
 #### Editing a teammate : `person edit`
 
@@ -163,8 +174,7 @@ Format: `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]
 * You can remove all the teammate’s tags by typing `-t ` without specifying any tags after it.
 </div>
 
-Example:
-*  `person edit 1 -p 91234567 -e johndoe@example.com` Edits the phone number and email address of the 1st teammate to be `91234567` and `johndoe@example.com` respectively.
+**Example**: `person edit 1 -p 91234567 -e johndoe@example.com` Edits the phone number and email address of the 1st teammate to be `91234567` and `johndoe@example.com` respectively.
 
 #### Deleting a teammate : `person delete`
 
@@ -181,8 +191,7 @@ Format: `person delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 </div>
 
-Examples:
-* `find Betsy` followed by `person delete 1` deletes the 1st teammate in the results of the `find` command.
+**Example**: `find Betsy` followed by `person delete 1` deletes the 1st teammate in the results of the `find` command.
 
 #### Searching for a teammate: `person find`
 
@@ -192,20 +201,19 @@ Format: `person find KEYWORD [KEYWORD]...`
 
 <div markdown="1" class="alert alert-info">:information_source: **Info**
 
-* The search is case-insensitive. e.g. `hans` will match `Hans`
+* The search is case-insensitive. **Example**: `hans` will match `Hans`
 
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The order of the keywords does not matter. **Example**: `Hans Bo` will match `Bo Hans`
 
 * Only the name is searched
 
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched **Example**: `Han` will not match `Hans`
 
 * Teammates matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  **Example**: `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 </div>
 
-Example:
-* `person find alex david` returns `Alex Yeoh`, `David Li`
+**Example**: `person find alex david` returns `Alex Yeoh`, `David Li`
 
 #### Listing all teammates: `person list`
 
@@ -227,7 +235,7 @@ Format: `module add INDEX MODULE_CODE DAY START_TIME END_TIME`
 
 * The module code will follow NUS module code format (Department tag + 4-digit number + optional last letter)
 
-* Module code is case-insensitive.<br> e.g. cs2103t and CS2103T will be regarded as the same module
+* Module code is case-insensitive.<br> **Example**: cs2103t and CS2103T will be regarded as the same module
 
 * Module code given has to be new (Given teammate does not already have this module assigned)
 
@@ -236,8 +244,7 @@ Format: `module add INDEX MODULE_CODE DAY START_TIME END_TIME`
 * Start time and End time is given in 24-hour format and in HH:MM
 </div>
 
-Example:
-* `module add 1 cs2101 thu 12:00 15:00` assigns module CS2101 to the first teammate in TeamSync.
+**Example**: `module add 1 cs2101 thu 12:00 15:00` assigns module CS2101 to the first teammate in TeamSync.
 
 #### Deleting a module from a teammate : `module delete`
 
@@ -255,11 +262,10 @@ Format: `module delete INDEX MODULE_CODE`
 
 * Module code has to be an existing module assigned to the specified teammate.
 
-* Module code is case-insensitive. e.g. cs2103t will match CS2103T
+* Module code is case-insensitive. **Example**: cs2103t will match CS2103T
 </div>
 
-Example:
-* `module delete 1 cs2101` deletes the module CS2101 from the 1st teammate in TeamSync.
+**Example**: `module delete 1 cs2101` deletes the module CS2101 from the 1st teammate in TeamSync.
 
 ### Meeting Commands
 
@@ -278,8 +284,7 @@ Format: `meeting add DATE START_TIME END_TIME`
 * Start time and End time is given in 24-hour format and in HH:MM
 </div>
 
-Examples:
-* `meeting add 27-03-2025 12:00 15:00` creates a new meeting on 27th March 2025 from 12pm to 3pm.
+**Example**: `meeting add 27-03-2025 12:00 15:00` creates a new meeting on 27th March 2025 from 12pm to 3pm.
 
 #### Deleting a meeting: `meeting delete`
 
@@ -296,8 +301,7 @@ Format: `meeting delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 </div>
 
-Example:
-* `meeting delete 1` deletes the 1st meeting in TeamSync.
+**Example**: `meeting delete 1` deletes the 1st meeting in TeamSync.
 
 #### Listing all meetings : `meeting list`
 
@@ -305,8 +309,7 @@ Shows a list of all meetings in TeamSync.
 
 Format: `meeting list`
 
-Examples:
-* `meeting list` lists all existing meetings in TeamSync.
+**Example**: `meeting list` lists all existing meetings in TeamSync.
 
 ### General Commands
 
@@ -336,7 +339,7 @@ Format: `exit`
 
 #### Student Commands
 
-Action | Format                                                                     | Examples
+Action | Format                                                                     | Example
 -------|----------------------------------------------------------------------------|---------
 **Add a teammate** | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…`         |  `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
 **Edit a teammate** | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…` | `person edit 1 -p 91234567 -e johndoe@example.com`
@@ -346,14 +349,14 @@ Action | Format                                                                 
 
 #### Module Commands
 
-Action | Format                                                                     | Examples
+Action | Format                                                                     | Example
 -------|----------------------------------------------------------------------------|---------
 **Add a module for a teammate** | `module add INDEX MODULE_CODE DAY START_TIME END_TIME`         |  `module add 1 cs2101 thu 12:00 15:00`
 **Delete a module from a teammate** | `module delete INDEX MODULE_CODE` | `module delete 1 cs2101`
 
 #### Meeting Commands
 
-Action | Format                                                                     | Examples
+Action | Format                                                                     | Example
 -------|----------------------------------------------------------------------------|---------
 **Add a meeting** | `meeting add DATE START_TIME END_TIME` | `meeting 27-03-2025 12:00 15:00`
 **Delete a meeting** | `meeting delete INDEX` | `meeting delete 1`
@@ -361,7 +364,7 @@ Action | Format                                                                 
 
 #### General Commands
 
-Action | Format                                                                     | Examples
+Action | Format                                                                     | Example
 -------|----------------------------------------------------------------------------|---------
 **View help** | `help` | `help`
 **Clear all data** | `clear` | `clear`
@@ -383,6 +386,9 @@ Action | Format                                                                 
 
 **Command Line Interface (CLI)**<br>
 A text-based interface that allows users to interact with the application by typing commands
+
+<a name="duplicate-teammate"></a>**Duplicate teammate**<br>
+Two teammates are duplicates if they have the same name (case-insensitive) or if they differ only in whitespace
 
 **Index**<br>
 An numeric identifier for a teammate or a meeting
