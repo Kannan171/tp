@@ -66,13 +66,12 @@ public class JsonUserPrefsStorageTest {
     public void readUserPrefs_extraValuesInFile_extraValuesIgnored() throws DataLoadingException {
         UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("ExtraValuesUserPref.json").get();
-
         assertEquals(expected, actual);
     }
 
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100, true));
+        userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100, false));
         userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
         return userPrefs;
     }

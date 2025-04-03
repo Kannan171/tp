@@ -67,7 +67,7 @@ public class MainWindowController extends UiPart<Stage> {
         this.primaryStage = primaryStage;
 
         // Configure the UI
-        setWindow(logic.getGuiSettings());
+        setWindow(viewModel.getGuiSettings().get());
 
         // TODO: If we are adding `nextWeek` or `previousWeek` actions
         //  we should create a currentWeekController to handle the logic
@@ -81,10 +81,6 @@ public class MainWindowController extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public Logic getLogic() {
-        return logic;
-    }
-
     /**
      * Fills up all the placeholders of this window.
      */
@@ -93,7 +89,7 @@ public class MainWindowController extends UiPart<Stage> {
         mainStackPane.getChildren().add(helpModalPane);
         StackPane.setAlignment(helpModalPane, javafx.geometry.Pos.CENTER);
 
-        TitleBarController titleBarController = new TitleBarController(primaryStage, logic, helpModalPane);
+        TitleBarController titleBarController = new TitleBarController(primaryStage, viewModel, helpModalPane);
         titleBarPlaceholder.getChildren().add(titleBarController.getRoot());
 
         PersonTreeViewController personListPanel = new PersonTreeViewController(
@@ -165,7 +161,7 @@ public class MainWindowController extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY(), primaryStage.isMaximized());
-        logic.setGuiSettings(guiSettings);
+        viewModel.saveGuiSettings(guiSettings);
         primaryStage.hide();
     }
 }

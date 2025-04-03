@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import syncsquad.teamsync.commons.core.GuiSettings;
-import syncsquad.teamsync.logic.Logic;
+import syncsquad.teamsync.viewmodel.MainViewModel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,7 +29,7 @@ public class TitleBarController extends UiPart<Region> {
     private static final String FXML = "TitleBar.fxml";
 
     private Stage primaryStage;
-    private Logic logic;
+    private MainViewModel viewModel;
     private ModalPane modalPane;
 
     @FXML
@@ -54,11 +54,11 @@ public class TitleBarController extends UiPart<Region> {
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
-    public TitleBarController(Stage primaryStage, Logic logic, ModalPane modalPane) {
+    public TitleBarController(Stage primaryStage, MainViewModel viewModel, ModalPane modalPane) {
         super(FXML);
 
         this.primaryStage = primaryStage;
-        this.logic = logic;
+        this.viewModel = viewModel;
         this.modalPane = modalPane;
 
         helpDialog = new HelpDialogController();
@@ -117,7 +117,7 @@ public class TitleBarController extends UiPart<Region> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY(), primaryStage.isMaximized());
-        logic.setGuiSettings(guiSettings);
+        viewModel.saveGuiSettings(guiSettings);
         primaryStage.hide();
     }
 
