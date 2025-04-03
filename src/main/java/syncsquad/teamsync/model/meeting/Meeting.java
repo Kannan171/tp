@@ -3,6 +3,7 @@ package syncsquad.teamsync.model.meeting;
 import static syncsquad.teamsync.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import syncsquad.teamsync.commons.util.ToStringBuilder;
  * Represents a Meeting in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Meeting {
+public class Meeting implements Comparable<Meeting> {
     public static final String MESSAGE_CONSTRAINTS =
             "Meeting time should be given in the following format: dd-mm-yyyy HH:mm HH:mm";
 
@@ -140,4 +141,14 @@ public class Meeting {
                 .toString();
     }
 
+    @Override
+    public int compareTo(Meeting other) {
+        if (other == null) {
+            throw new NullPointerException();
+        }
+
+        LocalDateTime dateTime = LocalDateTime.of(this.date, this.startTime);
+        LocalDateTime otherDateTime = LocalDateTime.of(other.date, other.startTime);
+        return dateTime.compareTo(otherDateTime);
+    }
 }
