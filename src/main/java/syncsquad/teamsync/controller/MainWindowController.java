@@ -23,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import syncsquad.teamsync.commons.core.GuiSettings;
-import syncsquad.teamsync.logic.Logic;
 import syncsquad.teamsync.viewmodel.MainViewModel;
 
 /**
@@ -35,7 +34,6 @@ public class MainWindowController extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private Stage primaryStage;
-    private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private HelpWindowController helpWindow;
@@ -86,19 +84,18 @@ public class MainWindowController extends UiPart<Stage> {
     private Label currentWeekLabel;
 
     /**
-     * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
+     * Creates a {@code MainWindow} with the given {@code Stage}.
      */
-    public MainWindowController(Stage primaryStage, Logic logic) {
+    public MainWindowController(Stage primaryStage, MainViewModel viewModel) {
         super(FXML, primaryStage);
 
-        this.viewModel = new MainViewModel(logic);
+        this.viewModel = viewModel;
 
         // Set dependencies
         this.primaryStage = primaryStage;
-        this.logic = logic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(viewModel.getGuiSettings().get());
 
         setAccelerators();
 
@@ -109,9 +106,9 @@ public class MainWindowController extends UiPart<Stage> {
 
         // TODO: If we are adding `nextWeek` or `previousWeek` actions
         //  we should create a currentWeekController to handle the logic
-        this.logic.getCurrentWeek().currentWeekProperty()
+        this.viewModel.getCurrentWeek()
             .addListener((unused1, oldValue, newValue) -> updateCurrentWeekLabel(newValue));
-        updateCurrentWeekLabel(this.logic.getCurrentWeek().currentWeekProperty().get());
+        updateCurrentWeekLabel(this.viewModel.getCurrentWeek().get());
 
         menuBar.getStyleClass().add(Styles.BG_ACCENT_SUBTLE);
 
@@ -208,7 +205,8 @@ public class MainWindowController extends UiPart<Stage> {
             this.viewModel.getResultDisplayViewModel());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooterController statusBarFooter = new StatusBarFooterController(logic.getAddressBookFilePath());
+        StatusBarFooterController statusBarFooter = new StatusBarFooterController(
+            this.viewModel.getAddressBookFilePath().get());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBoxController commandBox = new CommandBoxController(
@@ -271,7 +269,7 @@ public class MainWindowController extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        viewModel.saveGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }

@@ -31,7 +31,7 @@ public class AddModuleCommand extends ModuleCommand {
             + "DAY "
             + "START_TIME(HH:MM) "
             + "END_TIME(HH:MM) \n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_GROUP_WORD + " " + COMMAND_WORD + " 1 "
             + "CS2103T FRI 16:00 18:00";
 
     public static final String MESSAGE_SUCCESS = "Added Module to Person: %1$s";
