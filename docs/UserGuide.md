@@ -3,33 +3,79 @@ layout: page
 title: User Guide
 ---
 
-# TeamSync User Guide
+## About TeamSync
 
 TeamSync is a contact management app designed to streamline group project management, **built by National University of Singapore (NUS) students, for NUS students**.
 
 Designed with simplicity and efficiency in mind, TeamSync makes it easy to add teammates' contact details, schedule meetings, and stay organized. It combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI). Built-in validation checks help prevent errors, ensuring a seamless experience.
 
-Whether you're new to CLI apps or an experienced user, TeamSync enables you to work faster than any GUI-only app—so you can focus on what truly matters.
+Whether you are new to CLI applications or are an experienced user, TeamSync enables you to work faster than any GUI-only app — so you can focus on what truly matters.
 
+<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
 
---------------------------------------------------------------------------------------------------------------------
+New users can refer to the [Quick Start](#quick-start) section on how to get started.<br>
+
+Experienced users may wish to consult the [Command Summary](#command-summary) for a quick overview of the commands.
+</div>
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
+- [About TeamSync](#about-teamsync)
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
-  - [Viewing help](#viewing-help--help)
-  - [Adding a student](#adding-a-student--add)
-  - [Listing all students](#listing-all-students--list)
-  - [Editing a student](#editing-a-student--edit)
-  - [Locating students by name](#locating-students-by-name-find)
-  - [Deleting a student](#deleting-a-student--delete)
-  - [Clearing all entries](#clearing-all-entries--clear)
-  - [Exiting the program](#exiting-the-program--exit)
+  - [Built-in validation](#built-in-validation)
+  - [Timetable view](#timetable-view)
+- [Quick Start](#quick-start)
+- [Commands](#commands)
+  - [Teammate Commands](#teammate-commands)
+    - [Adding a new teammate](#adding-a-new-teammate-person-add)
+    - [Editing a teammate](#editing-a-teammate--person-edit)
+    - [Deleting a teammate](#deleting-a-teammate--person-delete)
+    - [Searching for a teammate](#searching-for-a-teammate-person-find)
+    - [Listing all teammates](#listing-all-teammates-person-list)
+  - [Module Commands](#module-commands)
+    - [Adding a module for a teammate](#adding-a-module-for-a-teammate-module-add)
+    - [Deleting a module from a teammate](#deleting-a-module-from-a-teammate--module-delete)
+  - [Meeting Commands](#meeting-commands)
+    - [Adding a meeting](#adding-a-meeting-meeting-add)
+    - [Deleting a meeting](#deleting-a-meeting-meeting-delete)
+    - [Listing all meetings](#listing-all-meetings--meeting-list)
+  - [General Commands](#general-commands)
+    - [Viewing help](#viewing-help--help)
+    - [Clearing all data](#clearing-all-data--clear)
+    - [Exiting TeamSync](#exiting-teamsync--exit)
+- [Command Summary](#command-summary)
+  - [Teammate Commands](#teammate-commands-1)
+  - [Module Commands](#module-commands-1)
+  - [Meeting Commands](#meeting-commands-1)
+  - [General Commands](#general-commands-1)
 - [FAQ](#FAQ)
 - [Known Issues](#known-issues)
-- [Command Summary](#command-summary)
 - [Glossary](#glossary)
+
+## Features
+
+TeamSync allows you to manage your group projects easily.
+
+1. Quickly **add, edit and delete** the contact details of your teammates
+2. **Manage and view** each teammate's timetable
+3. **Schedule** meetings
+4. **Visualise** your group's timetable at a glance
+
+### Built-in validation
+
+TeamSync provides built-in validation to ensure that errors are caught as early as possible.
+
+It guarantees
+1. No duplicate contacts
+2. No module conflicts for each teammate
+3. No overlapping meetings
+
+Additionally, TeamSync performs basic validation on other contact details.
+
+### Timetable view
+
+TeamSync offers both a textual and a visual representation of schedules. Its colour-coded timetable clearly distinguishes between meetings and each teammate's modules, allowing you to coordinate schedules efficiently.
 
 ## Quick Start
 
@@ -47,11 +93,11 @@ Whether you're new to CLI apps or an experienced user, TeamSync enables you to w
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all students.
+   * `list` : Lists all teammates.
 
-   * `add -n John Doe -p 98765432 -p johnd@example.com -a John street, block 123, #01-01` : Adds a student named `John Doe` to TeamSync.
+   * `add -n John Doe -p 98765432 -p johnd@example.com -a John street, block 123, #01-01` : Adds a teammate named `John Doe` to TeamSync.
 
-   * `delete 3` : Deletes the 3rd student shown in the current list.
+   * `delete 3` : Deletes the 3rd teammate shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -59,214 +105,271 @@ Whether you're new to CLI apps or an experienced user, TeamSync enables you to w
 
 1. Refer to the [Features](#features) below for details of each command.
 
---------------------------------------------------------------------------------------------------------------------
+## Commands
 
-## Features
+TeamSync provides you with 4 types of commands:
+* [Teammate Commands](#teammate-commands)
+* [Module Commands](#module-commands)
+* [Meeting Commands](#meeting-commands)
+* [General Commands](#general-commands)
 
-<div markdown="block" class="alert alert-info">
+A command consists of a <span style="color : green; font-weight: bold;">command group</span> (with the exception of General Commands), <span style="color : brown; font-weight: bold;">command word</span>, and zero or more <span style="color : darkorange; font-weight: bold;">parameters</span>
 
-**:information_source: Notes about the command format:**<br>
+**Example**: <code style="color : green; font-weight: bold;">meeting</code> <code style="color : brown; font-weight: bold;">add</code> <code style="color : darkorange; font-weight: bold;">15-02-2024 14:00 15:00</code>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add -n NAME`, `NAME` is a parameter which can be used as `add -n John Doe`.
+<div markdown="1" class="alert alert-info">:information_source: **Info**
 
-* Items in square brackets are optional.<br>
-  e.g `-n NAME [-t TAG]` can be used as `-n John Doe -t friend` or as `-n John Doe`.
+* For each command, the correct syntax is specified under "Format".
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[-t TAG]…​` can be used as ` ` (i.e. 0 times), `-t friend`, `-t friend -t family` etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `-n NAME -p PHONE_NUMBER`, `-p PHONE_NUMBER -n NAME` is also acceptable.
+* Items in square brackets are optional.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Items with `…`​ after them can be used multiple times including zero times.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `meeting list`, `exit` and `clear`) will be ignored.
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-
-### Adding a student: `add`
-
-Adds a student to TeamSync.
-
-Format: `add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…​`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A student can have any number of tags (including 0)
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as whitespaces may be omitted when copied over to TeamSync.
 </div>
 
-Examples:
-* `add -n John Doe -p 98765432 -e johnd@example.com -a John street, block 123, #01-01`
-* `add -n Betsy Crowe -t friend -e betsycrowe@example.com -a Newgate Prison -p 1234567 -t criminal`
+### Teammate Commands
 
-### Listing all students : `list`
+Example of how a teammate is represented in TeamSync:
 
-Shows a list of all students in TeamSync.
+#### Adding a new teammate: `person add`
 
-Format: `list`
+Adds a teammate to TeamSync.
 
-### Editing a student : `edit`
+Format: `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…​`
 
-Edits an existing student in TeamSync.
+<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+A teammate can have any number of tags (including 0).
+</div>
 
-Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…​`
+**Example**: `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
 
-* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
+<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+
+Unable to add a teammate? TeamSync does not allow you to add [duplicate teammates](#duplicate-teammate).
+</div>
+
+#### Editing a teammate : `person edit`
+
+Edits an existing teammate in TeamSync.
+
+Format: `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…​`
+
+<div markdown="1" class="alert alert-info">:information_source: **Info**
+
+* Edits the teammate at the specified `INDEX`. The index refers to the index number shown in the displayed teammate list. The index **must be a positive integer** 1, 2, 3, …
+
 * At least one of the optional fields must be provided.
+
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
-* You can remove all the student’s tags by typing `-t ` without
-    specifying any tags after it.
 
-Examples:
-*  `edit 1 -p 91234567 -e johndoe@example.com` Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 -n Betsy Crower -t ` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
+* When editing tags, the existing tags of the teammate will be removed i.e adding of tags is not cumulative.
 
-### Locating students by name: `find`
+* You can remove all the teammate’s tags by typing `-t ` without specifying any tags after it.
+</div>
 
-Finds students whose names contain any of the given keywords.
+**Example**: `person edit 1 -p 91234567 -e johndoe@example.com` Edits the phone number and email address of the 1st teammate to be `91234567` and `johndoe@example.com` respectively.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Deleting a teammate : `person delete`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* students matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Deletes the specified teammate from TeamSync.
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+Format: `person delete INDEX`
 
-### Deleting a student : `delete`
+<div markdown="1" class="alert alert-info">:information_source: **Info**
 
-Deletes the specified student from TeamSync.
+* Deletes the teammate at the specified `INDEX`.
 
-Format: `delete INDEX`
+* The index refers to the index number shown in the displayed teammate list.
 
-* Deletes the student at the specified `INDEX`.
-* The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
+</div>
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd student in TeamSync.
-* `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
+**Example**: `find Betsy` followed by `person delete 1` deletes the 1st teammate in the results of the `find` command.
 
-### Adding a module to a student: `addmod`
+#### Searching for a teammate: `person find`
 
-Adds a module to the specified student
+Finds teammates whose names contain any of the specified KEYWORDS.
 
-Format: `addmod INDEX MODULE_CODE DAY START_TIME END_TIME`
+Format: `person find KEYWORD [KEYWORD]...`
 
-* The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
+<div markdown="1" class="alert alert-info">:information_source: **Info**
+
+* The search is case-insensitive. **Example**: `hans` will match `Hans`
+
+* The order of the keywords does not matter. **Example**: `Hans Bo` will match `Bo Hans`
+
+* Only the name is searched
+
+* Only full words will be matched **Example**: `Han` will not match `Hans`
+
+* Teammates matching at least one keyword will be returned (i.e. `OR` search).
+  **Example**: `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+</div>
+
+**Example**: `person find alex david` returns `Alex Yeoh`, `David Li`
+
+#### Listing all teammates: `person list`
+
+Lists all teammates in TeamSync.
+
+Format: `person list`
+
+### Module Commands
+
+#### Adding a module for a teammate: `module add`
+
+Adds a module to an existing teammate.
+
+Format: `module add INDEX MODULE_CODE DAY START_TIME END_TIME`
+
+<div markdown="1" class="alert alert-info">:information_source: **Info**
+
+* The index refers to the index number shown in the displayed teammate list. The index **must be a positive integer** 1, 2, 3, …​
+
 * The module code will follow NUS module code format (Department tag + 4-digit number + optional last letter)
-* Module code is case-insensitive.<br> e.g. cs2103t and CS2103T will be regarded as the same module
-* Module code given has to be new (Given student does not already have this module assigned)
+
+* Module code is case-insensitive.<br> **Example**: cs2103t and CS2103T will be regarded as the same module
+
+* Module code given has to be new (Given teammate does not already have this module assigned)
+
 * Day is 3-letter abbreviation of the day of week (MON, TUE, THU etc). It is case-insensitive
+
 * Start time and End time is given in 24-hour format and in HH:MM
+</div>
 
-Examples:
-* `addmod 1 cs2101 thu 12:00 15:00` assigns module CS2101 to the first student in TeamSync.
-  ![result for 'addmod 1 cs2101 thu 12:00 15:00'](images/addmodCS2101Result.png)
+**Example**: `module add 1 cs2101 thu 12:00 15:00` assigns module CS2101 to the first teammate in TeamSync.
 
-### Deleting a module from a student : `delmod`
+#### Deleting a module from a teammate : `module delete`
 
-Deletes the specified module from the given student in TeamSync.
+Deletes the specified module from an existing teammate in TeamSync.
 
-Format: `delmod INDEX MODULE_CODE`
+Format: `module delete INDEX MODULE_CODE`
 
-* Deletes the module from the student at the specified `INDEX`.
-* The index refers to the index number shown in the displayed student list.
+<div markdown="1" class="alert alert-info">:information_source: **Info**
+
+* Deletes the module from the teammate at the specified `INDEX`.
+
+* The index refers to the index number shown in the displayed teammate list.
+
 * The index **must be a positive integer** 1, 2, 3, …​
-* Module code has to be an existing module assigned to the specified student.
-* Module code is case-insensitive. e.g cs2103t will match CS2103T
 
-Examples:
-* `delmod 1 cs2101` deletes the module CS2101 from the 1st student in TeamSync.
-  ![result for 'delmod 1 cs2101'](images/delmodCS2101Result.png)
+* Module code has to be an existing module assigned to the specified teammate.
 
-### Add a meeting for the team: `meeting`
+* Module code is case-insensitive. **Example**: cs2103t will match CS2103T
+</div>
+
+**Example**: `module delete 1 cs2101` deletes the module CS2101 from the 1st teammate in TeamSync.
+
+### Meeting Commands
+
+Example of how a meeting is represented in TeamSync:
+
+#### Adding a meeting: `meeting add`
 
 Creates a meeting with the specified date, start and end time
 
-Format: `meeting DATE START_TIME END_TIME`
+Format: `meeting add DATE START_TIME END_TIME`
+
+<div markdown="1" class="alert alert-info">:information_source: **Info**
 
 * DATE is in DD-MM-YYYY format
+
 * Start time and End time is given in 24-hour format and in HH:MM
+</div>
 
-Examples:
-* `meeting 27-03-2025 12:00 15:00` creates a new meeting on 27th March 2025 from 12pm to 3pm.
-  ![result for 'meeting 27-03-2025 12:00 15:00'](images/addMeetingResult.png)
+**Example**: `meeting add 27-03-2025 12:00 15:00` creates a new meeting on 27th March 2025 from 12pm to 3pm.
 
-### Listing all meetings : `listmeetings`
-
-Shows a list of all meetings in TeamSync.
-
-Format: `listmeetings`
-
-Examples:
-* `listmeetings` lists all existing meetings in TeamSync.
-  ![result for 'listmeetings'](images/listMeetingResult.png)
-
-### Delete an existing meeting: `delmeeting`
+#### Deleting a meeting: `meeting delete`
 
 Deletes the meeting identified by the index number used in the displayed meeting list
 
-Format: `delmeeting INDEX`
+Format: `meeting delete INDEX`
+
+<div markdown="1" class="alert alert-info">:information_source: **Info**
 
 * Deletes the meeting at the specified `INDEX`.
+
 * The index refers to the index number shown in the displayed meeting list.
+
 * The index **must be a positive integer** 1, 2, 3, …​
+</div>
 
-Examples:
-* `listmeetings` followed by `delete 1` deletes the 1st meeting in TeamSync.
+**Example**: `meeting delete 1` deletes the 1st meeting in TeamSync.
 
-Examples:
-* `delmeeting 1` deletes the first meeting in TeamSync
-  ![result for 'delmeeting 1'](images/delMeetingResult.png)
+#### Listing all meetings : `meeting list`
 
+Shows a list of all meetings in TeamSync.
 
-### Clearing all entries : `clear`
+Format: `meeting list`
 
-Clears all entries from TeamSync.
+**Example**: `meeting list` lists all existing meetings in TeamSync.
+
+### General Commands
+
+#### Viewing help : `help`
+
+Shows a message explaining how to access the user guide.
+
+Format: `help`
+
+#### Clearing all data : `clear`
+
+Clears all teammates, modules and meetings from TeamSync.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+**Deletion is irreversible**! Make sure to only use this command if you are sure that the data is no longer needed.
+</div>
 
-Exits the program.
+#### Exiting TeamSync : `exit`
+
+Exits TeamSync.
 
 Format: `exit`
 
-### Saving the data
+### Command Summary
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+#### Student Commands
 
-### Editing the data file
+Action | Format                                                                     | Example
+-------|----------------------------------------------------------------------------|---------
+**Add a teammate** | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…`         |  `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
+**Edit a teammate** | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…` | `person edit 1 -p 91234567 -e johndoe@example.com`
+**Delete a teammate** | `person delete INDEX`                                                      | `person delete 1`
+**List all teammates** | `person list`                                                              | `person list`
+**Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]`                                      | `person find James Jake`
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/dat-a addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+#### Module Commands
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
+Action | Format                                                                     | Example
+-------|----------------------------------------------------------------------------|---------
+**Add a module for a teammate** | `module add INDEX MODULE_CODE DAY START_TIME END_TIME`         |  `module add 1 cs2101 thu 12:00 15:00`
+**Delete a module from a teammate** | `module delete INDEX MODULE_CODE` | `module delete 1 cs2101`
 
-### Archiving data files `[coming in v2.0]`
+#### Meeting Commands
 
-_Details coming soon ..._
+Action | Format                                                                     | Example
+-------|----------------------------------------------------------------------------|---------
+**Add a meeting** | `meeting add DATE START_TIME END_TIME` | `meeting 27-03-2025 12:00 15:00`
+**Delete a meeting** | `meeting delete INDEX` | `meeting delete 1`
+**List all meetings** | `meeting list` | `meeting list`
 
---------------------------------------------------------------------------------------------------------------------
+#### General Commands
+
+Action | Format                                                                     | Example
+-------|----------------------------------------------------------------------------|---------
+**View help** | `help` | `help`
+**Clear all data** | `clear` | `clear`
+**Exit TeamSync** | `exit` | `exit`
+
 
 ## Troubleshooting
 
@@ -277,7 +380,6 @@ Ensure that you have Java 17 or later installed. Run `java --version` in your te
 3. **My data is not being saved** <br>
 Ensure that the application has write permissions to the directory. Alternatively, try running the app with administrator privileges.  
 
---------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
@@ -298,31 +400,25 @@ Only systems with a GUI is supported
 <br>
 **A**: Yes, although the recommended way is to launch via terminal. 
 
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-Action | Format, Examples
---------|------------------
-**Add** | `add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…​` <br> e.g., `add -n James Ho -p 22224444 -e jamesho@example.com -a 123, Clementi Rd, 1234665 -t friend -t colleague`
-**Edit** | `edit INDEX [-n NAME] [-p PHONE_NUMBER] [-e EMAIL] [-a ADDRESS] [-t TAG]…​`<br> e.g.,`edit 2 -n James Lee -e jameslee@example.com`
-**List** | `list`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**AddModule** | `addmod INDEX MODULE_CODE DAY START_TIME END_TIME` <br> e.g., `addmod 1 cs2101 thu 12:00 15:00`
-**DeleteModule** | `delmod INDEX MODULE_CODE` <br> e.g., `delmod 1 cs2101`
-**AddMeeting** | `meeting DATE START_TIME END_TIME` <br> e.g., `meeting 27-03-2025 12:00 15:00`
-**ListMeetings** | `listmeetings`
-**DeleteMeeting** | `delmeeting INDEX` <br> e.g., `delmeeting 1`
-**Clear** | `clear`
-**Help** | `help`
-
---------------------------------------------------------------------------------------------------------------------
-
 ## Glossary
 
 **Command Line Interface (CLI)**<br>
 A text-based interface that allows users to interact with the application by typing commands
+
+<a name="duplicate-teammate"></a>**Duplicate teammate**<br>
+Two teammates are duplicates if they have the same name (case-insensitive) or if they differ only in whitespace
+
+**Index**<br>
+An numeric identifier for a teammate or a meeting
+
+**Module**<br>
+A course offered by NUS
+
+**Teammate**<br>
+An NUS group project teammate stored as a contact in TeamSync.
+
+**Tag**<br>
+Optional information associated with a teammate to facilitate categorisation
 
 **Graphical User Interface (GUI)**<br>
 A graphical interface that allows users to interact with the application through visual elements
