@@ -12,19 +12,18 @@ Class AddressBook
 Class ModelManager
 Class UserPrefs
 
+Class "<<abstract>>\nUniqueItemList" as UniqueItemList
 Class UniquePersonList
 Class UniqueMeetingList
+
 Class Person
-Class Address
-Class Email
 Class Name
 Class Phone
-Class Tag
-Class Module
-Class ModuleCode
-Class Day
+Class Email
+Class Address
 Class Meeting
-
+Class Module
+Class Tag
 
 Class I #FFFFFF
 }
@@ -41,26 +40,27 @@ ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
+AddressBook -[hidden]-> UniqueItemList
+UniquePersonList -up-|> UniqueItemList
+UniqueMeetingList -up-|> UniqueItemList
 AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
-Person *--> "*" Module
-Module *--> ModuleCode
-Module *--> Day
-
 AddressBook *--> "1" UniqueMeetingList
+UniquePersonList --> "~* all" Person
 UniqueMeetingList --> "~* all" Meeting
 
+Person *--> "1" Name
+Person *--> "1" Phone
+Person *--> "1" Email
+Person *--> "1" Address
+Person *--> "*" Tag
+Person *--> "*" Module
+
 Person -[hidden]up--> I
-UniquePersonList -[hidden]right-> I
+UniqueItemList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Phone -[hidden]right-> Email
+Email -[hidden]right-> Address
 
 ModelManager --> "~* filtered" Person
 ModelManager --> "~* all" Meeting

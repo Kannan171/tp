@@ -107,6 +107,11 @@ public class MainViewModel {
         return currentWeek;
     }
 
+    /**
+     * Saves the gui settings.
+     *
+     * @param guiSettings The gui settings to save.
+     */
     public void saveGuiSettings(GuiSettings guiSettings) {
         // Note: This is a temporary solution to save the gui settings.
         // We should not directly set the gui settings here, but rather through the logic component.
