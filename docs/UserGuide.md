@@ -293,6 +293,7 @@ Use `person list` after `find` to exit the filtered view and display all your te
 </div>
 
 
+<br><br>
 ### Module Commands
 
 #### Adding a module for a teammate: `mod add`
@@ -358,6 +359,7 @@ Deletes the module CS2101 from the first teammate in TeamSync.
 Deleting a module is **irreversible**!
 </div>
 
+<br><br>
 ### Meeting Commands
 
 #### Adding a meeting: `meeting add`
@@ -371,6 +373,8 @@ Adds a meeting with the specified date, start and end time to TeamSync.
 * `DATE` should be in DD-MM[-YYYY] format
 
   **Example**: `24-02-2025` and `24-02` are both valid dates, but `24 Feb` is not
+
+* `DATE` is assumed to be the current year if YYYY is not given
 
 * `START_TIME` and `END_TIME` should be in 24-hour HH:MM format
 
@@ -409,6 +413,7 @@ Shows a list of all meetings in TeamSync.
 
 Lists all existing meetings in TeamSync.
 
+<br><br>
 ### General Commands
 
 #### Viewing help : `help`
@@ -417,17 +422,31 @@ Shows a message explaining how to access the user guide.
 
 **Format**: `help`
 
-**Example**: `help`
+#### Change week displayed: `showdate`
 
-Displays a pop-up
+Changes the week displayed in the timetable view.
+
+Format: `showdate DATE`
+<div markdown="1" class="alert alert-info">:information_source: **Info**
+
+* Displays the timetable for the week containing the specified DATE, starting on Monday.
+
+* `DATE` should be in DD-MM[-YYYY] format
+
+  **Example**: `24-02-2025` and `24-02` are both valid dates, but `24 Feb` is not
+
+* `DATE` is assumed to be the current year if YYYY is not given
+</div>
+
+Example: `showdate 03-04-2025`
+
+Shows the timetable for 31 Mar 2025 (Mon) to 6 Apr 2025 (Sun).
 
 #### Clearing all data : `clear`
 
 Clears all teammates, modules and meetings from TeamSync.
 
 **Format**: `clear`
-
-**Example**: `clear`
 
 <div markdown="span" class="alert alert-danger">:warning: **Danger**<br><br>
 **Deletion is irreversible**! Only use this command if you are sure that all the data is no longer needed.
@@ -439,8 +458,7 @@ Exits TeamSync.
 
 **Format**: `exit`
 
-**Example**: `exit`
-
+<br><br>
 ### Command Summary
 
 #### Student Commands
