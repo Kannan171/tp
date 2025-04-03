@@ -1,0 +1,10 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+:User enters person list command;
+:List command executes, all persons are shown;
+
+stop
+@enduml
