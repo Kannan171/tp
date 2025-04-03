@@ -25,6 +25,7 @@ public class TimetableChart extends XYChart<Number, String> { // Flip axis types
     private ObservableList<PersonModulesBlock> personModulesBlocks = FXCollections.observableArrayList();
 
     private ObservableList<MeetingBlock> meetingBlocks = FXCollections.observableArrayList();
+    private TooltipBlock tooltipBlock = new TooltipBlock();
 
     /**
      * Constructs a {@code TimetableChart} with the specified data.
@@ -75,10 +76,9 @@ public class TimetableChart extends XYChart<Number, String> { // Flip axis types
 
         setData(FXCollections.observableArrayList());
 
-        this.personModulesBlocks = personModulesBlocks;
-        this.meetingBlocks = meetingBlocks;
+        loadPersonModulesBlocks(personModulesBlocks);
+        loadMeetingBlocks(meetingBlocks);
 
-        loadData();
         yAxis.toBack();
     }
 
@@ -88,6 +88,19 @@ public class TimetableChart extends XYChart<Number, String> { // Flip axis types
      */
     public void loadPersonModulesBlocks(Collection<PersonModulesBlock> personModulesBlocks) {
         this.personModulesBlocks.setAll(personModulesBlocks);
+        TooltipBlock tooltipBlock = new TooltipBlock();
+        personModulesBlocks.forEach(block -> {
+            block.getModuleSeries().getData().forEach(data -> {
+                PersonModulesBlock.StyledModule styledModule = (PersonModulesBlock.StyledModule) data.getExtraValue();
+                tooltipBlock.addEvent(
+                    styledModule.getTooltipText(),
+                    data.getXValue().doubleValue(),
+                    data.getYValue(),
+                    styledModule.getDuration()
+                );
+            });
+        });
+        this.tooltipBlock = tooltipBlock;
         loadData();
     }
 
@@ -108,6 +121,7 @@ public class TimetableChart extends XYChart<Number, String> { // Flip axis types
         getData().addAll(meetingBlocks.stream()
             .map(MeetingBlock::getMeetingSeries)
             .collect(Collectors.toList()));
+        getData().addAll(tooltipBlock.getTooltipSeries());
     }
 
     @Override
@@ -118,6 +132,7 @@ public class TimetableChart extends XYChart<Number, String> { // Flip axis types
 
         personModulesBlocks.forEach(block -> block.layout(xAxis, yAxis, blockHeight));
         meetingBlocks.forEach(block -> block.layout(xAxis, yAxis, blockHeight));
+        tooltipBlock.layout(xAxis, yAxis, blockHeight);
     }
 
     public double getBlockHeight() {

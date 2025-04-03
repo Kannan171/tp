@@ -9,7 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -64,17 +63,32 @@ public final class PersonModulesBlock implements TimetableDisplayable {
      * {@code XYChart.Data} supports extra values that can be plotted in any way the chart needs.
      * The {@code TimetableChart} uses this to store the length of the block and the style class.
      */
-    private final class StyledModule {
+    public final class StyledModule {
         private final String moduleCode;
         private final String personName;
         private final double duration;
         private final ObservableList<String> styleClass;
 
+        /**
+         * Constructs a {@code StyledModule} with the specified module code, person name, duration, and style class.
+         * @param moduleCode the module code
+         * @param personName the person name
+         * @param duration the duration of the module
+         * @param styleClass the style class of the module
+         */
         public StyledModule(String moduleCode, String personName, double duration, ObservableList<String> styleClass) {
             this.moduleCode = moduleCode;
             this.personName = personName;
             this.duration = duration;
             this.styleClass = styleClass;
+        }
+
+        public double getDuration() {
+            return duration;
+        }
+
+        public String getTooltipText() {
+            return moduleCode + '\n' + personName;
         }
     }
 
@@ -129,10 +143,6 @@ public final class PersonModulesBlock implements TimetableDisplayable {
             rectangle.setFill(color);
             Color strokeColor = Color.color(color.getRed(), color.getGreen(), color.getBlue(), 1);
             rectangle.setStroke(strokeColor);
-
-            String tooltipText = styledModule.moduleCode + '\n' + styledModule.personName;
-            Tooltip tooltip = new Tooltip(tooltipText);
-            Tooltip.install(region, tooltip);
 
             // Note: workaround for RT-7689 - saw this in ProgressControlSkin
             // The region doesn't update itself when the shape is mutated in place, so we
