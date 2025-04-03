@@ -9,7 +9,9 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+This project is based on the AddressBook-Level3 project created by the SE-EDU initiative.
+
+TeamSync uses the following libraries: [AtlantaFX](#https://github.com/mkpaz/atlantafx) and [JavaFX](https://openjfx.io/) for UI design, [Jackson](https://github.com/FasterXML/jackson) to parse and generate JSON files, and [JUnit5](https://github.com/junit-team/junit5) for testing.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -848,16 +850,19 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file
+   
+      **Expected**: Shows the GUI with a set of sample contacts and meetings.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   1. Resize the window to your preferred size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+   1. Re-launch the app by double-clicking the jar file.
+   
+      **Expected**: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Adding a person
 
 ### Deleting a person
 
