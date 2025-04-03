@@ -309,7 +309,7 @@ public class AddMeetingCommandTest {
     /**
      * A Model stub that contains a single meeting.
      */
-    private class ModelStubWithMeeting extends AddMeetingCommandTest.ModelStub {
+    private class ModelStubWithMeeting extends ModelStub {
         private final Meeting meeting;
 
         ModelStubWithMeeting(Meeting meeting) {
@@ -327,7 +327,7 @@ public class AddMeetingCommandTest {
     /**
      * A Model stub that always accept the meeting being added.
      */
-    private class ModelStubAcceptingMeetingAdded extends AddMeetingCommandTest.ModelStub {
+    private class ModelStubAcceptingMeetingAdded extends ModelStub {
         final UniqueMeetingList meetings = new UniqueMeetingList();
         final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
 
