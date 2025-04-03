@@ -16,8 +16,12 @@ import syncsquad.teamsync.model.meeting.exceptions.MeetingNotFoundException;
 /**
  * A list of meetings that enforces uniqueness between its elements and does not allow nulls.
  * A meeting is considered unique by comparing using {@code Meeting#equals(Object)}. As such, adding and updating of
- * meetings uses Meeting#equals(Object) for equality so as to ensure that the meeting being added or updated is
+ * meetings uses {@code Meeting#equals(Object)} for equality so as to ensure that the meeting being added or updated is
  * unique in terms of identity in the UniqueMeetingList.
+ *
+ * Additionally, it is guaranteed that all meetings in the list are in sorted order, in their natural ordering
+ * defined in {@code Meeting#compareTo(Meeting)}.
+ *
  * Supports a minimal set of list operations.
  *
  * @see Meeting#equals(Object)
@@ -25,7 +29,7 @@ import syncsquad.teamsync.model.meeting.exceptions.MeetingNotFoundException;
 public class UniqueMeetingList extends UniqueItemList<Meeting> {
 
     /**
-     * Returns true if the list contains a meeting that overlaps with the given argument.
+     * Returns true if the list contains a meeting that overlaps in date and time with the given argument.
      */
     public boolean hasOverlap(Meeting toCheck) {
         requireNonNull(toCheck);
