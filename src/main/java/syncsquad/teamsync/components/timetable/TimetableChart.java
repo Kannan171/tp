@@ -23,6 +23,8 @@ import syncsquad.teamsync.model.module.Day;
 public class TimetableChart extends XYChart<String, Number> {
     private ObservableList<PersonModulesBlock> personModulesBlocks = FXCollections.observableArrayList();
     private ObservableList<MeetingBlock> meetingBlocks = FXCollections.observableArrayList();
+    private TooltipBlock tooltipBlock = new TooltipBlock();
+
     /**
      * Constructs a {@code TimetableChart} with the specified data.
      * @param personModulesBlocks
@@ -72,10 +74,9 @@ public class TimetableChart extends XYChart<String, Number> {
 
         setData(FXCollections.observableArrayList());
 
-        this.personModulesBlocks = personModulesBlocks;
-        this.meetingBlocks = meetingBlocks;
+        loadPersonModulesBlocks(personModulesBlocks);
+        loadMeetingBlocks(meetingBlocks);
 
-        loadData();
         yAxis.toBack();
         xAxis.toBack();
     }
@@ -86,6 +87,19 @@ public class TimetableChart extends XYChart<String, Number> {
      */
     public void loadPersonModulesBlocks(Collection<PersonModulesBlock> personModulesBlocks) {
         this.personModulesBlocks.setAll(personModulesBlocks);
+        TooltipBlock tooltipBlock = new TooltipBlock();
+        personModulesBlocks.forEach(block -> {
+            block.getModuleSeries().getData().forEach(data -> {
+                PersonModulesBlock.StyledModule styledModule = (PersonModulesBlock.StyledModule) data.getExtraValue();
+                tooltipBlock.addEvent(
+                    styledModule.getTooltipText(),
+                    data.getXValue(),
+                    -data.getYValue().doubleValue(),
+                    styledModule.getDuration()
+                );
+            });
+        });
+        this.tooltipBlock = tooltipBlock;
         loadData();
     }
 
@@ -106,6 +120,7 @@ public class TimetableChart extends XYChart<String, Number> {
         getData().addAll(meetingBlocks.stream()
             .map(MeetingBlock::getMeetingSeries)
             .collect(Collectors.toList()));
+        getData().addAll(tooltipBlock.getTooltipSeries());
     }
 
     @Override
@@ -116,6 +131,7 @@ public class TimetableChart extends XYChart<String, Number> {
 
         personModulesBlocks.forEach(block -> block.layout(xAxis, yAxis, blockWidth));
         meetingBlocks.forEach(block -> block.layout(xAxis, yAxis, blockWidth));
+        tooltipBlock.layout(xAxis, yAxis, blockWidth);
     }
 
     public double getBlockWidth() {
