@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.commands.meeting;
+package syncsquad.teamsync.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 
@@ -10,28 +10,29 @@ import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
-import syncsquad.teamsync.model.meeting.Meeting;
+import syncsquad.teamsync.model.person.Person;
 
 /**
- * Deletes a person identified using its displayed index from the address book.
+ * Exports a person's data in a format that can be copied and imported.
  */
-public class DeleteMeetingCommand extends MeetingCommand {
+public class ExportPersonCommand extends PersonCommand {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
-            + ": Deletes the meeting identified by the index number used in the displayed meeting list\n"
+            + ": Exports a person's data in a format that can be copied and imported.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_GROUP_WORD + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_MEETING_SUCCESS = "Deleted Meeting: %1$s";
+    public static final String MESSAGE_EXPORT_PERSON_SUCCESS = "Exported person:\n"
+        + COMMAND_GROUP_WORD + " " + AddPersonCommand.COMMAND_WORD + " %1$s";
 
     private final Index targetIndex;
 
     /**
-     * Creates a DeleteMeetingCommand to delete the meeting at the specified {@code targetIndex}
+     * Creates an ExportPersonCommand to export the specified person.
      */
-    public DeleteMeetingCommand(Index targetIndex) {
+    public ExportPersonCommand(Index targetIndex) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
@@ -39,32 +40,30 @@ public class DeleteMeetingCommand extends MeetingCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Meeting> lastShownList = model.getMeetingList();
+        List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Meeting meetingToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteMeeting(meetingToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_MEETING_SUCCESS, Messages.format(meetingToDelete)));
+        Person personToExport = lastShownList.get(targetIndex.getZeroBased());
+        String exportString = personToExport.toExportString();
+        return new CommandResult(String.format(MESSAGE_EXPORT_PERSON_SUCCESS, exportString));
     }
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
         if (other == this) {
             return true;
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteMeetingCommand)) {
+        if (!(other instanceof ExportPersonCommand)) {
             return false;
         }
 
-        // state check
-        DeleteMeetingCommand otherDeleteMeetingCommand = (DeleteMeetingCommand) other;
-        return targetIndex.equals(otherDeleteMeetingCommand.targetIndex);
+        ExportPersonCommand otherExportPersonCommand = (ExportPersonCommand) other;
+        return targetIndex.equals(otherExportPersonCommand.targetIndex);
     }
 
     @Override

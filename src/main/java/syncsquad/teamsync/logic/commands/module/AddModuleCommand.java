@@ -29,8 +29,8 @@ public class AddModuleCommand extends ModuleCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "MODULE_CODE "
             + "DAY "
-            + "START_TIME(HH:MM) "
-            + "END_TIME(HH:MM) \n"
+            + "START_TIME (HH:MM) "
+            + "END_TIME (HH:MM) \n"
             + "Example: " + COMMAND_GROUP_WORD + " " + COMMAND_WORD + " 1 "
             + "CS2103T FRI 16:00 18:00";
 
@@ -42,7 +42,7 @@ public class AddModuleCommand extends ModuleCommand {
     private final Module module;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index  of the person in the filtered person list to edit
      * @param module module to add to the person
      */
     public AddModuleCommand(Index index, Module module) {
