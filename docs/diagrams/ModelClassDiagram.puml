@@ -56,7 +56,6 @@ Person *--> "*" Tag
 Person *--> "*" Module
 
 Person -[hidden]up--> I
-UniqueItemList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Email
