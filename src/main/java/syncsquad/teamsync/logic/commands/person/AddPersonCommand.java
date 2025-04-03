@@ -38,7 +38,8 @@ public class AddPersonCommand extends PersonCommand {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book. \n"
+            + "Ensure that the email address is different from an existing one. ";
 
     private final Person toAdd;
 
