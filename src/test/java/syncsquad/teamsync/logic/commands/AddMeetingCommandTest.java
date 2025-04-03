@@ -23,6 +23,7 @@ import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;
+import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.meeting.UniqueMeetingList;
 import syncsquad.teamsync.model.person.Person;
@@ -293,12 +294,22 @@ public class AddMeetingCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public TimetableWeek getCurrentWeek() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWeek(TimetableWeek week) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
      * A Model stub that contains a single meeting.
      */
-    private class ModelStubWithMeeting extends AddMeetingCommandTest.ModelStub {
+    private class ModelStubWithMeeting extends ModelStub {
         private final Meeting meeting;
 
         ModelStubWithMeeting(Meeting meeting) {
@@ -316,7 +327,7 @@ public class AddMeetingCommandTest {
     /**
      * A Model stub that always accept the meeting being added.
      */
-    private class ModelStubAcceptingMeetingAdded extends AddMeetingCommandTest.ModelStub {
+    private class ModelStubAcceptingMeetingAdded extends ModelStub {
         final UniqueMeetingList meetings = new UniqueMeetingList();
         final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
 

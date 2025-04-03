@@ -10,10 +10,10 @@ Class CommandBoxViewModel
 Class ResultDisplayViewModel
 Class PersonListViewModel
 Class MeetingListViewModel
-}
-
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+note right of MainViewModel
+  Most view models:
+  - depend on Model component
+end note
 }
 
 package Logic <<Rectangle>> {
@@ -26,15 +26,6 @@ MainViewModel *-down->  "1" CommandBoxViewModel
 MainViewModel *-down-> "1" ResultDisplayViewModel
 MainViewModel *-down-> "1" PersonListViewModel
 MainViewModel *-down-> "1" MeetingListViewModel
-
-MeetingListViewModel -down- Invisible
-Invisible -right- Model
-hide Invisible
-
-CommandBoxViewModel -right> Model
-ResultDisplayViewModel -right> Model
-PersonListViewModel -right> Model
-MeetingListViewModel -down> Model
 
 MainViewModel -right-> Logic
 

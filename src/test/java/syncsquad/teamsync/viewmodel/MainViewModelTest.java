@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import syncsquad.teamsync.logic.Logic;
 import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
+import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
 
@@ -35,6 +36,7 @@ public class MainViewModelTest {
     private MainViewModel viewModel;
     private ObservableList<Person> personList;
     private ObservableList<Meeting> meetingList;
+    private TimetableWeek week;
 
     @BeforeEach
     public void setUp() {
@@ -43,10 +45,12 @@ public class MainViewModelTest {
         // Set up mock lists
         personList = FXCollections.observableArrayList();
         meetingList = FXCollections.observableArrayList();
+        week = new TimetableWeek();
 
         // Configure logic mock
         when(logic.getFilteredPersonList()).thenReturn(personList);
         when(logic.getMeetingList()).thenReturn(meetingList);
+        when(logic.getCurrentWeek()).thenReturn(week);
 
         // Create view model
         viewModel = new MainViewModel(logic);

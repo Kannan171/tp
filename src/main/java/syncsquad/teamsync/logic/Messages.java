@@ -59,11 +59,11 @@ public class Messages {
      */
     public static String format(Meeting meeting) {
         return new StringBuilder()
-                .append(meeting.getDate())
+                .append(meeting.getDateString())
                 .append("; Start time: ")
-                .append(meeting.getStartTime())
+                .append(meeting.getStartTimeString())
                 .append("; End time: ")
-                .append(meeting.getEndTime())
+                .append(meeting.getEndTimeString())
                 .toString();
     }
 

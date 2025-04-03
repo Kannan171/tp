@@ -20,7 +20,7 @@ public class AddMeetingCommand extends MeetingCommand {
     public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
             + ": Creates a meeting with the specified date, start and end time\n"
             + "Parameters: DATE START_TIME END_TIME\n"
-            + "Example: " + COMMAND_WORD + " 15-11-2025 11:00 15:00";
+            + "Example: " + COMMAND_GROUP_WORD + " " + COMMAND_WORD + " 15-11-2025 11:00 15:00";
 
     public static final String MESSAGE_SUCCESS = "Meeting added with the following details: %1$s";
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";

@@ -4,57 +4,46 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
-package UI <<Rectangle>>{
+package Views <<Rectangle>>{
 Class "<<interface>>\nUi" as Ui
-Class "{abstract}\nUiPart" as UiPart
 Class UiManager
-Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class PersonTreeView
-Class PersonCard
-Class StatusBarFooter
-Class CommandBox
-}
+Class MainWindowController
+Class HelpWindowController
+Class ResultDisplayController
+Class PersonTreeViewController
+Class MeetingTreeViewController
+Class StatusBarFooterController
+Class CommandBoxController
+Class TimetableController
+Class PersonCardController
+Class MeetingCardController
 
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
-}
-
-package Logic <<Rectangle>> {
-Class HiddenLogic #FFFFFF
+note right of MainWindowController
+  Most controllers:
+  - implement UiPart interface
+  - depend on ViewModel component
+  - depend on Model component
+end note
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
-UiManager -down-> "1" MainWindow
-MainWindow *-down->  "1" CommandBox
-MainWindow *-down-> "1" ResultDisplay
-MainWindow *-down-> "1" PersonTreeView
-MainWindow *-down-> "1" StatusBarFooter
-MainWindow --> "0..1" HelpWindow
+UiManager -down-> "1" MainWindowController
+MainWindowController *-down->  "1" CommandBoxController
+MainWindowController *-down-> "1" ResultDisplayController
+MainWindowController *-down-> "1" PersonTreeViewController
+MainWindowController *-down-> "1" MeetingTreeViewController
+MainWindowController *-down-> "1" StatusBarFooterController
+MainWindowController *-down-> "1" TimetableController
+MainWindowController --> "0..1" HelpWindowController
 
-PersonTreeView -down-> "*" PersonCard
+PersonTreeViewController -down-> "*" PersonCardController
+MeetingTreeViewController -down-> "*" MeetingCardController
 
-MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonTreeView --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
-
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
-
-PersonTreeView -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
-
-MainWindow -[hidden]-|> UiPart
+PersonTreeViewController -[hidden]left- HelpWindowController
+HelpWindowController -[hidden]left- CommandBoxController
+CommandBoxController -[hidden]left- ResultDisplayController
+ResultDisplayController -[hidden]left- StatusBarFooterController
 @enduml

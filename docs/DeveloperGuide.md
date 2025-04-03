@@ -34,24 +34,25 @@ The ***Architecture Diagram*** given above explains the high-level design of the
 
 Given below is a quick overview of main components and how they interact with each other.
 
-**Main components of the architecture**
+**Main layers of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
-* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
-* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/Main.java) and [`MainApp`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/MainApp.java)) is in charge of the app launch and shut down.
+* At app launch, it initializes the other layers in the correct sequence, and connects them up with each other.
+* At shut down, it shuts down the other layers and invokes cleanup methods where necessary.
 
-The bulk of the app's work is done by the following four components:
+The bulk of the app's work is done by the following five layers:
 
-* [**`UI`**](#ui-component): The UI of the App.
+* [**`View (FXML + Controller)`**](#view-component): The UI presentation of the App.
+* [**`Viewmodel`**](#viewmodel-component): Manages the presentation logic and state of the UI.
 * [**`Logic`**](#logic-component): The command executor.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple other layers.
 
-**How the architecture components interact with each other**
+**How the architecture layers interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the layers interact with each other for the scenario where the user issues the command `delete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -64,51 +65,111 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 <img src="images/ComponentManagers.png" width="300" />
 
-The sections below give more details of each component.
+The sections below give more details of each layer.
 
-### UI component
+### View layer (FXML + Controller)
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+This layer represents the View layer of the MVVM (Model-View-ViewModel) architecture. It is responsible for:
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+* Rendering the user interface and handling user input
+* Displaying data from the ViewModel
+* Converting user actions into commands that are sent to the ViewModel
+* Updating the UI in response to data changes in the ViewModel
+* depends on some classes in the `Model` layer, as it displays `Person` object residing in the `Model`.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+This separation of concerns allows the View to focus purely on presentation while delegating data handling to the ViewModel.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+![Structure of the View Layer](images/UiClassDiagram.png)
 
-The `UI` component,
+The View layer is initialized through the [`Ui`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/controller/Ui.java) interface, which serves as the entry point for UI initialization.
 
-* executes user commands using the `Logic` component.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
-* keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+The UI consists of a `MainWindowController` that is made up of parts e.g. `CommandBoxController`, `PersonTreeViewController`, `MeetingTreeViewController`, `TimetableController` etc. All these, including the `MainWindowController`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-### ViewModel Component
+The `Controller` classes are built using the JavaFX UI framework, where each UI component's layout is defined in corresponding `.fxml` files located in the `src/main/resources/view` folder. These controllers manage user interactions and communicate with the ViewModel layer. For instance, the [`MainWindowController`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/controller/MainWindowController.java) has its layout defined in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/resources/view/MainWindow.fxml).
 
-![Structure of the ViewModel Component](images/ViewModelClassDiagram.png)
+### ViewModel Layer
 
-### Logic component
+The ViewModel layer serves as the intermediary between the View and Model layers in the MVVM (Model-View-ViewModel) architecture. It is responsible for:
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+* Managing the presentation logic and state of the UI
+* Converting data from the Model into a format suitable for display
+* Handling user input and converting it into commands for the Logic layer
+* Maintaining the state of UI components
+* Providing data bindings for the View layer
 
-Here's a (partial) class diagram of the `Logic` component:
+![Structure of the ViewModel Layer](images/ViewModelClassDiagram.png)
+
+The ViewModel layer consists of several specialized view models:
+
+* **`MainViewModel`**: The central view model that coordinates all other view models and manages the overall application state.
+* **`CommandBoxViewModel`**: Handles the command input functionality, managing the command text and execution.
+* **`ResultDisplayViewModel`**: Manages the display of command results and feedback messages.
+* **`PersonListViewModel`**: Handles the presentation logic for the person list, including filtering and sorting.
+* **`MeetingListViewModel`**: Manages the display and state of meetings, including scheduling and conflicts.
+* **`CurrentWeekViewModel`**: Handles the display of the current week's schedule and time-related information.
+
+Each view model:
+* Depends on the Model component for data
+* Provides observable properties that the View can bind to
+* Handles the conversion of Model data into displayable formats
+* Manages the state of its corresponding UI component
+* Communicates with the Logic layer for command execution
+
+The ViewModel layer follows these design principles:
+1. **Separation of Concerns**: Each view model is responsible for a specific aspect of the UI
+2. **Data Binding**: Uses JavaFX's property system for automatic UI updates
+3. **Dependency Management**: Maintains clear dependencies on Model and Logic layers
+4. **State Management**: Handles UI state independently of the View layer
+
+### Logic layer
+
+**API** : [`Logic.java`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/logic/Logic.java)
+
+Here's a (partial) class diagram of the `Logic` layer:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The Logic layer is responsible for:
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+* Processing user commands and executing them
+* Managing the command parsing and execution flow
+* Coordinating between the ViewModel and Model layers
+* Handling command validation and error checking
+* Providing feedback on command execution results
+
+The Logic layer consists of several key components:
+
+* **`LogicManager`**: The main implementation of the `Logic` interface that orchestrates command execution
+* **`Messages`**: Contains common message strings used throughout the application
+* **Command Parsers**: Located in the `parser` package, responsible for parsing user input into executable commands
+* **Commands**: Located in the `commands` package, implementing the actual command logic
+
+How the `Logic` layer works:
+
+1. When a command is received from the ViewModel layer, the `LogicManager` processes it through the following steps:
+   * The command string is passed to the appropriate parser in the `parser` package
+   * The parser validates the command format and parameters
+   * A corresponding `Command` object is created
+   * The command is executed, interacting with the Model layer as needed
+   * A `CommandResult` is returned to the ViewModel layer
+
+2. The command execution flow:
+   * Commands can modify the Model's state (e.g., adding/removing persons, meetings)
+   * Commands can query the Model for information
+   * Commands can trigger UI updates through the ViewModel
+   * All command results include feedback messages for the user
+
+3. Error handling:
+   * Invalid commands are caught and reported with helpful error messages
+   * Command-specific validation ensures data integrity
+   * Exceptions are properly handled and converted to user-friendly messages
+
+The sequence diagram below illustrates the interactions within the `Logic` layer, taking `execute("delete 1")` API call as an example.
+
+![Interactions Inside the Logic Layer for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
-
-How the `Logic` component works:
-
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
-   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -118,40 +179,144 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
-### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+### Model layer
+**API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
+The Model layer is responsible for:
 
-The `Model` component,
+* Managing the application's data and business logic
+* Maintaining data integrity and consistency
+* Providing data access and manipulation methods
+* Supporting data observation through observable properties
+* Managing user preferences and settings
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+The Model layer consists of several key components:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+* **`ModelManager`**: The main implementation of the `Model` interface that manages all data operations
+* **`AddressBook`**: The central data structure that holds all application data
+* **`UniqueItemList`**: A generic list implementation that ensures uniqueness of items
+* **`UserPrefs`**: Manages user preferences and settings
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+The Model layer is organized into several packages:
 
+* **`person`**: Contains classes related to person management
+* **`meeting`**: Contains classes related to meeting management
+* **`module`**: Contains classes related to module management
+* **`tag`**: Contains classes related to tag management
+* **`util`**: Contains utility classes used across the model
+
+Key features of the Model layer:
+
+1. **Data Management**:
+   * Stores and manages all application data (persons, meetings, modules, etc.) in storage layer
+   * Ensures data consistency and integrity
+   * Provides methods for data manipulation and retrieval
+   * Maintains relationships between different data entities
+
+2. **Observable Properties**:
+   * Exposes data through observable lists for UI binding
+   * Notifies observers of data changes
+   * Supports filtered views of data
+   * Enables real-time UI updates
+
+3. **Data Access**:
+   * Provides read-only interfaces for data access
+   * Implements data validation and constraints
+   * Supports data filtering and searching
+   * Manages data relationships and dependencies
+
+4. **User Preferences**:
+   * Stores user-specific settings in storage layer
+   * Provides read-only access to preferences
+   * Supports preference modification
+   * Persists preferences across sessions
+
+The Model layer follows these design principles:
+1. **Encapsulation**: Data access is controlled through well-defined interfaces
+2. **Immutability**: Data objects are immutable to ensure consistency
+3. **Dependency Inversion**: Higher-level components depend on abstractions
+4. **Single Responsibility**: Each class has a specific, well-defined purpose
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The Model layer is designed to be only dependent on storage layer, allowing it to be tested and modified without affecting the rest of the application.
 </div>
 
+### Storage layer
 
-### Storage component
-
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2425S2-CS2103T-F10-1/tp/blob/master/src/main/java/syncsquad/teamsync/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
-The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+The Storage layer is responsible for:
+
+* Persisting application data to and from the file system
+* Managing data serialization and deserialization
+* Handling data format conversion
+* Providing data backup and recovery capabilities
+* Managing user preferences storage
+
+The Storage layer consists of several key components:
+
+* **`StorageManager`**: The main implementation of the `Storage` interface that coordinates all storage operations
+* **`JsonAddressBookStorage`**: Handles the storage of address book data in JSON format
+* **`JsonUserPrefsStorage`**: Manages the storage of user preferences in JSON format
+* **`JsonSerializableAddressBook`**: Represents the serializable version of the address book
+* **`JsonAdaptedPerson`**: Handles the conversion between Person objects and JSON
+* **`JsonAdaptedMeeting`**: Handles the conversion between Meeting objects and JSON
+* **`JsonAdaptedModule`**: Handles the conversion between Module objects and JSON
+* **`JsonAdaptedTag`**: Handles the conversion between Tag objects and JSON
+
+Key features of the Storage layer:
+
+1. **Data Persistence**:
+   * Saves application data to JSON files
+   * Loads data from JSON files
+   * Maintains data integrity during save/load operations
+   * Handles file I/O operations safely
+
+2. **Data Conversion**:
+   * Converts between Java objects and JSON format
+   * Handles complex object relationships
+   * Maintains data consistency during conversion
+   * Validates data during deserialization
+
+3. **User Preferences**:
+   * Stores user preferences in a separate file
+   * Loads preferences on application startup
+   * Updates preferences when modified
+   * Maintains preference consistency
+
+4. **Error Handling**:
+   * Handles file system errors gracefully
+   * Provides meaningful error messages
+   * Maintains data integrity during errors
+   * Supports data recovery when possible
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The Storage layer is designed to be independent of the Model layer's implementation details, allowing for changes in the data model without affecting storage operations.
+</div>
 
 ### Common classes
 
-Classes used by multiple components are in the `syncsquad.teamsync.commons` package.
+Classes used by multiple components are organized in the `syncsquad.teamsync.commons` package, which is divided into several subpackages:
+
+1. **`core`**:
+   * Contains fundamental classes that define the core behavior of the application
+   * Provides base classes and interfaces used across different layers
+   * Defines common data structures and utilities
+
+2. **`exceptions`**:
+   * Contains custom exception classes used throughout the application
+   * Provides specialized exception handling for different scenarios
+   * Includes error messages and recovery suggestions
+
+3. **`util`**:
+   * Contains utility classes and helper methods
+   * Provides common functionality used across different components
+   * Includes string manipulation, date handling, and other utility functions
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The Common classes are designed to be independent of specific components, allowing them to be used across the entire application without creating unnecessary dependencies.
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
