@@ -13,6 +13,7 @@ import syncsquad.teamsync.logic.commands.HelpCommand;
 import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
 import syncsquad.teamsync.logic.commands.person.DeletePersonCommand;
 import syncsquad.teamsync.logic.commands.person.EditCommand;
+import syncsquad.teamsync.logic.commands.person.ExportPersonCommand;
 import syncsquad.teamsync.logic.commands.person.FindCommand;
 import syncsquad.teamsync.logic.commands.person.ListCommand;
 import syncsquad.teamsync.logic.commands.person.PersonCommand;
@@ -57,6 +58,8 @@ public final class PersonCommandsParser implements Parser<PersonCommand> {
             return new EditCommandParser().parse(arguments);
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+        case ExportPersonCommand.COMMAND_WORD:
+            return new ExportPersonCommandParser().parse(arguments);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         default:
