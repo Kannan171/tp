@@ -96,13 +96,16 @@ public class TitleBarController extends UiPart<Region> {
         });
 
         this.titleBar.setOnMouseDragged((MouseEvent event) -> {
-            primaryStage.setMaximized(false);
+            if (primaryStage.isMaximized()) {
+                primaryStage.setMaximized(false);
+                xOffset = primaryStage.getWidth() / 2;
+            }
             primaryStage.setX(event.getScreenX() - xOffset);
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
         setAccelerators();
-        titleBar.setStyle("-fx-background-color: -color-accent-subtle");
+        // titleBar.setStyle("-fx-background-color: -color-accent-subtle");
 
     }
 
