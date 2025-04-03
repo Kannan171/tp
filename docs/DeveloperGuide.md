@@ -862,29 +862,78 @@ testers are expected to do more *exploratory* testing.
    
       **Expected**: The most recent window size and location is retained.
 
-### Adding a person
+### Adding a teammate
 
-### Deleting a person
+1. Adding a teammate
 
-1. Deleting a person while all persons are being shown
+1. Prerequisites: No teammates with the email `johndoe@example.com` is in TeamSync.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+1. Test case: `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`<br>
+   Expected: Teammate `John Doe` is added to TeamSync with all the correct details.
 
-   1. Test case: `delete 1`<br>
+1. Test case: `person add -n Johnny Doe -p 12345678 -e johndoe@example.com -a Johnny street, block 321, #02-02`<br>
+   Expected: If run after the previous test case, an error is displayed indicating that a duplicate contact is being added.
+
+### Editing a teammate
+
+1. Prerequisites: List all teammates using the `person list` command. Multiple teammates in the list.
+
+1. Test case: `person edit 1 -n Jane Doe`<br>
+   Expected: First teammate in the list has the name changed to `Jane Doe`.
+
+1. Test case: `person edit 1 -m`<br>
+   Expected: First teammate in the list has all of their modules removed.
+
+### Deleting a teammate
+
+1. Deleting a teammate while all teammates are being shown
+
+   1. Prerequisites: List all teammates using the `person list` command. Multiple teammates in the list.
+
+   1. Test case: `person delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `person delete 0`<br>
+      Expected: No teammate is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `person delete`, `person delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a module
 
-### Saving data
+1. Prerequisites: List all teammates using the `person list` command. Multiple teammates in the list.
 
-1. Dealing with missing/corrupted data files
+1. Test case: `mod add 1 CS2101 Thu 12:00 15:00`<br>
+   Expected: Adds the module CS2101 with the correct day, start and end time to the first teammate in the list.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+### Deleting a module
 
-1. _{ more test cases …​ }_
+1. Prerequisites: First teammate in the list has the module `CS2101`.
+
+1. Test case: `mod delete 1 CS2101`<br>
+   Expected: Deletes the module CS2101 from the first teammate in the list.
+
+### Adding a meeting
+
+1. Prerequisites: No meetings in the list overlap with the time period 27-03-2025 12:00 to 15:00.
+
+1. Test case: `meeting add 27-03-2025 12:00 15:00`<br>
+   Expected: Adds a meeting on 27-03-2025 from 12:00 to 15:00 to TeamSync.
+
+1. Test case: `meeting add 27-03-2025 14:00 16:00`<br>
+   Expected: If run after the previous test case, an error is displayed indicating that an overlapping meeting is being added.
+
+### Deleting a meeting
+
+1. Prerequisites: Multiple meetings in the list.
+
+1. Test case: `meeting delete 1`<br>
+   Expected: First meeting is deleted from the list.
+
+1. Test case: `person delete 0`<br>
+   Expected: No meeting is deleted. Error details shown in the status message.
+
+### Changing week displayed
+
+1. Test case: `showdate 22-04-2025`<br>
+   Expected: Shows the timetable from 21-04-2025 (Mon) to 27-04-2025 (Sun)
