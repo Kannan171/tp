@@ -3,33 +3,73 @@ layout: page
 title: User Guide
 ---
 
-# TeamSync User Guide
+## About TeamSync
 
 TeamSync is a contact management app designed to streamline group project management, **built by National University of Singapore (NUS) students, for NUS students**.
 
-Designed with simplicity and efficiency in mind, TeamSync makes it easy to add teammates' contact details, schedule meetings, and stay organized. It combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI). Built-in validation checks help prevent errors, ensuring a seamless experience.
+Designed with simplicity and efficiency in mind, TeamSync makes it easy to add group members' contact details, schedule meetings, and stay organized. It combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI). Built-in validation checks help prevent errors, ensuring a seamless experience.
 
-Whether you're new to CLI apps or an experienced user, TeamSync enables you to work faster than any GUI-only app—so you can focus on what truly matters.
+Whether you're new to CLI applications or an experienced user, TeamSync enables you to work faster than any GUI-only app — so you can focus on what truly matters.
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip**<br><br>
 
---------------------------------------------------------------------------------------------------------------------
+New users can refer to the [Quick Start](#quick-start) section on how to get started.<br>
+
+Experienced users may wish to consult the [Command Summary](#command-summary) for a quick overview of the commands.
+</div>
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
+- [About TeamSync](#about-teamsync)
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
-  - [Viewing help](#viewing-help--help)
-  - [Adding a student](#adding-a-student--add)
-  - [Listing all students](#listing-all-students--list)
-  - [Editing a student](#editing-a-student--edit)
-  - [Locating students by name](#locating-students-by-name-find)
-  - [Deleting a student](#deleting-a-student--delete)
-  - [Clearing all entries](#clearing-all-entries--clear)
-  - [Exiting the program](#exiting-the-program--exit)
+- [Quick Start](#quick-start)
+- [Commands](#commands)
+  - [Student Commands](#student-commands)
+    - [Adding a new student](#adding-a-new-student-person-add)
+    - [Editing a student](#editing-a-student--person-edit)
+    - [Deleting a student](#deleting-a-student--person-delete)
+    - [Searching for a student](#searching-for-a-student-person-find)
+    - [Listing all students](#listing-all-students-person-list)
+  - [Module Commands](#module-commands)
+    - [Adding a module for a student](#adding-a-module-for-a-student-module-add)
+    - [Deleting a module from a student](#deleting-a-module-from-a-student--module-delete)
+  - [Meeting Commands](#meeting-commands)
+    - [Adding a meeting](#adding-a-meeting-meeting-add)
+    - [Deleting a meeting](#deleting-a-meeting-meeting-delete)
+    - [Listing all meetings](#listing-all-meetings--meeting-list)
+  - [General Commands](#general-commands)
+    - [Viewing help](#viewing-help--help)
+    - [Clearing all data](#clearing-all-data--clear)
+    - [Exiting TeamSync](#exiting-teamsync--exit)
+- [Command Summary](#command-summary)
+  - [Student Commands](#student-commands-1)
+  - [Module Commands](#module-commands-1)
+  - [Meeting Commands](#meeting-commands-1)
+  - [General Commands](#general-commands-1)
 - [FAQ](#FAQ)
 - [Known Issues](#known-issues)
-- [Command Summary](#command-summary)
 - [Glossary](#glossary)
+
+## Features
+
+TeamSync allows you to manage your group projects easily.
+
+1. Quickly **add, edit and delete** the contact details of your group members
+2. **Manage and view** each member's timetable.
+3. **Schedule** meetings
+4. **Visualise** your group's timetable at a glance
+
+### Built-in validation
+
+TeamSync provides built-in validation to ensure that errors are caught as early as possible.
+
+It guarantees
+1. No duplicate contacts
+2. No module conflicts for each group member
+3. No overlapping meetings
+
+Additionally, TeamSync performs basic validation on other contact details.
 
 ## Quick Start
 
@@ -286,62 +326,69 @@ Exits TeamSync.
 
 Format: `exit`
 
-### Saving the data
+### Command Summary
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+#### Student Commands
 
-### Editing the data file
+Action | Format                                                                     | Examples
+-------|----------------------------------------------------------------------------|---------
+**Add a student** | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…`         |  `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
+**Edit a student** | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…` | `person edit 1 -p 91234567 -e johndoe@example.com`
+**Delete a student** | `person delete INDEX`                                                      | `person delete 1`
+**List all students** | `person list`                                                              | `person list`
+**Search for a student** | `person find KEYWORD [MORE_KEYWORDS]`                                      | `person find James Jake`
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/dat-a addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+#### Module Commands
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
+Action | Format                                                                     | Examples
+-------|----------------------------------------------------------------------------|---------
+**Add a module for a student** | `module add INDEX MODULE_CODE DAY START_TIME END_TIME`         |  `module add 1 cs2101 thu 12:00 15:00`
+**Delete a module from a student** | `module delete INDEX MODULE_CODE` | `module delete 1 cs2101`
 
-### Archiving data files `[coming in v2.0]`
+#### Meeting Commands
 
-_Details coming soon ..._
+Action | Format                                                                     | Examples
+-------|----------------------------------------------------------------------------|---------
+**Add a meeting** | `meeting add DATE START_TIME END_TIME` | `meeting 27-03-2025 12:00 15:00`
+**Delete a meeting** | `meeting delete INDEX` | `meeting delete 1`
+**List all meetings** | `meeting list` | `meeting list`
 
---------------------------------------------------------------------------------------------------------------------
+#### General Commands
+
+Action | Format                                                                     | Examples
+-------|----------------------------------------------------------------------------|---------
+**View help** | `help` | `help`
+**Clear all data** | `clear` | `clear`
+**Exit TeamSync** | `exit` | `exit`
+
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
 
---------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-Action | Format, Examples
---------|------------------
-**Add** | `add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…​` <br> e.g., `add -n James Ho -p 22224444 -e jamesho@example.com -a 123, Clementi Rd, 1234665 -t friend -t colleague`
-**Edit** | `edit INDEX [-n NAME] [-p PHONE_NUMBER] [-e EMAIL] [-a ADDRESS] [-t TAG]…​`<br> e.g.,`edit 2 -n James Lee -e jameslee@example.com`
-**List** | `list`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**AddModule** | `addmod INDEX MODULE_CODE DAY START_TIME END_TIME` <br> e.g., `addmod 1 cs2101 thu 12:00 15:00`
-**DeleteModule** | `delmod INDEX MODULE_CODE` <br> e.g., `delmod 1 cs2101`
-**AddMeeting** | `meeting DATE START_TIME END_TIME` <br> e.g., `meeting 27-03-2025 12:00 15:00`
-**ListMeetings** | `listmeetings`
-**DeleteMeeting** | `delmeeting INDEX` <br> e.g., `delmeeting 1`
-**Clear** | `clear`
-**Help** | `help`
-
---------------------------------------------------------------------------------------------------------------------
-
 ## Glossary
 
 **Command Line Interface (CLI)**<br>
 A text-based interface that allows users to interact with the application by typing commands
+
+**Index**<br>
+An numeric identifier for a student or a meeting
+
+**Module**<br>
+A course offered by NUS
+
+**Student**<br>
+An NUS student stored as a contact in TeamSync
+
+**Tag**<br>
+Optional information associated with a student to facilitate categorisation
 
 **Graphical User Interface (GUI)**<br>
 A graphical interface that allows users to interact with the application through visual elements
