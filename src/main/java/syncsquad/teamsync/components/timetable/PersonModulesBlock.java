@@ -1,6 +1,5 @@
 package syncsquad.teamsync.components.timetable;
 
-import java.util.Iterator;
 import java.util.stream.Collectors;
 
 import atlantafx.base.theme.Styles;
@@ -32,14 +31,14 @@ public final class PersonModulesBlock implements TimetableDisplayable {
         Color.web("#FCBC8D", 0.6) // soft orange-beige
     };
 
-    private final XYChart.Series<String, Number> moduleSeries;
+    private final XYChart.Series<Number, String> moduleSeries;
 
     /**
      * Constructs a {@code PersonModulesBlock} with the specified person.
      * @param person the person to display
      */
     public PersonModulesBlock(Person person) {
-        ObservableList<XYChart.Data<String, Number>> moduleData = person.getModules().stream()
+        ObservableList<XYChart.Data<Number, String>> moduleData = person.getModules().stream()
             .map(module -> {
                 String day = module.getDay().toString();
                 double startTime = module.getStartTime().toSecondOfDay() / 3600.0;
@@ -50,17 +49,14 @@ public final class PersonModulesBlock implements TimetableDisplayable {
                     person.getName().toString(),
                     duration,
                     FXCollections.observableArrayList(Styles.ACCENT));
-                return new XYChart.Data<String, Number>(
-                    day,
-                    -startTime,
-                    styledModule);
+                return new XYChart.Data<Number, String>(startTime, day, styledModule);
             })
             .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
         this.moduleSeries = new XYChart.Series<>(moduleData);
     }
 
-    public XYChart.Series<String, Number> getModuleSeries() {
+    public XYChart.Series<Number, String> getModuleSeries() {
         return moduleSeries;
     }
 
@@ -86,15 +82,13 @@ public final class PersonModulesBlock implements TimetableDisplayable {
      * Lays out the person modules block in the timetable.
      * @param dayAxis the x-axis of the timetable
      * @param hourAxis the y-axis of the timetable
-     * @param blockWidth the width of the block
+     * @param blockHeight the height of the block
      */
-    public void layout(CategoryAxis dayAxis, NumberAxis hourAxis, double blockWidth) {
-        Iterator<XYChart.Data<String, Number>> iter = moduleSeries.getData().iterator();
-
-        while (iter.hasNext()) {
-            XYChart.Data<String, Number> item = iter.next();
-            double x = dayAxis.getDisplayPosition(item.getXValue());
-            double y = hourAxis.getDisplayPosition(item.getYValue());
+    @Override
+    public void layout(NumberAxis hourAxis, CategoryAxis dayAxis, double blockHeight) {
+        for (XYChart.Data<Number, String> item : moduleSeries.getData()) {
+            double x = hourAxis.getDisplayPosition(item.getXValue());
+            double y = dayAxis.getDisplayPosition(item.getYValue());
             if (Double.isNaN(x) || Double.isNaN(y)) {
                 continue;
             }
@@ -109,7 +103,7 @@ public final class PersonModulesBlock implements TimetableDisplayable {
             Rectangle rectangle;
 
             if (region.getShape() == null) {
-                rectangle = new Rectangle(blockWidth,
+                rectangle = new Rectangle(blockHeight,
                         styledModule.duration
                         * Math.abs(hourAxis.getScale()));
                 region.getChildren().add(rectangle);
@@ -118,18 +112,17 @@ public final class PersonModulesBlock implements TimetableDisplayable {
             } else {
                 return;
             }
-            rectangle.setHeight(styledModule.duration
+            rectangle.setWidth(styledModule.duration
                     * Math.abs(hourAxis.getScale()));
-            rectangle.setWidth(blockWidth);
+            rectangle.setHeight(blockHeight);
             rectangle.setArcWidth(10);
             rectangle.setArcHeight(10);
             rectangle.setStrokeWidth(1.5);
             rectangle.setStrokeType(StrokeType.INSIDE);
 
-            // The second part of the dirty trick to invert yAxis
-            y += rectangle.getHeight() / 2.0;
+            x += rectangle.getWidth() / 2.0;
             // This puts the rectangle in the middle of the gridlines
-            x += rectangle.getWidth() / 2.0 + 1;
+            y -= rectangle.getHeight() / 2.0 + 1;
 
             rectangle.getStyleClass().addAll(styledModule.styleClass);
             Color color = COLORS[(styledModule.personName.hashCode() & 0x7fffffff) % COLORS.length];

@@ -40,7 +40,7 @@ public class MainWindowController extends UiPart<Stage> {
     private MainViewModel viewModel;
 
     @FXML
-    private SplitPane splitPane;
+    private SplitPane verticalSplitPane;
 
     @FXML
     private HBox titleBar;
@@ -64,6 +64,9 @@ public class MainWindowController extends UiPart<Stage> {
 
     @FXML
     private StackPane timetablePlaceholder;
+
+    @FXML
+    private SplitPane horizontalSplitPane;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -189,6 +192,9 @@ public class MainWindowController extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        verticalSplitPane.setDividerPositions(viewModel.getGuiSettings().get().getVerticalDividerPosition());
+        horizontalSplitPane.setDividerPositions(viewModel.getGuiSettings().get().getHorizontalDividerPosition());
+
         PersonTreeViewController personListPanel = new PersonTreeViewController(
             this.viewModel.getPersonListViewModel());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -220,18 +226,10 @@ public class MainWindowController extends UiPart<Stage> {
     private void updateCurrentWeekLabel(LocalDate startOfWeek) {
         LocalDate endOfWeek = startOfWeek.plusDays(6);
         String dateFormat = "MMM d yyyy";
-        String weekRange = String.format("%s - %s",
+        String weekRange = String.format("%s to %s",
             startOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)),
             endOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)));
         currentWeekLabel.setText("Current Week: " + weekRange);
-    }
-
-    /**
-     * Needs to be called after stage is set, as dynamic layout will override
-     * any default divider position for the {@code SplitPane}.
-     */
-    void forceDividerPosition(GuiSettings guiSettings) {
-        splitPane.setDividerPositions(guiSettings.getDividerPosition());
     }
 
     /**
@@ -244,6 +242,8 @@ public class MainWindowController extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        verticalSplitPane.setDividerPositions(guiSettings.getVerticalDividerPosition());
+        horizontalSplitPane.setDividerPositions(guiSettings.getHorizontalDividerPosition());
     }
 
     /**
@@ -268,7 +268,8 @@ public class MainWindowController extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                verticalSplitPane.getDividerPositions()[0], horizontalSplitPane.getDividerPositions()[0]);
         viewModel.saveGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

@@ -1,7 +1,5 @@
 package syncsquad.teamsync.components.timetable;
 
-import java.util.Iterator;
-
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 
@@ -23,7 +21,7 @@ import syncsquad.teamsync.model.meeting.Meeting;
  */
 public final class MeetingBlock implements TimetableDisplayable {
     private static final Color COLOR = Color.web("#9580ff");
-    private final XYChart.Series<String, Number> meetingSeries;
+    private final XYChart.Series<Number, String> meetingSeries;
 
     /**
      * Constructs a {@code MeetingBlock} with the specified meeting.
@@ -38,13 +36,13 @@ public final class MeetingBlock implements TimetableDisplayable {
                     duration,
                     FXCollections.observableArrayList(Styles.ACCENT));
 
-        XYChart.Data<String, Number> meetingData = new XYChart.Data<>(day, -startTime, styledMeeting);
+        XYChart.Data<Number, String> meetingData = new XYChart.Data<>(startTime, day, styledMeeting);
 
         this.meetingSeries = new XYChart.Series<>();
         this.meetingSeries.getData().add(meetingData);
     }
 
-    public XYChart.Series<String, Number> getMeetingSeries() {
+    public XYChart.Series<Number, String> getMeetingSeries() {
         return meetingSeries;
     }
 
@@ -66,15 +64,13 @@ public final class MeetingBlock implements TimetableDisplayable {
      * Lays out the meeting block in the timetable.
      * @param dayAxis the x-axis of the timetable
      * @param hourAxis the y-axis of the timetable
-     * @param blockWidth the width of the block
+     * @param blockHeight the height of the block
      */
-    public void layout(CategoryAxis dayAxis, NumberAxis hourAxis, double blockWidth) {
-        Iterator<XYChart.Data<String, Number>> iter = meetingSeries.getData().iterator();
-
-        while (iter.hasNext()) {
-            XYChart.Data<String, Number> item = iter.next();
-            double x = dayAxis.getDisplayPosition(item.getXValue());
-            double y = hourAxis.getDisplayPosition(item.getYValue());
+    @Override
+    public void layout(NumberAxis hourAxis, CategoryAxis dayAxis, double blockHeight) {
+        for (XYChart.Data<Number, String> item : meetingSeries.getData()) {
+            double x = hourAxis.getDisplayPosition(item.getXValue());
+            double y = dayAxis.getDisplayPosition(item.getYValue());
             if (Double.isNaN(x) || Double.isNaN(y)) {
                 continue;
             }
@@ -89,7 +85,7 @@ public final class MeetingBlock implements TimetableDisplayable {
             Rectangle rectangle;
 
             if (region.getShape() == null) {
-                rectangle = new Rectangle(blockWidth,
+                rectangle = new Rectangle(blockHeight,
                         styledMeeting.duration
                         * Math.abs(hourAxis.getScale()));
                 region.getChildren().add(rectangle);
@@ -98,22 +94,21 @@ public final class MeetingBlock implements TimetableDisplayable {
             } else {
                 return;
             }
-            rectangle.setHeight(styledMeeting.duration
+            rectangle.setWidth(styledMeeting.duration
                     * Math.abs(hourAxis.getScale()));
-            rectangle.setWidth(blockWidth);
+            rectangle.setHeight(blockHeight);
             rectangle.setArcWidth(5);
             rectangle.setArcHeight(5);
             rectangle.setStroke(Color.WHITE);
             rectangle.setStrokeWidth(1.5);
             rectangle.setStrokeType(StrokeType.INSIDE);
 
-            // The second part of the dirty trick to invert yAxis
-            y += rectangle.getHeight() / 2.0;
             // This puts the rectangle in the middle of the gridlines
             x += rectangle.getWidth() / 2.0 + 1;
+            y -= rectangle.getHeight() / 2.0;
 
-            rectangle.getStyleClass().addAll(styledMeeting.styleClass);
             rectangle.setFill(COLOR);
+            rectangle.getStyleClass().addAll(styledMeeting.styleClass);
 
             // Note: workaround for RT-7689 - saw this in ProgressControlSkin
             // The region doesn't update itself when the shape is mutated in place, so we
