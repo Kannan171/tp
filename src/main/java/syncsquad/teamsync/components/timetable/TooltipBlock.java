@@ -3,7 +3,6 @@ package syncsquad.teamsync.components.timetable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,7 +24,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class TooltipBlock implements TimetableDisplayable {
     private final Map<String, List<TooltipEvent>> dayEvents;
-    private final Map<String, XYChart.Series<String, Number>> tooltipSeriesMap;
+    private final Map<String, XYChart.Series<Number, String>> tooltipSeriesMap;
 
     /**
      * Constructs a new TooltipBlock.
@@ -35,7 +34,7 @@ public class TooltipBlock implements TimetableDisplayable {
         this.tooltipSeriesMap = new HashMap<>();
     }
 
-    public Collection<XYChart.Series<String, Number>> getTooltipSeries() {
+    public Collection<XYChart.Series<Number, String>> getTooltipSeries() {
         return this.tooltipSeriesMap.values();
     }
 
@@ -44,41 +43,38 @@ public class TooltipBlock implements TimetableDisplayable {
      * Overlapping events are merged into a single tooltip.
      *
      * @param eventName The name of the event.
-     * @param day The day of the event.
      * @param startTime The start time of the event.
+     * @param day The day of the event.
      * @param duration The duration of the event.
      */
-    public void addEvent(String eventName, String day, double startTime, double duration) {
+    public void addEvent(String eventName, double startTime, String day, double duration) {
         TooltipEvent event = new TooltipEvent(eventName, startTime, startTime + duration);
 
         if (this.dayEvents.containsKey(day)) {
             appendEvent(day, event, 0);
 
-            XYChart.Series<String, Number> series = this.tooltipSeriesMap.get(day);
+            XYChart.Series<Number, String> series = this.tooltipSeriesMap.get(day);
             series.getData().setAll(this.dayEvents.get(day).stream()
-                .map(e -> new XYChart.Data<String, Number>(day, -e.getStartTime(), e))
+                    .map(e -> new XYChart.Data<Number, String>(e.getStartTime(), day, e))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList)));
         } else {
             List<TooltipEvent> events = new ArrayList<>();
             events.add(event);
             this.dayEvents.put(day, events);
 
-            ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
-            data.add(new XYChart.Data<>(day, -event.getStartTime(), event));
+            ObservableList<XYChart.Data<Number, String>> data = FXCollections.observableArrayList();
+            data.add(new XYChart.Data<>(event.getStartTime(), day, event));
             this.tooltipSeriesMap.put(day, new XYChart.Series<>(data));
         }
     }
 
     @Override
-    public void layout(CategoryAxis dayAxis, NumberAxis hourAxis, double blockWidth) {
+    public void layout(NumberAxis hourAxis, CategoryAxis dayAxis, double blockHeight) {
         for (String day : this.dayEvents.keySet()) {
-            XYChart.Series<String, Number> series = this.tooltipSeriesMap.get(day);
-            Iterator<XYChart.Data<String, Number>> iter = series.getData().iterator();
-
-            while (iter.hasNext()) {
-                XYChart.Data<String, Number> item = iter.next();
-                double x = dayAxis.getDisplayPosition(item.getXValue());
-                double y = hourAxis.getDisplayPosition(item.getYValue());
+            XYChart.Series<Number, String> series = this.tooltipSeriesMap.get(day);
+            for (XYChart.Data<Number, String> item : series.getData()) {
+                double x = hourAxis.getDisplayPosition(item.getXValue());
+                double y = dayAxis.getDisplayPosition(item.getYValue());
                 if (Double.isNaN(x) || Double.isNaN(y)) {
                     continue;
                 }
@@ -94,7 +90,7 @@ public class TooltipBlock implements TimetableDisplayable {
                 Rectangle rectangle;
 
                 if (region.getShape() == null) {
-                    rectangle = new Rectangle(blockWidth,
+                    rectangle = new Rectangle(blockHeight,
                             tooltipEvent.getDuration()
                             * Math.abs(hourAxis.getScale()));
                     region.getChildren().add(rectangle);
@@ -104,13 +100,12 @@ public class TooltipBlock implements TimetableDisplayable {
                     return;
                 }
                 rectangle.setHeight(tooltipEvent.getDuration()
-                    * Math.abs(hourAxis.getScale()));
-                rectangle.setWidth(blockWidth);
+                        * Math.abs(hourAxis.getScale()));
+                rectangle.setWidth(blockHeight);
 
-                // The second part of the dirty trick to invert yAxis
-                y += rectangle.getHeight() / 2.0;
                 // This puts the rectangle in the middle of the gridlines
                 x += rectangle.getWidth() / 2.0 + 1;
+                y -= rectangle.getHeight() / 2.0;
 
                 rectangle.setFill(Color.TRANSPARENT);
 
@@ -237,6 +232,5 @@ public class TooltipBlock implements TimetableDisplayable {
             }
             return;
         }
-        return;
     }
 }
