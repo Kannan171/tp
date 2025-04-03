@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,6 +7,7 @@ import java.util.List;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.person.Person;
@@ -14,11 +15,11 @@ import syncsquad.teamsync.model.person.Person;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeletePersonCommand extends Command {
+public class DeletePersonCommand extends PersonCommand {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";

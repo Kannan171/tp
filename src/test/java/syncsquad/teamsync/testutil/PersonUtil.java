@@ -8,8 +8,9 @@ import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import syncsquad.teamsync.logic.commands.AddPersonCommand;
-import syncsquad.teamsync.logic.commands.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
+import syncsquad.teamsync.logic.commands.person.EditCommand.EditPersonDescriptor;
+import syncsquad.teamsync.logic.commands.person.PersonCommand;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.tag.Tag;
 
@@ -22,7 +23,8 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddPersonCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return PersonCommand.COMMAND_GROUP_WORD + " "
+                + AddPersonCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**

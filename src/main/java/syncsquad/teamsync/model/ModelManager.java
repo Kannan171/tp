@@ -131,6 +131,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String displayMeetingsString() {
+        return addressBook.displayMeetingsString();
+    }
+
+    @Override
     public ObservableList<Meeting> getMeetingList() {
         return meetings;
     }
