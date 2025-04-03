@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.parser;
+package syncsquad.teamsync.logic.parser.person;
 
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -11,7 +11,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import syncsquad.teamsync.logic.commands.AddPersonCommand;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
+import syncsquad.teamsync.logic.parser.ArgumentMultimap;
+import syncsquad.teamsync.logic.parser.ArgumentTokenizer;
+import syncsquad.teamsync.logic.parser.Parser;
+import syncsquad.teamsync.logic.parser.ParserUtil;
+import syncsquad.teamsync.logic.parser.Prefix;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;

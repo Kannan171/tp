@@ -49,7 +49,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.persons.setItems(persons);
     }
 
     /**
@@ -57,7 +57,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code meetings} must not contain duplicate meetings.
      */
     public void setMeetings(List<Meeting> meetings) {
-        this.meetings.setMeetings(meetings);
+        this.meetings.setItems(meetings);
     }
 
     /**
@@ -96,7 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        persons.setItem(target, editedPerson);
     }
 
     /**
@@ -143,6 +143,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         meetings.remove(key);
     }
 
+    /**
+     * Returns the meetings list as a string formatted for display to the user
+     */
+    public String displayMeetingsString() {
+        return meetings.toDisplayString();
+    }
     //// util methods
 
     @Override

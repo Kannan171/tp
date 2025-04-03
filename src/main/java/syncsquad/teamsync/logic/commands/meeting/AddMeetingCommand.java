@@ -1,10 +1,11 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.meeting;
 
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.meeting.Meeting;
@@ -12,11 +13,11 @@ import syncsquad.teamsync.model.meeting.Meeting;
 /**
  * Adds a meeting to the address book.
  */
-public class AddMeetingCommand extends Command {
+public class AddMeetingCommand extends MeetingCommand {
 
-    public static final String COMMAND_WORD = "meeting";
+    public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
             + ": Creates a meeting with the specified date, start and end time\n"
             + "Parameters: DATE START_TIME END_TIME\n"
             + "Example: " + COMMAND_WORD + " 15-11-2025 11:00 15:00";
