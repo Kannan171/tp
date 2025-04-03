@@ -13,11 +13,13 @@ import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.StringUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.module.Day;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
@@ -186,6 +188,40 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String module} into a {@code Module}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code module} is invalid.
+     */
+    public static Module parseModule(String module) throws ParseException {
+        requireNonNull(module);
+        String trimmedModule = module.trim();
+        final Matcher matcher = Module.VALIDATION_REGEX.matcher(trimmedModule);
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(Module.MESSAGE_CONSTRAINTS, trimmedModule));
+        }
+
+        ModuleCode moduleCode = parseModuleCode(matcher.group("moduleCode"));
+        Day day = parseDay(matcher.group("day"));
+        LocalTime startTime = parseTime(matcher.group("startTime"));
+        LocalTime endTime = parseTime(matcher.group("endTime"));
+
+        return new Module(moduleCode, day, startTime, endTime);
+    }
+
+    /**
+     * Parses {@code Collection<String> modules} into a {@code Set<Module>}.
+     */
+    public static Set<Module> parseModules(Collection<String> modules) throws ParseException {
+        requireNonNull(modules);
+        final Set<Module> moduleSet = new HashSet<>();
+        for (String moduleString : modules) {
+            moduleSet.add(parseModule(moduleString));
+        }
+        return moduleSet;
     }
 
     /**
