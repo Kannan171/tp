@@ -3,11 +3,11 @@ package syncsquad.teamsync.logic.parser.person;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_MODULE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_NAME;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_PHONE;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -18,13 +18,13 @@ import syncsquad.teamsync.logic.parser.Parser;
 import syncsquad.teamsync.logic.parser.ParserUtil;
 import syncsquad.teamsync.logic.parser.Prefix;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Name;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.Phone;
 import syncsquad.teamsync.model.tag.Tag;
-
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -38,7 +38,7 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
     public AddPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG
+                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_MODULE
                 );
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
@@ -52,8 +52,9 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Module> moduleList = ParserUtil.parseModules(argMultimap.getAllValues(PREFIX_MODULE));
 
-        Person person = new Person(name, phone, email, address, tagList, new HashSet<>());
+        Person person = new Person(name, phone, email, address, tagList, moduleList);
 
         return new AddPersonCommand(person);
     }

@@ -13,11 +13,13 @@ import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.commons.util.StringUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.module.Day;
+import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
@@ -35,20 +37,24 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format: Date should be in dd-mm-yyyy format";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "Invalid time format: Time should be in HH:mm format";
 
+    /** Messages for invalid date and time input **/
     public static final String DATE_MESSAGE_CONSTRAINTS = "Invalid date input: %1$s is not a valid date.";
     public static final String TIME_MESSAGE_CONSTRAINTS = "Invalid time input: %1$s is not a valid time input.";
 
+    /** Regex to check if the date and time input are of the correct format**/
+    // Regex to check for dates of the form dd-mm-yyyy or dd-mm
+    // Single digit day and month are allowed
     public static final String DATE_VALIDATION_REGEX = "^(?:0?[1-9]|[12][0-9]|3[01])-(?:0?[1-9]|1[0-2])(?:-\\d{4})?$";
+    // Regex to check if time is of the form HH:mm
     public static final String TIME_VALIDATION_REGEX = "^(?:[0-9]|[01]\\d|2[0-3]):[0-5]\\d$";
 
+    /** Parsers for date and time input **/
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("[d-M-u]" + "[d-M]"))
             .parseCaseInsensitive()
             .parseDefaulting(ChronoField.YEAR, LocalDateTime.now().getYear())
             .toFormatter()
             .withResolverStyle(ResolverStyle.STRICT);
-
-
     public static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
             .append(DateTimeFormatter.ofPattern("H:mm"))
             .parseCaseInsensitive()
@@ -189,10 +195,43 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String module} into a {@code Module}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code module} is invalid.
+     */
+    public static Module parseModule(String module) throws ParseException {
+        requireNonNull(module);
+        String trimmedModule = module.trim();
+        final Matcher matcher = Module.VALIDATION_REGEX.matcher(trimmedModule);
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(Module.MESSAGE_CONSTRAINTS, trimmedModule));
+        }
+
+        ModuleCode moduleCode = parseModuleCode(matcher.group("moduleCode"));
+        Day day = parseDay(matcher.group("day"));
+        LocalTime startTime = parseTime(matcher.group("startTime"));
+        LocalTime endTime = parseTime(matcher.group("endTime"));
+
+        return new Module(moduleCode, day, startTime, endTime);
+    }
+
+    /**
+     * Parses {@code Collection<String> modules} into a {@code Set<Module>}.
+     */
+    public static Set<Module> parseModules(Collection<String> modules) throws ParseException {
+        requireNonNull(modules);
+        final Set<Module> moduleSet = new HashSet<>();
+        for (String moduleString : modules) {
+            moduleSet.add(parseModule(moduleString));
+        }
+        return moduleSet;
+    }
+
+    /**
      * Parses a {@code String date} into a {@code LocalDate}.
      *
-     * @throws ParseException if the given {@code date} is not in a valid date
-     *                        format.
+     * @throws ParseException if the given {@code date} is in an invalid date format or is an invalid date input.
      */
     public static LocalDate parseDate(String date) throws ParseException {
         if (!isValidDate(date)) {
@@ -208,8 +247,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String time} into a {@code LocalTime}.
      *
-     * @throws ParseException if the given {@code time} is not in a valid time
-     *                        format.
+     * @throws ParseException if the given {@code time} is in an invalid time format or is an invalid time input.
      */
     public static LocalTime parseTime(String time) throws ParseException {
         if (!isValidTime(time)) {
@@ -222,11 +260,17 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Returns if a given string is a valid date.
+     */
     private static boolean isValidDate(String test) {
         assert test != null;
         return test.matches(DATE_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns if a given string is a valid time.
+     */
     private static boolean isValidTime(String test) {
         assert test != null;
         return test.matches(TIME_VALIDATION_REGEX);
