@@ -272,8 +272,10 @@ _Details coming soon ..._
 
 1. **The GUI appears off screen** <br>
 This may happen if you are using multiple screens. One solution is to delete the `preferences.json` file created by the application before running the application again.
-2. **The JAR file cannot be run by double-clicking** <br>
-Manually run the file via terminal with `java -jar TeamSync.jar`. Refer to the section [Quick Start](#quick-start) for a more detailed guide. 
+2. **The JAR file cannot be run** <br>
+Ensure that you have Java 17 or later installed. Run `java --version` in your terminal to check your installed Java version. 
+3. **My data is not being saved** <br>
+Ensure that the application has write permissions to the directory. Alternatively, try running the app with administrator privileges.  
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -292,6 +294,9 @@ Only systems with a GUI is supported
 <br>
 **A**: Although some operations such as `exit` do have a GUI button, TeamSync is optimised for CLI and functions mainly via the command line. 
 
+**Q**: It is troublesome to start the app via terminal every time. Can I simply launch the app by double-clicking?
+<br>
+**A**: Yes, although the recommended way is to launch via terminal. 
 
 --------------------------------------------------------------------------------------------------------------------
 
