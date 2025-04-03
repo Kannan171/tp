@@ -12,7 +12,6 @@ import syncsquad.teamsync.commons.core.LogsCenter;
 import syncsquad.teamsync.logic.commands.HelpCommand;
 import syncsquad.teamsync.logic.commands.meeting.AddMeetingCommand;
 import syncsquad.teamsync.logic.commands.meeting.DeleteMeetingCommand;
-import syncsquad.teamsync.logic.commands.meeting.ListMeetingsCommand;
 import syncsquad.teamsync.logic.commands.meeting.MeetingCommand;
 import syncsquad.teamsync.logic.parser.Parser;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
@@ -43,7 +42,7 @@ public final class MeetingCommandsParser implements Parser<MeetingCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
@@ -51,8 +50,6 @@ public final class MeetingCommandsParser implements Parser<MeetingCommand> {
             return new AddMeetingCommandParser().parse(arguments);
         case DeleteMeetingCommand.COMMAND_WORD:
             return new DeleteMeetingCommandParser().parse(arguments);
-        case ListMeetingsCommand.COMMAND_WORD:
-            return new ListMeetingsCommand();
         default:
             logger.finer("This user input caused a ParseException: " + args);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
