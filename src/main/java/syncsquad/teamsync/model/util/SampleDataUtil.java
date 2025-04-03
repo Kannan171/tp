@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import syncsquad.teamsync.logic.parser.ParserUtil;
+import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
+import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.module.Day;
 import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.module.ModuleCode;
@@ -44,10 +47,24 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static Meeting[] getSampleMeetings() throws ParseException {
+        return new Meeting[]{
+            new Meeting(ParserUtil.parseDate("01-01"), ParserUtil.parseTime("14:00"), ParserUtil.parseTime("16:00")),
+            new Meeting(ParserUtil.parseDate("03-03"), ParserUtil.parseTime("19:45"), ParserUtil.parseTime("20:50")),
+            new Meeting(ParserUtil.parseDate("05-04"), ParserUtil.parseTime("10:00"), ParserUtil.parseTime("15:00")),
+            new Meeting(ParserUtil.parseDate("12-04"), ParserUtil.parseTime("8:00"), ParserUtil.parseTime("14:00")),
+            new Meeting(ParserUtil.parseDate("08-08"), ParserUtil.parseTime("14:00"), ParserUtil.parseTime("16:00")),
+            new Meeting(ParserUtil.parseDate("12-12"), ParserUtil.parseTime("12:00"), ParserUtil.parseTime("13:00"))
+        };
+    }
+
+    public static ReadOnlyAddressBook getSampleAddressBook() throws ParseException {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Meeting sampleMeeting: getSampleMeetings()) {
+            sampleAb.addMeeting(sampleMeeting);
         }
         return sampleAb;
     }

@@ -19,6 +19,7 @@ import syncsquad.teamsync.controller.Ui;
 import syncsquad.teamsync.controller.UiManager;
 import syncsquad.teamsync.logic.Logic;
 import syncsquad.teamsync.logic.LogicManager;
+import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ModelManager;
@@ -84,11 +85,16 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
                         + " populated with a sample AddressBook.");
+                initialData = SampleDataUtil.getSampleAddressBook();
+            } else {
+                initialData = addressBookOptional.get();
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty AddressBook.");
+            initialData = new AddressBook();
+        } catch (ParseException e) {
+            logger.severe("Sample AddressBook could not be loaded. Will be starting with an empty AddressBook.");
             initialData = new AddressBook();
         }
 

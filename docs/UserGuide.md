@@ -371,16 +371,34 @@ Action | Format                                                                 
 **Exit TeamSync** | `exit` | `exit`
 
 
+## Troubleshooting
+
+1. **The GUI appears off screen** <br>
+This may happen if you are using multiple screens. One solution is to delete the `preferences.json` file created by the application before running the application again.
+2. **The JAR file cannot be run** <br>
+Ensure that you have Java 17 or later installed. Run `java --version` in your terminal to check your installed Java version. 
+3. **My data is not being saved** <br>
+Ensure that the application has write permissions to the directory. Alternatively, try running the app with administrator privileges.  
+
+
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the files in the data directory it creates with the files from the previous device.
 
+**Q**: What are the system requirements for TeamSync?
+<br>
+**A**: Java 17 or later <br>
+Operating System: Windows, MacOS, Linux only <br>
+Only systems with a GUI is supported
 
-## Known issues
+**Q**: Can I use TeamSync without the CLI?
+<br>
+**A**: Although some operations such as `exit` do have a GUI button, TeamSync is optimised for CLI and functions mainly via the command line. 
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+**Q**: It is troublesome to start the app via terminal every time. Can I simply launch the app by double-clicking?
+<br>
+**A**: Yes, although the recommended way is to launch via terminal. 
 
 ## Glossary
 
