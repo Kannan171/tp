@@ -964,4 +964,20 @@ _Coming soon ..._
 
 ## **Appendix: Effort**
 
-_Coming soon ..._
+### Difficulty Level
+Our project is significantly more advanced than AB3, featuring new commands and enhanced functionalities. Student objects now include a modules attribute for schedule coordination. The UI is also more complex, incorporating a timetable view that displays shared schedules and scheduled meetings for the week.
+
+### Challenges Faced
+UI update: Providing a fresh look for the application with colours more appealing than AB3 as well as the new timetable view required multiple revisions.\
+Schedule logic: Introduction of logic for modules and meetings required careful planning on implementation as well as how to display them in the application
+
+### Effort Required
+Our project involved substantial effort in several key areas:
+
+Refactoring: Codebase was refactored to MVVM architecture to better facilitate development\
+Commands: Multiple new commands were added and existing commands modified to better suit our application\
+UI: Effort was required for the new timetable view and how schedules were displayed as well as the ability to modify the current view
+
+### Achievements
+We have enhanced the AB3 application with new features and design to better suit project management of NUS students
+=======

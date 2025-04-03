@@ -39,6 +39,7 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4, 0.5, 0.5));
+        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4, true));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
@@ -56,6 +57,7 @@ public class ModelManagerTest {
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4, 0.5, 0.5);
+        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4, false);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
