@@ -131,8 +131,8 @@ public class TimetableChart extends XYChart<Number, String> { // Flip axis types
         CategoryAxis yAxis = (CategoryAxis) getYAxis();
 
         personModulesBlocks.forEach(block -> block.layout(xAxis, yAxis, blockHeight));
-        meetingBlocks.forEach(block -> block.layout(xAxis, yAxis, blockHeight));
         tooltipBlock.layout(xAxis, yAxis, blockHeight);
+        meetingBlocks.forEach(block -> block.layout(xAxis, yAxis, blockHeight));
     }
 
     public double getBlockHeight() {
