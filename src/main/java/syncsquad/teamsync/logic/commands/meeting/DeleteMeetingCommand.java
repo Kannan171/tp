@@ -16,6 +16,7 @@ import syncsquad.teamsync.model.meeting.Meeting;
  * Deletes a person identified using its displayed index from the address book.
  */
 public class DeleteMeetingCommand extends MeetingCommand {
+
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
