@@ -7,7 +7,8 @@ import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.DeleteMeetingCommand;
+import syncsquad.teamsync.logic.commands.meeting.DeleteMeetingCommand;
+import syncsquad.teamsync.logic.parser.meeting.DeleteMeetingCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

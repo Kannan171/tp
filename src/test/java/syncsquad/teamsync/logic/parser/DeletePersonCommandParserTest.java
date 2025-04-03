@@ -7,7 +7,8 @@ import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.DeletePersonCommand;
+import syncsquad.teamsync.logic.commands.person.DeletePersonCommand;
+import syncsquad.teamsync.logic.parser.person.DeletePersonCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

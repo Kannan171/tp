@@ -36,7 +36,8 @@ import static syncsquad.teamsync.testutil.TypicalAddressBook.BOB;
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.logic.Messages;
-import syncsquad.teamsync.logic.commands.AddPersonCommand;
+import syncsquad.teamsync.logic.commands.person.AddPersonCommand;
+import syncsquad.teamsync.logic.parser.person.AddPersonCommandParser;
 import syncsquad.teamsync.model.person.Address;
 import syncsquad.teamsync.model.person.Email;
 import syncsquad.teamsync.model.person.Name;

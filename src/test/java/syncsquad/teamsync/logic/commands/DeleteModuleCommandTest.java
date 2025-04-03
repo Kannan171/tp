@@ -15,12 +15,13 @@ import javafx.collections.ObservableList;
 import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.commons.core.index.Index;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.module.DeleteModuleCommand;
 import syncsquad.teamsync.model.AddressBook;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
 import syncsquad.teamsync.model.ReadOnlyUserPrefs;
+import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
-import syncsquad.teamsync.model.meeting.UniqueMeetingList;
 import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.model.person.UniquePersonList;
@@ -208,6 +209,16 @@ public class DeleteModuleCommandTest {
         }
 
         @Override
+        public TimetableWeek getCurrentWeek() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWeek(TimetableWeek week) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String displayMeetingsString() {
             throw new AssertionError("This method should not be called.");
         }
@@ -219,9 +230,6 @@ public class DeleteModuleCommandTest {
     private class ModelStubWithPerson extends DeleteModuleCommandTest.ModelStub {
         private final UniquePersonList persons = new UniquePersonList();
         private final AddressBook addressBook = new AddressBook();
-        private final UniqueMeetingList meetings = new UniqueMeetingList() {
-
-        };
 
         ModelStubWithPerson(Person person) {
             persons.add(person);

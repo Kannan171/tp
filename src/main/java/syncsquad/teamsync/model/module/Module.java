@@ -99,7 +99,7 @@ public class Module {
 
     @Override
     public String toString() {
-        return "[" + this.moduleCode + "]";
+        return "[" + this.moduleCode + " - " + this.day + " " + this.startTime + " to " + this.endTime + "]";
     }
 
 }

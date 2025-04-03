@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.commands;
+package syncsquad.teamsync.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -9,6 +9,7 @@ import static syncsquad.teamsync.logic.parser.CliSyntax.PREFIX_TAG;
 
 import syncsquad.teamsync.commons.util.ToStringBuilder;
 import syncsquad.teamsync.logic.Messages;
+import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.person.Person;
@@ -16,11 +17,12 @@ import syncsquad.teamsync.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddPersonCommand extends Command {
+public class AddPersonCommand extends PersonCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_GROUP_WORD + " " + COMMAND_WORD
+            + ": Adds a person to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

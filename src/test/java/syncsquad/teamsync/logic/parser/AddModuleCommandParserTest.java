@@ -21,13 +21,14 @@ import static syncsquad.teamsync.testutil.TypicalAddressBook.CS2103T_MODULE;
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.commons.core.index.Index;
-import syncsquad.teamsync.logic.commands.AddModuleCommand;
+import syncsquad.teamsync.logic.commands.module.AddModuleCommand;
+import syncsquad.teamsync.logic.parser.module.AddModuleCommandParser;
 import syncsquad.teamsync.model.module.Module;
 import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.testutil.ModuleBuilder;
 
 public class AddModuleCommandParserTest {
-    private AddModuleCommandParser parser = (AddModuleCommandParser) new AddModuleCommandParser();
+    private AddModuleCommandParser parser = new AddModuleCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

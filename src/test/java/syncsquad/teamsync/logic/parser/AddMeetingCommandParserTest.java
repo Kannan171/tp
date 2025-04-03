@@ -20,7 +20,8 @@ import static syncsquad.teamsync.testutil.TypicalAddressBook.SEP_MEETING;
 
 import org.junit.jupiter.api.Test;
 
-import syncsquad.teamsync.logic.commands.AddMeetingCommand;
+import syncsquad.teamsync.logic.commands.meeting.AddMeetingCommand;
+import syncsquad.teamsync.logic.parser.meeting.AddMeetingCommandParser;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.testutil.MeetingBuilder;
 
@@ -72,7 +73,7 @@ public class AddMeetingCommandParserTest {
         assertParseFailure(parser, INVALID_DATE_DESC + START_TIME_DESC_SEP_MEETING + END_TIME_DESC_SEP_MEETING,
                 ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
 
-        // invalid phone
+        // invalid time
         assertParseFailure(parser, DATE_DESC_SEP_MEETING + INVALID_TIME_DESC + END_TIME_DESC_SEP_MEETING,
                 ParserUtil.MESSAGE_INVALID_TIME_FORMAT);
     }

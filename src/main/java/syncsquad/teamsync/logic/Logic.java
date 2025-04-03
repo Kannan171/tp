@@ -8,6 +8,7 @@ import syncsquad.teamsync.logic.commands.CommandResult;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
+import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.person.Person;
 
@@ -51,4 +52,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    TimetableWeek getCurrentWeek();
 }

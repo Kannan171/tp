@@ -1,4 +1,4 @@
-package syncsquad.teamsync.logic.parser;
+package syncsquad.teamsync.logic.parser.meeting;
 
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_START_END_TIME;
@@ -6,7 +6,9 @@ import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_START_END_TIME;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import syncsquad.teamsync.logic.commands.AddMeetingCommand;
+import syncsquad.teamsync.logic.commands.meeting.AddMeetingCommand;
+import syncsquad.teamsync.logic.parser.Parser;
+import syncsquad.teamsync.logic.parser.ParserUtil;
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
 import syncsquad.teamsync.model.meeting.Meeting;
 
