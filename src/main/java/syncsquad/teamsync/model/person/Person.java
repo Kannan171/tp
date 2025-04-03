@@ -15,7 +15,7 @@ import syncsquad.teamsync.model.tag.Tag;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Comparable<Person> {
 
     // Identity fields
     private final Name name;
@@ -127,4 +127,12 @@ public class Person {
                 .toString();
     }
 
+    @Override
+    public int compareTo(Person other) {
+        if (other == null) {
+            throw new NullPointerException();
+        }
+
+        return name.compareTo(other.name);
+    }
 }
