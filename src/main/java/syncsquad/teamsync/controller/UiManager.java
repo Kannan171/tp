@@ -45,7 +45,6 @@ public class UiManager implements Ui {
             mainWindow = new MainWindowController(primaryStage, viewModel);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-            mainWindow.forceDividerPosition(logic.getGuiSettings());
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

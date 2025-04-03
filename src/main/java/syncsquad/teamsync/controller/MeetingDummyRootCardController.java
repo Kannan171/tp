@@ -1,7 +1,7 @@
 package syncsquad.teamsync.controller;
 
 import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.material2.Material2MZ;
+import org.kordamp.ikonli.material2.Material2AL;
 
 import atlantafx.base.theme.Styles;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ public class MeetingDummyRootCardController extends UiPart<Region> {
     public MeetingDummyRootCardController() {
         super(FXML);
         title.getStyleClass().addAll(Styles.TITLE_3);
-        FontIcon meetingIcon = new FontIcon(Material2MZ.MEETING_ROOM);
+        FontIcon meetingIcon = new FontIcon(Material2AL.GROUPS);
         title.setGraphic(meetingIcon);
     }
 }

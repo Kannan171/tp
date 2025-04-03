@@ -10,7 +10,10 @@ public class GuiSettingsTest {
         GuiSettings guiSettings = new GuiSettings();
         String expected = GuiSettings.class.getCanonicalName() + "{windowWidth=" + guiSettings.getWindowWidth()
                 + ", windowHeight=" + guiSettings.getWindowHeight() + ", windowCoordinates="
-                + guiSettings.getWindowCoordinates() + ", isMaximized=" + guiSettings.getIsMaximized() + "}";
+                + guiSettings.getWindowCoordinates() + ", verticalDividerPosition="
+                + guiSettings.getVerticalDividerPosition() + ", horizontalDividerPosition="
+                + guiSettings.getHorizontalDividerPosition()
+                + ", isMaximized=" + guiSettings.getIsMaximized() + "}";
         assertEquals(expected, guiSettings.toString());
     }
 }

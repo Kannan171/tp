@@ -29,7 +29,7 @@ public class MainWindowController extends UiPart<Stage> {
     private StackPane mainStackPane;
 
     @FXML
-    private SplitPane splitPane;
+    private SplitPane verticalSplitPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,6 +42,9 @@ public class MainWindowController extends UiPart<Stage> {
 
     @FXML
     private StackPane timetablePlaceholder;
+
+    @FXML
+    private SplitPane horizontalSplitPane;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -77,8 +80,20 @@ public class MainWindowController extends UiPart<Stage> {
 
     }
 
-    public Stage getPrimaryStage() {
+    protected Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    protected MainViewModel getViewModel() {
+        return viewModel;
+    }
+
+    protected double getVerticalDividerPosition() {
+        return verticalSplitPane.getDividerPositions()[0];
+    }
+
+    protected double getHorizontalDividerPosition() {
+        return horizontalSplitPane.getDividerPositions()[0];
     }
 
     /**
@@ -89,8 +104,11 @@ public class MainWindowController extends UiPart<Stage> {
         mainStackPane.getChildren().add(helpModalPane);
         StackPane.setAlignment(helpModalPane, javafx.geometry.Pos.CENTER);
 
-        TitleBarController titleBarController = new TitleBarController(primaryStage, viewModel, helpModalPane);
+        TitleBarController titleBarController = new TitleBarController(this, helpModalPane);
         titleBarPlaceholder.getChildren().add(titleBarController.getRoot());
+
+        verticalSplitPane.setDividerPositions(viewModel.getGuiSettings().get().getVerticalDividerPosition());
+        horizontalSplitPane.setDividerPositions(viewModel.getGuiSettings().get().getHorizontalDividerPosition());
 
         PersonTreeViewController personListPanel = new PersonTreeViewController(
             this.viewModel.getPersonListViewModel());
@@ -123,18 +141,10 @@ public class MainWindowController extends UiPart<Stage> {
     private void updateCurrentWeekLabel(LocalDate startOfWeek) {
         LocalDate endOfWeek = startOfWeek.plusDays(6);
         String dateFormat = "MMM d yyyy";
-        String weekRange = String.format("%s - %s",
+        String weekRange = String.format("%s to %s",
             startOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)),
             endOfWeek.format(DateTimeFormatter.ofPattern(dateFormat)));
         currentWeekLabel.setText("Current Week: " + weekRange);
-    }
-
-    /**
-     * Needs to be called after stage is set, as dynamic layout will override
-     * any default divider position for the {@code SplitPane}.
-     */
-    void forceDividerPosition(GuiSettings guiSettings) {
-        splitPane.setDividerPositions(guiSettings.getDividerPosition());
     }
 
     /**
@@ -148,7 +158,10 @@ public class MainWindowController extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
         primaryStage.setMaximized(guiSettings.getIsMaximized());
+        verticalSplitPane.setDividerPositions(guiSettings.getVerticalDividerPosition());
+        horizontalSplitPane.setDividerPositions(guiSettings.getHorizontalDividerPosition());
     }
+
 
     void show() {
         primaryStage.show();
@@ -162,7 +175,9 @@ public class MainWindowController extends UiPart<Stage> {
         boolean wasMaximized = primaryStage.isMaximized();
         primaryStage.setMaximized(false);
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), wasMaximized);
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                verticalSplitPane.getDividerPositions()[0], horizontalSplitPane.getDividerPositions()[0],
+                wasMaximized);
         viewModel.saveGuiSettings(guiSettings);
         primaryStage.hide();
     }
