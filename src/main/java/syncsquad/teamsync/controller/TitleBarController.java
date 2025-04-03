@@ -118,8 +118,10 @@ public class TitleBarController extends UiPart<Region> {
      */
     @FXML
     private void handleExit() {
+        boolean wasMaximized = primaryStage.isMaximized();
+        primaryStage.setMaximized(false);
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), primaryStage.isMaximized());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), wasMaximized);
         viewModel.saveGuiSettings(guiSettings);
         primaryStage.hide();
     }
