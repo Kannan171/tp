@@ -16,10 +16,12 @@ Whether you are new to CLI applications or are an experienced user, TeamSync ena
 This User Guide is designed to help you get the most out of TeamSync. Here's how to navigate it effectively:
 
 1. **Quick Start** (For New Users)
+
    - If you're new to TeamSync, start with the [Quick Start](#quick-start) section
    - This section provides step-by-step instructions to get you up and running quickly
 
 2. **Command Reference** (For All Users)
+
    - The [Commands](#commands) section contains detailed information about all available commands
    - Commands are organized into categories:
      - [Teammate Commands](#teammate-commands)
@@ -28,6 +30,7 @@ This User Guide is designed to help you get the most out of TeamSync. Here's how
      - [General Commands](#general-commands)
 
 3. **Command Summary** (For Quick Reference)
+
    - The [Command Summary](#command-summary) section provides a quick overview of all commands
    - Use this section as a quick reference when you're familiar with the commands
 
@@ -110,6 +113,7 @@ TeamSync comes with neat and adjustable views for your teammates, your schedule 
 TeamSync provides built-in validation to ensure that errors are caught as early as possible.
 
 It guarantees:
+
 1. no duplicate contacts
 2. no module conflicts for each teammate
 3. no overlapping meetings
@@ -140,10 +144,11 @@ TeamSync offers both a textual and a visual representation of schedules. Its col
 ## Commands
 
 TeamSync provides you with 4 types of commands:
-* [Teammate Commands](#teammate-commands)
-* [Module Commands](#module-commands)
-* [Meeting Commands](#meeting-commands)
-* [General Commands](#general-commands)
+
+- [Teammate Commands](#teammate-commands)
+- [Module Commands](#module-commands)
+- [Meeting Commands](#meeting-commands)
+- [General Commands](#general-commands)
 
 A command consists of a <span style="color : green; font-weight: bold;">command group</span> (with the exception of General Commands), <span style="color : brown; font-weight: bold;">command word</span>, and zero or more <span style="color : darkorange; font-weight: bold;">parameters</span>
 
@@ -151,17 +156,17 @@ A command consists of a <span style="color : green; font-weight: bold;">command 
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* For each command, the correct syntax is specified under "Format"
+- For each command, the correct syntax is specified under "Format"
 
-* Commands are case-insensitive
+- Commands are case-insensitive
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user
+- Words in `UPPER_CASE` are the parameters to be supplied by the user
 
-* Items in square brackets are optional
+- Items in square brackets are optional
 
-* Items with `…`​ after them can be used multiple times including zero times
+- Items with `…`​ after them can be used multiple times including zero times
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `person list`, `exit` and `clear`) will be ignored
+- Extraneous parameters for commands that do not take in parameters (such as `help`, `person list`, `exit` and `clear`) will be ignored
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
@@ -169,6 +174,7 @@ If you are using a PDF version of this document, be careful when copying and pas
 </div>
 
 <br><br>
+
 ### Teammate Commands
 
 #### Adding a new teammate: `person add`
@@ -179,15 +185,15 @@ Adds a teammate to TeamSync.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* Names should only contain alphanumeric characters and spaces, and it should not be blank
+- Names should only contain alphanumeric characters and spaces, and it should not be blank
 
-* Phone numbers should only contain numbers, and it should be at least 3 digits long
+- Phone numbers should only contain numbers, and it should be at least 3 digits long
 
-* Emails should be of the format local-part@domain
+- Emails should be of the format local-part@domain
 
-* Tags should only contain alphanumeric characters
+- Tags should only contain alphanumeric characters
 
-* See [adding a module for a teammate](#adding-a-module-for-a-teammate-module-add) for more information on the format for module details
+- See [adding a module for a teammate](#adding-a-module-for-a-teammate-module-add) for more information on the format for module details
 </div>
 
 <div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
@@ -201,6 +207,7 @@ Adds a person with the name `John Doe` with phone number `98765432`, email addre
 <div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
 
 Unable to add a teammate? TeamSync does not allow you to add [duplicate teammates](#duplicate-teammate).
+
 </div>
 
 #### Editing a teammate : `person edit`
@@ -211,22 +218,23 @@ Edits an existing teammate in TeamSync.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* Edits the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
+- Edits the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
 
-* At least one of the optional fields must be provided.
+- At least one of the optional fields must be provided.
 
-* Existing values will be updated to the input values.
+- Existing values will be updated to the input values.
 
-* You can remove all of a teammate's tags by typing `-t ` without specifying any tags after it
+- You can remove all of a teammate's tags by typing `-t ` without specifying any tags after it
 
-* You can remove all of a teammate's modules by typing `-m ` without specifying any tags after it
+- You can remove all of a teammate's modules by typing `-m ` without specifying any tags after it
 
-* See [adding a new teammate](#adding-a-new-teammate-person-add) for more information on the format for contact details
+- See [adding a new teammate](#adding-a-new-teammate-person-add) for more information on the format for contact details
 </div>
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
 
 When editing tags / modules, **all the existing tags / modules of the teammate will be removed**!
+
 </div>
 
 **Example**: `person edit 1 -p 91234567 -e johndoe@example.com`
@@ -242,6 +250,7 @@ Deletes the specified teammate from TeamSync.
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
 Deletes the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
+
 </div>
 
 **Example**: `person delete 1`
@@ -260,24 +269,24 @@ Finds teammates in TeamSync whose names contain any of the specified `KEYWORDS`.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* The search is case-insensitive
+- The search is case-insensitive
 
   **Example**: `hans` will match `Hans`
 
-* The order of the keywords does not matter
+- The order of the keywords does not matter
 
   **Example**: `Hans Bo` will match `Bo Hans`
 
-* Only the name is searched
+- Only the name is searched
 
-* Only full words will be matched
+- Only full words will be matched
 
   **Example**: `Han` will not match `Hans`
 
-* Teammates matching at least one keyword will be returned (i.e. `OR` search)
+- Teammates matching at least one keyword will be returned (i.e. `OR` search)
 
   **Example**: `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-</div>
+  </div>
 
 **Example**: `person find alex david`
 
@@ -294,10 +303,11 @@ Lists all teammates in TeamSync.
 <div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
 
 Use `person list` after `find` to exit the filtered view and display all your teammates' information.
+
 </div>
 
-
 <br><br>
+
 ### Module Commands
 
 #### Adding a module for a teammate: `mod add`
@@ -308,22 +318,22 @@ Adds a module to an existing teammate.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* Adds a module for the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
+- Adds a module for the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
 
-* `MODULE_CODE` follows the NUS module code format: **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**
+- `MODULE_CODE` follows the NUS module code format: **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**
 
   **Example**: `CS2103T` and `CS2040` are both valid module codes, but `COMSCI123` is not
 
-* `MODULE_CODE` is case-insensitive
+- `MODULE_CODE` is case-insensitive
 
   **Example**: Both `CS2103T` and `cs2103t` are regarded as the same module code
 
-* `DAY` is 3-letter abbreviation of the day of week (Mon, Tue, Wed, …). It is case-insensitive
+- `DAY` is 3-letter abbreviation of the day of week (Mon, Tue, Wed, …). It is case-insensitive
 
-* `START_TIME` and `END_TIME` should be in 24-hour HH:MM format
+- `START_TIME` and `END_TIME` should be in 24-hour HH:MM format
 
   **Example**: `14:00` is valid, but `1400` and `2pm` are not
-</div>
+  </div>
 
 **Example**: `mod add 1 CS2101 Thu 12:00 15:00`
 
@@ -332,6 +342,7 @@ Adds the module CS2101 to the first teammate, as shown in the displayed teammate
 <div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
 
 Unable to add a module? TeamSync does not allow you to add [duplicate modules](#duplicate-module) to the same teammate.
+
 </div>
 
 #### Deleting a module from a teammate : `mod delete`
@@ -342,17 +353,17 @@ Deletes the specified module from an existing teammate in TeamSync.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* Deletes the module from the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
+- Deletes the module from the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
 
-* `MODULE_CODE` follows the NUS module code format: **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**
+- `MODULE_CODE` follows the NUS module code format: **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**
 
   **Example**: `CS2103T` and `CS2040` are both valid module codes, but `COMSCI123` is not
 
-* `MODULE_CODE` is case-insensitive
+- `MODULE_CODE` is case-insensitive
 
   **Example**: Both `CS2103T` and `cs2103t` are regarded as the same module code
 
-* Module code has to be an existing module assigned to the specified teammate.
+- Module code has to be an existing module assigned to the specified teammate.
 </div>
 
 **Example**: `mod delete 1 CS2101`
@@ -364,6 +375,7 @@ Deleting a module is **irreversible**!
 </div>
 
 <br><br>
+
 ### Meeting Commands
 
 #### Adding a meeting: `meeting add`
@@ -374,16 +386,16 @@ Adds a meeting with the specified date, start and end time to TeamSync.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* `DATE` should be in DD-MM[-YYYY] format
+- `DATE` should be in DD-MM[-YYYY] format
 
   **Example**: `24-02-2025` and `24-02` are both valid dates, but `24 Feb` is not
 
-* `DATE` is assumed to be the current year if YYYY is not given
+- `DATE` is assumed to be the current year if YYYY is not given
 
-* `START_TIME` and `END_TIME` should be in 24-hour HH:MM format
+- `START_TIME` and `END_TIME` should be in 24-hour HH:MM format
 
   **Example**: `14:00` is valid, but `1400` and `2pm` are not
-</div>
+  </div>
 
 **Example**: `meeting add 27-03-2025 12:00 15:00`
 
@@ -408,6 +420,7 @@ Deleting a meeting is **irreversible**!
 </div>
 
 <br><br>
+
 ### General Commands
 
 #### Viewing help : `help`
@@ -421,15 +434,16 @@ Shows a message explaining how to access the user guide.
 Changes the week displayed in the timetable view.
 
 Format: `showdate DATE`
+
 <div markdown="1" class="alert alert-info">:information_source: **Info**
 
-* Displays the timetable for the week containing the specified DATE, starting on Monday.
+- Displays the timetable for the week containing the specified DATE, starting on Monday.
 
-* `DATE` should be in DD-MM[-YYYY] format
+- `DATE` should be in DD-MM[-YYYY] format
 
   **Example**: `24-02-2025` and `24-02` are both valid dates, but `24 Feb` is not
 
-* `DATE` is assumed to be the current year if YYYY is not given
+- `DATE` is assumed to be the current year if YYYY is not given
 </div>
 
 Example: `showdate 03-04-2025`
@@ -453,41 +467,41 @@ Exits TeamSync.
 **Format**: `exit`
 
 <br><br>
+
 ### Command Summary
 
 #### Student Commands
 
-Action | Format                                                                     | Example
--------|----------------------------------------------------------------------------|---------
-**Add a teammate** | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…`         |  `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
-**Edit a teammate** | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…` | `person edit 1 -p 91234567 -e johndoe@example.com`
-**Delete a teammate** | `person delete INDEX`                                                      | `person delete 1`
-**List all teammates** | `person list`                                                              | `person list`
-**Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]`                                      | `person find James Jake`
+| Action                    | Format                                                                     | Example                                                                                       |
+| ------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Add a teammate**        | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]…`         | `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01` |
+| **Edit a teammate**       | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…` | `person edit 1 -p 91234567 -e johndoe@example.com`                                            |
+| **Delete a teammate**     | `person delete INDEX`                                                      | `person delete 1`                                                                             |
+| **List all teammates**    | `person list`                                                              | `person list`                                                                                 |
+| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]`                                      | `person find James Jake`                                                                      |
 
 #### Module Commands
 
-Action | Format                                                                     | Example
--------|----------------------------------------------------------------------------|---------
-**Add a module for a teammate** | `mod add INDEX MODULE_CODE DAY START_TIME END_TIME`         |  `mod add 1 cs2101 thu 12:00 15:00`
-**Delete a module from a teammate** | `mod delete INDEX MODULE_CODE` | `mod delete 1 cs2101`
+| Action                              | Format                                              | Example                            |
+| ----------------------------------- | --------------------------------------------------- | ---------------------------------- |
+| **Add a module for a teammate**     | `mod add INDEX MODULE_CODE DAY START_TIME END_TIME` | `mod add 1 cs2101 thu 12:00 15:00` |
+| **Delete a module from a teammate** | `mod delete INDEX MODULE_CODE`                      | `mod delete 1 cs2101`              |
 
 #### Meeting Commands
 
-Action | Format                                                                     | Example
--------|----------------------------------------------------------------------------|---------
-**Add a meeting** | `meeting add DATE START_TIME END_TIME` | `meeting 27-03-2025 12:00 15:00`
-**Delete a meeting** | `meeting delete INDEX` | `meeting delete 1`
+| Action               | Format                                 | Example                          |
+| -------------------- | -------------------------------------- | -------------------------------- |
+| **Add a meeting**    | `meeting add DATE START_TIME END_TIME` | `meeting 27-03-2025 12:00 15:00` |
+| **Delete a meeting** | `meeting delete INDEX`                 | `meeting delete 1`               |
 
 #### General Commands
 
-Action | Format          | Example
--------|-----------------|---------
-**View help** | `help`          | `help`
-**Change week displayed** | `showdate DATE` | `showdate 04-04-2025`
-**Clear all data** | `clear`         | `clear`
-**Exit TeamSync** | `exit`          | `exit`
-
+| Action                    | Format          | Example               |
+| ------------------------- | --------------- | --------------------- |
+| **View help**             | `help`          | `help`                |
+| **Change week displayed** | `showdate DATE` | `showdate 04-04-2025` |
+| **Clear all data**        | `clear`         | `clear`               |
+| **Exit TeamSync**         | `exit`          | `exit`                |
 
 ## Troubleshooting
 
@@ -498,8 +512,7 @@ This may happen if you are using multiple screens. One solution is to delete the
 Ensure that you have Java 17 or later installed. Run `java --version` in your terminal to check your installed Java version.
 
 3\. **My data is not being saved** <br>
-Ensure that the application has write permissions to the directory. Alternatively, try running the app with administrator privileges.  
-
+Ensure that the application has write permissions to the directory. Alternatively, try running the app with administrator privileges.
 
 ## FAQ
 
@@ -514,16 +527,16 @@ Only systems with a GUI is supported
 
 **Q**: Can I use TeamSync without the CLI?
 <br>
-**A**: Although some operations such as `exit` do have a GUI button, TeamSync is optimised for CLI and functions mainly via the command line. 
+**A**: Although some operations such as `exit` do have a GUI button, TeamSync is optimised for CLI and functions mainly via the command line.
 
 **Q**: It is troublesome to start the app via terminal every time. Can I simply launch the app by double-clicking?
 <br>
-**A**: Yes, although the recommended way is to launch via terminal. 
+**A**: Yes, although the recommended way is to launch via terminal.
 
 ## Glossary
 
 | Terms                                                   | Definition                                                                                       |
-|---------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | **Command Line Interface (CLI)**                        | A text-based interface that allows users to interact with the application by typing commands     |
 | <a name="duplicate-module"></a>**Duplicate module**     | Two modules are duplicates if they have the same module code                                     |
 | <a name="duplicate-teammate"></a>**Duplicate teammate** | Two teammates are duplicates if they have the same email address                                 |
