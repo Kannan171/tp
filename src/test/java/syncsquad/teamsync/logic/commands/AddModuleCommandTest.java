@@ -65,13 +65,13 @@ public class AddModuleCommandTest {
                 .withDay("FRI").withStartTime("14:00")
                 .withEndTime("16:00").build();
         Person dummyPerson = new PersonBuilder().build();
-        Person dummyPerson2 = new PersonBuilder().withName("Buddy").build();
+        Person dummyPerson2 = new PersonBuilder().withEmail("buddy@me.com").build();
         ModelStubWithPerson modelStub = new ModelStubWithPerson(dummyPerson);
         modelStub.addPerson(dummyPerson2);
 
         CommandResult commandResult = new AddModuleCommand(Index.fromOneBased(2), validModule).execute(modelStub);
 
-        Person dummyPersonWithModule = new PersonBuilder().withName("Buddy")
+        Person dummyPersonWithModule = new PersonBuilder().withEmail("buddy@me.com")
                 .withModules("CS2103T FRI 14:00 16:00").build();
 
         assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, Messages.format(dummyPersonWithModule)),

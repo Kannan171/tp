@@ -37,7 +37,9 @@ public class PersonInfoCardController extends UiPart<Region> {
     private Label email;
 
     /**
-     * Creates a {@code PersonInfoCard} with a given {@code Person}'s contact information.
+     * Creates a {@code PersonInfoCardController} with the given {@code Person}.
+     *
+     * @param person The person whose contact information is to be displayed.
      */
     public PersonInfoCardController(Person person) {
         super(FXML);

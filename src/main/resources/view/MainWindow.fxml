@@ -2,113 +2,69 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="TeamSync" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="TeamSync" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/logo.png" />
   </icons>
   <scene>
     <Scene stylesheets="@Root.css">
-
-      <VBox fx:id="mainVBox">
-            <HBox fx:id="titleBar" alignment="CENTER_LEFT">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/logo.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Label text="TeamSync">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-              <MenuBar fx:id="menuBar" style="-fx-background-color: transparent;">
-                <Menu mnemonicParsing="false" text="File">
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                </Menu>
-              </MenuBar>
-                  <StackPane alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                     <children>
-                        <HBox alignment="CENTER_RIGHT" StackPane.alignment="CENTER_RIGHT">
-                           <children>
-                              <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#handleExit" />
-                              <Button fx:id="maximizeButton" mnemonicParsing="false" onAction="#handleExit" rotate="180.0" />
-                              <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleExit" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </StackPane>
-               </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </HBox>
-
-        <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-               <SplitPane fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
-               <items>
-                  <VBox alignment="CENTER">
-                     <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS" maxHeight="150" />
-                  </VBox>
-                  <VBox alignment="CENTER">
-                     <Label fx:id="currentWeekLabel" text="Current Week" styleClass="label" alignment="CENTER">
-                        <padding>
-                           <Insets left="10" right="10" top="5" />
-                        </padding>
-                        <font>
-                           <Font name="System" size="18.0" />
-                        </font>
-                     </Label>
-                     <StackPane fx:id="timetablePlaceholder" layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS" />
-                  </VBox>
-               </items>
-            </SplitPane>
-        </VBox>
-
+         <StackPane fx:id="mainStackPane">
+            <children>
+            <VBox fx:id="mainVBox">
+                  <StackPane fx:id="titleBarPlaceholder" />
+              <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <padding>
+                  <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+                <SplitPane fx:id="verticalSplitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+                  <items>
+                    <StackPane fx:id="personListPanelPlaceholder" />
+                    <SplitPane fx:id="horizontalSplitPane" dividerPositions="0.5" orientation="VERTICAL">
+                      <items>
+                        <VBox alignment="CENTER">
+                          <children>
+                            <Label fx:id="currentWeekLabel" maxHeight="30.0" text="Current Week: " textAlignment="CENTER" VBox.vgrow="NEVER">
+                              <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </padding>
+                              <font>
+                                <Font name="Inter Regular" size="14.0" />
+                              </font>
+                              <VBox.margin>
+                                <Insets left="20.0" />
+                              </VBox.margin>
+                            </Label>
+                            <StackPane fx:id="timetablePlaceholder" VBox.vgrow="ALWAYS" />
+                          </children>
+                        </VBox>
+                        <StackPane fx:id="meetingListPanelPlaceholder" />
+                      </items>
+                    </SplitPane>
+                  </items>
+                </SplitPane>
+              </VBox>
               <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
+                <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+              </StackPane>
+              <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <padding>
+                  <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+              </StackPane>
+              <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            </VBox>
+            </children>
+         </StackPane>
     </Scene>
   </scene>
 </fx:root>

@@ -11,7 +11,7 @@ public interface TimetableDisplayable {
      * Lays out the object in the timetable.
      * @param xAxis the x-axis of the timetable
      * @param yAxis the y-axis of the timetable
-     * @param blockWidth the width of the block
+     * @param blockHeight the width of the block
      */
-    void layout(CategoryAxis xAxis, NumberAxis yAxis, double blockWidth);
+    void layout(NumberAxis xAxis, CategoryAxis yAxis, double blockHeight);
 }

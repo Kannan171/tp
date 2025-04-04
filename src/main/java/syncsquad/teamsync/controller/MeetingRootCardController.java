@@ -27,12 +27,14 @@ public class MeetingRootCardController extends UiPart<Region> {
     @FXML
     private Label dateLabel;
     @FXML
-    private Label startTimeLabel;
-    @FXML
-    private Label endTimeLabel;
+    private Label timeLabel;
 
     /**
-     * Creates a {@code MeetingRootCardController} with the given {@code LocalDate} to display.
+     * Creates a {@code MeetingRootCardController} with the given
+     * {@code Meeting} and index to display.
+     *
+     * @param meeting The meeting to display.
+     * @param displayedIndex The index of the meeting in the list.
      */
     public MeetingRootCardController(Meeting meeting, int displayedIndex) {
         super(FXML);
@@ -50,12 +52,8 @@ public class MeetingRootCardController extends UiPart<Region> {
             dateLabel.getStyleClass().add(Styles.SUCCESS);
         }
 
-        startTimeLabel.setText(meeting.getStartTimeString());
-        FontIcon startTimeIcon = new FontIcon(Material2AL.ACCESS_TIME);
-        startTimeLabel.setGraphic(startTimeIcon);
-
-        endTimeLabel.setText(meeting.getEndTimeString());
+        timeLabel.setText(meeting.getStartTimeString() + " to " + meeting.getEndTimeString());
         FontIcon endTimeIcon = new FontIcon(Material2AL.ACCESS_TIME);
-        endTimeLabel.setGraphic(endTimeIcon);
+        timeLabel.setGraphic(endTimeIcon);
     }
 }

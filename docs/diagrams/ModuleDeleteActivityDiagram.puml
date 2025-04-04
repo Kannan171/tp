@@ -1,0 +1,24 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+:User enters module add command;
+if () then ([all fields present])
+    if () then ([index is valid])
+        if () then ([all fields are valid])
+            :Delete command executes, module is deleted;
+        else([else])
+        :Error: Invalid field;
+        stop
+        endif
+    else ([else])
+    :Error: Invalid index;
+    stop
+    endif
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+stop
+@enduml

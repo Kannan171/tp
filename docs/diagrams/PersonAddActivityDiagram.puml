@@ -1,0 +1,21 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+
+
+:User enters person add command;
+if () then ([all fields are present])
+    if () then ([all fields are valid])
+        :Add command executes, person is added;
+    else ([else])
+    :Error: Invalid field;
+    stop
+    endif
+else ([else])
+:Error: Invalid command format;
+stop
+endif
+stop
+@enduml
