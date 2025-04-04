@@ -22,7 +22,8 @@ public class MeetingDummyRootCardController extends UiPart<Region> {
     private Label title;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code MeetingDummyRootCardController} to display a dummy root
+     * card.
      */
     public MeetingDummyRootCardController() {
         super(FXML);

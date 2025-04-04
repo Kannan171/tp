@@ -80,18 +80,38 @@ public class MainWindowController extends UiPart<Stage> {
 
     }
 
+    /**
+     * Returns the primary stage of the application.
+     *
+     * @return The primary stage.
+     */
     protected Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /**
+     * Returns the main view model associated with this controller.
+     *
+     * @return The main view model.
+     */
     protected MainViewModel getViewModel() {
         return viewModel;
     }
 
+    /**
+     * Returns the vertical divider position of the split pane.
+     *
+     * @return The vertical divider position.
+     */
     protected double getVerticalDividerPosition() {
         return verticalSplitPane.getDividerPositions()[0];
     }
 
+    /**
+     * Returns the horizontal divider position of the split pane.
+     *
+     * @return The horizontal divider position.
+     */
     protected double getHorizontalDividerPosition() {
         return horizontalSplitPane.getDividerPositions()[0];
     }

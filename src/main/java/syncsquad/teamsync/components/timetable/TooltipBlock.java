@@ -34,6 +34,11 @@ public class TooltipBlock implements TimetableDisplayable {
         this.tooltipSeriesMap = new HashMap<>();
     }
 
+    /**
+     * Returns the tooltip series for the timetable.
+     *
+     * @return A collection of tooltip series.
+     */
     public Collection<XYChart.Series<Number, String>> getTooltipSeries() {
         return this.tooltipSeriesMap.values();
     }
@@ -129,11 +134,21 @@ public class TooltipBlock implements TimetableDisplayable {
     }
 
 
+    /**
+     * Represents an event with a tooltip in the timetable.
+     */
     private final class TooltipEvent {
         private String description;
         private double startTime;
         private double endTime;
 
+        /**
+         * Constructs a {@code TooltipEvent}.
+         *
+         * @param description The description of the event.
+         * @param startTime The start time of the event.
+         * @param endTime The end time of the event.
+         */
         public TooltipEvent(String description, double startTime, double endTime) {
             this.description = description;
             this.startTime = startTime;
