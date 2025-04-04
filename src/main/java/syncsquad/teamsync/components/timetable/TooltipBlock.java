@@ -99,9 +99,9 @@ public class TooltipBlock implements TimetableDisplayable {
                 } else {
                     return;
                 }
-                rectangle.setHeight(tooltipEvent.getDuration()
-                        * Math.abs(hourAxis.getScale()));
-                rectangle.setWidth(blockHeight);
+                rectangle.setWidth(tooltipEvent.getDuration()
+                    * Math.abs(hourAxis.getScale()));
+                rectangle.setHeight(blockHeight);
 
                 // This puts the rectangle in the middle of the gridlines
                 x += rectangle.getWidth() / 2.0 + 1;
@@ -123,6 +123,7 @@ public class TooltipBlock implements TimetableDisplayable {
 
                 region.setLayoutX(x);
                 region.setLayoutY(y);
+                region.toFront();
             }
         }
     }
