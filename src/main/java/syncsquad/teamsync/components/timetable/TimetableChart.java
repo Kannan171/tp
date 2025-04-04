@@ -20,9 +20,13 @@ import syncsquad.teamsync.model.module.Day;
  * https://stackoverflow.com/a/27978436
  * https://github.com/ojdkbuild/lookaside_openjfx/
  */
-public class TimetableChart extends XYChart<String, Number> {
+public class TimetableChart extends XYChart<Number, String> { // Flip axis types
+
     private ObservableList<PersonModulesBlock> personModulesBlocks = FXCollections.observableArrayList();
+
     private ObservableList<MeetingBlock> meetingBlocks = FXCollections.observableArrayList();
+    private TooltipBlock tooltipBlock = new TooltipBlock();
+
     /**
      * Constructs a {@code TimetableChart} with the specified data.
      * @param personModulesBlocks
@@ -32,52 +36,50 @@ public class TimetableChart extends XYChart<String, Number> {
         ObservableList<PersonModulesBlock> personModulesBlocks,
         ObservableList<MeetingBlock> meetingBlocks) {
         super(
-            new CategoryAxis(FXCollections.observableArrayList(Day.VALID_DAYS)),
-            new NumberAxis(-24, 0, 1) // Time axis from 0000 to 2400
+                new NumberAxis(0, 24, 1),
+                new CategoryAxis(FXCollections.observableArrayList(Day.VALID_DAYS))
         );
-        getXAxis().sideProperty().setValue(javafx.geometry.Side.TOP);
-
+        CategoryAxis yAxis = (CategoryAxis) getYAxis();
         // Dirty trick to make the gridlines timetable-like
-        CategoryAxis xAxis = (CategoryAxis) getXAxis();
-        xAxis.getCategories().add("");
-        xAxis.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double displacement = newValue.doubleValue() / (xAxis.getCategories().size() * 2);
-            xAxis.translateXProperty().set(displacement);
+        yAxis.heightProperty().addListener((observable, oldValue, newValue) -> {
+            double displacement = -newValue.doubleValue() / (yAxis.getCategories().size() * 2);
+            yAxis.translateYProperty().set(displacement);
         });
-        xAxis.setTickMarkVisible(false);
+        yAxis.setTickLabelGap(10);
+        yAxis.setTickMarkVisible(false);
 
         // Doesn't necessarily work as intended, will need further testing. Still, minor aesthetic issue
         Node chartBackground = lookup(".chart-plot-background");
         chartBackground.setStyle(
-                "-fx-border-color: #9580ff; -fx-border-width: 1 0 0 1;");
+                "-fx-border-color: -color-accent-emphasis; -fx-border-width: 1 0 0 1;");
 
-        setHorizontalGridLinesVisible(false);
+        setVerticalGridLinesVisible(false);
 
-        // Dirty trick to invert axis: set them to negative values, then get the Formatter to
-        // strip the negative sign.
-        NumberAxis yAxis = (NumberAxis) getYAxis();
-        yAxis.setTickLabelFormatter(new StringConverter<Number>() {
+        // Dirty trick to invert yAxis
+        FXCollections.reverse(yAxis.getCategories());
+        yAxis.getCategories().add("");
+
+        getXAxis().sideProperty().setValue(javafx.geometry.Side.TOP);
+        NumberAxis xAxis = (NumberAxis) getXAxis();
+        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
-                int hour = Math.abs(object.intValue());
+                int hour = (int) Math.abs(object.doubleValue()); // Cast to integer after handling Double
                 return String.format("%02d:00", hour);
             }
 
             @Override
             public Number fromString(String string) {
-                return Integer.valueOf(string.split(":")[0]);
+                return Double.valueOf(string.split(":")[0]); // Use Double for consistency
             }
         });
 
-
         setData(FXCollections.observableArrayList());
 
-        this.personModulesBlocks = personModulesBlocks;
-        this.meetingBlocks = meetingBlocks;
+        loadPersonModulesBlocks(personModulesBlocks);
+        loadMeetingBlocks(meetingBlocks);
 
-        loadData();
         yAxis.toBack();
-        xAxis.toBack();
     }
 
     /**
@@ -86,6 +88,19 @@ public class TimetableChart extends XYChart<String, Number> {
      */
     public void loadPersonModulesBlocks(Collection<PersonModulesBlock> personModulesBlocks) {
         this.personModulesBlocks.setAll(personModulesBlocks);
+        TooltipBlock tooltipBlock = new TooltipBlock();
+        personModulesBlocks.forEach(block -> {
+            block.getModuleSeries().getData().forEach(data -> {
+                PersonModulesBlock.StyledModule styledModule = (PersonModulesBlock.StyledModule) data.getExtraValue();
+                tooltipBlock.addEvent(
+                    styledModule.getTooltipText(),
+                    data.getXValue().doubleValue(),
+                    data.getYValue(),
+                    styledModule.getDuration()
+                );
+            });
+        });
+        this.tooltipBlock = tooltipBlock;
         loadData();
     }
 
@@ -106,59 +121,66 @@ public class TimetableChart extends XYChart<String, Number> {
         getData().addAll(meetingBlocks.stream()
             .map(MeetingBlock::getMeetingSeries)
             .collect(Collectors.toList()));
+        getData().addAll(tooltipBlock.getTooltipSeries());
     }
 
     @Override
     protected void layoutPlotChildren() {
-        double blockWidth = getBlockWidth();
-        CategoryAxis xAxis = (CategoryAxis) getXAxis();
-        NumberAxis yAxis = (NumberAxis) getYAxis();
+        double blockHeight = getBlockHeight();
+        NumberAxis xAxis = (NumberAxis) getXAxis();
+        CategoryAxis yAxis = (CategoryAxis) getYAxis();
 
-        personModulesBlocks.forEach(block -> block.layout(xAxis, yAxis, blockWidth));
-        meetingBlocks.forEach(block -> block.layout(xAxis, yAxis, blockWidth));
+        personModulesBlocks.forEach(block -> block.layout(xAxis, yAxis, blockHeight));
+        tooltipBlock.layout(xAxis, yAxis, blockHeight);
+        meetingBlocks.forEach(block -> block.layout(xAxis, yAxis, blockHeight));
     }
 
-    public double getBlockWidth() {
-        double chartWidth = getXAxis().getWidth();
-        return chartWidth / ((CategoryAxis) getXAxis()).getCategories().size() - 2;
+    /**
+     * Returns the height of a block in the timetable.
+     *
+     * @return The block height.
+     */
+    public double getBlockHeight() {
+        double chartHeight = getYAxis().getHeight();
+        return chartHeight / ((CategoryAxis) getYAxis()).getCategories().size() - 2;
     }
 
     @Override
-    protected void dataItemAdded(Series<String, Number> series, int itemIndex, Data<String, Number> item) {
+    protected void dataItemAdded(Series<Number, String> series, int itemIndex, Data<Number, String> item) {
         Node block = createContainer(item);
         getPlotChildren().add(block);
     }
 
     @Override
-    protected void dataItemRemoved(final Data<String, Number> item, final Series<String, Number> series) {
+    protected void dataItemRemoved(final Data<Number, String> item, final Series<Number, String> series) {
         final Node block = item.getNode();
         getPlotChildren().remove(block);
         removeDataItemFromDisplay(series, item);
     }
 
     @Override
-    protected void dataItemChanged(Data<String, Number> item) {
+    protected void dataItemChanged(Data<Number, String> item) {
     }
 
     @Override
-    protected void seriesAdded(Series<String, Number> series, int seriesIndex) {
+    protected void seriesAdded(Series<Number, String> series, int seriesIndex) {
         for (int j = 0; j < series.getData().size(); j++) {
-            Data<String, Number> item = series.getData().get(j);
+            Data<Number, String> item = series.getData().get(j);
             Node container = createContainer(item);
             getPlotChildren().add(container);
         }
     }
 
     @Override
-    protected void seriesRemoved(final Series<String, Number> series) {
-        for (XYChart.Data<String, Number> d : series.getData()) {
+    protected void seriesRemoved(final Series<Number, String> series) {
+        for (XYChart.Data<Number, String> d : series.getData()) {
             final Node container = d.getNode();
             getPlotChildren().remove(container);
         }
         removeSeriesFromDisplay(series);
     }
 
-    private Node createContainer(Data<String, Number> item) {
+    private Node createContainer(Data<Number, String> item) {
         Node container = item.getNode();
 
         if (container == null) {

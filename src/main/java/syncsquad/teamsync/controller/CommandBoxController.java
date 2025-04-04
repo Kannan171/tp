@@ -47,6 +47,8 @@ public class CommandBoxController extends UiPart<Region> {
 
     /**
      * Sets the command box style to use the default style.
+     * Removes any error
+     * styling.
      */
     private void setStyleToDefault() {
         commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
@@ -54,6 +56,8 @@ public class CommandBoxController extends UiPart<Region> {
 
     /**
      * Sets the command box style to indicate a failed command.
+     * Adds an error
+     * style class to the command box.
      */
     private void setStyleToIndicateCommandFailure() {
         ObservableList<String> styleClass = commandTextField.getStyleClass();

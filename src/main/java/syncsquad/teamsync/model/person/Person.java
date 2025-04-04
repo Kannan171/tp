@@ -19,7 +19,8 @@ import syncsquad.teamsync.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values are validated,
+ * immutable.
  */
 public class Person implements Comparable<Person> {
 
@@ -63,7 +64,8 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Returns an immutable module set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable module set, which throws
+     * {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Module> getModules() {
@@ -71,7 +73,8 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable tag set, which throws
+     * {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
@@ -88,7 +91,7 @@ public class Person implements Comparable<Person> {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     /**
