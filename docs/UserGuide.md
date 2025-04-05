@@ -455,21 +455,24 @@ Deleting a meeting is **irreversible**!
 
 #### Viewing help : `help`
 
-Shows a message explaining how to access the user guide.
+Opens a help window displaying a summary of all the commands in TeamSync.
 
 **Format**: `help`
 
+**Example**: `help`
+
+TODO: ADD SCREENSHOT
+
 #### Changing week displayed: `showdate`
 
-Changes the week displayed in the timetable view.
+Changes the week displayed in the timetable view in TeamSync.
 
 Format: `showdate DATE`
 <div markdown="1" class="alert alert-info">:information_source: **Info**
 
 * Displays the timetable for the week containing the specified DATE, starting on Monday.
 
-* `DATE` should be in DD-MM[-YYYY] format
-
+* `DATE` should be in DD-MM[-YYYY] format<br>
   **Example**: `24-02-2025` and `24-02` are both valid dates, but `24 Feb` is not
 
 * `DATE` is assumed to be the current year if YYYY is not given
@@ -477,7 +480,7 @@ Format: `showdate DATE`
 
 Example: `showdate 03-04-2025`
 
-Shows the timetable for 31 Mar 2025 (Mon) to 6 Apr 2025 (Sun).
+Displays the timetable for 31 Mar 2025 (Mon) to 6 Apr 2025 (Sun).
 
 #### Clearing all data : `clear`
 
@@ -485,7 +488,9 @@ Clears all teammates, modules and meetings from TeamSync.
 
 **Format**: `clear`
 
-<div markdown="span" class="alert alert-danger">:warning: **Danger**<br><br>
+**Example**: `clear`
+
+<div markdown="1" class="alert alert-danger">:warning: **Danger**<br><br>
 **Deletion is irreversible**! Only use this command if you are sure that all the data is no longer needed.
 </div>
 
@@ -495,43 +500,62 @@ Exits TeamSync.
 
 **Format**: `exit`
 
+**Example**: `exit`
+
 <br><br>
+## Saving the Data
+TeamSync data is saved automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the Data File
+TeamSync data is saved as a [JSON](#JSON) file. Advanced users are welcome to update data directly by editing `addressbook.json` located in the `data` subfolder of TeamSync's home folder.
+
+TODO: CHANGE IF ADDRESSBOOK.JSON CHANGES
+
+<div markdown="1" class="alert alert-danger">:warning: **Danger**<br><br>
+**It is strongly recommended to make a backup of `addressbook.json` before editing it.**
+
+If your edits to `addressbook.json` corrupts it and TeamSync is unable to load the data, **TeamSync will discard all data** and start with an empty data file at the next run.
+
+Furthermore, **certain edits can cause the TeamSync to behave in unexpected ways**, even if TeamSync is able to load the data.
+
+Therefore, **edit the file only if you are confident** that you can update it correctly.
+</div>
+
 ### Command Summary
 
 #### Student Commands
 
-Action | Format                                                                          | Example
--------|---------------------------------------------------------------------------------|---------
-**Add a teammate** | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]…` |  `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01 -t friends`
-**Edit a teammate** | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…`      | `person edit 1 -p 91234567 -e johndoe@example.com`
-**Delete a teammate** | `person delete INDEX`                                                           | `person delete 1`
-**Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]`                                           | `person find James Jake`
-**List all teammates** | `person list`                                                                   | `person list`
-**Export a teammate** | `person export`                                                                 | `person export 1`
+| Action                    | Format                                                                          | Example                                                                                                  |
+|---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| **Add a teammate**        | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]…` | `person add -n John Doe -p 12345678 -e johndoe@u.nus.com -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00` |
+| **Edit a teammate**       | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…`      | `person edit 1 -p 87654321 -e newmail@u.nus.com -t`                                                       |
+| **Delete a teammate**     | `person delete INDEX`                                                           | `person delete 1`                                                                                        |
+| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]`                                           | `person find alex david`                                                                                 |
+| **List all teammates**    | `person list`                                                                   | `person list`                                                                                            |
+| **Export a teammate**     | `person export`                                                                 | `person export 1`                                                                                        |
 
 #### Module Commands
 
-Action | Format                                                                     | Example
--------|----------------------------------------------------------------------------|---------
-**Add a module for a teammate** | `module add INDEX MODULE_CODE DAY START_TIME END_TIME`         |  `module add 1 CS2101 Thu 12:00 15:00`
-**Delete a module from a teammate** | `module delete INDEX MODULE_CODE` | `module delete 1 CS2101`
+| Action                              | Format                                                 | Example                               |
+|-------------------------------------|--------------------------------------------------------|---------------------------------------|
+| **Add a module for a teammate**     | `module add INDEX MODULE_CODE DAY START_TIME END_TIME` | `module add 1 CS2101 Thu 12:00 15:00` |
+| **Delete a module from a teammate** | `module delete INDEX MODULE_CODE`                      | `module delete 1 CS2101`              |
 
 #### Meeting Commands
 
-Action | Format                                                                     | Example
--------|----------------------------------------------------------------------------|---------
-**Add a meeting** | `meeting add DATE START_TIME END_TIME` | `meeting 27-03-2025 12:00 15:00`
-**Delete a meeting** | `meeting delete INDEX` | `meeting delete 1`
+| Action               | Format                                 | Example                              |
+|----------------------|----------------------------------------|--------------------------------------|
+| **Add a meeting**    | `meeting add DATE START_TIME END_TIME` | `meeting add 27-03-2025 12:00 15:00` |
+| **Delete a meeting** | `meeting delete INDEX`                 | `meeting delete 1`                   |
 
 #### General Commands
 
-Action | Format          | Example
--------|-----------------|---------
-**View help** | `help`          | `help`
-**Change week displayed** | `showdate DATE` | `showdate 04-04-2025`
-**Clear all data** | `clear`         | `clear`
-**Exit TeamSync** | `exit`          | `exit`
-
+| Action                    | Format          | Example               |
+|---------------------------|-----------------|-----------------------|
+| **View help**             | `help`          | `help`                |
+| **Change week displayed** | `showdate DATE` | `showdate 04-04-2025` |
+| **Clear all data**        | `clear`         | `clear`               |
+| **Exit TeamSync**         | `exit`          | `exit`                |
 
 ## Troubleshooting
 
