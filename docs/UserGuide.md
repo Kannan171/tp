@@ -124,20 +124,35 @@ TeamSync offers both a textual and a visual representation of schedules. Its col
 
 ## Quick Start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Ensure you have Java `17` or above installed on your computer.<br>
+   Guide for [**Windows users**](https://se-education.org/guides/tutorials/javaInstallationWindows.html), [**Mac Users**](https://se-education.org/guides/tutorials/javaInstallationMac.html), [**Linux users**](https://se-education.org/guides/tutorials/javaInstallationLinux.html)
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for TeamSync.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+1. Open the command prompt (or terminal).
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   For **Windows**:
+   Open the Command Prompt (you can find it by searching "cmd" in the Start menu).
+   
+   For **Mac**:
+   Open the Terminal app (you can find it in Applications > Utilities).
+   
+   For **Linux**:
+   Open the Terminal app (you can find it in Applications).
 
-1. Refer to the [Commands](#commands) below for details of each command.
+1. Type cd followed by the folder where you saved `teamsync.jar`, then press Enter
+
+   **Example**: `cd Downloads`
+
+1. Then type: `java -jar teamsync.jar` and press Enter. TeamSync should open in a few seconds.
+
+1. You can use TeamSync by typing the command in the command box and pressing Enter to execute it.
+
+   **Example**: Typing `help` and pressing Enter will open the help window.
+
+1. Refer to the [Commands](#commands) section below for details of each command.
 
 ## Commands
 
