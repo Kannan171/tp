@@ -40,19 +40,19 @@ This User Guide is designed to help you get the most out of TeamSync. Here's how
 
 Throughout this guide, you'll encounter different types of callout boxes that provide important information:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note Box**<br><br>
+<div markdown="1" class="alert alert-info">:information_source: **Note Box**<br><br>
 Provides additional information or clarifications about a feature or command. Look for these when you need more details about how something works.
 </div>
 
-<div markdown="span" class="alert alert-success">:bulb: **Tip Box**<br><br>
+<div markdown="1" class="alert alert-success">:bulb: **Tip Box**<br><br>
 Offers helpful tips and best practices. These can help you use TeamSync more effectively.
 </div>
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning Box**<br><br>
+<div markdown="1" class="alert alert-warning">:exclamation: **Warning Box**<br><br>
 Highlights important warnings or potential issues. Pay special attention to these to avoid problems.
 </div>
 
-<div markdown="span" class="alert alert-danger">:warning: **Danger Box**<br><br>
+<div markdown="1" class="alert alert-danger">:warning: **Danger Box**<br><br>
 Indicates critical warnings or irreversible actions. Always read these carefully before proceeding.
 </div>
 
@@ -181,7 +181,7 @@ A command consists of a <span style="color : green; font-weight: bold;">command 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `person list`, `exit` and `clear`) will be ignored
 </div>
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+<div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
 If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as whitespaces may be omitted when copied over to TeamSync.
 </div>
 
@@ -197,6 +197,8 @@ Adds a teammate to TeamSync.
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
 * Names should only contain alphanumeric characters and spaces, and it should not be blank
+  
+  TODO: UPDATE IF NECESSARY
 
 * Phone numbers should only contain numbers, and it should be at least 3 digits long
 
@@ -205,20 +207,25 @@ Adds a teammate to TeamSync.
 * Tags should only contain alphanumeric characters
 
 * See [adding a module for a teammate](#adding-a-module-for-a-teammate-module-add) for more information on the format for module details
+
+* Unable to add a teammate? TeamSync does not allow you to add [duplicate teammates](#duplicate-teammate).
 </div>
 
-<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+<div markdown="1" class="alert alert-success">:bulb: **Tip**<br><br>
 A teammate can have any number of tags and modules (including 0).
 </div>
 
-**Example**: `person add -n John Doe -p 98765432 -e johndoe@example.com -a John street, block 123, #01-01`
+**Example**: `person add -n John Doe -p 12345678 -e johndoe@u.nus.com -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00`
 
-Adds a person with the name `John Doe` with phone number `98765432`, email address `johndoe@example.com` and address `John street, block 123, #01-01` to TeamSync.
+Adds a person with the following information to TeamSync:<br>
+**Name**: `John Doe`<br>
+**Phone number**: `12345678`<br>
+**Email** `johndoe@u.nus.com`<br>
+**Address**: `RC4`<br>
+**Tags**: `Backend`<br>
+**Modules**: `CS2101` on Thursdays from 12:00 to 15:00, `CS2103T` on Fridays from 16:00 to 18:00
 
-<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
-
-Unable to add a teammate? TeamSync does not allow you to add [duplicate teammates](#duplicate-teammate).
-</div>
+TODO: ADD SCREENSHOT
 
 #### Editing a teammate : `person edit`
 
@@ -236,19 +243,27 @@ Edits an existing teammate in TeamSync.
 
 * You can remove all of a teammate's tags by typing `-t ` without specifying any tags after it
 
-* You can remove all of a teammate's modules by typing `-m ` without specifying any tags after it
-
 * See [adding a new teammate](#adding-a-new-teammate-person-add) for more information on the format for contact details
+
+* TODO: EXPLAIN INDEX CHANGES
 </div>
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+<div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
 
-When editing tags / modules, **all the existing tags / modules of the teammate will be removed**!
+When editing tags, **all the existing tags of the teammate will be removed**!
 </div>
 
-**Example**: `person edit 1 -p 91234567 -e johndoe@example.com`
+<div markdown="1" class="alert alert-success">:bulb: **Tip**<br><br>
 
-Edits the phone number and email address of the 1st teammate to be `91234567` and `johndoe@example.com` respectively.
+Trying to add or delete a module for a teammate? Use [`module add`](#adding-a-module-for-a-teammate-module-add) or [`module delete`](#deleting-a-module-from-a-teammate--module-delete) instead!
+</div>
+
+**Example**: `person edit 1 -p 87654321 -e newmail@u.nus.com -t`
+
+Edits the information of first teammate, as shown in the displayed teammate list:<br>
+**Phone number**: Changed to `87654321`<br>
+**Email**: Changed to `newmail@u.nus.com`<br>
+**Tags**: All tags are removed
 
 #### Deleting a teammate : `person delete`
 
@@ -265,7 +280,7 @@ Deletes the teammate at the specified [`INDEX`](#index), as shown in the display
 
 Deletes the first teammate, as shown in the displayed teammate list.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+<div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
 Deleting a teammate is **irreversible**!
 </div>
 
@@ -277,22 +292,18 @@ Finds teammates in TeamSync whose names contain any of the specified `KEYWORDS`.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* The search is case-insensitive
-
+* The search is case-insensitive<br>
   **Example**: `hans` will match `Hans`
 
-* The order of the keywords does not matter
-
+* The order of the keywords does not matter<br>
   **Example**: `Hans Bo` will match `Bo Hans`
 
-* Only the name is searched
+* Only the name is searched<br>
 
-* Only full words will be matched
-
+* Only full words will be matched<br>
   **Example**: `Han` will not match `Hans`
 
-* Teammates matching at least one keyword will be returned (i.e. `OR` search)
-
+* Teammates matching at least one keyword will be returned<br>
   **Example**: `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 </div>
 
@@ -308,7 +319,7 @@ Lists all teammates in TeamSync.
 
 **Example**: `person list`
 
-<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+<div markdown="1" class="alert alert-success">:bulb: **Tip**<br><br>
 
 Use `person list` after `find` to exit the filtered view and display all your teammates' information.
 </div>
@@ -329,6 +340,8 @@ Exports a teammate as text.
 **Example**: `person export 1`
 
 Exports the first teammate, as shown in the displayed teammate list.
+
+TODO: ADD SCREENSHOT
 
 <br><br>
 ### Module Commands
