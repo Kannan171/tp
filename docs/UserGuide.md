@@ -559,40 +559,41 @@ Therefore, **edit the file only if you are confident** that you can update it co
 
 ## Troubleshooting
 
-1\. **The GUI appears off screen** <br>
-This may happen if you are using multiple screens. One solution is to delete the `preferences.json` file created by the application before running the application again.
+**1**\. **The GUI appears off-screen** <br>
+This may occur when using multiple screens. To resolve this issue, simply delete the `preferences.json` file located in TeamSync's home folder before restarting the app.
 
-2\. **The JAR file cannot be run** <br>
-Ensure that you have Java 17 or later installed. Run `java --version` in your terminal to check your installed Java version.
-
-3\. **My data is not being saved** <br>
-Ensure that the application has write permissions to the directory. Alternatively, try running the app with administrator privileges.  
+**2**\. **Unable to run the JAR file** <br>
+Ensure you have followed the steps outlined in the [Quick Start](#quick-start) section. In particular, double-clicking on the JAR file **does not** launch the app.
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer?<br>
-**A**: Install the app in the other computer and overwrite the files in the data directory it creates with the files from the previous device.
+**Q**: **How do I transfer my data to another computer?**<br>
+**A**: Copy the contents of TeamSync's home folder to the other computer. You are now able to continue using TeamSync with all your existing data.
 
-**Q**: What are the system requirements for TeamSync?
-<br>
-**A**: Java 17 or later <br>
-Operating System: Windows, MacOS, Linux only <br>
-Only systems with a GUI is supported
+**Q**: **What are the system requirements for TeamSync?**<br>
+**A**: TeamSync is optimised for Windows, MacOS, and Linux only. Additionally, Java `17` or above must be installed. While TeamSync might run on unsupported systems, we do not provide any assistance for these environments.
 
-**Q**: Can I use TeamSync without the CLI?
-<br>
-**A**: Although some operations such as `exit` do have a GUI button, TeamSync is optimised for CLI and functions mainly via the command line. 
+**Q**: **Why does TeamSync store past meetings?**<br>
+**A**: We believe that there is value in storing your past meetings for archival purposes. These are highlighted in red in the meeting list and can be deleted at your discretion.
 
+**Q**: **Will TeamSync be updated to support editing modules via the `person edit` command?**<br>
+**A**: No. This is a deliberate design decision. As modules consist of three fields — a date, start and end time. Editing these through `person edit` increases the likelihood of human error.
+
+**Q**: **Will TeamSync be updated to prompt for confirmation before clearing all data?**<br>
+**A**: No. The `clear` command is the only way to clear all data. Adding a confirmation prompt is unlikely to reduce accidental usage.
 
 ## Glossary
 
-| Terms                                                   | Definition                                                                                       |
-|---------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| **Command Line Interface (CLI)**                        | A text-based interface that allows users to interact with the application by typing commands     |
-| <a name="duplicate-module"></a>**Duplicate module**     | Two modules are duplicates if they have the same module code                                     |
-| <a name="duplicate-teammate"></a>**Duplicate teammate** | Two teammates are duplicates if they have the same email address                                 |
-| <a name="index"></a>**Index**                           | A **positive integer** 1, 2, 3, … shown in TeamSync that identifies a teammate or a meeting      |
-| **Module**                                              | A course offered by NUS                                                                          |
-| **Teammate**                                            | An NUS group project teammate stored as a contact in TeamSync                                    |
-| **Tag**                                                 | Optional information associated with a teammate to facilitate categorisation                     |
-| **Graphical User Interface (GUI)**                      | A graphical interface that allows users to interact with the application through visual elements |
+| Terms                                                                   | Definition                                                                                                       |
+|-------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| <a name="command-line-interface"></a>**Command Line Interface (CLI)**    | A text-based interface that allows users to interact with the application by typing commands                     |
+| <a name="duplicate-module"></a>**Duplicate module**                     | Two modules are duplicates if they have the same module code                                                     |
+| <a name="duplicate-teammate"></a>**Duplicate teammate**                 | Two teammates are duplicates if they have the same email address                                                 |
+| <a name="home-folder"></a>**Home folder**                               | The folder where TeamSync is stored in                                                                           |
+| <a name="index"></a>**Index**                                           | A **positive integer** 1, 2, 3, … shown in TeamSync that identifies a teammate or a meeting                      |
+| <a name="json"></a>**JSON**                                             | A text-based data storage format. See [this](https://www.json.org/json-en.html) for more info.                   |
+| <a name="module"></a>**Module**                                          | A course offered by NUS                                                                                          |
+| <a name="overlapping-module"></a>**Overlapping module**                  | Two modules are overlapping if they are scheduled on the same day of the week and their time intervals intersect |
+| <a name="teammate"></a>**Teammate**                                      | An NUS group project teammate stored as a contact in TeamSync                                                    |
+| <a name="tag"></a>**Tag**                                                | Optional information associated with a teammate to facilitate categorisation                                     |
+| <a name="graphical-user-interface"></a>**Graphical User Interface (GUI)** | A graphical interface that allows users to interact with the application through visual elements                 |
