@@ -326,7 +326,7 @@ Use `person list` after `find` to exit the filtered view and display all your te
 
 ### Exporting a teammate: `person export`
 
-Exports a teammate as text.
+Exports a teammate in TeamSync as text.
 
 **Format**: `person export INDEX`
 
@@ -348,7 +348,7 @@ TODO: ADD SCREENSHOT
 
 #### Adding a module for a teammate: `module add`
 
-Adds a module to an existing teammate.
+Adds a module to an existing teammate in TeamSync.
 
 **Format**: `module add INDEX MODULE_CODE DAY START_TIME END_TIME`
 
@@ -356,26 +356,26 @@ Adds a module to an existing teammate.
 
 * Adds a module for the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
 
-* `MODULE_CODE` follows the NUS module code format: **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**
-
+* `MODULE_CODE` follows the NUS module code format:<br>
+  **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**<br>
   **Example**: `CS2103T` and `CS2040` are both valid module codes, but `COMSCI123` is not
 
-* `MODULE_CODE` is case-insensitive
-
+* `MODULE_CODE` is case-insensitive<br>
   **Example**: Both `CS2103T` and `cs2103t` are regarded as the same module code
 
-* `DAY` is 3-letter abbreviation of the day of week (Mon, Tue, Wed, …). It is case-insensitive
+* `DAY` is a 3-letter abbreviation of the day of week (Mon, Tue, Wed, …). It is case-insensitive
 
-* `START_TIME` and `END_TIME` should be in 24-hour HH:MM format
-
+* `START_TIME` and `END_TIME` should be in 24-hour HH:MM format<br>
   **Example**: `14:00` is valid, but `1400` and `2pm` are not
+
+* Unable to add a module? TeamSync does not allow you to add [duplicate](#duplicate-module) or [overlapping modules](#overlapping-module) to the same teammate.
 </div>
 
 **Example**: `module add 1 CS2101 Thu 12:00 15:00`
 
 Adds the module CS2101 to the first teammate, as shown in the displayed teammate list.
 
-<div markdown="span" class="alert alert-success">:bulb: **Tip**<br><br>
+<div markdown="1" class="alert alert-success">:bulb: **Tip**<br><br>
 
 Unable to add a module? TeamSync does not allow you to add [duplicate modules](#duplicate-module) to the same teammate.
 </div>
@@ -390,22 +390,21 @@ Deletes the specified module from an existing teammate in TeamSync.
 
 * Deletes the module from the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
 
-* `MODULE_CODE` follows the NUS module code format: **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**
-
+* `MODULE_CODE` follows the NUS module code format:<br>
+  **Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter**<br>
   **Example**: `CS2103T` and `CS2040` are both valid module codes, but `COMSCI123` is not
 
-* `MODULE_CODE` is case-insensitive
-
+* `MODULE_CODE` is case-insensitive<br>
   **Example**: Both `CS2103T` and `cs2103t` are regarded as the same module code
 
-* Module code has to be an existing module assigned to the specified teammate.
+* The teammate should have the specified module assigned to them.
 </div>
 
 **Example**: `module delete 1 CS2101`
 
-Deletes the module CS2101 from the first teammate in TeamSync.
+Deletes the module CS2101 from the first teammate, as shown in the displayed teammate list.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+<div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
 Deleting a module is **irreversible**!
 </div>
 
@@ -414,20 +413,18 @@ Deleting a module is **irreversible**!
 
 #### Adding a meeting: `meeting add`
 
-Adds a meeting with the specified date, start and end time to TeamSync.
+Adds a meeting to TeamSync.
 
 **Format**: `meeting add DATE START_TIME END_TIME`
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* `DATE` should be in DD-MM[-YYYY] format
-
+* `DATE` should be in DD-MM[-YYYY] format<br>
   **Example**: `24-02-2025` and `24-02` are both valid dates, but `24 Feb` is not
 
 * `DATE` is assumed to be the current year if YYYY is not given
 
-* `START_TIME` and `END_TIME` should be in 24-hour HH:MM format
-
+* `START_TIME` and `END_TIME` should be in 24-hour HH:MM format<br>
   **Example**: `14:00` is valid, but `1400` and `2pm` are not
 </div>
 
@@ -437,19 +434,19 @@ Adds a new meeting on 27 Mar 2025 from 12pm to 3pm.
 
 #### Deleting a meeting: `meeting delete`
 
-Deletes the specified meeting
+Deletes the specified meeting from TeamSync.
 
 **Format**: `meeting delete INDEX`
 
-<div markdown="1" class="alert alert-info">:information_source: **Note**
+<div markdown="1" class="alert alert-info">:information_source: **Note**<br><br>
 Deletes the meeting at the specified [`INDEX`](#index), as shown in the displayed meeting list.
 </div>
 
 **Example**: `meeting delete 1`
 
-Deletes the first meeting in TeamSync.
+Deletes the first meeting in TeamSync, as shown in the displayed meeting list.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning**<br><br>
+<div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
 Deleting a meeting is **irreversible**!
 </div>
 
