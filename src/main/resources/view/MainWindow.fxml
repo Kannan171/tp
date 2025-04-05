@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="TeamSync" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="TeamSync" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/logo.png" />
   </icons>
@@ -19,7 +19,10 @@
          <StackPane fx:id="mainStackPane">
             <children>
             <VBox fx:id="mainVBox">
-                  <StackPane fx:id="titleBarPlaceholder" />
+                  <StackPane fx:id="titleBarPlaceholder">
+                     <VBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </VBox.margin></StackPane>
               <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                 <padding>
                   <Insets bottom="10" left="10" right="10" top="10" />
