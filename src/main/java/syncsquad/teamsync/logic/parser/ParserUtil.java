@@ -1,6 +1,7 @@
 package syncsquad.teamsync.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static syncsquad.teamsync.logic.Messages.MESSAGE_INVALID_START_END_TIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,6 +37,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format: Date should be in dd-mm-yyyy format";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "Invalid time format: Time should be in HH:mm format";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Duplicate modules found for the person.";
+    public static final String MESSAGE_OVERLAPPING_MODULE = "Overlapping modules found for the person.";
 
     /** Messages for invalid date and time input **/
     public static final String DATE_MESSAGE_CONSTRAINTS = "Invalid date input: %1$s is not a valid date.";
@@ -213,6 +216,10 @@ public class ParserUtil {
         LocalTime startTime = parseTime(matcher.group("startTime"));
         LocalTime endTime = parseTime(matcher.group("endTime"));
 
+        if (!endTime.isAfter(startTime)) {
+            throw new ParseException(MESSAGE_INVALID_START_END_TIME);
+        }
+
         return new Module(moduleCode, day, startTime, endTime);
     }
 
@@ -223,7 +230,14 @@ public class ParserUtil {
         requireNonNull(modules);
         final Set<Module> moduleSet = new HashSet<>();
         for (String moduleString : modules) {
-            moduleSet.add(parseModule(moduleString));
+            Module module = parseModule(moduleString);
+            if (moduleSet.stream().anyMatch(module::isSameModule)) {
+                throw new ParseException(MESSAGE_DUPLICATE_MODULE);
+            }
+            if (moduleSet.stream().anyMatch(module::isOverlapping)) {
+                throw new ParseException(MESSAGE_OVERLAPPING_MODULE);
+            }
+            moduleSet.add(module);
         }
         return moduleSet;
     }
