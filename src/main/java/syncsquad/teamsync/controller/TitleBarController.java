@@ -69,6 +69,12 @@ public class TitleBarController extends UiPart<Region> {
             }
         });
 
+        viewModel.getIsExiting().addListener((unused1, oldValue, newValue) -> {
+            if (newValue) {
+                handleExit();
+            }
+        });
+
         helpDialog = new HelpDialogController();
 
         FontIcon closeIcon = new FontIcon(Material2AL.CLOSE);
