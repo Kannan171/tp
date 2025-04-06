@@ -26,10 +26,10 @@ create HelpCommand
 AddressBookParser -[LOGIC_COLOR]> HelpCommand
 activate HelpCommand LOGIC_COLOR
 HelpCommand --[LOGIC_COLOR]> AddressBookParser
-deactivate HelpCommand 
+deactivate HelpCommand
 
 AddressBookParser --[LOGIC_COLOR]> LogicManager
-deactivate AddressBookParser 
+deactivate AddressBookParser
 
 LogicManager -[LOGIC_COLOR]> HelpCommand : execute()
 activate HelpCommand LOGIC_COLOR
@@ -41,10 +41,10 @@ CommandResult --[LOGIC_COLOR]> HelpCommand
 deactivate CommandResult
 
 HelpCommand --[LOGIC_COLOR]> LogicManager
-deactivate HelpCommand 
+deactivate HelpCommand
 
 LogicManager --[LOGIC_COLOR]> MainViewModel
-deactivate LogicManager 
+deactivate LogicManager
 
 MainViewModel -[UI_COLOR]> CommandResult : getFeedbackToUser()
 activate CommandResult LOGIC_COLOR

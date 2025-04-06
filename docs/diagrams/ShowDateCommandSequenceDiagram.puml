@@ -26,7 +26,7 @@ create ShowDateCommandParser
 AddressBookParser -[LOGIC_COLOR]> ShowDateCommandParser
 activate ShowDateCommandParser LOGIC_COLOR
 ShowDateCommandParser --[LOGIC_COLOR]> AddressBookParser
-deactivate ShowDateCommandParser 
+deactivate ShowDateCommandParser
 
 AddressBookParser -[LOGIC_COLOR]> ShowDateCommandParser : parse(...)
 activate ShowDateCommandParser LOGIC_COLOR
@@ -35,10 +35,10 @@ create ShowDateCommand
 ShowDateCommandParser -[LOGIC_COLOR]> ShowDateCommand
 activate ShowDateCommand LOGIC_COLOR
 ShowDateCommand --[LOGIC_COLOR]> ShowDateCommandParser
-deactivate ShowDateCommand 
+deactivate ShowDateCommand
 
 ShowDateCommandParser --[LOGIC_COLOR]> AddressBookParser
-deactivate ShowDateCommandParser 
+deactivate ShowDateCommandParser
 
 AddressBookParser --[LOGIC_COLOR]> LogicManager
 deactivate AddressBookParser
@@ -47,16 +47,16 @@ LogicManager -[LOGIC_COLOR]> ShowDateCommand : execute()
 activate ShowDateCommand LOGIC_COLOR
 
 create TimetableWeek
-ShowDateCommand -[LOGIC_COLOR]> TimetableWeek 
+ShowDateCommand -[LOGIC_COLOR]> TimetableWeek
 activate TimetableWeek MODEL_COLOR
 TimetableWeek --[MODEL_COLOR]> ShowDateCommand
-deactivate TimetableWeek 
+deactivate TimetableWeek
 
 ShowDateCommand -[LOGIC_COLOR]> Model : setCurrentWeek(timetableWeek)
 activate Model MODEL_COLOR
 
 Model --[MODEL_COLOR]> ShowDateCommand
-deactivate Model 
+deactivate Model
 
 create CommandResult
 ShowDateCommand -[LOGIC_COLOR]> CommandResult
@@ -65,9 +65,9 @@ CommandResult --[LOGIC_COLOR]> ShowDateCommand
 deactivate CommandResult
 
 ShowDateCommand --[LOGIC_COLOR]> LogicManager
-deactivate ShowDateCommand 
+deactivate ShowDateCommand
 
  <-[LOGIC_COLOR]- LogicManager
-deactivate LogicManager 
+deactivate LogicManager
 
 @enduml

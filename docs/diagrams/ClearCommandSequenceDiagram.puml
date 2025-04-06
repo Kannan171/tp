@@ -25,7 +25,7 @@ create ClearCommand
 AddressBookParser -[LOGIC_COLOR]> ClearCommand
 activate ClearCommand LOGIC_COLOR
 ClearCommand --[LOGIC_COLOR]> AddressBookParser
-deactivate ClearCommand 
+deactivate ClearCommand
 
 AddressBookParser --[LOGIC_COLOR]> LogicManager
 deactivate AddressBookParser
@@ -34,16 +34,16 @@ LogicManager -[LOGIC_COLOR]> ClearCommand : execute()
 activate ClearCommand LOGIC_COLOR
 
 create AddressBook
-ClearCommand -[LOGIC_COLOR]> AddressBook 
+ClearCommand -[LOGIC_COLOR]> AddressBook
 activate AddressBook MODEL_COLOR
 AddressBook --[MODEL_COLOR]> ClearCommand
-deactivate AddressBook 
+deactivate AddressBook
 
 ClearCommand -[LOGIC_COLOR]> Model : setAddressBook(addressBook)
 activate Model MODEL_COLOR
 
 Model --[MODEL_COLOR]> ClearCommand
-deactivate Model 
+deactivate Model
 
 create CommandResult
 ClearCommand -[LOGIC_COLOR]> CommandResult
@@ -52,9 +52,9 @@ CommandResult --[LOGIC_COLOR]> ClearCommand
 deactivate CommandResult
 
 ClearCommand --[LOGIC_COLOR]> LogicManager
-deactivate ClearCommand 
+deactivate ClearCommand
 
  <-[LOGIC_COLOR]- LogicManager
-deactivate LogicManager 
+deactivate LogicManager
 
 @enduml

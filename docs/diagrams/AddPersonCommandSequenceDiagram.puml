@@ -26,7 +26,7 @@ create PersonCommandsParser
 AddressBookParser -[LOGIC_COLOR]> PersonCommandsParser
 activate PersonCommandsParser LOGIC_COLOR
 PersonCommandsParser --[LOGIC_COLOR]> AddressBookParser
-deactivate PersonCommandsParser 
+deactivate PersonCommandsParser
 
 AddressBookParser -[LOGIC_COLOR]> PersonCommandsParser : parse("person add ...")
 activate PersonCommandsParser LOGIC_COLOR
@@ -45,20 +45,20 @@ AddPersonCommandParser -[LOGIC_COLOR]> Person
 activate Person MODEL_COLOR
 
 Person --[MODEL_COLOR]> AddPersonCommandParser
-deactivate Person 
+deactivate Person
 
 create AddPersonCommand
 AddPersonCommandParser -[LOGIC_COLOR]> AddPersonCommand
 activate AddPersonCommand LOGIC_COLOR
 
 AddPersonCommand --[LOGIC_COLOR]> AddPersonCommandParser
-deactivate AddPersonCommand 
+deactivate AddPersonCommand
 
 AddPersonCommandParser --[LOGIC_COLOR]> PersonCommandsParser
-deactivate AddPersonCommandParser 
+deactivate AddPersonCommandParser
 
 PersonCommandsParser --[LOGIC_COLOR]> AddressBookParser
-deactivate PersonCommandsParser 
+deactivate PersonCommandsParser
 
 AddressBookParser --[LOGIC_COLOR]> LogicManager
 deactivate AddressBookParser
@@ -70,7 +70,7 @@ AddPersonCommand -[LOGIC_COLOR]> Model : addPerson()
 activate Model MODEL_COLOR
 
 Model --[MODEL_COLOR]> AddPersonCommand
-deactivate Model 
+deactivate Model
 
 create CommandResult
 AddPersonCommand -[LOGIC_COLOR]> CommandResult
@@ -79,7 +79,7 @@ CommandResult --[LOGIC_COLOR]> AddPersonCommand
 deactivate CommandResult
 
 AddPersonCommand --[LOGIC_COLOR]> LogicManager
-deactivate AddPersonCommand 
+deactivate AddPersonCommand
 
  <-[LOGIC_COLOR]-  LogicManager
 deactivate LogicManager

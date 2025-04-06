@@ -6,7 +6,7 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Module as ModelPackage <<Rectangle>>{
 
-Class Module 
+Class Module
 Class ModuleCode
 Class Day
 
