@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box "Logic" LOGIC_COLOR_T1
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+Participant ":ShowDateCommandParser" as ShowDateCommandParser LOGIC_COLOR
+Participant ":ShowDateCommand" as ShowDateCommand LOGIC_COLOR
+Participant ":CommandResult" as CommandResult LOGIC_COLOR
+
+end box
+box "Model" MODEL_COLOR_T1
+Participant ":Model" as Model MODEL_COLOR
+Participant ":TimetableWeek" as TimetableWeek MODEL_COLOR
+
+end box
+
+-[UI_COLOR]> LogicManager : execute("showdate ...")
+activate LogicManager LOGIC_COLOR
+
+LogicManager -[LOGIC_COLOR]> AddressBookParser : parseCommand("showdate ...")
+activate AddressBookParser LOGIC_COLOR
+
+create ShowDateCommandParser
+AddressBookParser -[LOGIC_COLOR]> ShowDateCommandParser
+activate ShowDateCommandParser LOGIC_COLOR
+ShowDateCommandParser --[LOGIC_COLOR]> AddressBookParser
+deactivate ShowDateCommandParser 
+
+AddressBookParser -[LOGIC_COLOR]> ShowDateCommandParser : parse(...)
+activate ShowDateCommandParser LOGIC_COLOR
+
+create ShowDateCommand
+ShowDateCommandParser -[LOGIC_COLOR]> ShowDateCommand
+activate ShowDateCommand LOGIC_COLOR
+ShowDateCommand --[LOGIC_COLOR]> ShowDateCommandParser
+deactivate ShowDateCommand 
+
+ShowDateCommandParser --[LOGIC_COLOR]> AddressBookParser
+deactivate ShowDateCommandParser 
+
+AddressBookParser --[LOGIC_COLOR]> LogicManager
+deactivate AddressBookParser
+
+LogicManager -[LOGIC_COLOR]> ShowDateCommand : execute()
+activate ShowDateCommand LOGIC_COLOR
+
+create TimetableWeek
+ShowDateCommand -[LOGIC_COLOR]> TimetableWeek 
+activate TimetableWeek MODEL_COLOR
+TimetableWeek --[MODEL_COLOR]> ShowDateCommand
+deactivate TimetableWeek 
+
+ShowDateCommand -[LOGIC_COLOR]> Model : setCurrentWeek(timetableWeek)
+activate Model MODEL_COLOR
+
+Model --[MODEL_COLOR]> ShowDateCommand
+deactivate Model 
+
+create CommandResult
+ShowDateCommand -[LOGIC_COLOR]> CommandResult
+activate CommandResult LOGIC_COLOR
+CommandResult --[LOGIC_COLOR]> ShowDateCommand
+deactivate CommandResult
+
+ShowDateCommand --[LOGIC_COLOR]> LogicManager
+deactivate ShowDateCommand 
+
+ <-[LOGIC_COLOR]- LogicManager
+deactivate LogicManager 
+
+@enduml

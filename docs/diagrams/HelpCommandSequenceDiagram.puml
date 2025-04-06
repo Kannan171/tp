@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box "UI" UI_COLOR_T1
+Participant ":MainViewModel" as MainViewModel UI_COLOR
+end box
+
+box "Logic" LOGIC_COLOR_T1
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+Participant ":HelpCommand" as HelpCommand LOGIC_COLOR
+Participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+ -[UI_COLOR]> MainViewModel : executeCommand("help")
+activate MainViewModel UI_COLOR
+
+MainViewModel -[UI_COLOR]> LogicManager : execute("help")
+activate LogicManager LOGIC_COLOR
+
+LogicManager -[LOGIC_COLOR]> AddressBookParser : parseCommand("help")
+activate AddressBookParser LOGIC_COLOR
+
+create HelpCommand
+AddressBookParser -[LOGIC_COLOR]> HelpCommand
+activate HelpCommand LOGIC_COLOR
+HelpCommand --[LOGIC_COLOR]> AddressBookParser
+deactivate HelpCommand 
+
+AddressBookParser --[LOGIC_COLOR]> LogicManager
+deactivate AddressBookParser 
+
+LogicManager -[LOGIC_COLOR]> HelpCommand : execute()
+activate HelpCommand LOGIC_COLOR
+
+create CommandResult
+HelpCommand -[LOGIC_COLOR]> CommandResult
+activate CommandResult LOGIC_COLOR
+CommandResult --[LOGIC_COLOR]> HelpCommand
+deactivate CommandResult
+
+HelpCommand --[LOGIC_COLOR]> LogicManager
+deactivate HelpCommand 
+
+LogicManager --[LOGIC_COLOR]> MainViewModel
+deactivate LogicManager 
+
+MainViewModel -[UI_COLOR]> CommandResult : getFeedbackToUser()
+activate CommandResult LOGIC_COLOR
+CommandResult --[LOGIC_COLOR]> MainViewModel
+deactivate CommandResult
+
+MainViewModel -[UI_COLOR]> CommandResult : isShowHelp()
+activate CommandResult LOGIC_COLOR
+CommandResult --[LOGIC_COLOR]> MainViewModel
+deactivate CommandResult
+
+note left MainViewModel: isShowingHelp property \nis set to True
+ <-[UI_COLOR]-  MainViewModel
+deactivate MainViewModel
+
+@enduml

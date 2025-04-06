@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box "Logic" LOGIC_COLOR_T1
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+Participant ":ClearCommand" as ClearCommand LOGIC_COLOR
+Participant ":CommandResult" as CommandResult LOGIC_COLOR
+
+end box
+box "Model" MODEL_COLOR_T1
+Participant ":Model" as Model MODEL_COLOR
+Participant ":AddressBook" as AddressBook MODEL_COLOR
+
+end box
+
+-[UI_COLOR]> LogicManager : execute("clear")
+activate LogicManager LOGIC_COLOR
+
+LogicManager -[LOGIC_COLOR]> AddressBookParser : parseCommand("clear")
+activate AddressBookParser LOGIC_COLOR
+
+create ClearCommand
+AddressBookParser -[LOGIC_COLOR]> ClearCommand
+activate ClearCommand LOGIC_COLOR
+ClearCommand --[LOGIC_COLOR]> AddressBookParser
+deactivate ClearCommand 
+
+AddressBookParser --[LOGIC_COLOR]> LogicManager
+deactivate AddressBookParser
+
+LogicManager -[LOGIC_COLOR]> ClearCommand : execute()
+activate ClearCommand LOGIC_COLOR
+
+create AddressBook
+ClearCommand -[LOGIC_COLOR]> AddressBook 
+activate AddressBook MODEL_COLOR
+AddressBook --[MODEL_COLOR]> ClearCommand
+deactivate AddressBook 
+
+ClearCommand -[LOGIC_COLOR]> Model : setAddressBook(addressBook)
+activate Model MODEL_COLOR
+
+Model --[MODEL_COLOR]> ClearCommand
+deactivate Model 
+
+create CommandResult
+ClearCommand -[LOGIC_COLOR]> CommandResult
+activate CommandResult LOGIC_COLOR
+CommandResult --[LOGIC_COLOR]> ClearCommand
+deactivate CommandResult
+
+ClearCommand --[LOGIC_COLOR]> LogicManager
+deactivate ClearCommand 
+
+ <-[LOGIC_COLOR]- LogicManager
+deactivate LogicManager 
+
+@enduml
