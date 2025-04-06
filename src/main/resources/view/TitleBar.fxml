@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="titleBar" alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label text="TeamSync">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <MenuBar fx:id="menuBar" style="-fx-background-color: transparent;">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <StackPane alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER_RIGHT" StackPane.alignment="CENTER_RIGHT">
+               <children>
+                  <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#handleExit" />
+                  <Button fx:id="maximizeButton" mnemonicParsing="false" onAction="#handleExit" rotate="180.0" />
+                  <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleExit" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </children>
+</HBox>

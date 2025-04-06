@@ -15,6 +15,5 @@
          <Insets right="10.0" />
       </padding>
    </Label>
-   <Label fx:id="startTimeLabel" />
-   <Label fx:id="endTimeLabel" />
+   <Label fx:id="timeLabel" />
 </HBox>

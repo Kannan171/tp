@@ -30,7 +30,11 @@ public class PersonRootCardController extends UiPart<Region> {
     private Label name;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonRootCardController} with the given {@code Person}
+     * and index to display.
+     *
+     * @param person The person to display.
+     * @param displayedIndex The index of the person in the list.
      */
     public PersonRootCardController(Person person, int displayedIndex) {
         super(FXML);

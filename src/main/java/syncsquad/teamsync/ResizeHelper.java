@@ -101,6 +101,9 @@ public class ResizeHelper {
 
         @Override
         public void handle(MouseEvent mouseEvent) {
+            if (stage.isMaximized()) {
+                return;
+            }
             EventType<? extends MouseEvent> mouseEventType = mouseEvent.getEventType();
             Scene scene = stage.getScene();
 
@@ -109,7 +112,6 @@ public class ResizeHelper {
             double sceneWidth = scene.getWidth();
             double sceneHeight = scene.getHeight();
 
-            //TODO: refactor
             if (MouseEvent.MOUSE_MOVED.equals(mouseEventType)) {
                 if (mouseEventX < border && mouseEventY < border) {
                     cursorEvent = Cursor.NW_RESIZE;
