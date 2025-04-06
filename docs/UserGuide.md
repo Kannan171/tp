@@ -175,10 +175,9 @@ The Output Box displays the results from executing commands in TeamSync.
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for TeamSync.
+1. Copy the file to the folder you want to use as the home folder for TeamSync.
 
 1. Open the command prompt (or terminal).
-
    For **Windows**:
    Open the Command Prompt (you can find it by searching "cmd" in the Start menu).
    
@@ -188,14 +187,12 @@ The Output Box displays the results from executing commands in TeamSync.
    For **Linux**:
    Open the Terminal app (you can find it in Applications).
 
-1. Type cd followed by the folder where you saved `teamsync.jar`, then press Enter
+1. Type cd followed by the folder path of where you saved `teamsync.jar`, then press Enter<br>
+   **Example**: `cd C:\Users\Downloads`
 
-   **Example**: `cd Downloads`
+1. Type `java -jar teamsync.jar` and press Enter. TeamSync should open in a few seconds.
 
-1. Then type: `java -jar teamsync.jar` and press Enter. TeamSync should open in a few seconds.
-
-1. You can use TeamSync by typing the command in the command box and pressing Enter to execute it.
-
+1. You can use TeamSync by typing the command in the command box and pressing Enter to execute it.<br>
    **Example**: Typing `help` and pressing Enter will open the help window.
 
 1. Refer to the [Commands](#commands) section below for details of each command.
@@ -214,17 +211,17 @@ A command consists of a <span style="color : green; font-weight: bold;">command 
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* For each command, the correct syntax is specified under "Format"
+* For each command, the correct syntax is specified under "Format".
 
-* Commands are case-insensitive
+* Commands are case-insensitive.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.
 
-* Items in square brackets are optional
+* Items in square brackets are optional.
 
-* Items with `…`​ after them can be used multiple times including zero times
+* Items with `…`​ after them can be used multiple times including zero times.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `person list`, `exit` and `clear`) will be ignored
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `person list`, `exit` and `clear`) will be ignored.
 </div>
 
 <div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
@@ -242,17 +239,17 @@ Adds a teammate to TeamSync.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* Names should only contain alphanumeric characters and spaces, and it should not be blank
+* Names should only contain alphanumeric characters and spaces, and it should not be blank.
   
-  TODO: UPDATE IF NECESSARY
+[//]: # (  TODO: UPDATE IF NECESSARY)
 
-* Phone numbers should only contain numbers, and it should be at least 3 digits long
+* Phone numbers should only contain numbers, and it should be at least 3 digits long.
 
-* Emails should be of the format local-part@domain
+* Emails should be of the format local-part@domain.
 
-* Tags should only contain alphanumeric characters
+* Tags should only contain alphanumeric characters.
 
-* See [adding a module for a teammate](#adding-a-module-for-a-teammate-module-add) for more information on the format for module details
+* See [adding a module for a teammate](#adding-a-module-for-a-teammate-module-add) for more information on the format for module details.
 
 * Unable to add a teammate? TeamSync does not allow you to add [duplicate teammates](#duplicate-teammate).
 </div>
@@ -271,7 +268,9 @@ Adds a person with the following information to TeamSync:<br>
 **Tags**: `Backend`<br>
 **Modules**: `CS2101` on Thursdays from 12:00 to 15:00, `CS2103T` on Fridays from 16:00 to 18:00
 
-TODO: ADD SCREENSHOT
+![Add Person Result Annotated](images/AddPersonResultAnnotated.png)
+
+This is the result of running the above command after clearing all data. The contact details of `John Doe` are added to the <a href="#teammate-view" style="color : green; font-weight: bold;">teammate view</a>, his module timings are reflected in the <a href="#timetable-view" style="color : darkorange; font-weight: bold;">timetable view</a> and a success message is displayed in the <a href="#output-box" style="color : orchid; font-weight: bold;">output box</a>.
 
 #### Editing a teammate : `person edit`
 
@@ -291,12 +290,12 @@ Edits an existing teammate in TeamSync.
 
 * See [adding a new teammate](#adding-a-new-teammate-person-add) for more information on the format for contact details
 
-* TODO: EXPLAIN INDEX CHANGES
 </div>
 
 <div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
 
-When editing tags, **all the existing tags of the teammate will be removed**!
+* When editing tags, **all the existing tags of the teammate will be removed**!
+* When editing a teammate's name, the teammate's position might shift in the [teammate view](#teammate-view). This is normal, as contacts are sorted alphabetically.
 </div>
 
 <div markdown="1" class="alert alert-success">:bulb: **Tip**<br><br>
@@ -380,14 +379,18 @@ Exports a teammate in TeamSync as text.
 
 * Exports the teammate at the specified [`INDEX`](#index), as shown in the displayed teammate list.
 
-* The exported text can be inputted into TeamSync as a command to recreate a teammate with the same information.
+* The exported text can be executed in a different instance of TeamSync as a command to recreate a teammate with the same information.
 </div>
 
 **Example**: `person export 1`
 
 Exports the first teammate, as shown in the displayed teammate list.
 
-TODO: ADD SCREENSHOT
+![Export Person Result Annotated](images/ExportPersonResultAnnotated.png)
+
+This is the result of running the above command on the following data. The contact details of the first teammate in the <a href="#teammate-view" style="color : green; font-weight: bold;">teammate view</a>, `Alex Yeoh` is exported as text to the <a href="#output-box" style="color : orchid; font-weight: bold;">output box</a>.
+
+The output `person add -n Alex Yeoh -p 87438807 -e e0507399@u.nus.edu -a Eusoff Hall -t Leader -m CS2103T FRI 16:00 18:00 -m CS2101 THU 12:00 15:00` can then be shared with your teammates, allowing them to add `Alex Yeoh` to their TeamSync app by simply pasting and executing this command.
 
 <br><br>
 ### Module Commands
@@ -474,9 +477,13 @@ Adds a meeting to TeamSync.
   **Example**: `14:00` is valid, but `1400` and `2pm` are not
 </div>
 
-**Example**: `meeting add 27-03-2025 12:00 15:00`
+**Example**: `meeting add 06-04-2025 12:00 15:00`
 
-Adds a new meeting on 27 Mar 2025 from 12pm to 3pm.
+Adds a new meeting on 6 Apr 2025 from 12pm to 3pm.
+
+![Add Meeting Result Annotated](images/AddMeetingResultAnnotated.png)
+
+This is the result of running the above command after clearing all data. The meeting details are added to the <a href="#meeting-view" style="color : brown; font-weight: bold;">meeting view</a>, the scheduled meeting is reflected in the <a href="#timetable-view" style="color : darkorange; font-weight: bold;">timetable view</a> and a success message is displayed in the <a href="#output-box" style="color : orchid; font-weight: bold;">output box</a>.
 
 #### Deleting a meeting: `meeting delete`
 
@@ -506,8 +513,6 @@ Opens a help window displaying a summary of all the commands in TeamSync.
 **Format**: `help`
 
 **Example**: `help`
-
-TODO: ADD SCREENSHOT
 
 #### Changing week displayed: `showdate`
 
@@ -555,7 +560,7 @@ TeamSync data is saved automatically after any command that changes the data. Th
 ### Editing the Data File
 TeamSync data is saved as a [JSON](#JSON) file. Advanced users are welcome to update data directly by editing `addressbook.json` located in the `data` subfolder of TeamSync's home folder.
 
-TODO: CHANGE IF ADDRESSBOOK.JSON CHANGES
+[//]: # (TODO: CHANGE IF ADDRESSBOOK.JSON CHANGES)
 
 <div markdown="1" class="alert alert-danger">:warning: **Danger**<br><br>
 **It is strongly recommended to make a backup of `addressbook.json` before editing it.**
@@ -591,7 +596,7 @@ Therefore, **edit the file only if you are confident** that you can update it co
 
 | Action               | Format                                 | Example                              |
 |----------------------|----------------------------------------|--------------------------------------|
-| **Add a meeting**    | `meeting add DATE START_TIME END_TIME` | `meeting add 27-03-2025 12:00 15:00` |
+| **Add a meeting**    | `meeting add DATE START_TIME END_TIME` | `meeting add 06-04-2025 12:00 15:00` |
 | **Delete a meeting** | `meeting delete INDEX`                 | `meeting delete 1`                   |
 
 #### General Commands
@@ -609,7 +614,7 @@ Therefore, **edit the file only if you are confident** that you can update it co
 This may occur when using multiple screens. To resolve this issue, simply delete the `preferences.json` file located in TeamSync's home folder before restarting the app.
 
 **2**\. **Unable to run the JAR file** <br>
-Ensure you have followed the steps outlined in the [Quick Start](#quick-start) section. In particular, double-clicking on the JAR file **does not** launch the app.
+Ensure you have followed the steps outlined in the [Quick Start](#quick-start) section. In particular, double-clicking on the JAR file **might not** launch the app.
 
 ## FAQ
 
