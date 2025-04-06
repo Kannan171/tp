@@ -97,10 +97,10 @@ Indicates critical warnings or irreversible actions. Always read these carefully
 
 TeamSync allows you to manage your group projects easily by:
 
-1. quickly **adding, editing and deleting** the contact details of your teammates
-2. **managing** each teammate's modules and time commitments
-3. **scheduling** meetings
-4. **visualising** your group's timetable at a glance
+1. quickly [**adding, editing and deleting**](#teammate-commands) the contact details of your teammates
+2. [**managing**](#module-commands) each teammate's modules and time commitments
+3. [**scheduling**](#meeting-commands) meetings
+4. [**visualising**](#effortless-team-management) your team's contact details and schedules
 
 ### Stay Organised
 
@@ -111,16 +111,62 @@ TeamSync comes with neat and adjustable views for your teammates, your schedule 
 TeamSync provides built-in validation to ensure that errors are caught as early as possible.
 
 It guarantees:
-
 1. no duplicate contacts
 2. no module conflicts for each teammate
 3. no overlapping meetings
 
 TeamSync allows you to export your contact, allowing you to synchronize easily with all your teammates.
 
-### Timetable View
+### Effortless Team Management
 
-TeamSync offers both a textual and a visual representation of schedules. Its colour-coded timetable clearly distinguishes between meetings and each teammate's modules, allowing you to coordinate schedules efficiently.
+TeamSync provides an intuitive and user-friendly GUI that simplifies managing your team’s schedules and contact details. With clear colour coding and a comprehensive timetable view, you are able to visualise everyone's availability at a glance, helping you coordinate meetings easily.
+
+TeamSync's GUI consists of a:
+1. <a href="#teammate-view" style="color : green; font-weight: bold;">Teammate View</a>
+1. <a href="#meeting-view" style="color : brown; font-weight: bold;">Meeting View</a>
+1. <a href="#timetable-view" style="color : darkorange; font-weight: bold;">Timetable View</a>
+1. <a href="#input-box" style="color : blue; font-weight: bold;">Input Box</a>
+1. <a href="#output-box" style="color : orchid; font-weight: bold;">Output Box</a>
+
+![Annotated Ui](images/UiAnnotated.png)
+
+#### Teammate View
+
+![Teammate View](images/TeammateView.png)
+
+The teammate view displays the contact details and modules of all your teammates. The contacts and modules are sorted alphabetically, allowing for quick reference.
+
+<div markdown="1" class="alert alert-success">:bulb: **Tip Box**<br><br>
+Click on the <span style="color : #b9b9be">▶</span> and <span style="color : #b9b9be">▼</span> buttons to expand or collapse the contact details.
+</div>
+
+#### Meeting View
+
+![Meeting View](images/MeetingView.png)
+
+The meeting view contains the timing of all your meetings, organised chronologically. Meetings that have passed are highlighted in red, while upcoming ones are marked in green.
+
+#### Timetable View
+
+![Timetable View](images/TimetableView.png)
+
+The timetable view displays a consolidated overview of your team's module timings and scheduled meetings, helping you track your team's commitments. Each teammate is represented by a unique colour for quick identification.
+
+<div markdown="1" class="alert alert-info">:information_source: **Note**<br><br>
+
+* Hover over any box for a few seconds to see the teammate’s name and module code.
+
+* <img src="images/MeetingIcon.png" width="70" height="38"> indicates a scheduled meeting.
+</div>
+
+
+#### Input Box
+
+Use the Input Box to type your command for TeamSync to execute.
+
+#### Output Box
+
+The Output Box displays the results from executing commands in TeamSync.
 
 ## Quick Start
 
