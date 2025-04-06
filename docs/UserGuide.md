@@ -1,6 +1,7 @@
 ---
 layout: page
 title: User Guide
+show-toc: true
 ---
 
 ## About TeamSync
@@ -53,17 +54,23 @@ Highlights important warnings or potential issues. Pay special attention to thes
 </div>
 
 <div markdown="1" class="alert alert-danger">:warning: **Danger Box**<br><br>
-Indicates critical warnings or irreversible actions. Always read these carefully before proceeding.
+Indicates critical warnings or large-scale irreversible changes. Always read these carefully before proceeding.
 </div>
 
 ## Table of Contents
 
 - [About TeamSync](#about-teamsync)
 - [How to Use This Guide](#how-to-use-this-guide)
+  - [Understanding Callout Boxes](#understanding-callout-boxes)
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
-  - [Built-in validation](#built-in-validation)
-  - [Timetable view](#timetable-view)
+  - [Smart Data Validation](#smart-data-validation)
+  - [Effortless Team Management](#effortless-team-management)
+    - [Teammate View](#teammate-view)
+    - [Meeting View](#meeting-view)
+    - [Timetable View](#timetable-view)
+    - [Input Box](#input-box)
+    - [Output Box](#output-box)
 - [Quick Start](#quick-start)
 - [Commands](#commands)
   - [Teammate Commands](#teammate-commands)
@@ -72,7 +79,7 @@ Indicates critical warnings or irreversible actions. Always read these carefully
     - [Deleting a teammate](#deleting-a-teammate--person-delete)
     - [Searching for a teammate](#searching-for-a-teammate-person-find)
     - [Listing all teammates](#listing-all-teammates-person-list)
-    - [Exporting a teammmate](#exporting-a-teammate-person-export)
+    - [Exporting a teammate](#exporting-a-teammate-person-export)
   - [Module Commands](#module-commands)
     - [Adding a module for a teammate](#adding-a-module-for-a-teammate-module-add)
     - [Deleting a module from a teammate](#deleting-a-module-from-a-teammate--module-delete)
@@ -89,8 +96,8 @@ Indicates critical warnings or irreversible actions. Always read these carefully
   - [Module Commands](#module-commands-1)
   - [Meeting Commands](#meeting-commands-1)
   - [General Commands](#general-commands-1)
+- [Troubleshooting](#troubleshooting)
 - [FAQ](#FAQ)
-- [Known Issues](#known-issues)
 - [Glossary](#glossary)
 
 ## Features
@@ -102,20 +109,14 @@ TeamSync allows you to manage your group projects easily by:
 3. [**scheduling**](#meeting-commands) meetings
 4. [**visualising**](#effortless-team-management) your team's contact details and schedules
 
-### Stay Organised
+### Smart Data Validation
 
-TeamSync is built with seamless integration and flawless organisation in mind.
+TeamSync automatically validates your data to catch errors as early as possible, saving you time and ensuring smooth collaboration.
 
-TeamSync comes with neat and adjustable views for your teammates, your schedule and your meetings to suit your visual needs.
-
-TeamSync provides built-in validation to ensure that errors are caught as early as possible.
-
-It guarantees:
-1. no duplicate contacts
-2. no module conflicts for each teammate
-3. no overlapping meetings
-
-TeamSync allows you to export your contact, allowing you to synchronize easily with all your teammates.
+With built-in checks, it guarantees that:
+1. contacts are not duplicated 
+2. each teammate's modules are free of duplicates and timing conflicts
+3. meetings are unique and scheduled without overlaps
 
 ### Effortless Team Management
 
@@ -574,7 +575,7 @@ Therefore, **edit the file only if you are confident** that you can update it co
 
 ### Command Summary
 
-#### Student Commands
+#### Teammate Commands
 
 | Action                    | Format                                                                          | Example                                                                                                  |
 |---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
