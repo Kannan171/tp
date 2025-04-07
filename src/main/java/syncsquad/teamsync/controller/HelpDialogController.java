@@ -29,9 +29,6 @@ public class HelpDialogController extends UiPart<Region> {
     private TableView<CommandSummary> commandTableView;
 
     @FXML
-    private TableColumn<CommandSummary, String> categoryColumn;
-
-    @FXML
     private TableColumn<CommandSummary, String> actionColumn;
 
     @FXML
@@ -53,7 +50,6 @@ public class HelpDialogController extends UiPart<Region> {
      */
     @FXML
     public void initialize() {
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("action"));
         formatColumn.setCellValueFactory(new PropertyValueFactory<>("format"));
         exampleColumn.setCellValueFactory(new PropertyValueFactory<>("example"));
@@ -79,32 +75,32 @@ public class HelpDialogController extends UiPart<Region> {
      */
     private ObservableList<CommandSummary> getCommandSummaryData() {
         return FXCollections.observableArrayList(
-                new CommandSummary("Teammate", "Add a teammate",
+                new CommandSummary("Add a teammate",
                         "person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]...",
                         "person add -n John Doe -p 98765432 -e johndoe@example.com -a John St. Blk 123, #01-01"),
-                new CommandSummary("Teammate", "Edit a teammate",
+                new CommandSummary("Edit a teammate",
                         "person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…",
                         "person edit 1 -p 91234567 -e johndoe@example.com"),
-                new CommandSummary("Teammate", "Delete a teammate",
+                new CommandSummary("Delete a teammate",
                         "person delete INDEX", "person delete 1"),
-                new CommandSummary("Teammate", "List all teammates",
+                new CommandSummary("List all teammates",
                         "person list", "person list"),
-                new CommandSummary("Teammate", "Search for a teammate",
+                new CommandSummary("Search for a teammate",
                         "person find KEYWORD [MORE_KEYWORDS]", "person find James Jake"),
-                new CommandSummary("Module", "Add a module for a teammate",
+                new CommandSummary("Add a module for a teammate",
                         "module add INDEX MODULE_CODE DAY START_TIME END_TIME", "module add 1 cs2101 thu 12:00 15:00"),
-                new CommandSummary("Module", "Delete a module from a teammate",
+                new CommandSummary("Delete a module from a teammate",
                         "module delete INDEX MODULE_CODE", "module delete 1 cs2101"),
-                new CommandSummary("Meeting", "Add a meeting",
+                new CommandSummary("Add a meeting",
                         "meeting add DATE START_TIME END_TIME", "meeting 27-03-2025 12:00 15:00"),
-                new CommandSummary("Meeting", "Delete a meeting",
+                new CommandSummary("Delete a meeting",
                         "meeting delete INDEX", "meeting delete 1"),
-                new CommandSummary("General", "View help",
+                new CommandSummary("View help",
                         "help", "help"),
-                new CommandSummary("General", "Change week displayed",
+                new CommandSummary("Change week displayed",
                         "showdate DATE", "showdate 04-04-2025"),
-                new CommandSummary("General", "Clear all data", "clear", "clear"),
-                new CommandSummary("General", "Exit TeamSync", "exit", "exit"));
+                new CommandSummary("Clear all data", "clear", "clear"),
+                new CommandSummary("Exit TeamSync", "exit", "exit"));
     }
 
 }
