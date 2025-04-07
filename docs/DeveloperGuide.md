@@ -362,7 +362,7 @@ Classes used by multiple components are organized in the `syncsquad.teamsync.com
 
 ---
 
-## **Implementation**
+## Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -381,7 +381,7 @@ There are 4 main command groups:
 
 <img src="images/PersonClassDiagram.png" width="550"/>
 
-A Teammate is represented by a `Person` object, and is composed of several attributes. All `Person` objects are stored in a  `UniquePersonList`, which interacts with the `AddressBook` class in the [Model layer](#model-layer).
+A Teammate is represented by a `Person` object, and is composed of several attributes. All `Person` objects are stored in a  `UniquePersonList`, which interacts with the `AddressBook` class in the [Model component](#model-component).
 
 The attributes of the `Person` class represent:
 - `Name`: The name of the teammate.
@@ -391,10 +391,10 @@ The attributes of the `Person` class represent:
 - `Module`: The set of modules taken by the teammate.
 - `Tag`: The set of tags that are related to the teammate.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Each `Person` object is uniquely identified by its `Email` attribute. This means that adding two teammates with the same email is not allowed. This is to allow teammates with the same names to be added.
+<div markdown="1" class="alert alert-info">:information_source: **Note:** See the [glossary](#glossary) for how duplicate teammates are identified.
 </div>
 
-#### Adding a Teammate
+#### Adding a new teammate
 
 The command `person add` creates a new `Person` object, which contains the necessary fields that are associated with a teammate.
 
@@ -404,38 +404,34 @@ The activity diagram is represented below:
 
 The sequence diagram of the command is represented below:
 
-<img src="images/AddPersonCommandSequenceDiagram.png" width="550"/>
+<img src="images/AddPersonCommandSequenceDiagram.png" width="750"/>
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The sequence diagram does not show the instantiation of classes that represents the attributes of the `Person` object, as their behaviour is trivial and will clutter the diagram.
+<div markdown="1" class="alert alert-info">:information_source: **Note:**<br>
+* The lifeline for `PersonCommandsParser`, `AddPersonCommandParser` and `AddPersonCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
+* The sequence diagram does not show the instantiation of classes that represents the attributes of the `Person` object, as their behaviour is trivial and will clutter the diagram.
 </div>
 
 The method call `AddPersonCommandParser.parse()` was simplified and the validation checks for the attributes were ommited, as it would clutter the diagram. The full behaviour of the parser is described below:
 
 <img src="images/AddPersonCommandSequenceDiagram2.png" width="750"/>
 
+<div markdown="1" class="alert alert-info">:information_source: **Note:**
 
-##### Notes
+The following restrictions apply to the attributes:
 
-- Each teammate is uniquely identified by their email. This means that two `Person` objects that have the same email are considered to be the same teammate. This does not apply to the `equals` property, which checks for equality on all fields.
-- The `Name` attribute must only consist of Latin alphanumerical characters, spaces, and allowed special characters (apostrophe and dash) only.
-- The `Email` attribute must follow the following constraints:
+* Names should only contain alphanumeric characters, spaces, and the following special characters (`'`,`/` and `-`).
 
-  - 1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+\_.-). The local-part may not start or end with any special characters.
+* Phone numbers should only contain numbers, and it should be at least 3 digits long.
 
-  - 2.  This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods. The domain name must:
-    - end with a domain label at least 2 characters long
-    - have each domain label start and end with alphanumeric characters
-    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+* Emails should be of the format local-part@domain.
 
-- The `Phone` attribute must consist of numbers only, and be at least 3 digits long.
-- All attributes must not be empty (including whitespaces).
-- If any of these constraints are to fail, the parser will throw an error based on the earliest field that fails in the above order.
+* Tags should only contain alphanumeric characters.
 
-##### Future Considerations
+* Users should avoid using [command line flag patterns](#glossary) as they _might_ cause an error.
+</div>
 
-- The name constraint can be relaxed to include non-Latin alphabets, such as Chinese characters. This is not an urgent requirement, and given the NUS locality, it is likely that enforcing Latin alphabets is sufficient.
-
-#### Editing a Teammate
+#### Editing a teammate
 
 The command `person edit` edits an existing `Person` object by its index.
 
@@ -443,11 +439,7 @@ The activity diagram is represented below:
 
 <img src="images/PersonEditActivityDiagram.png" width="550"/>
 
-##### Notes
-
-- The same restrictions mentioned in [Adding a Person](#adding-a-person) appplies here as well.
-
-#### Deleting a Teammate
+#### Deleting a teammate
 
 The command `person delete` deletes an existing `Person` object by its index.
 
@@ -455,7 +447,7 @@ The activity diagram is represented below:
 
 <img src="images/PersonDeleteActivityDiagram.png" width="550"/>
 
-#### Searching for a Teammate
+#### Searching for a teammate
 
 The command `person find` finds an existing `Person` object by a given predicate.
 
@@ -463,41 +455,37 @@ The activity diagram is represented below:
 
 <img src="images/PersonFindActivityDiagram.png" width="550"/>
 
-##### Notes
-
-- The search predicate cannot be blank.
-
-#### Listing All Teammates
+#### Listing all teammates
 
 The command `person list` displays all `Person` objects, sorted by name.
 
 The activity diagram is represented below:
 
-<img src="images/PersonListActivityDiagram.png" width="350"/>
+<img src="images/PersonListActivityDiagram.png" width="275"/>
 
-#### Exporting A Teammate
+#### Exporting a teammate
 
 The command `person export` exports a `Person` object as text.
 
 The activity diagram is represented below:
 
-<img src="images/PersonExportActivityDiagram.png" width="350"/>
+<img src="images/PersonExportActivityDiagram.png" width="550"/>
 
 ### Module
 
 <img src="images/ModuleClassDiagram.png" width="250"/>
 
 A Module is composed of several attributes:
-- `ModuleCode`: The module code of the module.
-- `Day`: The day of the module, stored as one of `"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"`. 
-- `startTime`: The start time of the module, stored as a  `LocalTime` object.
-- `endTime`: The end time of the module, stored as a  `LocalTime` object.
+- `Module code`
+- `Day of week`
+- `Start time`
+- `End time`
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Each `Module` object is uniquely identified by its `ModuleCode` attribute. This means that adding two modules with the module code is not allowed. It is also not possible to add a module with invalid times (i.e. start time later than end time), or to add a module when there is already an existing module within that time period.
+<div markdown="span" class="alert alert-info">:information_source: **Note:**  See the [glossary](#glossary) for how duplicate and overlapping modules are identified.
 </div>
 
 
-#### Adding a Module for a Teammate
+#### Adding a module for a teammate
 
 The command `module add` creates a new `Module` object, which contains the necessary fields that are associated with an NUS module.
 
@@ -505,9 +493,7 @@ The activity diagram is represented below:
 
 <img src="images/ModuleAddActivityDiagram.png" width="550"/>
 
-The implementation of the `module add` command is largely similar to the `Person` variation. 
-
-#### Deleting a Module for a Teammate
+#### Deleting a module from a teammate
 
 The command `module delete` removes an existing `Module` from a `Person`.
 
@@ -515,20 +501,17 @@ The activity diagram is represented below:
 
 <img src="images/ModuleDeleteActivityDiagram.png" width="550"/>
 
-The implementation of the `module delete` command is largely similar to the `Person` variation. 
-
 ### Meeting
 
 A Meeting is composed of several attributes:
-- `date`: The date of the meeting, stored as a `LocalDate` object.
-- `startTime`: The start time of the meeting, stored as a  `LocalTime` object.
-- `endTime`: The end time of the meeting, stored as a  `LocalTime` object.
+- `Date`
+- `Start time`
+- `End time`
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
-The startTime and endTime validation checks for `Meeting` is similar to `Module`. It is also not possible to add a meeting with invalid times (i.e. start time later than end time), or to add a meeting when there is already an existing meeting within that time period.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** See the [glossary](#glossary) for how duplicate and overlapping meetings are identified.
 </div>
 
-#### Adding a Meeting
+#### Adding a meeting
 
 The command `meeting add` creates a new `Meeting` object, which contains the necessary fields that are associated with an NUS module.
 
@@ -536,9 +519,7 @@ The activity diagram is represented below:
 
 <img src="images/MeetingAddActivityDiagram.png" width="550"/>
 
-The implementation of the `meeting add` command is largely similar to the `Person` variation. 
-
-#### Deleting a Meeting
+#### Deleting a meeting
 
 The command `meeting delete` deletes an existing `Meeting`.
 
@@ -546,32 +527,30 @@ The activity diagram is represented below:
 
 <img src="images/MeetingDeleteActivityDiagram.png" width="550"/>
 
-The implementation of the `meeting delete` command is largely similar to the `Person` variation.
-
 ### General Commands
 
-#### Show Date
-
-The command `showdate` update the timetable to show the specified date's week.
-
-<img src="images/ShowDateCommandSequenceDiagram.png" width="550"/>
-
-#### Help
+#### Viewing help
 
 The command `help` shows a message explaining how to access the user guide.
 
-<img src="images/HelpCommandSequenceDiagram.png" width="550"/>
+<img src="images/HelpCommandSequenceDiagram.png" width="750"/>
 
-#### Clear
+#### Changing week displayed
+
+The command `showdate` changes the week displayed in the timetable view in TeamSync.
+
+<img src="images/ShowDateCommandSequenceDiagram.png" width="750"/>
+
+#### Clearing all data
 
 The command `clear` clears all teammates, modules and meetings from TeamSync.
 
-<img src="images/ClearCommandSequenceDiagram.png" width="600"/>
+<img src="images/ClearCommandSequenceDiagram.png" width="750"/>
 
 
 ---
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## Documentation, logging, testing, configuration, dev-ops
 
 - [Documentation guide](Documentation.md)
 - [Testing guide](Testing.md)
