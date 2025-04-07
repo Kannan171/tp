@@ -91,9 +91,11 @@ Indicates critical warnings or large-scale irreversible changes. Always read the
     - [Deleting a meeting](#deleting-a-meeting-meeting-delete)
   - [General Commands](#general-commands)
     - [Viewing help](#viewing-help--help)
-    - [Changing week displayed](#changing-week-displayed-showdate)
+    - [Changing the week displayed](#changing-the-week-displayed-showdate)
     - [Clearing all data](#clearing-all-data--clear)
     - [Exiting TeamSync](#exiting-teamsync--exit)
+- [Saving the Data](#saving-the-data)
+  - [Editing the Data File](#editing-the-data-file)
 - [Command Summary](#command-summary)
   - [Teammate Commands](#teammate-commands-1)
   - [Module Commands](#module-commands-1)
@@ -148,9 +150,12 @@ Click on the <span style="color : #b9b9be">▶</span> or <span style="color : #b
 
 ![Meeting View](images/MeetingView.png)
 
-The meeting view contains the timing of all your meetings, organised chronologically. Meetings that have passed are highlighted in red, while upcoming ones are marked in green.
+The meeting view displays all your meetings in chronological order, along with their scheduled times.
 
-[//]: TODO: Change colour to orange
+To help you quickly identify them, meetings are colour-coded as follows:
+* <span style="color : red">Red</span> — Meetings that occurred before today
+* <span style="color : goldenrod">Yellow</span> — Meetings happening today
+* <span style="color : green">Green</span> — Meetings scheduled for future dates
 
 #### <a href="#table-of-contents" class="head">Timetable View</a>
 
@@ -268,7 +273,7 @@ Adds a teammate to TeamSync.
 A teammate can have any number of tags and modules (including 0).
 </div>
 
-**Example**: `person add -n John Doe -p 12345678 -e johndoe@u.nus.com -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00`
+**Example**: `person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00`
 
 Adds a person with the following information to TeamSync:<br>
 **Name**: `John Doe`<br>
@@ -343,7 +348,7 @@ Deleting a teammate is **irreversible**!
 
 Finds teammates in TeamSync whose names contain any of the specified `KEYWORDS`.
 
-**Format**: `person find KEYWORD [KEYWORD]...`
+**Format**: `person find KEYWORD [MORE_KEYWORDS]…`
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
@@ -519,7 +524,7 @@ Opens a help window displaying a summary of all the commands in TeamSync.
 
 **Example**: `help`
 
-#### <a href="#table-of-contents" class="head">Changing week displayed: `showdate`</a>
+#### <a href="#table-of-contents" class="head">Changing the week displayed: `showdate`</a>
 
 Changes the week displayed in the timetable view in TeamSync.
 
@@ -563,14 +568,12 @@ Exits TeamSync.
 TeamSync data is saved automatically after executing any command that changes the data. There is no need to save manually.
 
 ### <a href="#table-of-contents" class="head">Editing the Data File</a>
-TeamSync data is saved as a [JSON](#json) file. Advanced users are welcome to update the data directly by editing `addressbook.json` located in the `data` subfolder of TeamSync's [home folder](#home-folder).
-
-[//]: TODO: CHANGE IF ADDRESSBOOK.JSON CHANGES)
+TeamSync data is saved as a [JSON](#json) file. Advanced users are welcome to update the data directly by editing `teamsync.json` located in the `data` subfolder of TeamSync's [home folder](#home-folder).
 
 <div markdown="1" class="alert alert-danger">:warning: **Danger**<br><br>
-**It is strongly recommended to make a backup of `addressbook.json` before editing it.**
+**It is strongly recommended to make a backup of `teamsync.json` before editing it.**
 
-If your edits to `addressbook.json` corrupts it and TeamSync is unable to load the data, **TeamSync will discard all data** and start with an empty data file at the next run.
+If your edits to `teamsync.json` corrupts it and TeamSync is unable to load the data, **TeamSync will discard all data** and start with an empty data file at the next run.
 
 Furthermore, **certain edits can cause TeamSync to behave in unexpected ways**.
 
@@ -583,12 +586,12 @@ Therefore, **edit the file only if you are confident** that you can update it co
 
 | Action                    | Format                                                                          | Example                                                                                                  |
 |---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| **Add a teammate**        | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]…` | `person add -n John Doe -p 12345678 -e johndoe@u.nus.com -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00` |
+| **Add a teammate**        | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]…` | `person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00` |
 | **Edit a teammate**       | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…`      | `person edit 1 -p 87654321 -e newmail@u.nus.com -t`                                                       |
 | **Delete a teammate**     | `person delete INDEX`                                                           | `person delete 1`                                                                                        |
-| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]`                                           | `person find alex david`                                                                                 |
+| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]…`                                           | `person find alex david`                                                                                 |
 | **List all teammates**    | `person list`                                                                   | `person list`                                                                                            |
-| **Export a teammate**     | `person export`                                                                 | `person export 1`                                                                                        |
+| **Export a teammate**     | `person export INDEX`                                                           | `person export 1`                                                                                        |
 
 #### <a href="#table-of-contents" class="head">Module Commands</a>
 
@@ -606,12 +609,12 @@ Therefore, **edit the file only if you are confident** that you can update it co
 
 #### <a href="#table-of-contents" class="head">General Commands</a>
 
-| Action                    | Format          | Example               |
-|---------------------------|-----------------|-----------------------|
-| **View help**             | `help`          | `help`                |
-| **Change week displayed** | `showdate DATE` | `showdate 04-04-2025` |
-| **Clear all data**        | `clear`         | `clear`               |
-| **Exit TeamSync**         | `exit`          | `exit`                |
+| Action                        | Format          | Example               |
+|-------------------------------|-----------------|-----------------------|
+| **View help**                 | `help`          | `help`                |
+| **Change the week displayed** | `showdate DATE` | `showdate 04-04-2025` |
+| **Clear all data**            | `clear`         | `clear`               |
+| **Exit TeamSync**             | `exit`          | `exit`                |
 
 ## <a href="#table-of-contents" class="head">Troubleshooting</a>
 
