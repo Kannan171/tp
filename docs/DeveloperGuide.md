@@ -560,7 +560,7 @@ The command `clear` clears all teammates, modules and meetings from TeamSync.
 
 ---
 
-## **Appendix: Requirements**
+## Appendix: Requirements
 
 ### Product scope
 
@@ -614,6 +614,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`     | User                              | View completed tasks                                  | Keep track of what has been accomplished                                          |
 | `*`     | User                              | View uncompleted tasks                                | Keep track of what is to be done                                                  |
 | `*`     | User                              | View upcoming deadlines                               | Keep track of tasks that are due soon                                             |
+| `*`     | User                              | Undo the last command                                 | Revert any changes in case I made a mistake                                       |
 | `*`     | User with multiple group projects | Create a group for a module                           | Easily find the details of my group members for a specific module's group project |
 | `*`     | User with multiple group projects | Delete a group for a module                           | Delete groups when a group project is over                                        |
 | `*`     | User with multiple group projects | Add a teammate to a group                             | Keep track of my group members for a specific group project                       |
@@ -624,7 +625,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 The following use cases have been implemented.
 
-### Use case: UC 01 - See usage instructions
+#### Use case: UC 01 - See usage instructions
 
 **System**: TeamSync
 
@@ -637,7 +638,7 @@ The following use cases have been implemented.
 
    Use case ends.
 
-### Use case: UC 02 - Delete all data
+#### Use case: UC 02 - Delete all data
 
 **System**: TeamSync
 
@@ -938,7 +939,28 @@ The following are _selected_ use cases for features that have yet to be implemen
 
     Use case ends.
 
-### Non-Functional Requirements
+#### Use case: UC 14 - Undo the last command
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: The user must have executed some other command on TeamSync that can be undone.
+
+**MSS**
+1. User chooses to undo the last command.
+2. TeamSync undoes the last command and displays a success message.
+3. TeamSync updates display to reflect the undone command.
+
+   Use case ends.
+
+**Extensions**
+- 1a. User has not executed any command on TeamSync prior to this that can be undone.
+    - 1a1. TeamSync displays an error message.
+
+      Use case ends.
+
+### Non-functional requirements
 
 1. TeamSync should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2. TeamSync should be able to store up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
@@ -962,6 +984,7 @@ The following are _selected_ use cases for features that have yet to be implemen
 
 | Terms                              | Definition                                                                                                       |
 |------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| **Command line flag patterns**     | A word consisting solely of a dash followed by a letter, such as `-a` and `-E`                                   |
 | **Command Line Interface (CLI)**   | A text-based interface that allows users to interact with the application by typing commands                     |
 | **Duplicate group**                | Two groups are duplicates if they are associated with the same module                                            |
 | **Duplicate meeting**              | Two meetings are duplicates if they have the same date, start and end time                                       |
