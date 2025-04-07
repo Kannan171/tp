@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="mainVBox" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -58,7 +58,7 @@
             </ScrollPane>
             <HBox fx:id="helpMessageContainer1" alignment="CENTER" spacing="3.0">
                <children>
-                  <Label fx:id="helpMessage1" text="Press F1 or Esc again to close" />
+                  <Label fx:id="helpMessage1" text="Press F1 or Esc to close" />
                </children>
                <opaqueInsets>
                   <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
