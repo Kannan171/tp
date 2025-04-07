@@ -4,6 +4,7 @@ skinparam ArrowFontStyle plain
 
 Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
+Participant ":ViewModel" as viewmodel VIEW_MODEL_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
@@ -11,7 +12,10 @@ Participant ":Storage" as storage STORAGE_COLOR
 user -[USER_COLOR]> ui : "person delete 1"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("person delete 1")
+ui -[UI_COLOR]> viewmodel : executeCommand("person delete 1")
+activate viewmodel VIEW_MODEL_COLOR
+
+viewmodel -[VIEW_MODEL_COLOR]> logic : executeCommand("person delete 1")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> model : deletePerson(p)
@@ -31,8 +35,11 @@ deactivate storage
 storage --[STORAGE_COLOR]> logic
 deactivate storage
 
-logic --[LOGIC_COLOR]> ui
+logic --[LOGIC_COLOR]> viewmodel
 deactivate logic
+
+viewmodel --[VIEW_MODEL_COLOR]> ui
+deactivate viewmodel
 
 ui--[UI_COLOR]> user
 deactivate ui
