@@ -23,6 +23,10 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
         try {
             args = args.trim();
             String[] params = args.split(" ");
+            if (params.length != 2) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE));
+            }
             Index index = ParserUtil.parseIndex(params[0]);
             ModuleCode moduleCode = ParserUtil.parseModuleCode(params[1]);
             return new DeleteModuleCommand(index, moduleCode);
