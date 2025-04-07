@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box "Logic" LOGIC_COLOR_T1
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+Participant ":PersonCommandsParser" as PersonCommandsParser LOGIC_COLOR
+Participant ":AddPersonCommandParser" as AddPersonCommandParser LOGIC_COLOR
+Participant ":AddPersonCommand" as AddPersonCommand LOGIC_COLOR
+Participant ":CommandResult" as CommandResult LOGIC_COLOR
+
+end box
+box "Model" MODEL_COLOR_T1
+Participant ":Person" as Person MODEL_COLOR
+Participant ":Model" as Model MODEL_COLOR
+end box
+
+-[UI_COLOR]> LogicManager : execute("person add ...")
+activate LogicManager LOGIC_COLOR
+
+LogicManager -[LOGIC_COLOR]> AddressBookParser : parseCommand("person add ...")
+activate AddressBookParser LOGIC_COLOR
+
+create PersonCommandsParser
+AddressBookParser -[LOGIC_COLOR]> PersonCommandsParser
+activate PersonCommandsParser LOGIC_COLOR
+PersonCommandsParser --[LOGIC_COLOR]> AddressBookParser
+deactivate PersonCommandsParser
+
+AddressBookParser -[LOGIC_COLOR]> PersonCommandsParser : parse("person add ...")
+activate PersonCommandsParser LOGIC_COLOR
+
+create AddPersonCommandParser
+PersonCommandsParser -[LOGIC_COLOR]> AddPersonCommandParser
+activate AddPersonCommandParser LOGIC_COLOR
+AddPersonCommandParser --[LOGIC_COLOR]> PersonCommandsParser
+deactivate AddPersonCommandParser
+
+PersonCommandsParser -[LOGIC_COLOR]> AddPersonCommandParser : parse("person add ...")
+activate AddPersonCommandParser LOGIC_COLOR
+
+create Person
+AddPersonCommandParser -[LOGIC_COLOR]> Person
+activate Person MODEL_COLOR
+
+Person --[MODEL_COLOR]> AddPersonCommandParser
+deactivate Person
+
+create AddPersonCommand
+AddPersonCommandParser -[LOGIC_COLOR]> AddPersonCommand
+activate AddPersonCommand LOGIC_COLOR
+
+AddPersonCommand --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate AddPersonCommand
+
+AddPersonCommandParser --[LOGIC_COLOR]> PersonCommandsParser
+deactivate AddPersonCommandParser
+
+PersonCommandsParser --[LOGIC_COLOR]> AddressBookParser
+deactivate PersonCommandsParser
+
+AddressBookParser --[LOGIC_COLOR]> LogicManager
+deactivate AddressBookParser
+
+LogicManager -[LOGIC_COLOR]> AddPersonCommand : execute()
+activate AddPersonCommand LOGIC_COLOR
+
+AddPersonCommand -[LOGIC_COLOR]> Model : addPerson()
+activate Model MODEL_COLOR
+
+Model --[MODEL_COLOR]> AddPersonCommand
+deactivate Model
+
+create CommandResult
+AddPersonCommand -[LOGIC_COLOR]> CommandResult
+activate CommandResult LOGIC_COLOR
+CommandResult --[LOGIC_COLOR]> AddPersonCommand
+deactivate CommandResult
+
+AddPersonCommand --[LOGIC_COLOR]> LogicManager
+deactivate AddPersonCommand
+
+ <-[LOGIC_COLOR]-  LogicManager
+deactivate LogicManager
+@enduml

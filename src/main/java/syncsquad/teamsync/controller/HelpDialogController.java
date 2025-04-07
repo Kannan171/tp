@@ -79,17 +79,17 @@ public class HelpDialogController extends UiPart<Region> {
      */
     private ObservableList<CommandSummary> getCommandSummaryData() {
         return FXCollections.observableArrayList(
-                new CommandSummary("Student", "Add a teammate",
+                new CommandSummary("Teammate", "Add a teammate",
                         "person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]...",
                         "person add -n John Doe -p 98765432 -e johndoe@example.com -a John St. Blk 123, #01-01"),
-                new CommandSummary("Student", "Edit a teammate",
+                new CommandSummary("Teammate", "Edit a teammate",
                         "person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…",
                         "person edit 1 -p 91234567 -e johndoe@example.com"),
-                new CommandSummary("Student", "Delete a teammate",
+                new CommandSummary("Teammate", "Delete a teammate",
                         "person delete INDEX", "person delete 1"),
-                new CommandSummary("Student", "List all teammates",
+                new CommandSummary("Teammate", "List all teammates",
                         "person list", "person list"),
-                new CommandSummary("Student", "Search for a teammate",
+                new CommandSummary("Teammate", "Search for a teammate",
                         "person find KEYWORD [MORE_KEYWORDS]", "person find James Jake"),
                 new CommandSummary("Module", "Add a module for a teammate",
                         "module add INDEX MODULE_CODE DAY START_TIME END_TIME", "module add 1 cs2101 thu 12:00 15:00"),
@@ -104,8 +104,7 @@ public class HelpDialogController extends UiPart<Region> {
                 new CommandSummary("General", "Change week displayed",
                         "showdate DATE", "showdate 04-04-2025"),
                 new CommandSummary("General", "Clear all data", "clear", "clear"),
-                new CommandSummary("General", "Exit TeamSync", "exit", "exit")
-        );
+                new CommandSummary("General", "Exit TeamSync", "exit", "exit"));
     }
 
 }

@@ -7,7 +7,7 @@ title: Developer Guide
 
 TeamSync is a contact management app designed to streamline group project management **for NUS students**. TeamSync combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI), enabling students to effortlessly manage teammates' contact details, schedule meetings, and stay organized.
 
-This Developer Guide documents architecture and design of TeamSync, as well as how selected features are implemented.
+This Developer Guide documents the architecture and design of TeamSync, as well as how selected features are implemented.
 
 ---
 
@@ -379,26 +379,40 @@ There are 4 main command groups:
 
 ### Teammate
 
-<!--
-The UML diagram of a Person object is represented below:
-// TODO
+<img src="images/PersonClassDiagram.png" width="550"/>
 
--->
+A Teammate is represented by a `Person` object, and is composed of several attributes. All `Person` objects are stored in a  `UniquePersonList`, which interacts with the `AddressBook` class in the [Model layer](#model-layer).
+
+The attributes of the `Person` class represent:
+- `Name`: The name of the teammate.
+- `Phone`: The phone number of the teammate.
+- `Email`: The email address of the teammate.
+- `Address`: The address of the teammate.
+- `Module`: The set of modules taken by the teammate.
+- `Tag`: The set of tags that are related to the teammate.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Each `Person` object is uniquely identified by its `Email` attribute. This means that adding two teammates with the same email is not allowed. This is to allow teammates with the same names to be added.
+</div>
 
 #### Adding a Teammate
 
 The command `person add` creates a new `Person` object, which contains the necessary fields that are associated with a teammate.
 
 The activity diagram is represented below:
+
 <img src="images/PersonAddActivityDiagram.png" width="550"/>
 
-<!--
 The sequence diagram of the command is represented below:
-// TODO
 
-The sequence diagram omits the classes that represents the attributes of the `Person` object, as their behaviour is trivial and will clutter the diagram.
+<img src="images/AddPersonCommandSequenceDiagram.png" width="550"/>
 
--->
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The sequence diagram does not show the instantiation of classes that represents the attributes of the `Person` object, as their behaviour is trivial and will clutter the diagram.
+</div>
+
+The method call `AddPersonCommandParser.parse()` was simplified and the validation checks for the attributes were ommited, as it would clutter the diagram. The full behaviour of the parser is described below:
+
+<img src="images/AddPersonCommandSequenceDiagram2.png" width="750"/>
+
 
 ##### Notes
 
@@ -413,8 +427,9 @@ The sequence diagram omits the classes that represents the attributes of the `Pe
     - have each domain label start and end with alphanumeric characters
     - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 
-- The `Phone` attribute must consist of numbers only, and be at least 3 digits long
-- All attributes must not be empty (including whitespaces)
+- The `Phone` attribute must consist of numbers only, and be at least 3 digits long.
+- All attributes must not be empty (including whitespaces).
+- If any of these constraints are to fail, the parser will throw an error based on the earliest field that fails in the above order.
 
 ##### Future Considerations
 
@@ -425,6 +440,7 @@ The sequence diagram omits the classes that represents the attributes of the `Pe
 The command `person edit` edits an existing `Person` object by its index.
 
 The activity diagram is represented below:
+
 <img src="images/PersonEditActivityDiagram.png" width="550"/>
 
 ##### Notes
@@ -436,6 +452,7 @@ The activity diagram is represented below:
 The command `person delete` deletes an existing `Person` object by its index.
 
 The activity diagram is represented below:
+
 <img src="images/PersonDeleteActivityDiagram.png" width="550"/>
 
 #### Searching for a Teammate
@@ -443,6 +460,7 @@ The activity diagram is represented below:
 The command `person find` finds an existing `Person` object by a given predicate.
 
 The activity diagram is represented below:
+
 <img src="images/PersonFindActivityDiagram.png" width="550"/>
 
 ##### Notes
@@ -454,73 +472,102 @@ The activity diagram is represented below:
 The command `person list` displays all `Person` objects, sorted by name.
 
 The activity diagram is represented below:
-<img src="images/PersonListActivityDiagram.png" width="550"/>
+
+<img src="images/PersonListActivityDiagram.png" width="350"/>
+
+#### Exporting A Teammate
+
+The command `person export` exports a `Person` object as text.
+
+The activity diagram is represented below:
+
+<img src="images/PersonExportActivityDiagram.png" width="350"/>
 
 ### Module
+
+<img src="images/ModuleClassDiagram.png" width="250"/>
+
+A Module is composed of several attributes:
+- `ModuleCode`: The module code of the module.
+- `Day`: The day of the module, stored as one of `"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"`. 
+- `startTime`: The start time of the module, stored as a  `LocalTime` object.
+- `endTime`: The end time of the module, stored as a  `LocalTime` object.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Each `Module` object is uniquely identified by its `ModuleCode` attribute. This means that adding two modules with the module code is not allowed. It is also not possible to add a module with invalid times (i.e. start time later than end time), or to add a module when there is already an existing module within that time period.
+</div>
+
 
 #### Adding a Module for a Teammate
 
 The command `module add` creates a new `Module` object, which contains the necessary fields that are associated with an NUS module.
 
 The activity diagram is represented below:
+
 <img src="images/ModuleAddActivityDiagram.png" width="550"/>
 
-<!--
-The sequence diagram of the command is represented below:
-// TODO
-
-The sequence diagram omits the classes that represents the attributes of the `Module` object, as their behaviour is trivial and will clutter the diagram.
-
--->
+The implementation of the `module add` command is largely similar to the `Person` variation. 
 
 #### Deleting a Module for a Teammate
 
 The command `module delete` removes an existing `Module` from a `Person`.
 
 The activity diagram is represented below:
+
 <img src="images/ModuleDeleteActivityDiagram.png" width="550"/>
 
+The implementation of the `module delete` command is largely similar to the `Person` variation. 
+
 ### Meeting
+
+A Meeting is composed of several attributes:
+- `date`: The date of the meeting, stored as a `LocalDate` object.
+- `startTime`: The start time of the meeting, stored as a  `LocalTime` object.
+- `endTime`: The end time of the meeting, stored as a  `LocalTime` object.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+The startTime and endTime validation checks for `Meeting` is similar to `Module`. It is also not possible to add a meeting with invalid times (i.e. start time later than end time), or to add a meeting when there is already an existing meeting within that time period.
+</div>
 
 #### Adding a Meeting
 
 The command `meeting add` creates a new `Meeting` object, which contains the necessary fields that are associated with an NUS module.
 
 The activity diagram is represented below:
+
 <img src="images/MeetingAddActivityDiagram.png" width="550"/>
 
-<!--
-The sequence diagram of the command is represented below:
-// TODO
-
-The sequence diagram omits the classes that represents the attributes of the `Meeting` object, as their behaviour is trivial and will clutter the diagram.
-
--->
+The implementation of the `meeting add` command is largely similar to the `Person` variation. 
 
 #### Deleting a Meeting
 
 The command `meeting delete` deletes an existing `Meeting`.
 
 The activity diagram is represented below:
+
 <img src="images/MeetingDeleteActivityDiagram.png" width="550"/>
 
+The implementation of the `meeting delete` command is largely similar to the `Person` variation.
+
 ### General Commands
+
+#### Show Date
+
+The command `showdate` update the timetable to show the specified date's week.
+
+<img src="images/ShowDateCommandSequenceDiagram.png" width="550"/>
 
 #### Help
 
 The command `help` shows a message explaining how to access the user guide.
 
-<!-- TODO Sequence diagram-->
+<img src="images/HelpCommandSequenceDiagram.png" width="550"/>
 
 #### Clear
 
 The command `clear` clears all teammates, modules and meetings from TeamSync.
 
-<!-- TODO Sequence diagram-->
+<img src="images/ClearCommandSequenceDiagram.png" width="600"/>
 
-#### Exit
-
-The command `exit` exits and closes the application.
 
 ---
 
@@ -973,7 +1020,10 @@ If you are using a PDF version of this document, be careful when copying and pas
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Ensure you have Java `17` or above installed in your Computer.<br>
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+
+   1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
 
    1. Open the command prompt (or terminal) and change the working directory to the folder where you saved the jar file
 
@@ -983,7 +1033,7 @@ If you are using a PDF version of this document, be careful when copying and pas
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   2. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by following the above instructions.<br>
       Expected: The most recent window size and location is retained.
 
 ### Teammate

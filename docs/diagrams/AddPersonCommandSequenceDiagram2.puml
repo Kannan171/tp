@@ -1,0 +1,145 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box "Logic" LOGIC_COLOR_T1
+Participant ":AddPersonCommandParser" as AddPersonCommandParser LOGIC_COLOR
+Participant ":AddPersonCommand" as AddPersonCommand LOGIC_COLOR
+Participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+
+end box
+box "Model" MODEL_COLOR_T1
+Participant ":Person" as Person MODEL_COLOR
+Participant ":Name" as Name MODEL_COLOR
+Participant ":Phone" as Phone MODEL_COLOR
+Participant ":Email" as Email MODEL_COLOR
+Participant ":Address" as Address MODEL_COLOR
+Participant ":Tag" as Tag MODEL_COLOR
+Participant ":ModuleCode" as ModuleCode MODEL_COLOR
+Participant ":Day" as Day MODEL_COLOR
+end box
+
+create AddPersonCommandParser
+ -[LOGIC_COLOR]> AddPersonCommandParser : parse("person add ...")
+activate AddPersonCommandParser LOGIC_COLOR
+
+AddPersonCommandParser -[LOGIC_COLOR]> ParserUtil : parseName(name)
+activate ParserUtil LOGIC_COLOR
+
+ParserUtil -[LOGIC_COLOR]> Name : isValidName(name)
+activate Name MODEL_COLOR
+
+Name --[LOGIC_COLOR]> ParserUtil
+deactivate Name
+
+
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+AddPersonCommandParser -[LOGIC_COLOR]> ParserUtil : parsePhone(phone)
+activate ParserUtil LOGIC_COLOR
+
+ParserUtil -[LOGIC_COLOR]> Phone : isValidPhone(phone)
+activate Phone MODEL_COLOR
+
+Phone --[LOGIC_COLOR]> ParserUtil
+deactivate Phone
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+AddPersonCommandParser -[LOGIC_COLOR]> ParserUtil : parseEmail(email)
+activate ParserUtil LOGIC_COLOR
+
+ParserUtil -[LOGIC_COLOR]> Email : isValidEmail(email)
+activate Email MODEL_COLOR
+
+Email --[LOGIC_COLOR]> ParserUtil
+deactivate Email
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+AddPersonCommandParser -[LOGIC_COLOR]> ParserUtil : parseAddress(address)
+activate ParserUtil LOGIC_COLOR
+
+ParserUtil -[LOGIC_COLOR]> Address : isValidAddress(address)
+activate Address MODEL_COLOR
+
+Address --[LOGIC_COLOR]> ParserUtil
+deactivate Address
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+AddPersonCommandParser -[LOGIC_COLOR]> ParserUtil : parseTags(tags)
+activate ParserUtil LOGIC_COLOR
+
+ParserUtil -[LOGIC_COLOR]> Tag : isValidTag(tag)
+activate Tag MODEL_COLOR
+
+Tag --[LOGIC_COLOR]> ParserUtil
+deactivate Tag
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+AddPersonCommandParser -[LOGIC_COLOR]> ParserUtil : parseModules(modules)
+activate ParserUtil LOGIC_COLOR
+
+ParserUtil -[LOGIC_COLOR]> ModuleCode : isValidModuleCode(moduleCode)
+activate ModuleCode MODEL_COLOR
+
+ModuleCode --[LOGIC_COLOR]> ParserUtil
+deactivate ModuleCode
+
+ParserUtil -[LOGIC_COLOR]> Day : isValidDay(day)
+activate Day MODEL_COLOR
+
+Day --[LOGIC_COLOR]> ParserUtil
+deactivate Day
+
+ParserUtil --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate ParserUtil
+
+
+create Person
+AddPersonCommandParser -[LOGIC_COLOR]> Person
+activate Person MODEL_COLOR
+
+Person --[MODEL_COLOR]> AddPersonCommandParser
+deactivate Person
+
+create AddPersonCommand
+AddPersonCommandParser -[LOGIC_COLOR]> AddPersonCommand
+activate AddPersonCommand LOGIC_COLOR
+
+AddPersonCommand --[LOGIC_COLOR]> AddPersonCommandParser
+deactivate AddPersonCommand
+
+
+ <-[LOGIC_COLOR]-  AddPersonCommandParser
+deactivate AddPersonCommandParser
+@enduml
+

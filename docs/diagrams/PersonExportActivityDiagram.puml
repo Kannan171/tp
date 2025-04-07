@@ -1,17 +1,15 @@
 @startuml
+
 skin rose
 skinparam ActivityFontSize 15
 skinparam ArrowFontSize 12
+!pragma useVerticalIf on
 start
-:User enters module delete command;
+:User enters person export command;
 if () then ([all fields present])
     if () then ([index is valid])
-        if () then ([all fields are valid])
-            :Delete command executes, module is deleted;
-        else([else])
-        :Error: Invalid field;
-        stop
-        endif
+        :Export command executes, person is shown as text;
+
     else ([else])
     :Error: Invalid index;
     stop
