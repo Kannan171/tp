@@ -1004,7 +1004,7 @@ The following are _selected_ use cases for features that have yet to be implemen
 
 ---
 
-## **Appendix: Instructions for manual testing**
+## Appendix: Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
@@ -1020,139 +1020,189 @@ If you are using a PDF version of this document, be careful when copying and pas
 
 ### Launch
 
-1. Initial launch
+#### Initial launch
 
-   1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Ensure you have Java `17` or above installed on your computer.<br>
+**Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-   1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
 
-   1. Open the command prompt (or terminal) and change the working directory to the folder where you saved the jar file
+1. Open the command prompt (or terminal) and change the working directory to the folder where you saved the JAR file.
 
-   1. Type `java -jar teamsync.jar` and press Enter. Expected: Shows the GUI with a set of sample teammates. The window size may not be optimum.
+1. Type `java -jar teamsync.jar` and press Enter. TeamSync should open in a few seconds.<br>
+   **Expected**: You should see the app populated with some sample data.
 
-1. Saving window preferences
+#### Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   2. Re-launch the app by following the above instructions.<br>
-      Expected: The most recent window size and location is retained.
+2. Re-launch the app by following the above instructions.<br>
+   **Expected**: The most recent window size and location is retained.
 
 ### Teammate
 
 #### Add a new teammate
 
-Prerequisite: There is no teammate with the email "takashi@yamada.com"
+**Prerequisite**: There are no teammates with the email "takashi@yamada.com" stored in TeamSync.
 <br>
-Input Command: `person add -n Takashi Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney`
+**Input Command**: `person add -n Takashi Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney`
 <br>
-Expected Output: The command box displays "New person added: Takashi Yamada; Phone: 12345678; Email: takashi@yamada.com; Address: 123 Sakura Street; Modules: ; Tags: \[owesMoney\]"
+**Expected**: Teammate `Takashi Yamada` is added to TeamSync with the correct details.
 
-Prerequisite: The previous command was entered once.
+**Prerequisite**: The previous command was entered once.
 <br>
-Input Command: `person add -n Takashi Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney`
+**Input Command**: `person add -n Takashi Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney`
 <br>
-Expected Output: The command box displays "This person already exists in the address book.
-Ensure that the email address is different from an existing one. "
+**Expected**: A duplicate teammate is not added. TeamSync displays an error message.
 
-Input Command: `person add -n Takashi@Yamada -p 12345678 -e takashi@yamada.com -a 123 Sakura Street -t owesMoney`
+**Input Command**: `person add -n John@Doe -p 12345678 -e john@doe.com -a 123 John Street`
 <br>
-Expected Output: The command box displays "Names should only contain alphanumeric characters and spaces, and it should not be blank"
+**Expected**: Teammate `John@Doe` is not added as the name is not valid. TeamSync displays an error message.
 
 #### Edit a teammate
 
-Prerequisite: At least 1 teammate have been added
+**Prerequisite**: At least one teammate is displayed in the teammate view. 
 <br>
-Input Command: `person edit 1 -n Takashi Sato`
+**Input Command**: `person edit 1 -n Takashi Sato`
 <br>
-Expected Output: The command box displays "Edited Person: Takashi Sato; ...", where ... represents the other attributes of the teammate.
+**Expected**: The name of the first teammate displayed in the teammate view is changed to `Takashi Sato`.
 
-Prerequisite: Less than 3 teammates have been added
+**Prerequisite**: At most three teammates are displayed in the teammate view.
 <br>
-Input Command: `person edit 4 -n Takashi Sato`
+**Input Command**: `person edit 4 -n Takashi Sato`
 <br>
-Expected Output: The command box displays "The person index provided is invalid"
+**Expected**: No teammates' name is changed as the command refers to an invalid teammate. TeamSync displays an error message.
 
 #### Delete a teammate
 
-Prerequisite: At least 1 teammate have been added
-<br>Input Command: `person delete 1`
-<br>Expected Output: The command box displays "Deleted Person: ...", where ... represents the other attributes of the teammate.
+**Prerequisite**: At least one teammate is displayed in the teammate view.
+<br>
+**Input Command**: `person delete 1`
+<br>
+**Expected**: The first teammate displayed in the teammate view is deleted from TeamSync.
 
-Prerequisite: Less than 3 teammates have been added
-<br>Input Command: `person delete 4`
-<br>Expected Output: The command box displays "The person index provided is invalid"
-
-#### List all teammates
-
-Input Command: `person list`
-<br>Expected Output: The command box displays "Listed all persons"
+**Prerequisite**: At most three teammates are displayed in the teammate view.
+<br>
+**Input Command**: `person delete 4`
+<br>
+**Expected Output**: No teammates are deleted from TeamSync as the command refers to an invalid teammate. TeamSync displays an error message.
 
 #### Search for a teammate
 
-Prerequisite: At least 1 teammate that contains the name "Takashi" has been added
-<br>Input Command: `person find Takashi`
-<br>Expected Output: The command box displays "# persons listed!", where # is the number of teammates that contain the name "Takashi"
+**Input Command**: `person find Takashi`
+<br>
+**Expected**: All teammates whose names contain "Takashi" are displayed in the teammate view.
+
+#### List all teammates
+
+**Input Command**: `person list`
+<br>
+**Expected**: All teammates are displayed in the teammate view.
+
+
 
 ### Module
 
 #### Add a module for a teammate
 
-Prerequisite: At least 1 teammate have been added, no modules with the code "CS2103T" exist for that teammate, and there are no modules between 14:00 and 16:00 on Friday for that teammate
-<br>Input Command: `module add 1 CS2103T FRI 14:00 16:00`
-<br>Expected Output: The command box displays "Added Module to Person: ... Modules: [CS2103T - FRI 14:00 to 16:00]...", where ... represents the other attributes of the teammate.
+**Prerequisite**: At least one teammate is displayed in the teammate view. No modules with module code `CS2103T` exist for the first teammate displayed in the teammate view, and there are no modules between `Friday 14:00 to 16:00` for that teammate.
+<br>
+**Input Command**: `module add 1 CS2103T FRI 14:00 16:00`
+<br>
+**Expected**: A module with module code `CS2103T` on `Friday 14:00 to 16:00` is added for the first teammate displayed in the teammate view.
 
-Prerequisite: At least 1 teammate have been added, no modules with the code "CS2101" exist for that teammate, and there is at least 1 module between 14:00 and 16:00 on Friday for that teammate
-<br>Input Command: `module add 1 CS2101 FRI 14:00 16:00`
-<br>Expected Output: The command box displays "This person already has another module during this period."
+**Prerequisite**: The previous command was entered once.
+<br>
+**Input Command**: `module add 1 CS2103T FRI 14:00 16:00`
+<br>
+**Expected**:  A duplicate module is not added. TeamSync displays an error message.
+
+**Prerequisite**: At least one teammate is displayed in the teammate view. No modules with module code `CS2101` exist for the first teammate displayed in the teammate view, and there is at least one module between `Friday 13:00 to 15:00` for that teammate.
+<br>
+**Input Command**: `module add 1 CS2101 FRI 13:00 15:00`
+<br> 
+**Expected**: An overlapping module is not added. TeamSync displays an error message.
 
 #### Delete a module for a teammate
 
-Prerequisite: At least 1 teammate have been added, with a module "CS2101"
-<br>Input Command: `module delete 1 CS2103T`
-<br>Expected Output: The command box displays "Deleted Module from: ...", where ... represents the other attributes of the teammate.
+**Prerequisite**: At least one teammate is displayed in the teammate view. A module with module code `CS2103T` exists for the first teammate displayed in the teammate view.
+<br>
+**Input Command**: `module delete 1 CS2103T`
+<br>
+**Expected**: The module with module code `CS2103T` is deleted for the first teammate displayed in the teammate view.
 
-Prerequisite: At least 1 teammate have been added, with no module with the code "CS2103T"
-<br>Input Command: `module delete 1 CS2103T`
-<br>Expected Output: The command box displays "The person does not have the provided module assigned to them"
+**Prerequisite**: At least one teammate is displayed in the teammate view. No modules with module code `CS2103T` exist for the first teammate displayed in the teammate view.
+<br>
+**Input Command**: `module delete 1 CS2103T`
+<br>
+**Expected**: No modules are deleted as the command refers to an invalid module. TeamSync displays an error message.
 
 ### Meeting
 
 #### Add a meeting
 
-Prerequisite: There are no meetings on 15-11-2025 between 11:00 and 15:00
-<br>Input Command: `meeting add 15-11-2025 11:00 15:00`
-<br>Expected Output: The command box displays "Meeting added with the following details: 15-11-2025; Start time: 11:00; End time: 15:00"
+**Prerequisite**: There are no meetings on `15-11-2025` between `11:00 and 15:00` stored in TeamSync.
+<br>
+**Input Command**: `meeting add 15-11-2025 11:00 15:00`
+<br>
+**Expected**: A meeting on `15-11-2025` between `11:00 and 15:00` is added to TeamSync.
 
-Prerequisite: There is at least one meeting on 15-11-2025 between 11:00 and 14:00
-<br>Input Command: `meeting add 15-11-2025 11:00 14:00`
-<br>Expected Output: The command box displays "There is another meeting during this time period already. "
+**Prerequisite**: There is a meeting on `13-11-2025` **from** `11:00 and 14:00` stored in TeamSync.
+<br>
+**Input Command**: `meeting add 13-11-2025 11:00 14:00`
+<br>
+**Expected**: A duplicate meeting is not added. TeamSync displays an error message.
 
 #### Delete a meeting
 
-Prerequisite: There is at least 1 meeting added
-<br>Input Command: `meeting delete 1`
-<br>Expected Output: The command box displays "Deleted Meeting: ...", where ... represents the details of the meeting
+**Prerequisite**: At least one meeting is displayed in the meeting view.
+<br>
+**Input Command**: `meeting delete 1`
+<br>
+**Expected**: The first meeting displayed in the meeting view is deleted from TeamSync.
 
-Prerequisite: Less than 3 meetings have been added
-<br>Input Command: `meeting delete 4`
-<br>Expected Output: The command box displays "The meeting index provided is invalid"
+**Prerequisite**: At most three meetings are displayed in the meeting view.
+<br>
+**Input Command**: `meeting delete 4`
+<br>
+**Expected**: No meetings are deleted from TeamSync as the command refers to an invalid meeting. TeamSync displays an error message.
 
 ### Exit
 
-<br>Input Command: `exit`
-<br>Expected Behaviour: The app closes.
+**Input Command**: `exit`
+<br>
+**Expected**: TeamSync exits.
 
-## **Appendix: Planned Enhancements**
+## Appendix: Planned Enhancements
 
 Team size: 5
 
-1. **Support multiple timings associated to each module**. Currently, it is only possible to associate one time interval to each module. Allowing multiple timings will allow TeamSync to account for multiple lessons in a week, tutorials, labs, recitations, etc.
-2. **Add fallback for corrupted data file**. Currently, if the data file is corrupted or cannot be loaded, TeamSync starts up with empty data. If a user were to run any commands that modify data, the old data will be permanently lost. This is mainly an issue when a user manually edits the data file. A fallback could be automatic backups or more robust parsing of the data file.
-3. **Add undo functionality**. Currently, there is no undo or equivalent functionality provided by TeamSync. This is mainly an issue when a user runs the  command to clear all data and wants to restore it.
-4. **Fix GUI appearing off-screen**. Currently, the GUI may appear off-screen when using multiple screens. The user will have to manually delete the preferences file to fix this issue. It would be better if TeamSync could handle such situations.
+1. **Support multiple timings associated with each module**. Currently, it is only possible to associate one time interval with each module.
 
-## **Appendix: Effort**
+   We plan to allow multiple timings to be associated with each module, so that TeamSync can account for multiple lessons, tutorials, labs or recitations in a week.
+2. **Add failsafe for corrupted data file**. Currently, if the data file is corrupted or cannot be loaded, TeamSync starts up with empty data. If a user were to run any commands that modify data, the old data will be permanently lost. This is mainly an issue when a user manually edits the data file.
+
+   We plan to implement a failsafe where TeamSync saves a backup file and loads from that in the case of data corruption.
+
+3. **Fix GUI appearing off-screen**. Currently, the GUI may appear off-screen when using multiple screens. In such cases user will have to manually delete the preferences file to fix this issue.
+
+   We plan to have TeamSync handle these cases automatically when starting up.
+
+4. **Flexible search terms**. Currently, TeamSync's `person find` only matches teammates whose name contain an exact match with one of the keywords.
+
+   We plan to make the search more flexible. For example, searching `al` should also display `alex`.
+5. **Search with other fields** Currently, TeamSync's `person find` only searches for teammates by name.
+
+   We plan to improve on its functionality by allowing `person find` to search by additional fields, such as tags, modules, etc.
+
+6. **Allow modules to span across multiple days**. Currently, modules cannot span multiple days.
+
+   We plan to allow modules to span multiple days.
+7. **Allow meetings to span across multiple days**. Currently, meetings cannot span multiple days.
+
+   We plan to allow meetings to span multiple days.
+
+## Appendix: Effort
 
 ### Difficulty Level
 
