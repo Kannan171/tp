@@ -37,6 +37,25 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        args = args + " "; // Add a space to ensure all arguments are matched
+        /*
+         * Proof of correctness:
+         * Given
+         * (1) argument flags can only be matched if it has a following space (From
+         * CliSyntax)
+         * (2) all argument values will be trimmed during preprocessing (From ParserUtils)
+         *
+         * If the last section of the command is argument value, the added space will be
+         * trimmed by (2). Then it will not affect the output
+         *
+         * If the last section of the command is argument flag
+         * - Case 1: has space (`-c ` -> `-c  ` )
+         * Argument will be matched, the additional space in arg value will be trimmed by
+         * (2)
+         * - Case 2: no space (`-c` -> `-c ` )
+         * Argument will be matched, no additional space in arg value
+         */
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
