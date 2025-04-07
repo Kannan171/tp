@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Module as ModelPackage <<Rectangle>>{
+
+Class Module
+Class ModuleCode
+Class Day
+
+note right of Module
+  Has start and end time
+  (LocalTime)
+end note
+}
+
+Module *--> "1 " ModuleCode
+Module *--> "1" Day
+
+@enduml

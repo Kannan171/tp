@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Person as ModelPackage <<Rectangle>>{
+Class UniquePersonList
+
+Class Person
+Class Name
+Class Phone
+Class Email
+Class Address
+Class Module
+Class Tag
+
+}
+
+UniquePersonList --> "~* " Person
+
+Person *--> "1" Name
+Person *--> "1" Phone
+Person *--> "1" Email
+Person *--> "1  " Address
+Person *--> "*" Tag
+Person *--> "*" Module
+
+
+
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Email
+Email -[hidden]right-> Address
+
+@enduml
