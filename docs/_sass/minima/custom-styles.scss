@@ -4,6 +4,11 @@ h2, h3, h4, h5, h6 {
   color: #e46c0a;
 }
 
+// Use this to have header links retain their original colour
+a.head {
+  color: #e46c0a;
+}
+
 // Bootstrap style alerts
 .alert {
   position: relative;
