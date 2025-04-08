@@ -3,13 +3,11 @@ layout: page
 title: Developer Guide
 ---
 
-## About TeamSync
+## **About TeamSync**
 
-TeamSync is a contact management app designed to streamline group project management, **built by National University of Singapore (NUS) students, for NUS students**.
+TeamSync is a contact management app designed to streamline group project management **for NUS students**. TeamSync combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI), enabling students to effortlessly manage teammates' contact details, schedule meetings, and stay organized.
 
-Designed with simplicity and efficiency in mind, TeamSync makes it easy to add teammates' contact details, schedule meetings, and stay organized. It combines the intuitive visuals of a Graphical User Interface (GUI) with the speed and precision of a Command Line Interface (CLI). Built-in validation checks help prevent errors, ensuring a seamless experience.
-
-This Developer Guide documents the internal design and implementation of TeamSync. This guide contains information on the architecture of our app, testing and logging procedures.
+This Developer Guide documents the architecture and design of TeamSync, as well as how selected features are implemented.
 
 ---
 
@@ -24,28 +22,23 @@ TeamSync is built on [AddressBook Level-3](https://se-education.org/addressbook-
 
 Software Dependencies
 
-| Dependency                                      | Use              |
-| ----------------------------------------------- | ---------------- |
-| [Gradle](https://gradle.org/)                   | Build Automation |
-| [JavaFX](https://openjfx.io/)                   | GUI              |
-| [Jackson](https://github.com/FasterXML/jackson) | JSON Parser      |
-| [JUnit5](https://github.com/junit-team/junit5)  | Testing          |
-| [AtlantaFX](https://github.com/mkpaz/atlantafx) | GUI CSS          |
-| [Ikonli](https://github.com/kordamp/ikonli)     | Icon Pack        |
+| Dependency                                      | Use               |
+|-------------------------------------------------|-------------------|
+| [AtlantaFX](https://github.com/mkpaz/atlantafx) | GUI CSS           |
+| [Gradle](https://gradle.org/)                   | Build Automation  |
+| [Ikonli](https://github.com/kordamp/ikonli)     | Icon Pack         |
+| [Jackson](https://github.com/FasterXML/jackson) | JSON Parser       |
+| [JavaFX](https://openjfx.io/)                   | GUI               |
+| [JUnit5](https://github.com/junit-team/junit5)  | Testing           |
+| [Mockito](https://site.mockito.org/)            | Testing           |
 
 Documentation Dependencies
 
 | Dependency                                | Use            |
 | ----------------------------------------- | -------------- |
+| [GitHub Pages](https://pages.github.com/) | Site Hosting   |
 | [Jekyll](https://jekyllrb.com/)           | Site Rendering |
 | [PlantUML](https://plantuml.com/)         | UML Diagrams   |
-| [GitHub Pages](https://pages.github.com/) | Site Hosting   |
-
-Miscellaneous
-
-| Dependency | Use |
-| --------- | -------- |
-| [GitHub](https://github.com/) | Version Control |
 
 ---
 
@@ -595,298 +588,383 @@ The command `clear` clears all teammates, modules and meetings from TeamSync.
 **Target user profile**:
 
 - is an NUS student
-- is taking multiple modules with group projects
-- wants to be able to schedule meetings without any timetable clashes
+- is taking modules with group projects
+- wants to be able to schedule meetings for their group projects
 - wants to keep track of tasks for each group project
 - prefers typing to mouse interactions
 - is comfortable with desktop apps and command-line interfaces (CLI)
 
-**Value proposition**: TeamSync allows NUS students to efficiently manage group projects. TeamSync integrates contact management with availability tracking based on timetables, allowing for easy scheduling of meetings and tracking of tasks.
+**Value proposition**:
+
+TeamSync allows NUS students to efficiently manage their group projects by:
+1. quickly **adding, editing and deleting** the contact details of their teammates
+2. **managing** each teammate's modules and time commitments
+3. **scheduling** meetings
+4. **visualising** the team's contact details and schedules
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​         | I can …​                                                | So that I can…​                                                                 |
-| -------- | --------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `* * *`  | First-time user | See usage instructions                                  | Refer to instructions when I forget how to use TeamSync                         |
-| `* * *`  | First-time user | See sample data                                         | Understand how the data is visualised on TeamSync                               |
-| `* * *`  | First-time user | Delete all data                                         | Remove all sample data to start using TeamSync                                  |
-| `* * *`  | User            | Add a new contact                                       |                                                                                 |
-| `* * *`  | User            | Delete a contact                                        | Remove contacts that I no longer need                                           |
-| `* * *`  | User            | Edit a contact                                          | Fix mistakes or update contact details                                          |
-| `* * *`  | User            | Find a contact by name                                  | Locate details of persons without having to go through the entire list          |
-| `* * *`  | User            | Add a module to a contact                               | Keep track of which modules a person is taking and his availability             |
-| `* * *`  | User            | Delete a module for a contact                           | Keep the module list up to date whenever a module ends                          |
-| `* *`    | User            | Edit a module for a contact                             | Fix mistakes or update module details                                           |
-| `*`      | User            | Filter contacts by module                               | Find who is taking the same module without having to go through the entire list |
-| `* * *`  | User            | Create a meeting                                        | Plan for a group meeting                                                        |
-| `* * *`  | User            | Delete a meeting                                        | Remove old or cancelled meetings                                                |
-| `* *`    | User            | Edit a meeting                                          | Fix mistakes or update details of a meeting                                     |
-| `* * *`  | User            | View all meetings                                       | Keep track of all meetings                                                      |
-| `* * *`  | User            | View a contact's timetable                              | Easily visualise the contact's availability                                     |
-| `* * *`  | User            | View collated timetable of currently displayed contacts | Easily visualise the common available slots of my contacts                      |
-| `* * *`  | User            | View meetings in timetable                              | Easily visualise when are the meetings                                          |
-| `* * *`  | User            | Change the week displayed in the timetable              | View the schedule of other weeks                                                |
-| `*`      | Group member    | Create a group                                          | Easily find the contact details of my group members                             |
-| `*`      | Group member    | Delete a group                                          | Delete groups when a group project is over                                      |
-| `*`      | Group member    | Add a contact to a group                                | Keep track of my group members                                                  |
-| `*`      | Group member    | Remove a contact from a group                           | Ensure that the group list stays updated whenever a group member leaves         |
-| `*`      | Group member    | Create a task                                           | Track tasks effectively                                                         |
-| `*`      | Group member    | Edit a task                                             | Fix mistakes or update task details                                             |
-| `*`      | Group member    | Delete a task                                           | Delete old or cancelled tasks                                                   |
-| `*`      | Group member    | Set task priorities                                     | Know which tasks to focus on first                                              |
-| `*`      | Group member    | Set task responsibilities                               | Know who is responsible for completing a task                                   |
-| `*`      | Group member    | Update task status                                      | Keep track of whether a task has been completed                                 |
-| `*`      | Group member    | View completed tasks                                    | Keep track of what has been accomplished                                        |
-| `*`      | Group member    | View uncompleted tasks                                  | Keep track of what is to be done                                                |
-| `*`      | Group member    | View upcoming deadlines                                 | Keep track of tasks that are due soon                                           |
+| Priority | As a …​                           | I can …​                                              | So that I can…​                                                                   |
+|---------|-----------------------------------|-------------------------------------------------------|-----------------------------------------------------------------------------------|
+| `* * *` | First-time user                   | See usage instructions                                | Refer to instructions when I forget how to use TeamSync                           |
+| `* * *` | First-time user                   | See sample data                                       | Understand how the data is visualised on TeamSync                                 |
+| `* * *` | First-time user                   | Delete all data                                       | Remove all sample data to start using TeamSync                                    |
+| `* * *` | User                              | Add a new teammate                                    | Store the details of my teammates                                                 |
+| `* * *` | User                              | Delete a teammate                                     | Remove teammates that I no longer need                                            |
+| `* * *` | User                              | Edit a teammate's details                             | Fix mistakes or update details of my teammates                                    |
+| `* * *` | User                              | Find a teammate by name                               | Locate details of persons without having to go through the entire list            |
+| `* * *` | User                              | List all teammates                                    | Refer to the details of all my teammates                                          |
+| `* * *` | User                              | Add a module for a teammate                           | Keep track of which modules a person is taking and his availability               |
+| `* * *` | User                              | Delete a module from a teammate                       | Keep the module list up to date whenever a module ends                            |
+| `* *`   | User                              | Edit a module for a teammate                          | Fix mistakes or update module details                                             |
+| `*`     | User                              | Filter teammates by module                            | Find who is taking the same module without having to go through the entire list   |
+| `* * *` | User                              | Add a meeting                                         | Plan for a group meeting                                                          |
+| `* * *` | User                              | Delete a meeting                                      | Remove old or cancelled meetings                                                  |
+| `* *`   | User                              | Edit a meeting                                        | Fix mistakes or update details of a meeting                                       |
+| `* * *` | User                              | List all meetings                                     | Keep track of all meetings                                                        |
+| `* * *` | User                              | View my team's schedule in a timetable view           | Easily visualise my team's schedule                                               |
+| `* *`   | User                              | Change the date range displayed in the timetable view | View my team's schedule for other date ranges                                     |
+| `*`     | User                              | Create a task                                         | Track tasks effectively                                                           |
+| `*`     | User                              | Edit a task                                           | Fix mistakes or update task details                                               |
+| `*`     | User                              | Delete a task                                         | Delete old or cancelled tasks                                                     |
+| `*`     | User                              | Set task priorities                                   | Know which tasks to focus on first                                                |
+| `*`     | User                              | Set task responsibilities                             | Know who is responsible for completing a task                                     |
+| `*`     | User                              | Update task status                                    | Keep track of whether a task has been completed                                   |
+| `*`     | User                              | View completed tasks                                  | Keep track of what has been accomplished                                          |
+| `*`     | User                              | View uncompleted tasks                                | Keep track of what is to be done                                                  |
+| `*`     | User                              | View upcoming deadlines                               | Keep track of tasks that are due soon                                             |
+| `*`     | User with multiple group projects | Create a group for a module                           | Easily find the details of my group members for a specific module's group project |
+| `*`     | User with multiple group projects | Delete a group for a module                           | Delete groups when a group project is over                                        |
+| `*`     | User with multiple group projects | Add a teammate to a group                             | Keep track of my group members for a specific group project                       |
+| `*`     | User with multiple group projects | Remove a teammate from a group                        | Ensure that the group list stays updated whenever a group member leaves           |
+| `*`     | Experienced user                  | Use aliases / shortcuts for commands                  | Use TeamSync more efficiently                                                     |
 
-### Use cases
+### Use cases (implemented)
 
-#### Use case: UC 01 - Add a teammate
+The following use cases have been implemented.
+
+### Use case: UC 01 - See usage instructions
 
 **System**: TeamSync
 
 **Actor**: User
 
-**Preconditions**: User has the details of the teammate being added
+**MSS**
+
+1. User requests to see usage instructions.
+2. TeamSync displays usage instructions.
+
+   Use case ends.
+
+### Use case: UC 02 - Delete all data
+
+**System**: TeamSync
+
+**Actor**: User
 
 **MSS**
 
-1. User chooses to add a teammate
-2. User enters the teammate contact details
-3. TeamSync adds the teammate and displays a success message
-4. TeamSync updates display to reflect the added teammate
+1. User requests to delete all data.
+2. TeamSync deletes all data and displays a success message.
+3. TeamSync updates display to reflect the cleared data.
+
+   Use case ends.
+
+#### Use case: UC 03 - Add a new teammate
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has the details of the teammate being added.
+
+**MSS**
+
+1. User chooses to add a teammate, providing their contact details.
+2. TeamSync adds the teammate and displays a success message.
+3. TeamSync updates display to reflect the added teammate.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. TeamSync detects an error in the entered details.
+  - 1a1. TeamSync displays an error message.
+  
+    Use case ends.
+
+- 1b. TeamSync detects that the teammate being added is a duplicate.
+  - 1b1. TeamSync displays an error message.
+  
+    Use case ends.
+
+#### Use case: UC 04 - Delete a teammate
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: The teammate to be deleted must exist in TeamSync.
+
+**MSS**
+
+1. User chooses to delete a teammate.
+2. TeamSync deletes the teammate and displays a success message.
+3. TeamSync updates display to reflect the deleted teammate.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. User selects an invalid teammate to delete.
+  - 1a1. TeamSync displays an error message.
+
+  Use case ends.
+
+#### Use case: UC 05 - Edit a teammate
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**:
+- User has the new details of the teammate being edited.
+- The teammate to be edited must exist in TeamSync.
+
+**MSS**
+
+1. User chooses to edit a teammate, providing their updated contact details.
+2. TeamSync updates the teammate and displays a success message.
+3. TeamSync updates display to reflect the edited teammate.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. User selects an invalid teammate to edit.
+  - 1a1. TeamSync displays an error message.
+
+    Use case ends.
+
+- 1b. TeamSync detects an error in the entered details.
+  - 1b1. TeamSync displays an error message.
+
+    Use case ends
+
+#### Use case: UC 06 - Find a teammate by name
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: The teammate that is being searched for must exist in TeamSync.
+
+**MSS**
+
+1. User chooses to find a teammate, providing at least one search keyword.
+2. TeamSync displays teammates that match the search keywords.
+
+   Use case ends
+
+#### Use case: UC 07 - List all teammates
+
+**MSS**
+
+1. User chooses to list all teammates.
+2. TeamSync displays all teammate.
+
+   Use case ends.
+
+#### Use case: UC 08 - Add a module for a teammate
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**:
+- User has the details of the module.
+- The teammate must exist in TeamSync.
+
+**MSS**
+
+1. User chooses to add a module for a teammate, providing the module details.
+2. TeamSync adds the module to the specified teammate and displays a success message.
+3. TeamSync updates display to reflect the added module.
+
+   Use case ends.
+
+**Extensions**
+- 1a. User selects an invalid teammate to add a module for.
+    - 1a1. TeamSync displays an error message.
+
+      Use case ends.
+
+- 1b. TeamSync detects an error in the module details.
+    - 1b1. TeamSync displays an error message.
+
+      Use case ends.
+
+- 1c. TeamSync detects that the module is an overlapping module.
+    - 1c1. TeamSync displays an error message.
+
+      Use case ends.
+
+#### Use case: UC 09 - Delete a module from a teammate
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**:
+- The teammate must exist in TeamSync.
+- The module must have been added to the teammate.
+
+**MSS**
+
+1. User chooses to delete a module from a teammate.
+2. TeamSync deletes the module from the specified teammate and displays a success message.
+3. TeamSync updates display to reflect the deleted module.
+
+   Use case ends.
+
+**Extensions**
+- 1a. User selects an invalid teammate to delete a module from.
+    - 1a1. TeamSync displays an error message.
+
+      Use case ends.
+
+- 1b. User selects an invalid module to delete.
+    - 1b1. TeamSync displays an error message.
+
+      Use case ends.
+
+#### Use case: UC 10 - Add a meeting
+
+**System**: TeamSync
+
+**Actor**: User
+
+**Preconditions**: User has the details of the meeting being added.
+
+**MSS**
+
+1. User chooses to add a meeting, providing the meeting details.
+2. TeamSync adds the meeting and displays a success message.
+3. TeamSync updates display to reflect the added teammate.
 
    Use case ends
 
 **Extensions**
+- 1a. TeamSync detects an error in the entered meeting details
+    - 1a1. TeamSync displays an error message.
 
-2a. TeamSync detects an error in the entered details
+      Use case ends.
 
-- 2a1. TeamSync displays an error message
-  Use case ends
+- 1b. TeamSync detects that the meeting being added is a duplicate.
+    - 1b1. TeamSync displays an error message.
 
-#### Use case: UC 02 - Delete a teammate
+      Use case ends.
+
+- 1c. TeamSync detects that the meeting is an overlapping meeting.
+    - 1c1. TeamSync displays an error message.
+
+      Use case ends.
+
+#### Use case: UC 11 - Delete a meeting
 
 **System**: TeamSync
 
 **Actor**: User
 
-**Preconditions**: User has the details of the teammate and has created the teammate
+**Preconditions**: The meeting to be deleted must exist in TeamSync.
 
 **MSS**
+1. User chooses to delete a meeting.
+2. TeamSync deletes the meeting and displays a success message.
+3. TeamSync updates display to reflect the deleted meeting.
 
-1. User chooses a teammate contact to delete
-2. TeamSync deletes the teammate and displays a success message
-3. TeamSync updates display to reflect the deleted teammate
-
-   Use case ends
+   Use case ends.
 
 **Extensions**
+- 1a. User selects an invalid meeting to delete.
+  - 1a1. TeamSync displays an error message.
 
-1a. User selects an invalid teammate to delete
+    Use case ends.
 
-- 1a1. TeamSync displays an error message
+### Use cases (not yet implemented)
 
-  Use case ends
+The following are _selected_ use cases for features that have yet to be implemented.
 
-#### Use case: UC 03 - Edit a teammate
+#### Use case: UC 12 - Create a group for a module
 
 **System**: TeamSync
 
 **Actor**: User
 
-**Preconditions**: User has the new details of the teammate being updated
-
 **MSS**
+1. User chooses to create a group, providing the module details.
+2. TeamSync creates the group and displays a success message.
+3. TeamSync updates display to reflect the created group.
 
-1. User chooses a teammate contact to edit
-2. User enters the updated teammate contact details
-3. TeamSync updates the teammate and displays a success message
-4. TeamSync updates display to reflect the deleted teammate
-
-   Use case ends
+   Use case ends.
 
 **Extensions**
+- 1a. TeamSync detects an error in the module details.
+  - 1a1. TeamSync displays an error message.
 
-1a. User selects an invalid teammate to update
+    Use case ends.
 
-- 1a1. TeamSync displays an error message
+- 1b. TeamSync detects that the group being created is a duplicate.
+  - 1b1. TeamSync displays an error message.
 
-  Use case ends
+    Use case ends.
 
-2a. TeamSync detects an error in the entered details
-
-- 2a1. TeamSync displays an error message
-
-  Use case ends
-
-#### Use case: UC 04 - List all teammates
+#### Use case: UC 13 - Add a teammate to a group
 
 **System**: TeamSync
 
 **Actor**: User
 
-**MSS**
-
-1. User chooses to display all teammate
-2. TeamSync displays all teammate
-
-   Use case ends
-
-#### Use case: UC 05 - Find teammate by name
-
-**System**: TeamSync
-
-**Actor**: User
+**Preconditions**:
+- The teammate must exist in TeamSync.
+- The module must have been added for the teammate.
 
 **MSS**
+1. User chooses to add a teammate to a group.
+2. TeamSync adds the teammate to the group and displays a success message.
+3. TeamSync updates display to reflect the addition of the teammate to the group.
 
-1. User enters the name of the teammate
-2. TeamSync displays teammates that match the name entered
-
-   Use case ends
+   Use case ends.
 
 **Extensions**
+- 1a. User selects an invalid teammate to add to a group.
+  - 1a1. TeamSync displays an error message.
 
-2a. No teammate matches the name entered
+    Use case ends.
 
-- 2a1. TeamSync displays a message that no teammates matching the name is found
+- 1b. User selects an invalid group.
+   - 1b1. TeamSync displays an error message.
 
-  Use case ends
+    Use case ends.
 
-#### Use case: UC 06 - Create a module for a teammate
+- 1c. TeamSync detects that the selected teammate does not have the corresponding module associated with them.
+  - 1c1. TeamSync displays an error message.
 
-**System**: TeamSync
+    Use case ends.
 
-**Actor**: User
+- 1d. TeamSync detects that the selected teammate is already in the specified group.
+  - 1d1. TeamSync displays an error message.
 
-**Preconditions**: User has the details of the module and teammate
-
-**MSS**
-
-1. User chooses a teammate to create a module for
-2. User enters the module details
-3. TeamSync adds the module and displays a success message
-4. TeamSync updates display to reflect the added module
-
-   Use case ends
-
-**Extensions**
-
-1a. User selects an invalid teammate
-
-- 1a1. TeamSync displays an error message
-
-  Use case ends
-
-2a. User enters an invalid module
-
-- 1a1. TeamSync displays an error message
-
-  Use case ends
-
-#### Use case: UC 07 - Delete a module for a teammate
-
-**System**: TeamSync
-
-**Actor**: User
-
-**Preconditions**: User has the details of the module and teammate and has created the module and teammate
-
-**MSS**
-
-1. User chooses a teammate to delete a module from
-2. User enters the module details
-3. TeamSync deletes the module and displays a success message
-4. TeamSync updates display to reflect the deleted module
-
-   Use case ends
-
-**Extensions**
-
-1a. User selects an invalid teammate
-
-- 1a1. TeamSync displays an error message
-
-  Use case ends
-
-2a. User selects an invalid module
-
-- 1a1. TeamSync displays an error message
-
-  Use case ends
-
-#### Use case: UC 08 - Create a meeting
-
-**System**: TeamSync
-
-**Actor**: User
-
-**Preconditions**: User has the details of the meeting
-
-**MSS**
-
-1. User chooses to create a meeting
-2. User enters the meeting details
-3. TeamSync displays a message that the meeting has been created successfully
-4. TeamSync updates display to reflect the deleted meeting
-
-   Use case ends
-
-**Extensions**
-
-2a. TeamSync detects an error in the entered meeting details
-
-- 2a1. TeamSync displays an error message
-
-  Use case ends
-
-#### Use case: UC 09 - Delete a meeting
-
-**System**: TeamSync
-
-**Actor**: User
-
-**Preconditions**: User has the details of the meeting and has created the meeting
-
-**MSS**
-
-1. User chooses to delete a meeting
-2. TeamSync displays a message that the meeting has been deleted successfully
-3. TeamSync updates display to reflect the deleted meeting
-
-   Use case ends
-
-**Extensions**
-
-1a. TeamSync detects that an invalid meeting has been chosen
-
-- 1a1. TeamSync displays an error message
-
-  Use case ends
-
-#### Use case: UC 10 - List all meetings
-
-**System**: TeamSync
-
-**Actor**: User
-
-**MSS**
-
-1. User chooses to list all meetings
-2. TeamSync updates display to display all meetings
-
-   Use case ends
+    Use case ends.
 
 ### Non-Functional Requirements
 
 1. TeamSync should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2. TeamSync should be able to store up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. TeamSync should respond to commands within 1 second under regular operating conditions
+3. A user with above average typing speed for regular English text (above 50 words per minute) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. TeamSync should respond to commands within 2 seconds under regular operating conditions.
 5. TeamSync should work without requiring an installer.
 6. TeamSync should not depend on a remote server.
 7. TeamSync's GUI should not cause any resolution-related inconveniences to the user for
@@ -897,18 +975,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    - for screen scales 150%.
 9. TeamSync's data should be stored locally in a human editable text file.
 10. TeamSync should be packaged into a single JAR file.
-11. TeamSync should work on Windows, Linux, and OS-X platforms.
-12. TeamSync should not be larger than 100MB.
-13. Documentation should not exceed 15MB per file.
-14. The developer guide and user guide should be PDF-friendly.
+11. TeamSync should be packaged into a single JAR file that does not exceed 100MB.
+12. Documentation should not exceed 15MB per file.
+13. The developer guide and user guide should be PDF-friendly.
 
 ### Glossary
 
-- **CLI**: Command Line Interface
-- **GUI**: Graphical User Interface
-- **Invalid meeting**: A meeting the user specified when prompted by TeamSync which does not exist
-- **Invalid module**: A module the user specified when prompted by TeamSync which does not exist
-- **Invalid teammate**: A contact the user specified when prompted by TeamSync which does not exist
+| Terms                              | Definition                                                                                                       |
+|------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| **Command Line Interface (CLI)**   | A text-based interface that allows users to interact with the application by typing commands                     |
+| **Duplicate group**                | Two groups are duplicates if they are associated with the same module                                            |
+| **Duplicate meeting**              | Two meetings are duplicates if they have the same date, start and end time                                       |
+| **Duplicate module**               | Two modules are duplicates if they have the same module code                                                     |
+| **Duplicate teammate**             | Two teammates are duplicates if they have the same email address                                                 |
+| **Graphical User Interface (GUI)** | A graphical interface that allows users to interact with the application through visual elements                 |
+| **Invalid group**                  | A group is invalid if it does not exist in TeamSync                                                              |
+| **Invalid meeting**                | A meeting is invalid if it does not exist in TeamSync                                                            |
+| **Invalid module**                 | A module is invalid if it does not exist in TeamSync                                                             |
+| **Invalid teammate**               | A teammate is invalid if it does not exist in TeamSync                                                           |
+| **Mainstream OS**                  | Windows, Linux, and OS-X                                                                                         |
+| **Module**                         | A course offered by NUS                                                                                          |
+| **Module code**                    | The unique code associated with each module in NUS                                                               |
+| **Overlapping meeting**            | Two meetings are overlapping if they are scheduled on the same date and their time intervals intersect           |
+| **Overlapping module**             | Two modules are overlapping if they are scheduled on the same day of the week and their time intervals intersect |
+| **Teammate**                       | An NUS group project teammate stored as a contact in TeamSync                                                    |
 
 ---
 
@@ -921,19 +1011,29 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
+<div markdown="1" class="alert alert-warning">:exclamation: **Warning**<br><br>
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as **whitespaces may be omitted** when copied over to TeamSync.
+</div>
+
+
 ### Launch
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Ensure you have Java `17` or above installed in your Computer.<br>
+   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample teammates. The window size may not be optimum.
+   1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F10-1/tp/releases).
+
+   1. Open the command prompt (or terminal) and change the working directory to the folder where you saved the jar file
+
+   1. Type `java -jar teamsync.jar` and press Enter. Expected: Shows the GUI with a set of sample teammates. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   2. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by following the above instructions.<br>
       Expected: The most recent window size and location is retained.
 
 ### Teammate
@@ -1043,13 +1143,18 @@ Prerequisite: Less than 3 meetings have been added
 
 ## **Appendix: Planned Enhancements**
 
-_Coming soon ..._
+Team size: 5
+
+1. **Support multiple timings associated to each module**. Currently, it is only possible to associate one time interval to each module. Allowing multiple timings will allow TeamSync to account for multiple lessons in a week, tutorials, labs, recitations, etc.
+2. **Add fallback for corrupted data file**. Currently, if the data file is corrupted or cannot be loaded, TeamSync starts up with empty data. If a user were to run any commands that modify data, the old data will be permanently lost. This is mainly an issue when a user manually edits the data file. A fallback could be automatic backups or more robust parsing of the data file.
+3. **Add undo functionality**. Currently, there is no undo or equivalent functionality provided by TeamSync. This is mainly an issue when a user runs the  command to clear all data and wants to restore it.
+4. **Fix GUI appearing off-screen**. Currently, the GUI may appear off-screen when using multiple screens. The user will have to manually delete the preferences file to fix this issue. It would be better if TeamSync could handle such situations.
 
 ## **Appendix: Effort**
 
 ### Difficulty Level
 
-Our project is significantly more advanced than AB3, featuring new commands and enhanced functionalities. Student objects now include a modules attribute for schedule coordination. The UI is also more complex, incorporating a timetable view that displays shared schedules and scheduled meetings for the week.
+Our project is significantly more advanced than AB3, featuring new commands and enhanced functionalities. Student objects now include a modules attribute for schedule coordination, and common meetings can also be scheduled. The UI is also more complex, incorporating a timetable view that displays shared schedules and scheduled meetings for the week.
 
 ### Challenges Faced
 
@@ -1066,4 +1171,4 @@ UI: Effort was required for the new timetable view and how schedules were displa
 
 ### Achievements
 
-# We have enhanced the AB3 application with new features and design to better suit project management of NUS students
+We have enhanced the AB3 application with new features and design to better suit project management of NUS students.
