@@ -4,12 +4,14 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.logging.Logger;
 
+import atlantafx.base.controls.ModalPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import syncsquad.teamsync.commons.core.LogsCenter;
@@ -23,7 +25,12 @@ public class HelpDialogController extends UiPart<Region> {
     private static final String FXML = "HelpDialog.fxml";
 
     @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
     private VBox mainVBox;
+
+    private ModalPane modalPane;
 
     @FXML
     private TableView<CommandSummary> commandTableView;
@@ -40,9 +47,10 @@ public class HelpDialogController extends UiPart<Region> {
     /**
      * Constructs a {@code HelpDialogController}
      */
-    public HelpDialogController() {
+    public HelpDialogController(ModalPane modalPane) {
         super(FXML);
         mainVBox.setStyle("-fx-background-color: -color-bg-default");
+        this.modalPane = modalPane;
     }
 
     /**
@@ -68,6 +76,14 @@ public class HelpDialogController extends UiPart<Region> {
         } catch (Exception e) {
             logger.warning("Failed to open User Guide URL: " + e.getMessage());
         }
+    }
+
+    /**
+     * Closes the help dialog.
+     */
+    @FXML
+    private void closeHelpDialog() {
+        modalPane.hide();
     }
 
     /**

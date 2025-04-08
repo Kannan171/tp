@@ -62,7 +62,7 @@ public class TitleBarController extends UiPart<Region> {
         Stage primaryStage = mainWindow.getPrimaryStage();
         MainViewModel viewModel = mainWindow.getViewModel();
 
-        this.helpDialog = new HelpDialogController();
+        this.helpDialog = new HelpDialogController(modalPane);
 
         viewModel.getIsShowingHelpProperty().addListener((unused1, oldValue, newValue) -> {
             if (newValue) {
