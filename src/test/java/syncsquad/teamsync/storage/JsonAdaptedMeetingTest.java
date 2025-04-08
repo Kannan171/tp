@@ -30,7 +30,7 @@ public class JsonAdaptedMeetingTest {
     }
 
     @Test
-    public void toModelType_nullMeeting_throwsNullPointerException() {
+    public void toModelType_nullMeeting_throwsAssertionError() {
         assertThrows(AssertionError.class, () -> new JsonAdaptedMeeting(null));
     }
 
