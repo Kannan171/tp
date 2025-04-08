@@ -17,13 +17,7 @@ Class UniquePersonList
 Class UniqueMeetingList
 
 Class Person
-Class Name
-Class Phone
-Class Email
-Class Address
 Class Meeting
-Class Module
-Class Tag
 
 Class I #FFFFFF
 }
@@ -48,18 +42,7 @@ AddressBook *--> "1" UniqueMeetingList
 UniquePersonList --> "~* all" Person
 UniqueMeetingList --> "~* all" Meeting
 
-Person *--> "1" Name
-Person *--> "1" Phone
-Person *--> "1" Email
-Person *--> "1" Address
-Person *--> "*" Tag
-Person *--> "*" Module
-
 Person -[hidden]up--> I
-
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Email
-Email -[hidden]right-> Address
 
 ModelManager --> "~* filtered" Person
 ModelManager --> "~* all" Meeting

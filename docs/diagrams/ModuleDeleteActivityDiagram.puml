@@ -3,7 +3,7 @@ skin rose
 skinparam ActivityFontSize 15
 skinparam ArrowFontSize 12
 start
-:User enters module add command;
+:User enters module delete command;
 if () then ([all fields present])
     if () then ([index is valid])
         if () then ([all fields are valid])

@@ -12,7 +12,7 @@ Class PersonListViewModel
 Class MeetingListViewModel
 note right of MainViewModel
   Most view models:
-  - depend on Model component
+  - Depend on Model component
 end note
 }
 
@@ -20,6 +20,7 @@ package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
+Class HiddenOutside #FFFFFF
 HiddenOutside ..> MainViewModel
 
 MainViewModel *-down->  "1" CommandBoxViewModel
