@@ -56,9 +56,13 @@ deactivate AddPersonCommand
 
 AddPersonCommandParser --[LOGIC_COLOR]> PersonCommandsParser
 deactivate AddPersonCommandParser
+AddPersonCommandParser -[hidden]-> PersonCommandsParser
+destroy AddPersonCommandParser
 
 PersonCommandsParser --[LOGIC_COLOR]> AddressBookParser
 deactivate PersonCommandsParser
+PersonCommandsParser -[hidden]-> AddressBookParser
+destroy PersonCommandsParser
 
 AddressBookParser --[LOGIC_COLOR]> LogicManager
 deactivate AddressBookParser
