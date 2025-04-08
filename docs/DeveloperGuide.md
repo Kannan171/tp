@@ -1195,12 +1195,24 @@ Team size: 5
 
    We plan to improve on its functionality by allowing `person find` to search by additional fields, such as tags, modules, etc.
 
-6. **Allow modules to span across multiple days**. Currently, modules cannot span multiple days.
+6. **Allow modules to span across multiple days**. Currently, modules cannot span multiple days. For example, it is not possible to have a module from `Thu 22:00` to `Fri 02:00`.
 
    We plan to allow modules to span multiple days.
-7. **Allow meetings to span across multiple days**. Currently, meetings cannot span multiple days.
+7. **Allow meetings to span across multiple days**. Currently, meetings cannot span multiple days. For example, it is not possible to have a module from `08-04-2025 22:00` to `09-04-2025 02:00`.
 
    We plan to allow meetings to span multiple days.
+
+8. **Allow meetings to be associated with specific teammates**. Currently, meetings is associated with the entire contact list.
+
+   We plan to allow meetings to be associated with specific teammates to account for cases where only a part of the team needs to meet.
+
+9. **Modify `clear` command to allow for undo**. Currently, the `clear` command is irreversible. This might be a problem if a user accidentally deletes all their data but wants it back.
+
+   We plan to modify the `clear` command to support undoing.
+
+10. **More permissive names**. Currently, names only allow alphanumeric and certain special characters.
+
+    We plan to allow names to be made up of a larger variety of characters, including non-latin alphabets and other special symbols.
 
 ## Appendix: Effort
 
