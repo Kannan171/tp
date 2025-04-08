@@ -6,11 +6,15 @@ import static syncsquad.teamsync.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
 import static syncsquad.teamsync.testutil.TypicalIndexes.INDEX_FIRST;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import syncsquad.teamsync.logic.parser.exceptions.ParseException;
@@ -218,5 +222,119 @@ public class ParserUtilTest {
         String dayWithWhitespace = WHITESPACE + VALID_DAY + WHITESPACE;
         Day expectedDay = new Day(VALID_DAY);
         assertEquals(expectedDay, ParserUtil.parseDay(dayWithWhitespace));
+    }
+
+    @Test
+    public void parseDate_validDate_returnsDate() throws Exception {
+        final String validDate = "18-11-2025";
+        final String validDateWithoutYear = "06-06-2025";
+        final String validDateWithoutLeadingZero = "7-5-2025";
+        final String validDateLeapYear = "29-02-2024";
+
+        final LocalDate expectedValidDate = LocalDate.of(2025, 11, 18);
+        final LocalDate expectedValidDateWithoutYear = LocalDate.of(Year.now().getValue(), 6, 6);
+        final LocalDate expectedValidDateWithoutTrailingZero = LocalDate.of(2025, 5, 7);
+        final LocalDate expectedValidDateLeapYear = LocalDate.of(2024, 2, 29);
+
+        assertEquals(expectedValidDate, ParserUtil.parseDate(validDate));
+        assertEquals(expectedValidDateWithoutYear, ParserUtil.parseDate(validDateWithoutYear));
+        assertEquals(expectedValidDateWithoutTrailingZero, ParserUtil.parseDate(validDateWithoutLeadingZero));
+        assertEquals(expectedValidDateLeapYear, ParserUtil.parseDate(validDateLeapYear));
+    }
+
+    @Test
+    public void parseDate_invalidDate_throwsParseException() throws Exception {
+        final String invalidDateFormatWithTextMonth = "24 Sep 2025";
+        final String invalidDateFormatWithSlashes = "15/02/2025";
+        final String invalidDateFormateWithYmd = "2025-11-19";
+        final String invalidDateFormatDay = "32-11-2025";
+        final String invalidDateFormatMonth = "12-13-2025";
+
+        final String invalidInput30DayMonth = "31-04-2025";
+        final String invalidInputFebruary = "30-02-2025";
+        final String invalidInputNonLeapYear = "29-02-2025";
+
+        // Exception message is invalid date format
+        // Assertions.assertThrows() is used instead of the wrapper method as the exception message is tested
+        Exception exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidDateFormatWithTextMonth));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidDateFormatWithSlashes));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidDateFormateWithYmd));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidDateFormatDay));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidDateFormatMonth));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_DATE_FORMAT);
+
+        // Exception message is invalid date input
+        // Assertions.assertThrows() is used instead of the wrapper method as the exception message is tested
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidInput30DayMonth));
+        assertEquals(exception.getMessage(),
+                String.format(ParserUtil.DATE_MESSAGE_CONSTRAINTS, invalidInput30DayMonth));
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidInputFebruary));
+        assertEquals(exception.getMessage(),
+                String.format(ParserUtil.DATE_MESSAGE_CONSTRAINTS, invalidInputFebruary));
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseDate(invalidInputNonLeapYear));
+        assertEquals(exception.getMessage(),
+                String.format(ParserUtil.DATE_MESSAGE_CONSTRAINTS, invalidInputNonLeapYear));
+    }
+
+    @Test
+    public void parseTime_validTime_returnsTime() throws Exception {
+        final String validTime = "11:59";
+        final String validTimeAfternoon = "22:50";
+        final String validTimeWithoutLeadingZero = "2:34";
+        final String validTimeWithLeadingZero = "01:00";
+
+        final LocalTime expectedValidTime = LocalTime.of(11, 59);
+        final LocalTime expectedValidTimeAfternoon = LocalTime.of(22, 50);
+        final LocalTime expectedValidTimeWithoutLeadingZero = LocalTime.of(2, 34);
+        final LocalTime expectedValidTimeWithLeadingZero = LocalTime.of(1, 0);
+
+        assertEquals(expectedValidTime, ParserUtil.parseTime(validTime));
+        assertEquals(expectedValidTimeAfternoon, ParserUtil.parseTime(validTimeAfternoon));
+        assertEquals(expectedValidTimeWithoutLeadingZero, ParserUtil.parseTime(validTimeWithoutLeadingZero));
+        assertEquals(expectedValidTimeWithLeadingZero, ParserUtil.parseTime(validTimeWithLeadingZero));
+    }
+
+    @Test
+    public void parseTime_invalidTime_throwsParseException() throws Exception {
+        final String invalidTimeWithText = "2 pm";
+        final String invalidTimeWithoutColon = "1500";
+        final String invalidTimeFormatHour = "24:59";
+        final String invalidTimeFormatMinute = "05:65";
+
+        // Exception message is invalid time format
+        // Assertions.assertThrows() is used instead of the wrapper method as the exception message is tested
+        Exception exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseTime(invalidTimeWithText));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_TIME_FORMAT);
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseTime(invalidTimeWithoutColon));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_TIME_FORMAT);
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseTime(invalidTimeFormatHour));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_TIME_FORMAT);
+
+        exception = Assertions.assertThrows(ParseException.class, () -> ParserUtil
+                .parseTime(invalidTimeFormatMinute));
+        assertEquals(exception.getMessage(), ParserUtil.MESSAGE_INVALID_TIME_FORMAT);
     }
 }

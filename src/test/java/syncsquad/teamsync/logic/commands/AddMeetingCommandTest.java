@@ -7,26 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static syncsquad.teamsync.testutil.Assert.assertThrows;
 import static syncsquad.teamsync.testutil.TypicalAddressBook.JAN_MEETING;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import syncsquad.teamsync.commons.core.GuiSettings;
 import syncsquad.teamsync.logic.Messages;
 import syncsquad.teamsync.logic.commands.exceptions.CommandException;
 import syncsquad.teamsync.logic.commands.meeting.AddMeetingCommand;
 import syncsquad.teamsync.model.AddressBook;
-import syncsquad.teamsync.model.Model;
 import syncsquad.teamsync.model.ReadOnlyAddressBook;
-import syncsquad.teamsync.model.ReadOnlyUserPrefs;
-import syncsquad.teamsync.model.TimetableWeek;
 import syncsquad.teamsync.model.meeting.Meeting;
 import syncsquad.teamsync.model.meeting.UniqueMeetingList;
-import syncsquad.teamsync.model.person.Person;
 import syncsquad.teamsync.testutil.MeetingBuilder;
 
 public class AddMeetingCommandTest {
@@ -52,7 +45,7 @@ public class AddMeetingCommandTest {
     public void execute_duplicateMeeting_throwsCommandException() {
         Meeting validMeeting = new MeetingBuilder().build();
         AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validMeeting);
-        AddMeetingCommandTest.ModelStub modelStub = new AddMeetingCommandTest.ModelStubWithMeeting(validMeeting);
+        ModelStub modelStub = new AddMeetingCommandTest.ModelStubWithMeeting(validMeeting);
 
         assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () -> {
             addMeetingCommand.execute(modelStub);
@@ -197,116 +190,6 @@ public class AddMeetingCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMeeting(Meeting meeting) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addMeeting(Meeting meeting) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMeeting(Meeting meeting) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        public String displayMeetingsString() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Meeting> getMeetingList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public TimetableWeek getCurrentWeek() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setCurrentWeek(TimetableWeek week) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-    }
-
-    /**
      * A Model stub that contains a single meeting.
      */
     private class ModelStubWithMeeting extends ModelStub {
@@ -357,7 +240,7 @@ public class AddMeetingCommandTest {
     /**
      * A Model stub that contains a list of meetings.
      */
-    private class ModelStubWithMeetingList extends AddMeetingCommandTest.ModelStub {
+    private class ModelStubWithMeetingList extends ModelStub {
         final UniqueMeetingList meetings = new UniqueMeetingList();
 
         @Override
