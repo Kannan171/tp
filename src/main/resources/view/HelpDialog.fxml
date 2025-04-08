@@ -6,56 +6,67 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="mainVBox" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" onMousePressed="#closeHelpDialog" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fx:id="helpTitleBar">
+      <VBox fx:id="mainVBox" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Label text="Help">
-               <font>
-                  <Font name="Inter Bold" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
+            <HBox fx:id="helpTitleBar">
+               <children>
+                  <Label text="Help">
+                     <font>
+                        <Font name="Inter Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <StackPane alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox fx:id="helpMessageContainer" alignment="CENTER" spacing="3.0">
+               <children>
+                  <Label fx:id="helpMessage" text="For more details, visit our" />
+                  <Hyperlink fx:id="userGuideLink" onAction="#openUserGuide" text="User Guide" />
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </opaqueInsets>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                </padding>
-            </Label>
-            <StackPane alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-      <HBox fx:id="helpMessageContainer" alignment="CENTER" spacing="3.0">
-         <children>
-            <Label fx:id="helpMessage" text="For more details, visit our" />
-            <Hyperlink fx:id="userGuideLink" onAction="#openUserGuide" text="User Guide" />
-         </children>
-         <opaqueInsets>
-            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
-         </padding>
-      </HBox>
-      <VBox VBox.vgrow="ALWAYS">
-         <children>
+            </HBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
                <content>
                   <TableView fx:id="commandTableView" VBox.vgrow="ALWAYS">
                      <columns>
-                        <TableColumn fx:id="categoryColumn" text="Category" prefWidth="100.0" />
-                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="150.0" />
-                        <TableColumn fx:id="formatColumn" text="Format" prefWidth="300.0" />
-                        <TableColumn fx:id="exampleColumn" text="Example" prefWidth="300.0" />
+                        <TableColumn fx:id="actionColumn" text="Action" />
+                        <TableColumn fx:id="formatColumn" text="Format" />
+                        <TableColumn fx:id="exampleColumn" text="Example" />
                      </columns>
                   </TableView>
                </content>
             </ScrollPane>
+            <HBox fx:id="helpMessageContainer1" alignment="CENTER" spacing="3.0">
+               <children>
+                  <Label fx:id="helpMessage1" text="Press F1 or Esc to close" />
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+               </padding>
+            </HBox>
          </children>
       </VBox>
    </children>
-</VBox>
+</AnchorPane>
