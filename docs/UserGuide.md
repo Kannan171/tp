@@ -256,13 +256,16 @@ Adds a teammate to TeamSync.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* Names should only contain alphanumeric characters, spaces, the following special characters (`'`,`/` and `-`), and it should not be blank.
+* Names should only contain alphanumeric characters, spaces, and the following special characters (`'`,`/` and `-`).
 
 * Phone numbers should only contain numbers, and it should be at least 3 digits long.
 
 * Emails should be of the format local-part@domain.
 
 * Tags should only contain alphanumeric characters.
+
+* Avoid using [command line flag patterns](#command-line-flag-patterns) like `-e` for names and addresses. Using them _might_ cause an error.<br>
+  **Example**: `Harper-Emily` is valid, but `John -E Doe` is not
 
 * See [adding a module for a teammate](#adding-a-module-for-a-teammate-module-add) for more information on the format for module details.
 
@@ -633,7 +636,7 @@ Ensure you have followed the steps outlined in the [Quick Start](#quick-start) s
 **A**: TeamSync is optimised for Windows, MacOS, and Linux only. Additionally, Java `17` or above must be installed. While TeamSync might run on unsupported systems, we do not provide any assistance for these environments.
 
 **Q**: **Why does TeamSync store past meetings?**<br>
-**A**: We believe that there is value in storing your past meetings for archival purposes. These are highlighted in red in the meeting list and can be deleted at your discretion.
+**A**: We believe that there is value in storing your past meetings for archival purposes. These are highlighted in red in the <a href="#meeting-view" style="color : brown; font-weight: bold;">meeting view</a> and can be deleted at your discretion.
 
 **Q**: **Will TeamSync be updated to support editing modules via the [`person edit`](#editing-a-teammate--person-edit) command?**<br>
 **A**: No. This is a deliberate design decision. As modules consist of three fields — a date, start and end time — editing them through [`person edit`](#editing-a-teammate--person-edit) increases the likelihood of human error.
@@ -643,19 +646,20 @@ Ensure you have followed the steps outlined in the [Quick Start](#quick-start) s
 
 ## <a href="#table-of-contents" class="head">Glossary</a>
 
-| Terms                                                                      | Definition                                                                                                                                                                 |
-|----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <a name="command-line-interface"></a>**Command Line Interface (CLI)**      | A text-based interface that allows users to interact with the application by typing commands                                                                               |
-| <a name="duplicate-meeting"></a>**Duplicate meeting**                      | Two meetings are duplicates if they have the same date, start and end time                                                                                                 |
-| <a name="duplicate-module"></a>**Duplicate module**                        | Two modules are duplicates if they have the same module code                                                                                                               |
-| <a name="duplicate-teammate"></a>**Duplicate teammate**                    | Two teammates are duplicates if they have the same email address                                                                                                           |
-| <a name="graphical-user-interface"></a>**Graphical User Interface (GUI)**  | A graphical interface that allows users to interact with the application through visual elements                                                                           |
-| <a name="home-folder"></a>**Home folder**                                  | The folder where TeamSync is stored in                                                                                                                                     |
-| <a name="index"></a>**Index**                                              | A **positive integer** 1, 2, 3, … shown in TeamSync that identifies a teammate or a meeting                                                                                    |
-| <a name="json"></a>**JSON**                                                | A text-based data storage format. See [this](https://www.json.org/json-en.html) for more info.                                                                             |
-| <a name="module"></a>**Module**                                            | A course offered by NUS                                                                                                                                                    |
-| <a name="module-code"></a>**Module code**                                  | The unique code associated with each module in NUS. It follows the following format:<br>**Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter** |
-| <a name="overlapping-meeting"></a>**Overlapping meeting**                  | Two meetings are overlapping if they are scheduled on the same date and their time intervals intersect                                                                     |
-| <a name="overlapping-module"></a>**Overlapping module**                    | Two modules are overlapping if they are scheduled on the same day of the week and their time intervals intersect                                                           |
-| <a name="teammate"></a>**Teammate**                                        | An NUS group project teammate stored as a contact in TeamSync                                                                                                              |
-| <a name="tag"></a>**Tag**                                                  | Optional information associated with a teammate to facilitate categorisation                                                                                               |
+| Terms                                                                     | Definition                                                                                                                                                                |
+|---------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <a name="command-line-flag-patterns"></a>**Command line flag patterns**   | A word consisting solely of a dash followed by a letter, such as `-a` and `-E`                                                                                            |
+| <a name="command-line-interface"></a>**Command Line Interface (CLI)**     | A text-based interface that allows users to interact with the application by typing commands                                                                              |
+| <a name="duplicate-meeting"></a>**Duplicate meeting**                     | Two meetings are duplicates if they have the same date, start and end time                                                                                                |
+| <a name="duplicate-module"></a>**Duplicate module**                       | Two modules are duplicates if they have the same module code                                                                                                              |
+| <a name="duplicate-teammate"></a>**Duplicate teammate**                   | Two teammates are duplicates if they have the same email address                                                                                                          |
+| <a name="graphical-user-interface"></a>**Graphical User Interface (GUI)** | A graphical interface that allows users to interact with the application through visual elements                                                                          |
+| <a name="home-folder"></a>**Home folder**                                 | The folder where TeamSync is stored in                                                                                                                                    |
+| <a name="index"></a>**Index**                                             | A **positive integer** 1, 2, 3, … shown in TeamSync that identifies a teammate or a meeting                                                                               |
+| <a name="json"></a>**JSON**                                               | A text-based data storage format. See [this](https://www.json.org/json-en.html) for more info.                                                                            |
+| <a name="module"></a>**Module**                                           | A course offered by NUS                                                                                                                                                   |
+| <a name="module-code"></a>**Module code**                                 | The unique code associated with each module in NUS. It follows the following format:<br>**Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter** |
+| <a name="overlapping-meeting"></a>**Overlapping meeting**                 | Two meetings are overlapping if they are scheduled on the same date and their time intervals intersect                                                                    |
+| <a name="overlapping-module"></a>**Overlapping module**                   | Two modules are overlapping if they are scheduled on the same day of the week and their time intervals intersect                                                          |
+| <a name="teammate"></a>**Teammate**                                       | An NUS group project teammate stored as a contact in TeamSync                                                                                                             |
+| <a name="tag"></a>**Tag**                                                 | Optional information associated with a teammate to facilitate categorisation                                                                                              |
