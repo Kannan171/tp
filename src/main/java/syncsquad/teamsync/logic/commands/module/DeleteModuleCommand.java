@@ -18,7 +18,8 @@ import syncsquad.teamsync.model.module.ModuleCode;
 import syncsquad.teamsync.model.person.Person;
 
 /**
- * Deletes a module from the person identified using person index and module code.
+ * Deletes a module from the person identified using person index and module
+ * code.
  */
 public class DeleteModuleCommand extends ModuleCommand {
 
@@ -34,11 +35,11 @@ public class DeleteModuleCommand extends ModuleCommand {
     private final Index targetIndex;
     private final ModuleCode moduleCode;
 
-
     /**
      * Initialises DeleteModuleCommand object
+     * 
      * @param targetIndex Index of person to delete module
-     * @param moduleCode Module code of module to be deleted
+     * @param moduleCode  Module code of module to be deleted
      */
     public DeleteModuleCommand(Index targetIndex, ModuleCode moduleCode) {
         this.targetIndex = targetIndex;

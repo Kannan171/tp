@@ -59,6 +59,9 @@ public class EditCommand extends PersonCommand {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
+     * Initialises a EditCommand object to edit the person at the
+     * specified {@code index}
+     * 
      * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
@@ -94,6 +97,9 @@ public class EditCommand extends PersonCommand {
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
+     * 
+     * @param personToEdit         the person to edit
+     * @param editPersonDescriptor the descriptor containing the details to edit
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(personToEdit);
