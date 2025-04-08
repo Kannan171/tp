@@ -30,7 +30,7 @@ public class AddMeetingCommand extends MeetingCommand {
 
     /**
      * Initialises a AddMeetingCommand object to add a meeting
-     * 
+     *
      * @param meeting The meeting to add
      */
     public AddMeetingCommand(Meeting meeting) {
@@ -58,7 +58,7 @@ public class AddMeetingCommand extends MeetingCommand {
 
     /**
      * Checks if the meeting to be added overlaps with existing meetings
-     * 
+     *
      * @param meetingList List of meetings to check for overlap
      * @return true if there is an overlap, false otherwise
      */

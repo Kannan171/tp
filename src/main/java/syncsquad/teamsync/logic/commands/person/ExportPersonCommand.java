@@ -31,7 +31,7 @@ public class ExportPersonCommand extends PersonCommand {
 
     /**
      * Creates an ExportPersonCommand object to export the specified person.
-     * 
+     *
      * @param targetIndex Index of the person to export
      */
     public ExportPersonCommand(Index targetIndex) {

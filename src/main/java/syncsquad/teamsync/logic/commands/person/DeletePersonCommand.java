@@ -31,7 +31,7 @@ public class DeletePersonCommand extends PersonCommand {
     /**
      * Initialises a DeletePersonCommand object to delete the person at the
      * specified {@code targetIndex}
-     * 
+     *
      * @param targetIndex Index of person to delete
      */
     public DeletePersonCommand(Index targetIndex) {

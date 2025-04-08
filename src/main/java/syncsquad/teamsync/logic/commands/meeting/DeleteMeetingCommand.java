@@ -31,7 +31,7 @@ public class DeleteMeetingCommand extends MeetingCommand {
     /**
      * Initialises a DeleteMeetingCommand object to delete the meeting at the
      * specified {@code targetIndex}
-     * 
+     *
      * @param targetIndex Index of meeting to delete
      */
     public DeleteMeetingCommand(Index targetIndex) {

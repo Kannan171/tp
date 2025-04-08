@@ -49,7 +49,7 @@ public class AddPersonCommand extends PersonCommand {
 
     /**
      * Creates an AddPersonCommand object to add the specified {@code Person}
-     * 
+     *
      * @param person Person to be added
      */
     public AddPersonCommand(Person person) {
