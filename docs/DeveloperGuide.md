@@ -1173,6 +1173,8 @@ If you are using a PDF version of this document, be careful when copying and pas
 <br>
 **Expected**: TeamSync exits.
 
+---
+
 ## Appendix: Planned Enhancements
 
 Team size: 5
@@ -1213,6 +1215,8 @@ Team size: 5
 10. **More permissive names**. Currently, names only allow alphanumeric and certain special characters.
 
     We plan to allow names to be made up of a larger variety of characters, including non-latin alphabets and other special symbols.
+
+---
 
 ## Appendix: Effort
 
