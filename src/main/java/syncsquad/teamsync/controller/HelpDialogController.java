@@ -81,7 +81,8 @@ public class HelpDialogController extends UiPart<Region> {
         return FXCollections.observableArrayList(
                 new CommandSummary("Teammate", "Add a teammate",
                         "person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]...",
-                        "person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00"),
+                        "person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 "
+                                + "-t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00"),
                 new CommandSummary("Teammate", "Edit a teammate",
                         "person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…",
                         "person edit 1 -p 87654321 -e newmail@u.nus.edu -t"),
