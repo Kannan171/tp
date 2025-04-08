@@ -11,6 +11,8 @@ Designed with simplicity and efficiency in mind, TeamSync makes it easy to add t
 
 Whether you are new to [CLI](#command-line-interface) applications or are an experienced user, TeamSync enables you to work faster than any [GUI](#graphical-user-interface)-only app — so you can focus on what truly matters.
 
+---
+
 ## <a href="#table-of-contents" class="head">How to Use This Guide</a>
 
 This User Guide is designed to help you get the most out of TeamSync. Here's how to navigate it effectively:
@@ -60,6 +62,8 @@ Highlights important warnings or potential issues. Pay special attention to thes
 Indicates critical warnings or large-scale irreversible changes. Always read these carefully before proceeding.
 </div>
 
+---
+
 ## <a href="#table-of-contents" class="head">Table of Contents</a>
 
 - [About TeamSync](#about-teamsync)
@@ -104,6 +108,8 @@ Indicates critical warnings or large-scale irreversible changes. Always read the
 - [Troubleshooting](#troubleshooting)
 - [FAQ](#faq)
 - [Glossary](#glossary)
+
+---
 
 ## <a href="#table-of-contents" class="head">Features</a>
 
@@ -182,6 +188,8 @@ Use the input box to type your commands for TeamSync to execute.
 
 The output box displays the results from executing commands in TeamSync.
 
+---
+
 ## <a href="#table-of-contents" class="head">Quick Start</a>
 
 1. Ensure you have Java `17` or above installed on your computer.<br>
@@ -214,6 +222,8 @@ The output box displays the results from executing commands in TeamSync.
 
 1. Refer to the [Commands](#commands) section below for details of each command.
 
+---
+
 ## <a href="#table-of-contents" class="head">Commands</a>
 
 TeamSync provides you with 4 types of commands:
@@ -245,7 +255,8 @@ A command consists of a <span style="color : red; font-weight: bold;">command gr
 If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as **whitespaces may be omitted** when copied over to TeamSync.
 </div>
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">Teammate Commands</a>
 
 #### <a href="#table-of-contents" class="head">Adding a new teammate: `person add`</a>
@@ -386,7 +397,7 @@ Lists all teammates in TeamSync.
 Use `person list` after `find` to exit the filtered view and display all your teammates' information.
 </div>
 
-### <a href="#table-of-contents" class="head">Exporting a teammate: `person export`</a>
+#### <a href="#table-of-contents" class="head">Exporting a teammate: `person export`</a>
 
 Exports a teammate in TeamSync as text.
 
@@ -409,7 +420,8 @@ This is the result of running the above command on the following data. The conta
 
 The output `person add -n Alex Yeoh -p 87438807 -e e0507399@u.nus.edu -a Eusoff Hall -t Leader -m CS2103T FRI 16:00 18:00 -m CS2101 THU 12:00 15:00` can then be shared with your teammates, allowing them to add `Alex Yeoh` to their TeamSync app by simply pasting and executing this command.
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">Module Commands</a>
 
 #### <a href="#table-of-contents" class="head">Adding a module for a teammate: `module add`</a>
@@ -468,7 +480,8 @@ Deletes the module CS2101 from the first teammate, as shown in the <a href="#tea
 Deleting a module is **irreversible**!
 </div>
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">Meeting Commands</a>
 
 #### <a href="#table-of-contents" class="head">Adding a meeting: `meeting add`</a>
@@ -516,7 +529,8 @@ Deletes the first meeting in TeamSync, as shown in the <a href="#meeting-view" s
 Deleting a meeting is **irreversible**!
 </div>
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">General Commands</a>
 
 #### <a href="#table-of-contents" class="head">Viewing help : `help`</a>
@@ -566,7 +580,8 @@ Exits TeamSync.
 
 **Example**: `exit`
 
-<br><br>
+---
+
 ## <a href="#table-of-contents" class="head">Saving the Data</a>
 TeamSync data is saved automatically after executing any command that changes the data. There is no need to save manually.
 
@@ -582,6 +597,8 @@ Furthermore, **certain edits can cause TeamSync to behave in unexpected ways**.
 
 Therefore, **edit the file only if you are confident** that you can update it correctly.
 </div>
+
+---
 
 ### <a href="#table-of-contents" class="head">Command Summary</a>
 
@@ -619,6 +636,8 @@ Therefore, **edit the file only if you are confident** that you can update it co
 | **Clear all data**            | `clear`         | `clear`               |
 | **Exit TeamSync**             | `exit`          | `exit`                |
 
+---
+
 ## <a href="#table-of-contents" class="head">Troubleshooting</a>
 
 **1**\. **The <a href="#graphical-user-interface" style="color : black;">GUI</a> appears off-screen** <br>
@@ -626,6 +645,8 @@ This may occur when using multiple screens. To resolve this issue, simply delete
 
 **2**\. **Unable to run the JAR file** <br>
 Ensure you have followed the steps outlined in the [Quick Start](#quick-start) section. In particular, double-clicking on the JAR file **might not** launch the app.
+
+---
 
 ## <a href="#table-of-contents" class="head">FAQ</a>
 
@@ -643,6 +664,8 @@ Ensure you have followed the steps outlined in the [Quick Start](#quick-start) s
 
 **Q**: **Will TeamSync be updated to prompt for confirmation before clearing all data?**<br>
 **A**: No. The [`clear`](#clearing-all-data--clear) command is the only way to clear all data. Adding a confirmation prompt is unlikely to reduce accidental usage.
+
+---
 
 ## <a href="#table-of-contents" class="head">Glossary</a>
 
