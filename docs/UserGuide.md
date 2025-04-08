@@ -292,7 +292,7 @@ A teammate can have any number of tags and modules (including 0).
 Adds a person with the following information to TeamSync:<br>
 **Name**: `John Doe`<br>
 **Phone number**: `12345678`<br>
-**Email** `johndoe@u.nus.com`<br>
+**Email** `johndoe@u.nus.edu`<br>
 **Address**: `RC4`<br>
 **Tags**: `Backend`<br>
 **Modules**: `CS2101` on Thursdays from 12:00 to 15:00, `CS2103T` on Fridays from 16:00 to 18:00
@@ -332,11 +332,11 @@ Edits an existing teammate in TeamSync.
 Trying to add or delete a module for a teammate? Use [`module add`](#adding-a-module-for-a-teammate-module-add) or [`module delete`](#deleting-a-module-from-a-teammate--module-delete) instead!
 </div>
 
-**Example**: `person edit 1 -p 87654321 -e newmail@u.nus.com -t`
+**Example**: `person edit 1 -p 87654321 -e newmail@u.nus.edu -t`
 
 Edits the information of the first teammate, as shown in the <a href="#teammate-view" style="color : green; font-weight: bold;">teammate view</a>:<br>
 **Phone number**: Changed to `87654321`<br>
-**Email**: Changed to `newmail@u.nus.com`<br>
+**Email**: Changed to `newmail@u.nus.edu`<br>
 **Tags**: All tags are removed
 
 #### <a href="#table-of-contents" class="head">Deleting a teammate : `person delete`</a>
@@ -604,14 +604,14 @@ Therefore, **edit the file only if you are confident** that you can update it co
 
 #### <a href="#table-of-contents" class="head">Teammate Commands</a>
 
-| Action                    | Format                                                                          | Example                                                                                                  |
-|---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| Action                    | Format                                                                          | Example                                                                                                                          |
+|---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | **Add a teammate**        | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]…` | `person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00` |
-| **Edit a teammate**       | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…`      | `person edit 1 -p 87654321 -e newmail@u.nus.com -t`                                                       |
-| **Delete a teammate**     | `person delete INDEX`                                                           | `person delete 1`                                                                                        |
-| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]…`                                           | `person find alex david`                                                                                 |
-| **List all teammates**    | `person list`                                                                   | `person list`                                                                                            |
-| **Export a teammate**     | `person export INDEX`                                                           | `person export 1`                                                                                        |
+| **Edit a teammate**       | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…`      | `person edit 1 -p 87654321 -e newmail@u.nus.edu -t`                                                                              |
+| **Delete a teammate**     | `person delete INDEX`                                                           | `person delete 1`                                                                                                                |
+| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]…`                                           | `person find alex david`                                                                                                         |
+| **List all teammates**    | `person list`                                                                   | `person list`                                                                                                                    |
+| **Export a teammate**     | `person export INDEX`                                                           | `person export 1`                                                                                                                |
 
 #### <a href="#table-of-contents" class="head">Module Commands</a>
 
