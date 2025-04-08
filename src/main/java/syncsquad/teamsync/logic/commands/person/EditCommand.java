@@ -97,9 +97,6 @@ public class EditCommand extends PersonCommand {
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
-     * 
-     * @param personToEdit         the person to edit
-     * @param editPersonDescriptor the descriptor containing the details to edit
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(personToEdit);
