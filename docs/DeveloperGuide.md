@@ -1200,7 +1200,7 @@ Team size: 5
 6. **Allow modules to span across multiple days**. Currently, modules cannot span multiple days. For example, it is not possible to have a module from `Thu 22:00` to `Fri 02:00`.
 
    We plan to allow modules to span multiple days.
-7. **Allow meetings to span across multiple days**. Currently, meetings cannot span multiple days. For example, it is not possible to have a module from `08-04-2025 22:00` to `09-04-2025 02:00`.
+7. **Allow meetings to span across multiple days**. Currently, meetings cannot span multiple days. For example, it is not possible to have a meeting from `08-04-2025 22:00` to `09-04-2025 02:00`.
 
    We plan to allow meetings to span multiple days.
 
