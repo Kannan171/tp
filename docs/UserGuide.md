@@ -11,6 +11,8 @@ Designed with simplicity and efficiency in mind, TeamSync makes it easy to add t
 
 Whether you are new to [CLI](#command-line-interface) applications or are an experienced user, TeamSync enables you to work faster than any [GUI](#graphical-user-interface)-only app — so you can focus on what truly matters.
 
+---
+
 ## <a href="#table-of-contents" class="head">How to Use This Guide</a>
 
 This User Guide is designed to help you get the most out of TeamSync. Here's how to navigate it effectively:
@@ -60,6 +62,8 @@ Highlights important warnings or potential issues. Pay special attention to thes
 Indicates critical warnings or large-scale irreversible changes. Always read these carefully before proceeding.
 </div>
 
+---
+
 ## <a href="#table-of-contents" class="head">Table of Contents</a>
 
 - [About TeamSync](#about-teamsync)
@@ -91,9 +95,11 @@ Indicates critical warnings or large-scale irreversible changes. Always read the
     - [Deleting a meeting](#deleting-a-meeting-meeting-delete)
   - [General Commands](#general-commands)
     - [Viewing help](#viewing-help--help)
-    - [Changing week displayed](#changing-week-displayed-showdate)
+    - [Changing the week displayed](#changing-the-week-displayed-showdate)
     - [Clearing all data](#clearing-all-data--clear)
     - [Exiting TeamSync](#exiting-teamsync--exit)
+- [Saving the Data](#saving-the-data)
+  - [Editing the Data File](#editing-the-data-file)
 - [Command Summary](#command-summary)
   - [Teammate Commands](#teammate-commands-1)
   - [Module Commands](#module-commands-1)
@@ -102,6 +108,8 @@ Indicates critical warnings or large-scale irreversible changes. Always read the
 - [Troubleshooting](#troubleshooting)
 - [FAQ](#faq)
 - [Glossary](#glossary)
+
+---
 
 ## <a href="#table-of-contents" class="head">Features</a>
 
@@ -148,9 +156,12 @@ Click on the <span style="color : #b9b9be">▶</span> or <span style="color : #b
 
 ![Meeting View](images/MeetingView.png)
 
-The meeting view contains the timing of all your meetings, organised chronologically. Meetings that have passed are highlighted in red, while upcoming ones are marked in green.
+The meeting view displays all your meetings in chronological order, along with their scheduled times.
 
-[//]: TODO: Change colour to orange
+To help you quickly identify them, meetings are colour-coded as follows:
+* <span style="color : red">Red</span> — Meetings that occurred before today
+* <span style="color : goldenrod">Yellow</span> — Meetings happening today
+* <span style="color : green">Green</span> — Meetings scheduled for future dates
 
 #### <a href="#table-of-contents" class="head">Timetable View</a>
 
@@ -176,6 +187,8 @@ Use the input box to type your commands for TeamSync to execute.
 ![Output Box](images/OutputBox.png)
 
 The output box displays the results from executing commands in TeamSync.
+
+---
 
 ## <a href="#table-of-contents" class="head">Quick Start</a>
 
@@ -209,6 +222,8 @@ The output box displays the results from executing commands in TeamSync.
 
 1. Refer to the [Commands](#commands) section below for details of each command.
 
+---
+
 ## <a href="#table-of-contents" class="head">Commands</a>
 
 TeamSync provides you with 4 types of commands:
@@ -240,7 +255,8 @@ A command consists of a <span style="color : red; font-weight: bold;">command gr
 If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as **whitespaces may be omitted** when copied over to TeamSync.
 </div>
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">Teammate Commands</a>
 
 #### <a href="#table-of-contents" class="head">Adding a new teammate: `person add`</a>
@@ -251,13 +267,16 @@ Adds a teammate to TeamSync.
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
-* Names should only contain alphanumeric characters, spaces, the following special characters (`'`,`/` and `-`), and it should not be blank.
+* Names should only contain alphanumeric characters, spaces, and the following special characters (`'`,`/` and `-`).
 
 * Phone numbers should only contain numbers, and it should be at least 3 digits long.
 
 * Emails should be of the format local-part@domain.
 
 * Tags should only contain alphanumeric characters.
+
+* Avoid using [command line flag patterns](#command-line-flag-patterns) like `-e` for names and addresses. Using them _might_ cause an error.<br>
+  **Example**: `Harper-Emily` is valid, but `John -E Doe` is not
 
 * See [adding a module for a teammate](#adding-a-module-for-a-teammate-module-add) for more information on the format for module details.
 
@@ -268,12 +287,12 @@ Adds a teammate to TeamSync.
 A teammate can have any number of tags and modules (including 0).
 </div>
 
-**Example**: `person add -n John Doe -p 12345678 -e johndoe@u.nus.com -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00`
+**Example**: `person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00`
 
 Adds a person with the following information to TeamSync:<br>
 **Name**: `John Doe`<br>
 **Phone number**: `12345678`<br>
-**Email** `johndoe@u.nus.com`<br>
+**Email** `johndoe@u.nus.edu`<br>
 **Address**: `RC4`<br>
 **Tags**: `Backend`<br>
 **Modules**: `CS2101` on Thursdays from 12:00 to 15:00, `CS2103T` on Fridays from 16:00 to 18:00
@@ -313,11 +332,11 @@ Edits an existing teammate in TeamSync.
 Trying to add or delete a module for a teammate? Use [`module add`](#adding-a-module-for-a-teammate-module-add) or [`module delete`](#deleting-a-module-from-a-teammate--module-delete) instead!
 </div>
 
-**Example**: `person edit 1 -p 87654321 -e newmail@u.nus.com -t`
+**Example**: `person edit 1 -p 87654321 -e newmail@u.nus.edu -t`
 
 Edits the information of the first teammate, as shown in the <a href="#teammate-view" style="color : green; font-weight: bold;">teammate view</a>:<br>
 **Phone number**: Changed to `87654321`<br>
-**Email**: Changed to `newmail@u.nus.com`<br>
+**Email**: Changed to `newmail@u.nus.edu`<br>
 **Tags**: All tags are removed
 
 #### <a href="#table-of-contents" class="head">Deleting a teammate : `person delete`</a>
@@ -343,7 +362,7 @@ Deleting a teammate is **irreversible**!
 
 Finds teammates in TeamSync whose names contain any of the specified `KEYWORDS`.
 
-**Format**: `person find KEYWORD [KEYWORD]...`
+**Format**: `person find KEYWORD [MORE_KEYWORDS]…`
 
 <div markdown="1" class="alert alert-info">:information_source: **Note**
 
@@ -378,7 +397,7 @@ Lists all teammates in TeamSync.
 Use `person list` after `find` to exit the filtered view and display all your teammates' information.
 </div>
 
-### <a href="#table-of-contents" class="head">Exporting a teammate: `person export`</a>
+#### <a href="#table-of-contents" class="head">Exporting a teammate: `person export`</a>
 
 Exports a teammate in TeamSync as text.
 
@@ -401,7 +420,8 @@ This is the result of running the above command on the following data. The conta
 
 The output `person add -n Alex Yeoh -p 87438807 -e e0507399@u.nus.edu -a Eusoff Hall -t Leader -m CS2103T FRI 16:00 18:00 -m CS2101 THU 12:00 15:00` can then be shared with your teammates, allowing them to add `Alex Yeoh` to their TeamSync app by simply pasting and executing this command.
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">Module Commands</a>
 
 #### <a href="#table-of-contents" class="head">Adding a module for a teammate: `module add`</a>
@@ -460,7 +480,8 @@ Deletes the module CS2101 from the first teammate, as shown in the <a href="#tea
 Deleting a module is **irreversible**!
 </div>
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">Meeting Commands</a>
 
 #### <a href="#table-of-contents" class="head">Adding a meeting: `meeting add`</a>
@@ -508,7 +529,8 @@ Deletes the first meeting in TeamSync, as shown in the <a href="#meeting-view" s
 Deleting a meeting is **irreversible**!
 </div>
 
-<br><br>
+---
+
 ### <a href="#table-of-contents" class="head">General Commands</a>
 
 #### <a href="#table-of-contents" class="head">Viewing help : `help`</a>
@@ -519,7 +541,7 @@ Opens a help window displaying a summary of all the commands in TeamSync.
 
 **Example**: `help`
 
-#### <a href="#table-of-contents" class="head">Changing week displayed: `showdate`</a>
+#### <a href="#table-of-contents" class="head">Changing the week displayed: `showdate`</a>
 
 Changes the week displayed in the timetable view in TeamSync.
 
@@ -558,37 +580,38 @@ Exits TeamSync.
 
 **Example**: `exit`
 
-<br><br>
+---
+
 ## <a href="#table-of-contents" class="head">Saving the Data</a>
 TeamSync data is saved automatically after executing any command that changes the data. There is no need to save manually.
 
 ### <a href="#table-of-contents" class="head">Editing the Data File</a>
-TeamSync data is saved as a [JSON](#json) file. Advanced users are welcome to update the data directly by editing `addressbook.json` located in the `data` subfolder of TeamSync's [home folder](#home-folder).
-
-[//]: TODO: CHANGE IF ADDRESSBOOK.JSON CHANGES)
+TeamSync data is saved as a [JSON](#json) file. Advanced users are welcome to update the data directly by editing `teamsync.json` located in the `data` subfolder of TeamSync's [home folder](#home-folder).
 
 <div markdown="1" class="alert alert-danger">:warning: **Danger**<br><br>
-**It is strongly recommended to make a backup of `addressbook.json` before editing it.**
+**It is strongly recommended to make a backup of `teamsync.json` before editing it.**
 
-If your edits to `addressbook.json` corrupts it and TeamSync is unable to load the data, **TeamSync will discard all data** and start with an empty data file at the next run.
+If your edits to `teamsync.json` corrupts it and TeamSync is unable to load the data, **TeamSync will discard all data** and start with an empty data file at the next run.
 
 Furthermore, **certain edits can cause TeamSync to behave in unexpected ways**.
 
 Therefore, **edit the file only if you are confident** that you can update it correctly.
 </div>
 
+---
+
 ### <a href="#table-of-contents" class="head">Command Summary</a>
 
 #### <a href="#table-of-contents" class="head">Teammate Commands</a>
 
-| Action                    | Format                                                                          | Example                                                                                                  |
-|---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| **Add a teammate**        | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]…` | `person add -n John Doe -p 12345678 -e johndoe@u.nus.com -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00` |
-| **Edit a teammate**       | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…`      | `person edit 1 -p 87654321 -e newmail@u.nus.com -t`                                                       |
-| **Delete a teammate**     | `person delete INDEX`                                                           | `person delete 1`                                                                                        |
-| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]`                                           | `person find alex david`                                                                                 |
-| **List all teammates**    | `person list`                                                                   | `person list`                                                                                            |
-| **Export a teammate**     | `person export`                                                                 | `person export 1`                                                                                        |
+| Action                    | Format                                                                          | Example                                                                                                                          |
+|---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| **Add a teammate**        | `person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]…` | `person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 -t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00` |
+| **Edit a teammate**       | `person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…`      | `person edit 1 -p 87654321 -e newmail@u.nus.edu -t`                                                                              |
+| **Delete a teammate**     | `person delete INDEX`                                                           | `person delete 1`                                                                                                                |
+| **Search for a teammate** | `person find KEYWORD [MORE_KEYWORDS]…`                                           | `person find alex david`                                                                                                         |
+| **List all teammates**    | `person list`                                                                   | `person list`                                                                                                                    |
+| **Export a teammate**     | `person export INDEX`                                                           | `person export 1`                                                                                                                |
 
 #### <a href="#table-of-contents" class="head">Module Commands</a>
 
@@ -606,12 +629,14 @@ Therefore, **edit the file only if you are confident** that you can update it co
 
 #### <a href="#table-of-contents" class="head">General Commands</a>
 
-| Action                    | Format          | Example               |
-|---------------------------|-----------------|-----------------------|
-| **View help**             | `help`          | `help`                |
-| **Change week displayed** | `showdate DATE` | `showdate 04-04-2025` |
-| **Clear all data**        | `clear`         | `clear`               |
-| **Exit TeamSync**         | `exit`          | `exit`                |
+| Action                        | Format          | Example               |
+|-------------------------------|-----------------|-----------------------|
+| **View help**                 | `help`          | `help`                |
+| **Change the week displayed** | `showdate DATE` | `showdate 04-04-2025` |
+| **Clear all data**            | `clear`         | `clear`               |
+| **Exit TeamSync**             | `exit`          | `exit`                |
+
+---
 
 ## <a href="#table-of-contents" class="head">Troubleshooting</a>
 
@@ -620,6 +645,8 @@ This may occur when using multiple screens. To resolve this issue, simply delete
 
 **2**\. **Unable to run the JAR file** <br>
 Ensure you have followed the steps outlined in the [Quick Start](#quick-start) section. In particular, double-clicking on the JAR file **might not** launch the app.
+
+---
 
 ## <a href="#table-of-contents" class="head">FAQ</a>
 
@@ -630,7 +657,7 @@ Ensure you have followed the steps outlined in the [Quick Start](#quick-start) s
 **A**: TeamSync is optimised for Windows, MacOS, and Linux only. Additionally, Java `17` or above must be installed. While TeamSync might run on unsupported systems, we do not provide any assistance for these environments.
 
 **Q**: **Why does TeamSync store past meetings?**<br>
-**A**: We believe that there is value in storing your past meetings for archival purposes. These are highlighted in red in the meeting list and can be deleted at your discretion.
+**A**: We believe that there is value in storing your past meetings for archival purposes. These are highlighted in red in the <a href="#meeting-view" style="color : brown; font-weight: bold;">meeting view</a> and can be deleted at your discretion.
 
 **Q**: **Will TeamSync be updated to support editing modules via the [`person edit`](#editing-a-teammate--person-edit) command?**<br>
 **A**: No. This is a deliberate design decision. As modules consist of three fields — a date, start and end time — editing them through [`person edit`](#editing-a-teammate--person-edit) increases the likelihood of human error.
@@ -638,21 +665,24 @@ Ensure you have followed the steps outlined in the [Quick Start](#quick-start) s
 **Q**: **Will TeamSync be updated to prompt for confirmation before clearing all data?**<br>
 **A**: No. The [`clear`](#clearing-all-data--clear) command is the only way to clear all data. Adding a confirmation prompt is unlikely to reduce accidental usage.
 
+---
+
 ## <a href="#table-of-contents" class="head">Glossary</a>
 
-| Terms                                                                      | Definition                                                                                                                                                                 |
-|----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <a name="command-line-interface"></a>**Command Line Interface (CLI)**      | A text-based interface that allows users to interact with the application by typing commands                                                                               |
-| <a name="duplicate-meeting"></a>**Duplicate meeting**                      | Two meetings are duplicates if they have the same date, start and end time                                                                                                 |
-| <a name="duplicate-module"></a>**Duplicate module**                        | Two modules are duplicates if they have the same module code                                                                                                               |
-| <a name="duplicate-teammate"></a>**Duplicate teammate**                    | Two teammates are duplicates if they have the same email address                                                                                                           |
-| <a name="graphical-user-interface"></a>**Graphical User Interface (GUI)**  | A graphical interface that allows users to interact with the application through visual elements                                                                           |
-| <a name="home-folder"></a>**Home folder**                                  | The folder where TeamSync is stored in                                                                                                                                     |
-| <a name="index"></a>**Index**                                              | A **positive integer** 1, 2, 3, … shown in TeamSync that identifies a teammate or a meeting                                                                                    |
-| <a name="json"></a>**JSON**                                                | A text-based data storage format. See [this](https://www.json.org/json-en.html) for more info.                                                                             |
-| <a name="module"></a>**Module**                                            | A course offered by NUS                                                                                                                                                    |
-| <a name="module-code"></a>**Module code**                                  | The unique code associated with each module in NUS. It follows the following format:<br>**Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter** |
-| <a name="overlapping-meeting"></a>**Overlapping meeting**                  | Two meetings are overlapping if they are scheduled on the same date and their time intervals intersect                                                                     |
-| <a name="overlapping-module"></a>**Overlapping module**                    | Two modules are overlapping if they are scheduled on the same day of the week and their time intervals intersect                                                           |
-| <a name="teammate"></a>**Teammate**                                        | An NUS group project teammate stored as a contact in TeamSync                                                                                                              |
-| <a name="tag"></a>**Tag**                                                  | Optional information associated with a teammate to facilitate categorisation                                                                                               |
+| Terms                                                                     | Definition                                                                                                                                                                |
+|---------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <a name="command-line-flag-patterns"></a>**Command line flag patterns**   | A word consisting solely of a dash followed by a letter, such as `-a` and `-E`                                                                                            |
+| <a name="command-line-interface"></a>**Command Line Interface (CLI)**     | A text-based interface that allows users to interact with the application by typing commands                                                                              |
+| <a name="duplicate-meeting"></a>**Duplicate meeting**                     | Two meetings are duplicates if they have the same date, start and end time                                                                                                |
+| <a name="duplicate-module"></a>**Duplicate module**                       | Two modules are duplicates if they have the same module code                                                                                                              |
+| <a name="duplicate-teammate"></a>**Duplicate teammate**                   | Two teammates are duplicates if they have the same email address                                                                                                          |
+| <a name="graphical-user-interface"></a>**Graphical User Interface (GUI)** | A graphical interface that allows users to interact with the application through visual elements                                                                          |
+| <a name="home-folder"></a>**Home folder**                                 | The folder where TeamSync is stored in                                                                                                                                    |
+| <a name="index"></a>**Index**                                             | A **positive integer** 1, 2, 3, … shown in TeamSync that identifies a teammate or a meeting                                                                               |
+| <a name="json"></a>**JSON**                                               | A text-based data storage format. See [this](https://www.json.org/json-en.html) for more info.                                                                            |
+| <a name="module"></a>**Module**                                           | A course offered by NUS                                                                                                                                                   |
+| <a name="module-code"></a>**Module code**                                 | The unique code associated with each module in NUS. It follows the following format:<br>**Department tag** (2 - 4 letters) + **4-digit number** + **optional last letter** |
+| <a name="overlapping-meeting"></a>**Overlapping meeting**                 | Two meetings are overlapping if they are scheduled on the same date and their time intervals intersect                                                                    |
+| <a name="overlapping-module"></a>**Overlapping module**                   | Two modules are overlapping if they are scheduled on the same day of the week and their time intervals intersect                                                          |
+| <a name="teammate"></a>**Teammate**                                       | An NUS group project teammate stored as a contact in TeamSync                                                                                                             |
+| <a name="tag"></a>**Tag**                                                 | Optional information associated with a teammate to facilitate categorisation                                                                                              |

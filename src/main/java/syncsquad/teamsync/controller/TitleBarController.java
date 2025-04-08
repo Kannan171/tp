@@ -62,6 +62,8 @@ public class TitleBarController extends UiPart<Region> {
         Stage primaryStage = mainWindow.getPrimaryStage();
         MainViewModel viewModel = mainWindow.getViewModel();
 
+        this.helpDialog = new HelpDialogController(modalPane);
+
         viewModel.getIsShowingHelpProperty().addListener((unused1, oldValue, newValue) -> {
             if (newValue) {
                 modalPane.show(helpDialog.getRoot());
@@ -74,8 +76,6 @@ public class TitleBarController extends UiPart<Region> {
                 handleExit();
             }
         });
-
-        helpDialog = new HelpDialogController();
 
         FontIcon closeIcon = new FontIcon(Material2AL.CLOSE);
         closeButton.setGraphic(closeIcon);
