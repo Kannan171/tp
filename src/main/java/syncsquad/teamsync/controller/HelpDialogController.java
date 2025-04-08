@@ -79,33 +79,33 @@ public class HelpDialogController extends UiPart<Region> {
      */
     private ObservableList<CommandSummary> getCommandSummaryData() {
         return FXCollections.observableArrayList(
-                new CommandSummary("Teammate", "Add a teammate",
+                new CommandSummary("Add a teammate",
                         "person add -n NAME -p PHONE_NUMBER -e EMAIL -a ADDRESS [-t TAG]… [-m MODULE]...",
                         "person add -n John Doe -p 12345678 -e johndoe@u.nus.edu -a RC4 "
                                 + "-t Backend -m CS2101 Thu 12:00 15:00 -m CS2103T Fri 16:00 18:00"),
-                new CommandSummary("Teammate", "Edit a teammate",
+                new CommandSummary("Edit a teammate",
                         "person edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t TAG]…",
                         "person edit 1 -p 87654321 -e newmail@u.nus.edu -t"),
-                new CommandSummary("Teammate", "Delete a teammate",
+                new CommandSummary("Delete a teammate",
                         "person delete INDEX", "person delete 1"),
-                new CommandSummary("Teammate", "List all teammates",
+                new CommandSummary("List all teammates",
                         "person list", "person list"),
-                new CommandSummary("Teammate", "Search for a teammate",
+                new CommandSummary("Search for a teammate",
                         "person find KEYWORD [MORE_KEYWORDS]", "person find alex david"),
-                new CommandSummary("Module", "Add a module for a teammate",
+                new CommandSummary("Add a module for a teammate",
                         "module add INDEX MODULE_CODE DAY START_TIME END_TIME", "module add 1 CS2101 Thu 12:00 15:00"),
-                new CommandSummary("Module", "Delete a module from a teammate",
+                new CommandSummary("Delete a module from a teammate",
                         "module delete INDEX MODULE_CODE", "module delete 1 CS2101"),
-                new CommandSummary("Meeting", "Add a meeting",
+                new CommandSummary("Add a meeting",
                         "meeting add DATE START_TIME END_TIME", "meeting add 06-04-2025 12:00 15:00"),
-                new CommandSummary("Meeting", "Delete a meeting",
+                new CommandSummary("Delete a meeting",
                         "meeting delete INDEX", "meeting delete 1"),
-                new CommandSummary("General", "View help",
+                new CommandSummary("View help",
                         "help", "help"),
-                new CommandSummary("General", "Change week displayed",
+                new CommandSummary("Change week displayed",
                         "showdate DATE", "showdate 03-04-2025"),
-                new CommandSummary("General", "Clear all data", "clear", "clear"),
-                new CommandSummary("General", "Exit TeamSync", "exit", "exit"));
+                new CommandSummary("Clear all data", "clear", "clear"),
+                new CommandSummary("Exit TeamSync", "exit", "exit"));
     }
 
 }
