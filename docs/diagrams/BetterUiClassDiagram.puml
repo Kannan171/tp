@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package Views <<Rectangle>>{
+Class "<<interface>>\nUi" as Ui
+Class UiManager
+Class MainWindowController
+
+
+package "Controller Classes" as ControllerClasses{
+}
+
+}
+
+note right of MainWindowController
+  Most controllers:
+  - Implement UiPart interface
+  - Depend on ViewModel component
+end note
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
+
+UiManager .left.|> Ui
+UiManager -down-> "1" MainWindowController
+MainWindowController *-down-> ControllerClasses
+@enduml
